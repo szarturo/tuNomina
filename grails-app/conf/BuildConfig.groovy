@@ -6,6 +6,9 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+//CAMBIO DE PUERTO
+grails.server.port.http=8088
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
