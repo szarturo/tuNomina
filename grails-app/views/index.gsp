@@ -83,7 +83,7 @@
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="status" role="complementary">
-			<h1>Application Status</h1>
+			<h1>Estatus de la aplicación</h1>
 			<ul>
 				<li>App version: <g:meta name="app.version"/></li>
 				<li>Grails version: <g:meta name="app.grails.version"/></li>
@@ -95,7 +95,7 @@
 				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
 				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
 			</ul>
-			<h1>Installed Plugins</h1>
+			<h1>Plugins instalados</h1>
 			<ul>
 				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
 					<li>${plugin.name} - ${plugin.version}</li>
@@ -103,14 +103,13 @@
 			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Sistema Integral de Microfinanciamiento</h1>
+			<p>La descripción del SIM se encuentra sustentada para resolver la operación de las entidades financieras otorgantes de micro-créditos.
+			   El Sistema Integral de Microfinanciamiento, esta estructurado por módulos que operaran con vínculos que permitan una adecuada navegación y 
+			   sobre todo una administración eficiente, para brindar una gestión operativa e información financiera en línea.</p>
 
 			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
+				<h2>Controladoras disponibles</h2>
 				<ul>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
 						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
