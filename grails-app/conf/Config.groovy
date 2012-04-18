@@ -96,5 +96,8 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.sim.usuario.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.sim.usuario.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'com.sim.usuario.Rol'
+
+//IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 grails.plugins.springsecurity.requestMap.className = 'com.sim.usuario.Requestmap'
 grails.plugins.springsecurity.securityConfigType = 'Requestmap'
+
