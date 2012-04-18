@@ -1,3 +1,5 @@
+import grails.plugins.springsecurity.SecurityConfigType
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -99,5 +101,4 @@ grails.plugins.springsecurity.authority.className = 'com.sim.usuario.Rol'
 
 //IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 grails.plugins.springsecurity.requestMap.className = 'com.sim.usuario.Requestmap'
-grails.plugins.springsecurity.securityConfigType = 'Requestmap'
-
+grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Requestmap
