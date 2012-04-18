@@ -26,7 +26,7 @@
 		
 		<div id="menu">
 			<ul class="menu">
-				<li><a href="#" class="parent"><span>Inicio</span></a>
+				<li><a href="#" class="parent"><span>Catalogos</span></a>
 					<div><ul>
 						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
 							<div><ul>
@@ -49,7 +49,7 @@
 								</li>
 							</ul></div>
 						</li>
-						<li><a href="#"><span>Sub Item 2</span></a></li>
+						<li><g:link controller="simCatBanco"><span>Banco</span></g:link></li>
 						<li><a href="#"><span>Sub Item 3</span></a></li>
 					</ul></div>
 				</li>

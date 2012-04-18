@@ -30,6 +30,14 @@ class BootStrap {
 				nombreBanco: 'BANAMEX MÉXICO',
 				).save(failOnError: true)
 
+		new SimCatBanco(claveBanco: 'IXE',
+				nombreBanco: 'BANCO IXE',
+				).save(failOnError: true)
+
+		new SimCatBanco(claveBanco: 'SANTANDER',
+				nombreBanco: 'SANTANDER MÉXICO',
+				).save(failOnError: true)
+
 	}
 
 	def destroy = {
