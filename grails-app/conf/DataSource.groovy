@@ -1,9 +1,12 @@
 dataSource {
 	pooled = true
-	driverClassName = "org.h2.Driver"
-	username = "sa"
-	password = ""
+	driverClassName = "com.mysql.jdbc.Driver"
+	username = "root"
+	password = "system"
+	//loggingSql = true
+	//Mostrar consultas en la consola
 }
+
 hibernate {
 	cache.use_second_level_cache = true
 	cache.use_query_cache = false
@@ -13,14 +16,14 @@ hibernate {
 environments {
 	development {
 		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+			dbCreate = "create-drop"
+			url = "jdbc:mysql://localhost:3307/simGrails2"
 		}
 	}
 	test {
 		dataSource {
-			dbCreate = "update"
-			url = "jdbc:h2:mem:testDb;MVCC=TRUE"
+			dbCreate = "create-drop"
+			url = "jdbc:mysql://localhost:3307/simGrails2"
 		}
 	}
 	production {
