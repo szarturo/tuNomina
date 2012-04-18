@@ -14,15 +14,81 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'menu.css')}" type="text/css">
+		
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://google.com"><img src="${resource(dir: 'images', file: 'credito.jpg')}" alt="Grails"/></a></div>
+		
+		
+		<div id="menu">
+			<ul class="menu">
+				<li><a href="#" class="parent"><span>Inicio</span></a>
+					<div><ul>
+						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
+							<div><ul>
+								<li><a href="#" class="parent"><span>Sub Item 1.1</span></a>
+									<div><ul>
+									<li><a href="#"><span>Sub Item 1.1.1</span></a></li>
+									<li><a href="#"><span>Sub Item 1.1.2</span></a></li>
+									</ul></div>
+								</li>
+								<li><a href="#"><span>Sub Item 1.2</span></a></li>
+								<li><a href="#"><span>Sub Item 1.3</span></a></li>
+								<li><a href="#"><span>Sub Item 1.4</span></a></li>
+								<li><a href="#"><span>Sub Item 1.5</span></a></li>
+								<li><a href="#"><span>Sub Item 1.6</span></a></li>
+								<li><a href="#" class="parent"><span>Sub Item 1.7</span></a>
+									<div><ul>
+									<li><a href="#"><span>Sub Item 1.7.1</span></a></li>
+									<li><a href="#"><span>Sub Item 1.7.2</span></a></li>
+									</ul></div>
+								</li>
+							</ul></div>
+						</li>
+						<li><a href="#"><span>Sub Item 2</span></a></li>
+						<li><a href="#"><span>Sub Item 3</span></a></li>
+					</ul></div>
+				</li>
+				<li><a href="#"><span>Productos</span></a>
+					<div><ul>
+						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
+							<div><ul>
+							<li><a href="#"><span>Sub Item 1.1</span></a></li>
+							<li><a href="#"><span>Sub Item 1.2</span></a></li>
+							</ul></div>
+						</li>
+						<li><a href="#" class="parent"><span>Sub Item 2</span></a>
+							<div><ul>
+							<li><a href="#"><span>Sub Item 2.1</span></a></li>
+							<li><a href="#"><span>Sub Item 2.2</span></a></li>
+							</ul></div>
+						</li>
+						<li><a href="#"><span>Sub Item 3</span></a></li>
+						<li><a href="#"><span>Sub Item 4</span></a></li>
+						<li><a href="#"><span>Sub Item 5</span></a></li>
+						<li><a href="#"><span>Sub Item 6</span></a></li>
+						<li><a href="#"><span>Sub Item 7</span></a></li>
+					</ul></div>
+				</li>
+				<li><a href="#"><span>Ayuda</span></a></li>
+				<li class="last"><a href="#"><span>Servicios</span></a></li>
+			</ul>
+		</div>		
+		
 		<g:layoutBody/>
+		
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
         <r:layoutResources />
+        
+        
+
+	        
+        
 	</body>
 </html>

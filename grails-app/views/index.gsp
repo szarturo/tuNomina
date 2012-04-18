@@ -81,6 +81,12 @@
 		</style>
 	</head>
 	<body>
+
+		
+		<table>
+			<tr>
+				<td>		
+				
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="status" role="complementary">
 			<h1>Estatus de la aplicación</h1>
@@ -117,5 +123,10 @@
 				</ul>
 			</div>
 		</div>
+		
+			</td>
+		</tr>
+	</table>		
+		
 	</body>
 </html>
