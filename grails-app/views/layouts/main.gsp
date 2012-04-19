@@ -103,7 +103,19 @@
 						<li><a href="#"><span>Sub Item 7</span></a></li>
 					</ul>
 				</div></li>
-			<li><a href="#"><span>Ayuda</span></a></li>
+
+			<li><a href="#"><span>Empresa</span></a>
+				<div>
+					<ul>
+						<li><g:link controller="rsPersona">
+								<span>Persona</span>
+							</g:link></li>
+						<li><a href="#"><span>Sub Item 4</span></a></li>
+						<li><a href="#"><span>Sub Item 5</span></a></li>
+						<li><a href="#"><span>Sub Item 6</span></a></li>
+						<li><a href="#"><span>Sub Item 7</span></a></li>
+					</ul>
+				</div></li>
 
 			<li><a href="#"><span>Servicios</span></a></li>
 
