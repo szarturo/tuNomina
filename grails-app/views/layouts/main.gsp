@@ -119,6 +119,9 @@
 						<li><g:link controller="rsPersona">
 								<span>Persona</span>
 							</g:link></li>
+						<li><g:link controller="rsGralTelefono">
+								<span>Tel&eacute;fonos</span>
+							</g:link></li>
 						<li><a href="#"><span>Sub Item 4</span></a></li>
 						<li><a href="#"><span>Sub Item 5</span></a></li>
 						<li><a href="#"><span>Sub Item 6</span></a></li>

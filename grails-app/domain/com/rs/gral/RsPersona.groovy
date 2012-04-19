@@ -31,15 +31,15 @@ class RsPersona {
 	
 	//RELACION DE MUCHOS A MUCHOS ENTRE TIPO DE PERSONA Y PERSONA
 	//static hasMany = [ telefonos : RsGralTelefono, domicilios : RsGralDomicilio, tiposPersona : SimCatTipoPersona]
-	static hasMany = [tiposPersona : SimCatTipoPersona]
+	static hasMany = [telefonos : RsGralTelefono, tiposPersona : SimCatTipoPersona]
 	
 	static constraints = {
-		email email:true, nullable: true,  validator: { correo, rsPersona ->
-			if (rsPersona.tiposPersona?.claveTipoPersona?.contains('USUARIO')) correo != null }
 		apellidoPaterno size:3..25, blank: false, unique: false
 		apellidoMaterno nullable: true, size:0..25
 		primerNombre size:3..25, blank: false, unique: false
 		segundoNombre nullable: true, size:0..25
+		email email:true, nullable: true,  validator: { correo, rsPersona ->
+			if (rsPersona.tiposPersona?.claveTipoPersona?.contains('USUARIO')) correo != null }
 		sexo(nullable: true, inList:["MASCULINO", "FEMENINO"] )
 		estadoCivil nullable: true, inList:["CASADO - BIENES MANCOMUNADOS",
 			"CASADO - BIENES SEPARADOS",
@@ -48,7 +48,7 @@ class RsPersona {
 			"UNION LIBRE",
 			"VIUDO"]
 		fechaNacimiento(nullable:true)
-		//telefonos()
+		telefonos()
 		//domicilios()
 		nombreAlterno nullable: true, size:0..50
 		identificacionOficial nullable: true
