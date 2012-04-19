@@ -64,7 +64,9 @@
 									<li><g:link controller="simCatEscolaridad">
 											<span>Escolaridad</span>
 										</g:link></li>
-									<li><a href="#"><span>Sub Item 1.3</span></a></li>
+									<li><g:link controller="simCatTipoPersona">
+											<span>Tipo Persona</span>
+										</g:link></li>
 									<li><a href="#"><span>Sub Item 1.4</span></a></li>
 									<li><a href="#"><span>Sub Item 1.5</span></a></li>
 									<li><a href="#"><span>Sub Item 1.6</span></a></li>

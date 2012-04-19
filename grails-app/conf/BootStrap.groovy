@@ -80,6 +80,41 @@ class BootStrap {
 				nombreEscolaridad: 'LICENCIATURA',
 				).save(failOnError: true)
 
+		new SimCatTipoPersona(claveTipoPersona:  'AVAL',
+				nombreTipoPersona: 'AVAL',
+				descripcionTipoPersona: 'DESCRIPCION AVAL',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'CLIENTE',
+				nombreTipoPersona: 'CLIENTE',
+				descripcionTipoPersona: 'DESCRIPCION CLIENTE',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'USUARIO',
+				nombreTipoPersona: 'USUARIO',
+				descripcionTipoPersona: 'USUARIO DEL SISTEMA',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'EMPLEADO',
+				nombreTipoPersona: 'EMPLEADO',
+				descripcionTipoPersona: 'EMPLEADO DE LA EMPRESA',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'REFCLIENTE',
+				nombreTipoPersona: 'REFERENCIA DEL CLIENTE',
+				descripcionTipoPersona: 'REFERENCIA DEL CLIENTE',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'UEF',
+				nombreTipoPersona: 'UEF DEL CLIENTE',
+				descripcionTipoPersona: 'UNIDAD ECONOMICA FAMILIAR DEL CLIENTE',
+				).save(failOnError: true)
+
+		new SimCatTipoPersona(claveTipoPersona:  'GARDEP',
+				nombreTipoPersona: 'GARANTE DEPOSITARIO',
+				descripcionTipoPersona: 'GARANTE DEPOSITARIO DEL CLIENTE',
+				).save(failOnError: true)
+
 		new SimCatBanco(claveBanco: 'BANCOMER',
 				nombreBanco: 'BANCOMER BBVA',
 				).save(failOnError: true)
