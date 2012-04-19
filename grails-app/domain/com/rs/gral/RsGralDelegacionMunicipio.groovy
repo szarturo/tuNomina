@@ -6,8 +6,8 @@ class RsGralDelegacionMunicipio implements Comparable {
 
 	String  nombreDelegacionMunicipio
 	
-	//SortedSet asentamiento
-	//static hasMany   = [ asentamiento : RsGralAsentamiento ]
+	SortedSet asentamiento
+	static hasMany   = [ asentamiento : RsGralAsentamiento ]
 	static belongsTo = [ ciudad : RsGralCiudad ]
 
 	static constraints = {
