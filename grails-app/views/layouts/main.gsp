@@ -47,15 +47,18 @@
 			<li><a href="#" class="parent"><span>Catalogos</span></a>
 				<div>
 					<ul>
-						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
+						<li><a href="#" class="parent"><span>Generales</span></a>
 							<div>
 								<ul>
-									<li><a href="#" class="parent"><span>Sub Item
-												1.1</span></a>
+									<li><a href="#" class="parent"><span>Documento</span></a>
 										<div>
 											<ul>
-												<li><a href="#"><span>Sub Item 1.1.1</span></a></li>
-												<li><a href="#"><span>Sub Item 1.1.2</span></a></li>
+												<li><g:link controller="simCatTipoDocumento">
+														<span>Tipo Documento</span>
+													</g:link></li>
+												<li><g:link controller="simCatDocumento">
+														<span>Documento</span>
+													</g:link></li>
 											</ul>
 										</div></li>
 									<li><a href="#"><span>Sub Item 1.2</span></a></li>
