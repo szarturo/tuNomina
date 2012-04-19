@@ -6,8 +6,8 @@ class RsGralEstado {
  	String  nombreEstado
 	String  aliasEstado
 	
-	//SortedSet ciudad
-	//static hasMany = [ ciudad : RsGralCiudad ]
+	SortedSet ciudad
+	static hasMany = [ ciudad : RsGralCiudad ]
 	
 	static constraints = {
 		cveEstado(size:2..8, unique: true,nullable: false, blank: false)

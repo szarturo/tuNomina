@@ -139,7 +139,7 @@ class BootStrap {
 		new RsGralEstado(cveEstado: 'EDOMEX',
 				nombreEstado: 'ESTADO DE MEXICO',
 				aliasEstado : 'EDOMEX').save(failOnError: true)
-/*
+
 		new RsGralCiudad(nombreCiudad: 'EL COLORADO',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
@@ -237,7 +237,7 @@ class BootStrap {
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'MEXICO TRES',
 				ciudad : RsGralCiudad.findByNombreCiudad('MEXICO')).save(failOnError: true)
 
-
+/*
 		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 1 ASENTAMIENTO UNO',
 				codigoPostal: '01000',
 				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO UNO'),
