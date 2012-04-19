@@ -64,6 +64,22 @@ class BootStrap {
 				esReporte : 'false',
 				).save(failOnError: true)
 
+		new SimCatEscolaridad(claveEscolaridad:  'PRIMARIA',
+				nombreEscolaridad: 'PRIMARIA',
+				).save(failOnError: true)
+
+		new SimCatEscolaridad(claveEscolaridad:  'SECUNDARIA',
+				nombreEscolaridad: 'SECUNDARIA',
+				).save(failOnError: true)
+
+		new SimCatEscolaridad(claveEscolaridad:  'PREPA',
+				nombreEscolaridad: 'PREPARATORIA',
+				).save(failOnError: true)
+
+		new SimCatEscolaridad(claveEscolaridad:  'LIC',
+				nombreEscolaridad: 'LICENCIATURA',
+				).save(failOnError: true)
+
 		new SimCatBanco(claveBanco: 'BANCOMER',
 				nombreBanco: 'BANCOMER BBVA',
 				).save(failOnError: true)

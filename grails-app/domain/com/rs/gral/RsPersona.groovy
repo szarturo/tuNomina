@@ -2,8 +2,8 @@ package com.rs.gral
 
 import com.sim.usuario.Usuario
 //import com.sim.empresa.RsEmpleado
-//import com.sim.catalogo.SimCatDocumento
-//import com.sim.catalogo.SimCatEscolaridad
+import com.sim.catalogo.SimCatDocumento
+import com.sim.catalogo.SimCatEscolaridad
 //import com.sim.catalogo.SimCatTipoPersona
 //import com.sim.cliente.RsCliente;
 //import com.sim.cliente.RsReferenciaCliente;
@@ -23,8 +23,8 @@ class RsPersona {
 	String rfc
 	String curp
 
-	//SimCatDocumento   identificacionOficial
-	//SimCatEscolaridad escolaridad
+	SimCatDocumento   identificacionOficial
+	SimCatEscolaridad escolaridad
 	Usuario           usuario
 	
 	//static hasOne  = [ datosEmpleado : RsEmpleado, datosCliente : RsCliente, referenciaCliente : RsReferenciaCliente]
@@ -50,11 +50,11 @@ class RsPersona {
 		//telefonos()
 		//domicilios()
 		nombreAlterno nullable: true, size:0..50
-		//identificacionOficial nullable: true
+		identificacionOficial nullable: true
 		numeroIdentificacionOficial nullable: true
 		rfc nullable: true
 		curp nullable: true
-		//escolaridad  nullable: true
+		escolaridad  nullable: true
 		//AL MODIFICAR UNA PERSONA SE VALIDA QUE SI TIENE ASIGNADO UN USUARIO LA PERSONA DEBE TENER TIPO DE USUARIO IGUAL A USUARIO
 		//EN LA ALTA DE USUARIO SE ASIGNA EN LA CLASE CONTROLADORA UserController
 		//tiposPersona nullable: true, validator: { tipoPersona, rsPersona ->
