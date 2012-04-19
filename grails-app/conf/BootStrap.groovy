@@ -64,7 +64,6 @@ class BootStrap {
 				esReporte : 'false',
 				).save(failOnError: true)
 
-
 		new SimCatBanco(claveBanco: 'BANCOMER',
 				nombreBanco: 'BANCOMER BBVA',
 				).save(failOnError: true)
