@@ -67,7 +67,9 @@
 									<li><g:link controller="simCatTipoPersona">
 											<span>Tipo Persona</span>
 										</g:link></li>
-									<li><a href="#"><span>Sub Item 1.4</span></a></li>
+									<li><g:link controller="simCatDescTelefono">
+											<span>Tipo Tel&eacute;fono</span>
+										</g:link></li>
 									<li><a href="#"><span>Sub Item 1.5</span></a></li>
 									<li><a href="#"><span>Sub Item 1.6</span></a></li>
 									<li><a href="#" class="parent"><span>Sub Item

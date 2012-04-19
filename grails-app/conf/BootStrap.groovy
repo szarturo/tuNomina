@@ -115,6 +115,18 @@ class BootStrap {
 				descripcionTipoPersona: 'GARANTE DEPOSITARIO DEL CLIENTE',
 				).save(failOnError: true)
 
+		new SimCatDescTelefono(claveDescripcionTelefono: 'CASA',
+				nombreDescripcionTelefono: 'CASA',
+				).save(failOnError: true)
+
+		new SimCatDescTelefono(claveDescripcionTelefono: 'OFICINA',
+				nombreDescripcionTelefono: 'OFICINA',
+				).save(failOnError: true)
+
+		new SimCatDescTelefono(claveDescripcionTelefono: 'FAX',
+				nombreDescripcionTelefono: 'FAX',
+				).save(failOnError: true)
+
 		new SimCatBanco(claveBanco: 'BANCOMER',
 				nombreBanco: 'BANCOMER BBVA',
 				).save(failOnError: true)
