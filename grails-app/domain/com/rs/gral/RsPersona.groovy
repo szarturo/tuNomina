@@ -30,8 +30,8 @@ class RsPersona {
 	//static hasOne  = [ datosEmpleado : RsEmpleado, datosCliente : RsCliente, referenciaCliente : RsReferenciaCliente]
 	
 	//RELACION DE MUCHOS A MUCHOS ENTRE TIPO DE PERSONA Y PERSONA
-	//static hasMany = [ telefonos : RsGralTelefono, domicilios : RsGralDomicilio, tiposPersona : SimCatTipoPersona]
-	static hasMany = [telefonos : RsGralTelefono, tiposPersona : SimCatTipoPersona]
+	static hasMany = [ telefonos : RsGralTelefono, domicilios : RsGralDomicilio, tiposPersona : SimCatTipoPersona]
+	
 	
 	static constraints = {
 		apellidoPaterno size:3..25, blank: false, unique: false
@@ -49,7 +49,7 @@ class RsPersona {
 			"VIUDO"]
 		fechaNacimiento(nullable:true)
 		telefonos()
-		//domicilios()
+		domicilios()
 		nombreAlterno nullable: true, size:0..50
 		identificacionOficial nullable: true
 		numeroIdentificacionOficial nullable: true
