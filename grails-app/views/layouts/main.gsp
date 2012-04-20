@@ -44,12 +44,36 @@
 
 	<div id="menu">
 		<ul class="menu">
-			<li><a href="#" class="parent"><span>Catalogos</span></a>
+			<li><a href="#" class="parent"><span>Cat&aacute;logos</span></a>
 				<div>
 					<ul>
 						<li><a href="#" class="parent"><span>Generales</span></a>
 							<div>
 								<ul>
+
+									<li><a href="#" class="parent"><span>Direcciones</span></a>
+										<div>
+											<ul>
+												<li><g:link controller="rsGralEstado">
+														<span>Estados</span>
+													</g:link></li>
+												<li><g:link controller="rsGralCiudad">
+														<span>Ciudades</span>
+													</g:link></li>
+												<li><g:link controller="rsGralDelegacionMunicipio">
+														<span>Delegaciones o Municipios</span>
+													</g:link></li>
+												<li><g:link controller="RsGralAsentamiento">
+														<span>C&oacute;digos Postales</span>
+													</g:link></li>
+												<li><g:link controller="SimCatTipoAsentamiento">
+														<span>Tipos de Asentamiento</span>
+													</g:link></li>
+
+											</ul>
+										</div></li>
+
+
 									<li><a href="#" class="parent"><span>Documento</span></a>
 										<div>
 											<ul>
@@ -122,7 +146,9 @@
 						<li><g:link controller="rsGralTelefono">
 								<span>Tel&eacute;fonos</span>
 							</g:link></li>
-						<li><a href="#"><span>Sub Item 4</span></a></li>
+						<li><g:link controller="rsGralDomicilio">
+								<span>Domicilios</span>
+							</g:link></li>
 						<li><a href="#"><span>Sub Item 5</span></a></li>
 						<li><a href="#"><span>Sub Item 6</span></a></li>
 						<li><a href="#"><span>Sub Item 7</span></a></li>
