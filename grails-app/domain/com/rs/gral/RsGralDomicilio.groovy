@@ -36,6 +36,6 @@ class RsGralDomicilio {
     }
 	
 	String toString() {
-		"${calle} ${numeroInterior} ${numeroExterior} ${rsGralAsentamiento}"
+		"${calle} ${numeroInterior} ${numeroExterior} - CP:${rsGralAsentamiento.codigoPostal}"
 	}
 }
