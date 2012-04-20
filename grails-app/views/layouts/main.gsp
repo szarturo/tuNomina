@@ -156,6 +156,24 @@
 				</div></li>
 
 			<li><a href="#"><span>Servicios</span></a></li>
+			
+			<li><a href="#"><span>Seguridad</span></a>
+				<div>
+					<ul>
+						<li><g:link controller="user">
+								<span>Usuarios</span>
+							</g:link></li>
+						<li><g:link controller="role">
+								<span>Roles</span>
+							</g:link></li>
+						<li><g:link controller="requestmap">
+								<span>Accesos no permitidos</span>
+							</g:link></li>
+						<li><g:link controller="securityInfo" action="config">
+								<span>Informaci&oacute;n</span>
+							</g:link></li>
+					</ul>
+				</div></li>			
 
 			<sec:ifNotLoggedIn>
 				<li class="last"><g:link controller="login" action="auth">
