@@ -1,114 +1,65 @@
-<%@ page import="com.rs.gral.RsGralDomicilio" %>
+<%@ page import="com.rs.gral.RsGralDomicilio"%>
 <!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
-		<g:javascript library="prototype" />
-	</head>
-	<body>
-		<a href="#edit-rsGralDomicilio" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="edit-rsGralDomicilio" class="content scaffold-edit" role="main">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${rsGralDomicilioInstance}">
+<head>
+<meta name="layout" content="main">
+<g:set var="entityName"
+	value="${message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')}" />
+<title><g:message code="default.edit.label" args="[entityName]" /></title>
+<g:javascript library="prototype" />
+</head>
+<body>
+	<a href="#edit-rsGralDomicilio" class="skip" tabindex="-1"><g:message
+			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
+	<div class="nav" role="navigation">
+		<ul>
+			<li><a class="home" href="${createLink(uri: '/')}"><g:message
+						code="default.home.label" /></a></li>
+			<li><g:link class="list" action="list">
+					<g:message code="default.list.label" args="[entityName]" />
+				</g:link></li>
+			<li><g:link class="create" action="create">
+					<g:message code="default.new.label" args="[entityName]" />
+				</g:link></li>
+		</ul>
+	</div>
+	<div id="edit-rsGralDomicilio" class="content scaffold-edit"
+		role="main">
+		<h1>
+			<g:message code="default.edit.label" args="[entityName]" />
+		</h1>
+		<g:if test="${flash.message}">
+			<div class="message" role="status">
+				${flash.message}
+			</div>
+		</g:if>
+		<g:hasErrors bean="${rsGralDomicilioInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${rsGralDomicilioInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+					<li
+						<g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+							error="${error}" /></li>
 				</g:eachError>
 			</ul>
-			</g:hasErrors>
-			<g:form method="post" >
-				<g:hiddenField name="id" value="${rsGralDomicilioInstance?.id}" />
-				<g:hiddenField name="version" value="${rsGralDomicilioInstance?.version}" />
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-				
-			<tr class='prop'>
-				<td valign='top' class='name'><label>Estado:</label></td>
-				<td valign="top" class="value ">
-					<g:select optionKey='id' optionValue='nombreEstado'
-						name='rsGralEstado.nombreEstado' id='rsGralEstado.nombreEstado'
-						from='${com.rs.gral.RsGralEstado.list()}'
-						onchange="${remoteFunction(
-					            controller:'rsGralEstado', 
-					            action:'ajaxGetCiudades', 
-					            params:'\'id=\' + escape(this.value)', 
-					            onComplete:'updateCiudad(e)')}"></g:select>
-				</td>
-			</tr>
-			<br/>
-			<tr class='prop'>
-				<td valign='top' class='name'><label>Ciudad:</label></td>
-				<td valign="top" class="value ">
-					<g:select name='ciudad' id='ciudad'
-					    from=''
-						onchange="${remoteFunction(
-					            controller:'rsGralCiudad', 
-					            action:'ajaxGetDelegacionMunicipio', 
-					            params:'\'id=\' + escape(this.value)', 
-					            onComplete:'updateDelegacionMunicipio(e)')}"></g:select>
-				</td>
-			</tr>
-			<br/>
-			<tr class='prop'>
-				<td valign='top' class='name'><label>Delegacion o
-						Municipio:</label></td>
-				<td valign="top" class="value ">
-					<g:select name='delegacionMunicipio' id='delegacionMunicipio'
-					    from=''
-						onchange="${remoteFunction(
-					            controller:'rsGralDelegacionMunicipio', 
-					            action:'ajaxGetAsentamiento', 
-					            params:'\'id=\' + escape(this.value)', 
-				    	        onComplete:'updateAsentamiento(e)')}"></g:select>
-				</td>
-			</tr>
-			<br/>
-			<tr class='prop'>
-				<td valign='top' class='name'><label>Colonia:</label></td>
-				<td valign="top" class="value ">
-					<g:select name='asentamiento' id='asentamiento'
-					    from=''
-						onchange="${remoteFunction(
-					            controller:'rsGralAsentamiento', 
-					            action:'ajaxGetCodigoPostal', 
-					            params:'\'id=\' + escape(this.value)', 
-					            onComplete:'updateCodigoPostal(e)')}"></g:select>
-				</td>
-			</tr>
-			<br/>
-			<tr class='prop'>
-				<td valign='top' class='name'><label>Codigo Postal:</label></td>
-				<td valign='top'><g:textField name='rsGralAsentamiento.codigoPostal' value=''
-						onKeyUp="${remoteFunction(
-				            controller:'rsGralAsentamiento', 
-				            action:'ajaxGetCombos', 
-				            params:'\'cp=\' + escape(this.value)', 
-				            onComplete:'updateCombos(e)')}">
-					</g:textField>
-					<g:hiddenField name='rsGralAsentamiento.id' value='' />
-				</td>
-			</tr>				
-				
-				
-			</g:form>
-			
+		</g:hasErrors>
+		<g:form method="post">
+			<g:hiddenField name="id" value="${rsGralDomicilioInstance?.id}" />
+			<g:hiddenField name="version"
+				value="${rsGralDomicilioInstance?.version}" />
+			<fieldset class="form">
+				<g:render template="form" />
+			</fieldset>
+			<fieldset class="buttons">
+				<g:actionSubmit class="save" action="update"
+					value="${message(code: 'default.button.update.label', default: 'Update')}" />
+				<g:actionSubmit class="delete" action="delete"
+					value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+					formnovalidate=""
+					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+			</fieldset>
+
+		</g:form>
+
 		<g:javascript>
 			
 			// This is called when the page loads to initialize Estados
@@ -404,8 +355,9 @@
 			}				
 							
 						
-		</g:javascript>			
-			
-		</div>
-	</body>
+		</g:javascript>
+
+
+	</div>
+</body>
 </html>

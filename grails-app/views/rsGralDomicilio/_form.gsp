@@ -7,8 +7,7 @@
 		<label for="persona"> <g:message
 				code="rsGralDomicilio.persona.label" default="Persona" />
 
-		</label> <label>
-			${rsGralDomicilioInstance?.persona}
+		</label> <label> ${rsGralDomicilioInstance?.persona}
 		</label>
 		<g:hiddenField name='persona.id'
 			value='${rsGralDomicilioInstance?.persona?.id}' />
@@ -47,14 +46,65 @@
 
 <div
 	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
-	<label for="rsGralAsentamiento"> <g:message
-			code="rsGralDomicilio.rsGralAsentamiento.label"
-			default="Rs Gral Asentamiento" /> <span class="required-indicator">*</span>
-	</label>
-	<g:select id="rsGralAsentamiento" name="rsGralAsentamiento.id"
-		from="${com.rs.gral.RsGralAsentamiento.list()}" optionKey="id"
-		required="" value="${rsGralDomicilioInstance?.rsGralAsentamiento?.id}"
-		class="many-to-one" />
+	<label>Estado:</label>
+	<g:select optionKey='id' optionValue='nombreEstado'
+		name='rsGralEstado.nombreEstado' id='rsGralEstado.nombreEstado'
+		from='${com.rs.gral.RsGralEstado.list()}'
+		onchange="${remoteFunction(
+					            controller:'rsGralEstado', 
+					            action:'ajaxGetCiudades', 
+					            params:'\'id=\' + escape(this.value)', 
+					            onComplete:'updateCiudad(e)')}"
+		class="many-to-one"></g:select>
+</div>
+
+<div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
+	<label>Ciudad:</label>
+	<g:select name='ciudad' id='ciudad' from=''
+		onchange="${remoteFunction(
+					            controller:'rsGralCiudad', 
+					            action:'ajaxGetDelegacionMunicipio', 
+					            params:'\'id=\' + escape(this.value)', 
+					            onComplete:'updateDelegacionMunicipio(e)')}"
+		class="many-to-one"></g:select>
+</div>
+
+<div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
+	<label>Delegaci&oacute;n o Municipio:</label>
+	<g:select name='delegacionMunicipio' id='delegacionMunicipio' from=''
+		onchange="${remoteFunction(
+					            controller:'rsGralDelegacionMunicipio', 
+					            action:'ajaxGetAsentamiento', 
+					            params:'\'id=\' + escape(this.value)', 
+				    	        onComplete:'updateAsentamiento(e)')}"
+		class="many-to-one"></g:select>
+</div>
+
+<div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
+	<label>Colonia:</label>
+	<g:select name='asentamiento' id='asentamiento' from=''
+		onchange="${remoteFunction(
+					            controller:'rsGralAsentamiento', 
+					            action:'ajaxGetCodigoPostal', 
+					            params:'\'id=\' + escape(this.value)', 
+					            onComplete:'updateCodigoPostal(e)')}"
+		class="many-to-one"></g:select>
+</div>
+
+<div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
+	<label>C&oacute;digo Postal:</label>
+	<g:textField name='rsGralAsentamiento.codigoPostal' value=''
+		onKeyUp="${remoteFunction(
+				            controller:'rsGralAsentamiento', 
+				            action:'ajaxGetCombos', 
+				            params:'\'cp=\' + escape(this.value)', 
+				            onComplete:'updateCombos(e)')}">
+	</g:textField>
+	<g:hiddenField name='rsGralAsentamiento.id' value='' />
 </div>
 
 <div
