@@ -1,48 +1,78 @@
-<%@ page import="com.rs.gral.RsGralDomicilio" %>
+<%@ page import="com.rs.gral.RsGralDomicilio"%>
 <!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
-		<g:javascript library="prototype" />
-	</head>
-	<body>
-		<a href="#create-rsGralDomicilio" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="create-rsGralDomicilio" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${rsGralDomicilioInstance}">
+<head>
+<meta name="layout" content="main">
+<g:set var="entityName"
+	value="${message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')}" />
+<title><g:message code="default.create.label"
+		args="[entityName]" /></title>
+<g:javascript library="prototype" />
+</head>
+<body>
+	<a href="#create-rsGralDomicilio" class="skip" tabindex="-1"><g:message
+			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
+	<div class="nav" role="navigation">
+		<ul>
+			<li><a class="home" href="${createLink(uri: '/')}"><g:message
+						code="default.home.label" /></a></li>
+			<li><g:link class="list" action="list">
+					<g:message code="default.list.label" args="[entityName]" />
+				</g:link></li>
+		</ul>
+	</div>
+	<div id="create-rsGralDomicilio" class="content scaffold-create"
+		role="main">
+		<h1>
+			<g:message code="default.create.label" args="[entityName]" />
+		</h1>
+		<g:if test="${flash.message}">
+			<div class="message" role="status">
+				${flash.message}
+			</div>
+		</g:if>
+		<g:hasErrors bean="${rsGralDomicilioInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${rsGralDomicilioInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+					<li
+						<g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+							error="${error}" /></li>
 				</g:eachError>
 			</ul>
-			</g:hasErrors>
-			<g:form action="save" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
-			
+		</g:hasErrors>
+		<g:form action="save">
+			<fieldset class="form">
+				<g:render template="form" />
+			</fieldset>
+			<fieldset class="buttons">
+				<g:submitButton name="create" class="save"
+					value="${message(code: 'default.button.create.label', default: 'Create')}" />
+			</fieldset>
+		</g:form>
+
 		<g:javascript>
 			
-			// This is called when the page loads to initialize Estados
-			var zselect = document.getElementById('rsGralEstado.nombreEstado')
-			var zopt = zselect.options[zselect.selectedIndex]
-			${remoteFunction(controller:'rsGralEstado', action:'ajaxGetCiudades', params:"'id=' + zopt.value", onComplete:'updateCiudad(e)')}
-		
+			funcionIniciaDomicilio('${rsGralDomicilioInstance?.rsGralAsentamiento?.codigoPostal}');			
+			
+			function funcionIniciaDomicilio(codigoPostal){
+				//var longitudCodigoPostal = codigoPostal.length;
+				//alert (longitudCodigoPostal)
+				if (codigoPostal == ''){
+					// This is called when the page loads to initialize Estados
+					var zselect = document.getElementById('rsGralEstado.nombreEstado')
+					var zopt = zselect.options[zselect.selectedIndex]
+					${remoteFunction(controller:'rsGralEstado', action:'ajaxGetCiudades', params:"'id=' + zopt.value", onComplete:'updateCiudad(e)')}
+					//LA SIGUIENTE LINEA ES COMO SE MUESTRA CUANDO SE VE EL CODIGO FUENTE EN EL BROWSER
+					//new Ajax.Request('/sim/rsGralEstado/ajaxGetCiudades',{asynchronous:true,evalScripts:true,onComplete:function(e){updateCiudad(e)},parameters:'id=' + zopt.value});
+					
+				}else{
+					// OBTIENE LOS VALORES DE LOS COMBOS A PARTIR DE UN CODIGO APOSTAL YA ASIGNADO EN EL DOMICILIO
+					//new Ajax.Request('/sim/rsGralAsentamiento/ajaxGetCombos',{asynchronous:true,evalScripts:true,onComplete:function(e){updateCombos(e)},parameters:'cp=' + codigoPostal});
+					${remoteFunction(controller:'rsGralAsentamiento', action:'ajaxGetCombos', params:"'cp=' + codigoPostal", onComplete:'updateCombos(e)')}
+				}
+				
+			}			
+					
 			function updateCiudad(e) {
 				// The response comes back as a bunch-o-JSON 
 				var ciudades = eval('(' + e.responseText + ')') // evaluate JSON
@@ -329,12 +359,9 @@
 					codigoPostal.value =  asentamiento.codigoPostal
 				}		
 			}				
-							
 						
-		</g:javascript>			
-			
-			
-			
-		</div>
-	</body>
+		</g:javascript>
+
+	</div>
+</body>
 </html>
