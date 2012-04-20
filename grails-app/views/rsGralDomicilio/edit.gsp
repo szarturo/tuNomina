@@ -65,22 +65,10 @@
 			funcionIniciaDomicilio('${rsGralDomicilioInstance?.rsGralAsentamiento?.codigoPostal}');			
 			
 			function funcionIniciaDomicilio(codigoPostal){
-				//var longitudCodigoPostal = codigoPostal.length;
-				//alert (longitudCodigoPostal)
-				if (codigoPostal == ''){
-					// This is called when the page loads to initialize Estados
-					var zselect = document.getElementById('rsGralEstado.nombreEstado')
-					var zopt = zselect.options[zselect.selectedIndex]
-					${remoteFunction(controller:'rsGralEstado', action:'ajaxGetCiudades', params:"'id=' + zopt.value", onComplete:'updateCiudad(e)')}
-					//LA SIGUIENTE LINEA ES COMO SE MUESTRA CUANDO SE VE EL CODIGO FUENTE EN EL BROWSER
-					//new Ajax.Request('/sim/rsGralEstado/ajaxGetCiudades',{asynchronous:true,evalScripts:true,onComplete:function(e){updateCiudad(e)},parameters:'id=' + zopt.value});
-					
-				}else{
-					// OBTIENE LOS VALORES DE LOS COMBOS A PARTIR DE UN CODIGO APOSTAL YA ASIGNADO EN EL DOMICILIO
-					//new Ajax.Request('/sim/rsGralAsentamiento/ajaxGetCombos',{asynchronous:true,evalScripts:true,onComplete:function(e){updateCombos(e)},parameters:'cp=' + codigoPostal});
-					${remoteFunction(controller:'rsGralAsentamiento', action:'ajaxGetCombos', params:"'cp=' + codigoPostal", onComplete:'updateCombos(e)')}
-				}
-				
+				// OBTIENE LOS VALORES DE LOS COMBOS A PARTIR DE UN CODIGO APOSTAL YA ASIGNADO EN EL DOMICILIO
+				${remoteFunction(controller:'rsGralAsentamiento', action:'ajaxGetCombos', params:"'cp=' + codigoPostal", onComplete:'updateCombos(e)')}
+				//LA SIGUIENTE LINEA ES COMO SE MUESTRA CUANDO SE VE EL CODIGO FUENTE EN EL BROWSER
+				//new Ajax.Request('/sim/rsGralAsentamiento/ajaxGetCombos',{asynchronous:true,evalScripts:true,onComplete:function(e){updateCombos(e)},parameters:'cp=' + codigoPostal});
 			}			
 					
 			function updateCiudad(e) {

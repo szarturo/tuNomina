@@ -49,6 +49,7 @@
 	<label>Estado:</label>
 	<g:select optionKey='id' optionValue='nombreEstado'
 		name='rsGralEstado.nombreEstado' id='rsGralEstado.nombreEstado'
+		noSelection="${['null':'Seleccione un Estado']}"
 		from='${com.rs.gral.RsGralEstado.list()}'
 		onchange="${remoteFunction(
 					            controller:'rsGralEstado', 
