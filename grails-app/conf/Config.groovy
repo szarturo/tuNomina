@@ -92,6 +92,9 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+	// unexpected validation errors during registration
+	warn 'grails.app.services.grails.plugins.springsecurity.ui.SpringSecurityUiService'
 }
 
 // Added by the Spring Security Core plugin:
@@ -102,3 +105,38 @@ grails.plugins.springsecurity.authority.className = 'com.sim.usuario.Rol'
 //IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 grails.plugins.springsecurity.requestMap.className = 'com.sim.usuario.Requestmap'
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Requestmap
+
+//URL DONDE SE DIRECCIONA AL USUARIO DESPUES DE HABERSE REGISTRADO AL SISTEMA
+//grails.plugins.springsecurity.ui.register.postRegisterUrl = '/welcome'
+
+//ATRIBUTOS DEL CORREO PARA REGISTRO DE USUARIO
+grails.plugins.springsecurity.ui.register.emailBody = '''\
+Estimado(a) $user.username,<br/>
+<br/>
+Usted (o alguien mas pretendiendo ser usted) creo una cuenta con este correo.<br/>
+<br/>
+Si usted realizó la petición, presione <a href="$url">aquí</a> para finalizar el registro.
+'''
+
+grails.plugins.springsecurity.ui.register.emailFrom = 'do.not.reply@localhost'
+grails.plugins.springsecurity.ui.register.emailSubject = 'Registro usuario SIM'
+
+//ASIGNACION DE ROLES
+grails.plugins.springsecurity.ui.register.defaultRoleNames = [] // no roles
+//or
+//grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_CUSTOMER']
+
+
+//CONFIGURACION DEL PLUGIN mail
+grails {
+	mail {
+	  host = "smtp.gmail.com"
+	  port = 465
+	  username = "sistema.microfinanciera@gmail.com"
+	  password = "rapidsist"
+	  props = ["mail.smtp.auth":"true",
+			   "mail.smtp.socketFactory.port":"465",
+			   "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+			   "mail.smtp.socketFactory.fallback":"false"]
+ 
+ } }

@@ -105,9 +105,19 @@
 			</p>
 
 			<p id="remember_me_holder">
+			    <label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
 				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-				<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
+				
 			</p>
+			
+			<p id="forgotPassword_holder">
+			    <s2ui:linkButton elementId='register' controller='register' messageCode='spring.security.ui.login.register'/>
+			</p>			
+			
+			<p id="forgotPassword_holder">
+				<g:link controller='register' action='forgotPassword'><g:message code='spring.security.ui.login.forgotPassword'/></g:link>
+			</p>
+						
 
 			<p>
 				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
