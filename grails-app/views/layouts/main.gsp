@@ -156,24 +156,51 @@
 				</div></li>
 
 			<li><a href="#"><span>Servicios</span></a></li>
-			
+
 			<li><a href="#"><span>Seguridad</span></a>
 				<div>
 					<ul>
-						<li><g:link controller="user">
-								<span>Usuarios</span>
-							</g:link></li>
-						<li><g:link controller="role">
-								<span>Roles</span>
-							</g:link></li>
-						<li><g:link controller="requestmap">
-								<span>Accesos no permitidos</span>
-							</g:link></li>
+
+						<li><a href="#" class="parent"><span>Usuarios</span></a>
+							<div>
+								<ul>
+									<li><g:link controller="user">
+											<span>Consulta</span>
+										</g:link></li>
+									<li><g:link controller="user" action="create">
+											<span>Alta</span>
+										</g:link></li>
+								</ul>
+							</div></li>
+
+						<li><a href="#" class="parent"><span>Roles</span></a>
+							<div>
+								<ul>
+									<li><g:link controller="role">
+											<span>Consulta</span>
+										</g:link></li>
+									<li><g:link controller="role" action="create">
+											<span>Alta</span>
+										</g:link></li>
+								</ul>
+							</div></li>
+							
+						<li><a href="#" class="parent"><span>Accesos</span></a>
+							<div>
+								<ul>
+									<li><g:link controller="requestmap">
+											<span>Consulta</span>
+										</g:link></li>
+									<li><g:link controller="requestmap" action="create">
+											<span>Alta</span>
+										</g:link></li>
+								</ul>
+							</div></li>
 						<li><g:link controller="securityInfo" action="config">
 								<span>Informaci&oacute;n</span>
 							</g:link></li>
 					</ul>
-				</div></li>			
+				</div></li>
 
 			<sec:ifNotLoggedIn>
 				<li class="last"><g:link controller="login" action="auth">
