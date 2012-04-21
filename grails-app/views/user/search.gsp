@@ -74,6 +74,11 @@ def queryParams = [username: username, enabled: enabled, accountExpired: account
 		<thead>
 		<tr>
 			<g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'Username')}" params="${queryParams}"/>
+			<th><g:message code="persona.apellidoPaterno.label" default="Apellido Paterno" /></th>
+			<th><g:message code="persona.apellidoMaterno.label" default="Apellido Materno" /></th>
+			<th><g:message code="persona.primerNombre.label" default="Primer Nombre" /></th>
+			<th><g:message code="persona.segundoNombre.label" default="Segundo Nombre" /></th>
+			<th><g:message code="persona.segundoNombre.email" default="Correo" /></th>
 			<g:sortableColumn property="enabled" title="${message(code: 'user.enabled.label', default: 'Enabled')}" params="${queryParams}"/>
 			<g:sortableColumn property="accountExpired" title="${message(code: 'user.accountExpired.label', default: 'Account Expired')}" params="${queryParams}"/>
 			<g:sortableColumn property="accountLocked" title="${message(code: 'user.accountLocked.label', default: 'Account Locked')}" params="${queryParams}"/>
@@ -85,6 +90,11 @@ def queryParams = [username: username, enabled: enabled, accountExpired: account
 		<g:each in="${results}" status="i" var="user">
 		<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			<td><g:link action="edit" id="${user.id}">${fieldValue(bean: user, field: "username")}</g:link></td>
+			<td>${fieldValue(bean: user.persona, field: "apellidoPaterno")}</td>
+			<td>${fieldValue(bean: user.persona, field: "apellidoMaterno")}</td>
+			<td>${fieldValue(bean: user.persona, field: "primerNombre")}</td>
+			<td>${fieldValue(bean: user.persona, field: "segundoNombre")}</td>
+			<td>${fieldValue(bean: user.persona, field: "email")}</td>
 			<td><g:formatBoolean boolean="${user.enabled}"/></td>
 			<td><g:formatBoolean boolean="${user.accountExpired}"/></td>
 			<td><g:formatBoolean boolean="${user.accountLocked}"/></td>
