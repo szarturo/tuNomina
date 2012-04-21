@@ -37,7 +37,7 @@
 		</a>
 
 		<sec:ifLoggedIn>
-			Bienvenido: ${usuario?.persona} (<sec:username />)  
+			${usuario?.persona} (<sec:username />)  
 		</sec:ifLoggedIn>
 
 	</div>
