@@ -38,7 +38,7 @@ class RsPersona {
 		apellidoMaterno nullable: true, size:0..25
 		primerNombre size:3..25, blank: false, unique: false
 		segundoNombre nullable: true, size:0..25
-		email email:true, nullable: true,  validator: { correo, rsPersona ->
+		email email:true, nullable: true, unique: true,  validator: { correo, rsPersona ->
 			if (rsPersona.tiposPersona?.claveTipoPersona?.contains('USUARIO')) correo != null }
 		sexo(nullable: true, inList:["MASCULINO", "FEMENINO"] )
 		estadoCivil nullable: true, inList:["CASADO - BIENES MANCOMUNADOS",

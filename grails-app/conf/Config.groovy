@@ -74,12 +74,23 @@ environments {
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console
-    // appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+	// Example of changing the log pattern for the default console
+	// appender:
+	//
+	//appenders {
+	//    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+	//}
+	
+	//OBTENER LOGS INFO EN UN ARCHIVO Y EN LA CONSOLA
+	
+	appenders {
+		//console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+		file name:'file', file:'/home/miguel/logs/sim/logInfo.log'
+	}
+	
+	root {
+		info 'file','stdout'
+	}
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -92,9 +103,10 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-		   
+
 	// unexpected validation errors during registration
 	warn 'grails.app.services.grails.plugins.springsecurity.ui.SpringSecurityUiService'
+	
 }
 
 // Added by the Spring Security Core plugin:

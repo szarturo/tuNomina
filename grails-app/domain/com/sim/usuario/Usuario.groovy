@@ -1,8 +1,12 @@
 package com.sim.usuario
 
+import com.rs.gral.RsPersona;
+
 class Usuario {
 
 	transient springSecurityService
+
+	static belongsTo =   [ persona : RsPersona ]
 
 	String username
 	String password
@@ -14,10 +18,13 @@ class Usuario {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+		persona  nullable:true
 	}
 
 	static mapping = {
 		password column: '`password`'
+		//Here we configure GORM to load the associated persona instance (through the persona property) whenever an Usuario is loaded.
+		persona lazy:false
 	}
 
 	Set<Rol> getAuthorities() {
@@ -36,5 +43,10 @@ class Usuario {
 
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
+	}
+
+
+	String toString() {
+		"${username}"
 	}
 }
