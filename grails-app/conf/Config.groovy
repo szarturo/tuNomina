@@ -139,6 +139,24 @@ grails.plugins.springsecurity.ui.register.defaultRoleNames = [] // no roles
 //grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_CUSTOMER']
 
 
+//RESETEAR PASSWORD
+//post-reset destination url
+//grails.plugins.springsecurity.ui.register.postResetUrl = '/reset'
+
+//ATRIBUTOS DEL CORREO PARA RECUPERAR EL PASSWORD
+grails.plugins.springsecurity.ui.forgotPassword.emailBody = '''\
+Estimado(a) $user.username,<br/>
+<br/>
+Usted (o alguien mas pretendiendo ser usted) solicitó actualizar su contraseña<br/>
+<br/>
+Si usted no realizó esta solicitud haga caso omiso de este correo, ningún cambio será aplicado.<br/>
+<br/>
+Si usted realizó esta petición, presione <a href="$url">aquí</a> para establecer su contraseña.
+'''
+grails.plugins.springsecurity.ui.forgotPassword.emailFrom = 'do.not.reply@localhost'
+grails.plugins.springsecurity.ui.forgotPassword.emailSubject = 'Restablecer contraseña SIM'
+
+
 //CONFIGURACION DEL PLUGIN mail
 grails {
 	mail {
