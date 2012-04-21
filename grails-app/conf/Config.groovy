@@ -139,8 +139,7 @@ grails.plugins.springsecurity.ui.register.defaultRoleNames = [] // no roles
 //grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_CUSTOMER']
 
 
-//RESETEAR PASSWORD
-//post-reset destination url
+//The post-reset destination url is configurable  using the postResetUrl attribute:
 //grails.plugins.springsecurity.ui.register.postResetUrl = '/reset'
 
 //ATRIBUTOS DEL CORREO PARA RECUPERAR EL PASSWORD
