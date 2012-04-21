@@ -170,3 +170,7 @@ grails {
 			   "mail.smtp.socketFactory.fallback":"false"]
  
  } }
+
+//This option defaults to true to avoid a breaking change, so if you have a newer domain class that handles encryption 
+//just disable this plugin's encryption:
+grails.plugins.springsecurity.ui.encodePassword = false
