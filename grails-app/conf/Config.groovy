@@ -173,3 +173,22 @@ grails {
 //This option defaults to true to avoid a breaking change, so if you have a newer domain class that handles encryption 
 //just disable this plugin's encryption:
 grails.plugins.springsecurity.ui.encodePassword = false
+
+//VALORES CAPTCHA SIMPLE
+simpleCaptcha {
+	// font size used in CAPTCHA images
+	fontSize = 30
+	height = 200
+	width = 200
+	// number of characters in CAPTCHA text
+	length = 6
+
+	// amount of space between the bottom of the CAPTCHA text and the bottom of the CAPTCHA image
+	bottomPadding = 16
+
+	// distance between the diagonal lines used to obfuscate the text
+	lineSpacing = 10
+
+	// the charcters shown in the CAPTCHA text must be one of the following
+	chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+}

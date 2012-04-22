@@ -9,7 +9,7 @@
 
 	<p />
 
-	<s2ui:form width='650' height='400' elementId='loginFormContainer'
+	<s2ui:form width='650' height='550' elementId='loginFormContainer'
 		titleCode='spring.security.ui.register.description' center='true'>
 
 		<g:form action='register' name='registerForm'>
@@ -51,7 +51,7 @@
 							labelCode='user.segundoNombre.label' bean="${command}"
 							labelCodeDefault='Segundo Nombre'
 							value="${command.segundoNombre}" />
-							
+
 						<s2ui:passwordFieldRow name='password'
 							labelCode='user.password.label' bean="${command}" size='40'
 							labelCodeDefault='Password' value="${command.password}" />
@@ -59,9 +59,34 @@
 						<s2ui:passwordFieldRow name='password2'
 							labelCode='user.password2.label' bean="${command}" size='40'
 							labelCodeDefault='Password (again)' value="${command.password2}" />
-							
 
+						<tr class="prop">
+							<td valign="top" class="name"></td>
 
+							<td valign="top" class="value"><br />
+
+								<div>
+									<g:if test='${captchaInvalido}'>
+										<div style="color: red;">
+											<g:message code='registro.captcha.volverIntentar'/>
+										</div>
+									</g:if>
+								</div>
+
+								<div>
+									<img
+										src="${createLink(controller: 'simpleCaptcha', action: 'captcha')}" />
+								</div>
+								<br />
+								
+								<div>
+									<label for="captcha">Capture el texto de la imagen</label>
+								</div>								
+								
+								<div>
+									<g:textField name="captcha" />
+								</div> <br /></td>
+						</tr>
 					</tbody>
 				</table>
 

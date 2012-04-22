@@ -8,6 +8,8 @@ import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
 
 class RegisterController extends grails.plugins.springsecurity.ui.RegisterController {
 	
+	def simpleCaptchaService
+	
 	def index = {
 		def copy = [:] + (flash.chainedParams ?: [:])
 		copy.remove 'controller'
@@ -17,8 +19,14 @@ class RegisterController extends grails.plugins.springsecurity.ui.RegisterContro
 
 	def register = { RegisterCommand command ->
 		
-		if (command.hasErrors()) {
-			render view: 'index', model: [command: command]
+		//VALIDA CAPTCHA
+		boolean captchaValid = simpleCaptchaService.validateCaptcha(params.captcha)
+		
+		println("CAPTCHA: "+ captchaValid)
+		
+		if (command.hasErrors() || !captchaValid) {
+			boolean captchaInvalido = true
+			render view: 'index', model: [command: command, captchaInvalido : captchaInvalido ]
 			return
 		}
 		
