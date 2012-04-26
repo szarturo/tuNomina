@@ -15,18 +15,23 @@ hibernate {
 // environment specific settings
 environments {
 	development {
+		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
 			dbCreate = "create-drop"
 			url = "jdbc:mysql://localhost:3307/simGrails2"
 		}
 	}
 	test {
+		//DEPLOY EN JELASTIC
 		dataSource {
+			username = "mrugerio"
+			password = "creditos"
 			dbCreate = "create-drop"
-			url = "jdbc:mysql://localhost:3307/simGrails2"
+			url = "jdbc:mysql://mysql-simcreditos.jelastic.servint.net/simGrails2"
 		}
 	}
 	production {
+		//DEPLOY EN CLOUDFOUNDRY
 		dataSource {
 			dialect= org.hibernate.dialect.MySQLInnoDBDialect
 			driverClassName = "com.mysql.jdbc.Driver"
