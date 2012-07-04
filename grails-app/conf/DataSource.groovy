@@ -18,7 +18,7 @@ environments {
 		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
 			dbCreate = "create-drop"
-			url = "jdbc:mysql://localhost:3307/simGrails2"
+			url = "jdbc:mysql://localhost:3306/simGrails2"
 		}
 	}
 	test {
