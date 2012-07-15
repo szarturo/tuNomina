@@ -42,18 +42,27 @@ class BootStrap {
 				).save(failOnError: true)
 
 
-		def adminRole = new Rol(authority: 'ROLE_ADMIN').save(flush: true)
-		def userRole = new Rol(authority: 'ROLE_USER').save(flush: true)
+		def adminRole = new Rol(authority: 'ROLE_ADMIN', name: 'Admin')
+		adminRole.id = 'ROLE_ADMIN'
+		adminRole.save(failOnError: true)
 
+		def userRole = new Rol(authority: 'ROLE_USER', name: 'User')
+		userRole.id = 'ROLE_USER'
+		userRole.save(failOnError: true)
+		
+		def managerRole = new Rol(authority: 'ROLE_MANAGER', name: 'Manager')
+		managerRole.id = 'ROLE_MANAGER'
+		managerRole.save(failOnError: true)
+		
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(flush: true)
 
 		UsuarioRol.create usuarioAdmin, adminRole, true
-
+		
 		assert Usuario.count() == 1
-		assert Rol.count() == 2
+		assert Rol.count() == 3
 		assert UsuarioRol.count() == 1
-
+		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO ADMINISTRADOR
 		def adminPersona = new RsPersona(
 				apellidoPaterno: "ADMINISTRADOR",
@@ -63,12 +72,34 @@ class BootStrap {
 					SimCatTipoPersona.findByClaveTipoPersona('USUARIO')
 				],
 				usuario : usuarioAdmin).save(failOnError: true)
+				
+				
+		//USUARIOS DADOS DE ALTA POR ACTIVITI
+		def usuarioKermit = new Usuario(username: 'kermit', enabled: true, password: 'kermit')
+		usuarioKermit.save(flush: true)
+		UsuarioRol.create usuarioKermit, userRole, true
+		
+		def usuarioFozzie = new Usuario(username: 'fozzie', enabled: true, password: 'fozzie')
+		usuarioFozzie.save(flush: true)
+		UsuarioRol.create usuarioFozzie, managerRole, true
 
 
 		//IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 		//new Requestmap(url: '/user/**', configAttribute: 'ROLE_ADMIN').save(failOnError: true)
 		//new Requestmap(url: '/rsConfGpoEmpresa/**', configAttribute: 'ROLE_USER').save(failOnError: true)
 		new Requestmap(url: '/simCatBanco/create', configAttribute: 'ROLE_ADMIN').save(failOnError: true)
+		
+		
+		//ACTIVITI
+		
+		["mail.smtp.auth":"true",
+			"mail.smtp.socketFactory.port":"465",
+			"mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+			"mail.smtp.socketFactory.fallback":"false",
+			"mail.smtp.starttls.required": "true"].each { k, v ->
+			System.setProperty k, v
+			}
+			
 
 		new SimCatTipoDocumento(claveTipoDocumento:  'IDENTIFICACION',
 				nombreTipoDocumento: 'IDENTIFICACION OFICIAL',
