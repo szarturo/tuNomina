@@ -1,5 +1,10 @@
 package com.sim.procesos.credito
 
+import org.grails.activiti.ApprovalStatus
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import org.grails.activiti.ActivitiConstants
+import com.sim.usuario.Usuario
+
 class SolicitudCreditoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -22,6 +27,8 @@ class SolicitudCreditoController {
 
     def create = {
         def solicitudCreditoInstance = new SolicitudCredito()
+		String sessionUsernameKey = CH.config.activiti.sessionUsernameKey?:ActivitiConstants.DEFAULT_SESSION_USERNAME_KEY
+		solicitudCreditoInstance.nombreSolicitante = session[sessionUsernameKey]
         solicitudCreditoInstance.properties = params
         return [solicitudCreditoInstance: solicitudCreditoInstance,
 			          myTasksCount: assignedTasksCount]
@@ -44,7 +51,7 @@ class SolicitudCreditoController {
             render(view: "create", model: [solicitudCreditoInstance: solicitudCreditoInstance, myTasksCount: assignedTasksCount])
         }
     }
-
+	
     def show = {
         def solicitudCreditoInstance = SolicitudCredito.get(params.id)
         if (!solicitudCreditoInstance) {
@@ -55,7 +62,57 @@ class SolicitudCreditoController {
             [solicitudCreditoInstance: solicitudCreditoInstance, myTasksCount: assignedTasksCount]
         }
     }
+	
+	def approval = {
+		show()
+	}
+	
+	def performApproval = {
+		def solicitudCreditoInstance = SolicitudCredito.get(params.id)
+		if (solicitudCreditoInstance) {
+			if (params.version) {
+				def version = params.version.toLong()
+				if (solicitudCreditoInstance.version > version) {
+					
+					solicitudCreditoInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'vacationRequest.label', default: 'VacationRequest')] as Object[], "Another user has updated this Solicitid de Credito while you were editing")
+					render(view: "approval", model: [solicitudCreditoInstance: solicitudCreditoInstance,
+													 myTasksCount: assignedTasksCount])
+					return
+				}
+			}
+			solicitudCreditoInstance.properties = params
+			if (!solicitudCreditoInstance.hasErrors() && solicitudCreditoInstance.save(flush: true)) {
+				flash.message = "${message(code: 'default.updated.message', args: [message(code: 'solicitudCredito.label', default: 'SolicitudCredito'), solicitudCreditoInstance.id])}"
+				if (params.complete) {
+										//RECUPERA EL USUARIO PARA ENVIAR EL CORREO
+										def Usuario = Usuario.findByUsername(solicitudCreditoInstance.properties.nombreSolicitante)
+										println ("Usuario Correo: " +Usuario.persona.email)
+										params.id = solicitudCreditoInstance.id
+										params.creditoAprobado = solicitudCreditoInstance.approvalStatus == ApprovalStatus.APPROVED
+										params.from = grailsApplication.config.activiti.mailServerDefaultFrom
+										params.emailTo = Usuario.persona.email
+										params.approvalRemark = params.approvalRemark && params.approvalRemark != "" ? params.approvalRemark : "No Aprobado Remark."
+						completeTask(params)
+								} else {
+										params.action="approval"
+										saveTask(params)
+								}
+								params.isApproval = true
+				redirect(action: "show", id: solicitudCreditoInstance.id, params: params)
+								
+			}
+			else {
+				render(view: "approval", model: [solicitudCreditoInstance: solicitudCreditoInstance,
+												 myTasksCount: assignedTasksCount])
+			}
+		}
+		else {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'solicitudCredito.label', default: 'SolicitudCredito'), params.id])}"
+			redirect(controller: "task", action: "myTaskList")
+		}
+	  }
 
+	
     def edit = {
         def solicitudCreditoInstance = SolicitudCredito.get(params.id)
         if (!solicitudCreditoInstance) {
@@ -84,6 +141,7 @@ class SolicitudCreditoController {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'solicitudCredito.label', default: 'SolicitudCredito'), solicitudCreditoInstance.id])}"
 								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 								if (isComplete) {
+										params.reenviarSolicitud = solicitudCreditoInstance.reenviarSolicitud
 										completeTask(params)
 								} else {
 										params.action="show"

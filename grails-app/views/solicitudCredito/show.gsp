@@ -1,5 +1,6 @@
 
 <%@ page import="com.sim.procesos.credito.SolicitudCredito" %>
+<%@ page import="org.grails.activiti.ApprovalStatus" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -59,32 +60,35 @@
                             <td valign="top" class="value">${solicitudCreditoInstance?.approvalStatus?.encodeAsHTML()}</td>
                             
                         </tr>
-                    
+                        
+		                <g:if test="${params.isApproval || solicitudCreditoInstance?.approvalStatus == ApprovalStatus.REJECTED}">  
+	                        <tr class="prop">
+	                            <td valign="top" class="name"><g:message code="solicitudCredito.approvalRemark.label" default="Approval Remark" /></td>
+	                            
+	                            <td valign="top" class="value">${fieldValue(bean: solicitudCreditoInstance, field: "approvalRemark")}</td>
+	                            
+	                        </tr>
+                        </g:if>
+                    	<g:if test="${!params.isApproval && solicitudCreditoInstance?.approvalStatus == ApprovalStatus.REJECTED}">      
+	                        <tr class="prop">
+	                            <td valign="top" class="name"><g:message code="solicitudCredito.reenviarSolicitud.label" default="Reenviar Solicitud" /></td>
+	                            
+	                            <td valign="top" class="value"><g:formatBoolean boolean="${solicitudCreditoInstance?.reenviarSolicitud}" /></td>
+	                            
+	                        </tr>
+                    	</g:if>                        
+                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="solicitudCredito.approvalRemark.label" default="Approval Remark" /></td>
+                            <td valign="top" class="name"><g:message code="solicitudCredito.dateCreated.label" default="Fecha Solicitud" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: solicitudCreditoInstance, field: "approvalRemark")}</td>
+                            <td valign="top" class="value"><g:formatDate date="${solicitudCreditoInstance?.dateCreated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="solicitudCredito.reenviarSolicitud.label" default="Reenviar Solicitud" /></td>
+                            <td valign="top" class="name"><g:message code="solicitudCredito.lastUpdated.label" default="Fecha Actualizacion" /></td>
                             
-                            <td valign="top" class="value"><g:formatBoolean boolean="${solicitudCreditoInstance?.reenviarSolicitud}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="solicitudCredito.fechaSolicitud.label" default="Fecha Solicitud" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${solicitudCreditoInstance?.fechaSolicitud}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="solicitudCredito.fechaActualizacion.label" default="Fecha Actualizacion" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${solicitudCreditoInstance?.fechaActualizacion}" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${solicitudCreditoInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

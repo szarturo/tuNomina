@@ -58,51 +58,6 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="approvalStatus"><g:message code="solicitudCredito.approvalStatus.label" default="Approval Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudCreditoInstance, field: 'approvalStatus', 'errors')}">
-                                    <g:select name="approvalStatus" from="${org.grails.activiti.ApprovalStatus?.values()}" value="${solicitudCreditoInstance?.approvalStatus}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="approvalRemark"><g:message code="solicitudCredito.approvalRemark.label" default="Approval Remark" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudCreditoInstance, field: 'approvalRemark', 'errors')}">
-                                    <g:textField name="approvalRemark" value="${solicitudCreditoInstance?.approvalRemark}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="reenviarSolicitud"><g:message code="solicitudCredito.reenviarSolicitud.label" default="Reenviar Solicitud" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudCreditoInstance, field: 'reenviarSolicitud', 'errors')}">
-                                    <g:checkBox name="reenviarSolicitud" value="${solicitudCreditoInstance?.reenviarSolicitud}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="fechaSolicitud"><g:message code="solicitudCredito.fechaSolicitud.label" default="Fecha Solicitud" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudCreditoInstance, field: 'fechaSolicitud', 'errors')}">
-                                    <g:datePicker name="fechaSolicitud" precision="day" value="${solicitudCreditoInstance?.fechaSolicitud}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="fechaActualizacion"><g:message code="solicitudCredito.fechaActualizacion.label" default="Fecha Actualizacion" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudCreditoInstance, field: 'fechaActualizacion', 'errors')}">
-                                    <g:datePicker name="fechaActualizacion" precision="day" value="${solicitudCreditoInstance?.fechaActualizacion}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
                         </tbody>
                     </table>
                 </div>

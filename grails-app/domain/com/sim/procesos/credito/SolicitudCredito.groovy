@@ -10,8 +10,10 @@ class SolicitudCredito {
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	String approvalRemark
 	Boolean reenviarSolicitud
-	Date fechaSolicitud
-	Date fechaActualizacion
+	
+	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
+	Date dateCreated
+	Date lastUpdated
 
 	static constraints = {
 		nombreSolicitante blank:false, size:5..50
@@ -20,8 +22,8 @@ class SolicitudCredito {
 		approvalStatus nullable:false
 		approvalRemark nullable:true
 		reenviarSolicitud nullable:true
-		fechaSolicitud blank:false
-		fechaActualizacion nullable:true
+		dateCreated blank:false
+		lastUpdated nullable:true
 	}
 
 }
