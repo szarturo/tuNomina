@@ -70,15 +70,7 @@
                                     <g:textField name="prestamo" value="${fieldValue(bean: solicitudPrestamoInstance, field: 'prestamo')}" />
                                 </td>
                             </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="prestamoAutorizado"><g:message code="solicitudPrestamo.prestamoAutorizado.label" default="Prestamo Autorizado" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'prestamoAutorizado', 'errors')}">
-                                    <g:checkBox name="prestamoAutorizado" value="${solicitudPrestamoInstance?.prestamoAutorizado}" />
-                                </td>
-                            </tr>
+                            
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -86,6 +78,16 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'explicacionSolicitud', 'errors')}">
                                     <g:textArea name="explicacionSolicitud" cols="40" rows="5" value="${solicitudPrestamoInstance?.explicacionSolicitud}" />
+                                </td>
+                            </tr>
+                                                        
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="prestamoAutorizado"><g:message code="solicitudPrestamo.prestamoAutorizado.label" default="Prestamo Autorizado" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'prestamoAutorizado', 'errors')}">
+                                    <g:checkBox name="prestamoAutorizado" value="${solicitudPrestamoInstance?.prestamoAutorizado}" />
                                 </td>
                             </tr>
                         
