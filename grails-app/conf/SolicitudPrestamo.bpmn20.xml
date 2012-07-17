@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+	id="definitions" targetNamespace="http://activiti.org/bpmn20">
+	<process id="solicitudPrestamo" name="Solicitud de Prestamo">
+
+		<startEvent id="inicio" />
+
+		<sequenceFlow id="flujo0" sourceRef="inicio" targetRef="iniciaSolicitudPrestamo" />
+
+		<userTask id="iniciaSolicitudPrestamo" activiti:formKey="/solicitudPrestamo/create"
+			name="Inicia Solicitud Prestamo">
+			<documentation>Inicia solicitud de prestamo por ${username}</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_USER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo" targetRef="fin" />
+
+		<endEvent id="fin" />
+
+	</process>
+</definitions>

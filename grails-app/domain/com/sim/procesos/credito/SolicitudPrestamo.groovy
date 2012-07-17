@@ -19,12 +19,12 @@ class SolicitudPrestamo {
 	Date lastUpdated
 
 	static constraints = {
-		nombreSolicitante blank:false, size:5..50
+		nombreSolicitante blank:false, size:3..50
 		sueldoMensual scale:2, nullable:false
 		prestamo scale:2, nullable:false
 		prestamoAutorizado nullable:true
 		explicacionSolicitud blank:false, size:5..255
-		explicacionCredito blank:false, size:5..255
+		explicacionCredito nullable:true, size:5..255
 		approvalStatus nullable:false
 		dateCreated blank:false
 		lastUpdated nullable:true
