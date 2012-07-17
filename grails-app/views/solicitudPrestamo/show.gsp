@@ -40,6 +40,13 @@
                         </tr>
                     
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="solicitudPrestamo.correoSolicitante.label" default="Correo Solicitante" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: solicitudPrestamoInstance, field: "correoSolicitante")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="solicitudPrestamo.sueldoMensual.label" default="Sueldo Mensual" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: solicitudPrestamoInstance, field: "sueldoMensual")}</td>

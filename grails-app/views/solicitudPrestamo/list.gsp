@@ -29,13 +29,13 @@
                         
                             <g:sortableColumn property="nombreSolicitante" title="${message(code: 'solicitudPrestamo.nombreSolicitante.label', default: 'Nombre Solicitante')}" />
                         
+                            <g:sortableColumn property="correoSolicitante" title="${message(code: 'solicitudPrestamo.correoSolicitante.label', default: 'Correo Solicitante')}" />
+                        
                             <g:sortableColumn property="sueldoMensual" title="${message(code: 'solicitudPrestamo.sueldoMensual.label', default: 'Sueldo Mensual')}" />
                         
                             <g:sortableColumn property="prestamo" title="${message(code: 'solicitudPrestamo.prestamo.label', default: 'Prestamo')}" />
                         
                             <g:sortableColumn property="prestamoAutorizado" title="${message(code: 'solicitudPrestamo.prestamoAutorizado.label', default: 'Prestamo Autorizado')}" />
-                        
-                            <g:sortableColumn property="explicacionSolicitud" title="${message(code: 'solicitudPrestamo.explicacionSolicitud.label', default: 'Explicacion Solicitud')}" />
                         
                         </tr>
                     </thead>
@@ -47,13 +47,13 @@
                         
                             <td>${fieldValue(bean: solicitudPrestamoInstance, field: "nombreSolicitante")}</td>
                         
+                            <td>${fieldValue(bean: solicitudPrestamoInstance, field: "correoSolicitante")}</td>
+                        
                             <td>${fieldValue(bean: solicitudPrestamoInstance, field: "sueldoMensual")}</td>
                         
                             <td>${fieldValue(bean: solicitudPrestamoInstance, field: "prestamo")}</td>
                         
                             <td><g:formatBoolean boolean="${solicitudPrestamoInstance.prestamoAutorizado}" /></td>
-                        
-                            <td>${fieldValue(bean: solicitudPrestamoInstance, field: "explicacionSolicitud")}</td>
                         
                         </tr>
                     </g:each>

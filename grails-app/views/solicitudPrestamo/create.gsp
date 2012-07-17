@@ -42,6 +42,15 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                    <label for="correoSolicitante"><g:message code="solicitudPrestamo.correoSolicitante.label" default="Correo Solicitante" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'correoSolicitante', 'errors')}">
+                                    <g:textField name="correoSolicitante" value="${solicitudPrestamoInstance?.correoSolicitante}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                     <label for="sueldoMensual"><g:message code="solicitudPrestamo.sueldoMensual.label" default="Sueldo Mensual" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'sueldoMensual', 'errors')}">

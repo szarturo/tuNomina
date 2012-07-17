@@ -7,6 +7,7 @@ import org.grails.activiti.ApprovalStatus;
 class SolicitudPrestamo {
 
  	String nombreSolicitante
+	String correoSolicitante
 	BigDecimal sueldoMensual
 	BigDecimal prestamo
 	Boolean prestamoAutorizado
@@ -20,6 +21,7 @@ class SolicitudPrestamo {
 
 	static constraints = {
 		nombreSolicitante blank:false, size:3..50
+		correoSolicitante email:true, nullable: true
 		sueldoMensual scale:2, nullable:false
 		prestamo scale:2, nullable:false
 		prestamoAutorizado nullable:true
