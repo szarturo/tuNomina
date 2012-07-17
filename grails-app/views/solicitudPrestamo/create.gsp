@@ -66,40 +66,13 @@
                                     <g:textField name="prestamo" value="${fieldValue(bean: solicitudPrestamoInstance, field: 'prestamo')}" />
                                 </td>
                             </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="prestamoAutorizado"><g:message code="solicitudPrestamo.prestamoAutorizado.label" default="Prestamo Autorizado" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'prestamoAutorizado', 'errors')}">
-                                    <g:checkBox name="prestamoAutorizado" value="${solicitudPrestamoInstance?.prestamoAutorizado}" />
-                                </td>
-                            </tr>
-                        
+                 
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="explicacionSolicitud"><g:message code="solicitudPrestamo.explicacionSolicitud.label" default="Explicacion Solicitud" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'explicacionSolicitud', 'errors')}">
                                     <g:textArea name="explicacionSolicitud" cols="40" rows="5" value="${solicitudPrestamoInstance?.explicacionSolicitud}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="explicacionCredito"><g:message code="solicitudPrestamo.explicacionCredito.label" default="Explicacion Credito" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'explicacionCredito', 'errors')}">
-                                    <g:textArea name="explicacionCredito" cols="40" rows="5" value="${solicitudPrestamoInstance?.explicacionCredito}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="approvalStatus"><g:message code="solicitudPrestamo.approvalStatus.label" default="Approval Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: solicitudPrestamoInstance, field: 'approvalStatus', 'errors')}">
-                                    <g:select name="approvalStatus" from="${org.grails.activiti.ApprovalStatus?.values()}" value="${solicitudPrestamoInstance?.approvalStatus}"  />
                                 </td>
                             </tr>
                         
