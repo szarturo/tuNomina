@@ -22,7 +22,21 @@
 		</userTask>
 
 		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo"
-			targetRef="fin" />
+			targetRef="checarCredito" />
+
+		<scriptTask id="checarCredito" scriptFormat="groovy">
+			<script>
+				out:println "Checar credito para " + nombreSolicitante;
+				creditoViable =	false;
+				if((new BigDecimal(sueldoMensual) / 2) > new BigDecimal(prestamo)){
+					creditoViable = true;
+				}
+				out:println "El resultado del credito para " + nombreSolicitante + " es " +	creditoViable;
+			</script>
+		</scriptTask>
+		
+		<sequenceFlow id="flujo2" sourceRef="checarCredito"
+			targetRef="fin" />		
 
 		<endEvent id="fin" />
 
