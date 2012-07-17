@@ -36,7 +36,13 @@
 		</scriptTask>
 		
 		<sequenceFlow id="flujo2" sourceRef="checarCredito"
-			targetRef="fin" />		
+			targetRef="servicioPrestamo" />	
+			
+		<serviceTask id="servicioPrestamo"	activiti:class="com.sim.procesos.servicios.ServicioTareaPrestamo" />
+		
+		<sequenceFlow id="flujo3" sourceRef="servicioPrestamo"
+			targetRef="fin" />	
+		
 
 		<endEvent id="fin" />
 
