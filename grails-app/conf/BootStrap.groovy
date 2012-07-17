@@ -82,6 +82,10 @@ class BootStrap {
 		def usuarioFozzie = new Usuario(username: 'fozzie', enabled: true, password: 'fozzie')
 		usuarioFozzie.save(flush: true)
 		UsuarioRol.create usuarioFozzie, managerRole, true
+
+		def usuarioPeter = new Usuario(username: 'peter', enabled: true, password: 'peter')
+		usuarioPeter.save(flush: true)
+		UsuarioRol.create usuarioPeter, userRole, true
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO KERMIT
 		def kermitPersona = new RsPersona(
@@ -92,8 +96,6 @@ class BootStrap {
 					SimCatTipoPersona.findByClaveTipoPersona('USUARIO')
 				],
 				usuario : usuarioKermit).save(failOnError: true)
-				
-
 
 		//IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 		//new Requestmap(url: '/user/**', configAttribute: 'ROLE_ADMIN').save(failOnError: true)

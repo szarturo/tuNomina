@@ -44,12 +44,32 @@
 			targetRef="solicitudPrestamoEvaluacion" />	
 			
 	    <userTask id="solicitudPrestamoEvaluacion" name="Evaluacion Solicitud Prestamo" activiti:formKey="/solicitudPrestamo/edit"
-	    			 activiti:assignee="fozzie">
+	    			 activiti:assignee="kermit">
 	    </userTask>			
 		
-		<sequenceFlow id="flujo4" sourceRef="solicitudPrestamoEvaluacion"
-			targetRef="fin" />			
+		<sequenceFlow sourceRef="solicitudPrestamoEvaluacion"
+			targetRef="fin" />		
+			
+	    <boundaryEvent id="tiempoParaEscalar" cancelActivity="true" attachedToRef="solicitudPrestamoEvaluacion">
+	      <timerEventDefinition>
+	        <timeDuration>PT1M</timeDuration>
+		   </timerEventDefinition>
+	    </boundaryEvent>	
+	    
+	    <sequenceFlow sourceRef="tiempoParaEscalar" targetRef="solicitudPrestamoEvaluacionPorGerente" />
+	    
+		<userTask id="solicitudPrestamoEvaluacionPorGerente" name="Evaluar la solicitud de prestamo por un Gerente" 
+			activiti:formKey="/solicitudPrestamo/edit">
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_MANAGER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>			
+	    </userTask>
 
+		<sequenceFlow sourceRef="solicitudPrestamoEvaluacionPorGerente"
+			targetRef="fin" />
+			
 		<endEvent id="fin" />
 
 	</process>
