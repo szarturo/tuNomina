@@ -196,21 +196,21 @@ simpleCaptcha {
 }
 
 activiti {
-	processEngineName = "activiti-engine-default"
-		  databaseType = "mysql"
-		  deploymentName = appName
-		  deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
-								 "file:./grails-app/conf/**/*.png",
-								 "file:./src/taskforms/**/*.form"]
-		  jobExecutorActivate = false
-		  mailServerHost = "smtp.gmail.com"
-		  mailServerPort = "465"
-		  mailServerUsername = "sistema.microfinanciera@gmail.com"
-		  mailServerPassword = "rapidsist"
-		  mailServerDefaultFrom = "sistema.microfinanciera@gmail.com"
-		  history = "full" // "none", "activity", "audit" or "full"
-		  sessionUsernameKey = "username"
-		  useFormKey = true
+		processEngineName = "activiti-engine-default"
+		databaseType = "mysql"
+		deploymentName = appName
+		deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
+						 "file:./grails-app/conf/**/*.png",
+						 "file:./src/taskforms/**/*.form"]
+		jobExecutorActivate = false
+		mailServerHost = "smtp.gmail.com"
+		mailServerPort = "465"
+		mailServerUsername = "sistema.microfinanciera@gmail.com"
+		mailServerPassword = "rapidsist"
+		mailServerDefaultFrom = "sistema.microfinanciera@gmail.com"
+		history = "full" // "none", "activity", "audit" or "full"
+		sessionUsernameKey = "username"
+		useFormKey = true
 }
 
 environments {
