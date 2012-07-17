@@ -41,8 +41,14 @@
 		<serviceTask id="servicioPrestamo"	activiti:class="com.sim.procesos.servicios.ServicioTareaPrestamo" />
 		
 		<sequenceFlow id="flujo3" sourceRef="servicioPrestamo"
-			targetRef="fin" />	
+			targetRef="solicitudPrestamoEvaluacion" />	
+			
+	    <userTask id="solicitudPrestamoEvaluacion" name="Evaluacion Solicitud Prestamo" activiti:formKey="/solicitudPrestamo/edit"
+	    			 activiti:assignee="fozzie">
+	    </userTask>			
 		
+		<sequenceFlow id="flujo4" sourceRef="solicitudPrestamoEvaluacion"
+			targetRef="fin" />			
 
 		<endEvent id="fin" />
 
