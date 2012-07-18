@@ -5,6 +5,7 @@
 	id="definitions" targetNamespace="http://activiti.org/bpmn20">
 	<process id="solicitudPrestamo" name="Solicitud de Prestamo">
 
+		<!-- Inicia:peter, continua:kermit, despues de un minuto continua:fozzie -->
 		<startEvent id="inicio" />
 
 		<sequenceFlow id="flujo0" sourceRef="inicio"
@@ -47,7 +48,7 @@
 	    			 activiti:assignee="kermit">
 	    </userTask>			
 		
-		<sequenceFlow sourceRef="solicitudPrestamoEvaluacion"
+		<sequenceFlow id="flujo4" sourceRef="solicitudPrestamoEvaluacion"
 			targetRef="fin" />		
 			
 	    <boundaryEvent id="tiempoParaEscalar" cancelActivity="true" attachedToRef="solicitudPrestamoEvaluacion">
@@ -56,7 +57,7 @@
 		   </timerEventDefinition>
 	    </boundaryEvent>	
 	    
-	    <sequenceFlow sourceRef="tiempoParaEscalar" targetRef="solicitudPrestamoEvaluacionPorGerente" />
+	    <sequenceFlow id="flujo5" sourceRef="tiempoParaEscalar" targetRef="solicitudPrestamoEvaluacionPorGerente" />
 	    
 		<userTask id="solicitudPrestamoEvaluacionPorGerente" name="Evaluar la solicitud de prestamo por un Gerente" 
 			activiti:formKey="/solicitudPrestamo/edit">
@@ -67,7 +68,7 @@
 			</potentialOwner>			
 	    </userTask>
 
-		<sequenceFlow sourceRef="solicitudPrestamoEvaluacionPorGerente"
+		<sequenceFlow id="flujo6" sourceRef="solicitudPrestamoEvaluacionPorGerente"
 			targetRef="fin" />
 			
 		<endEvent id="fin" />
