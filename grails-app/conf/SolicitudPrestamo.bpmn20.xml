@@ -49,7 +49,7 @@
 	    </userTask>			
 		
 		<sequenceFlow id="flujo4" sourceRef="solicitudPrestamoEvaluacion"
-			targetRef="fin" />		
+			targetRef="aprobacionGateway" />		
 			
 	    <boundaryEvent id="tiempoParaEscalar" cancelActivity="true" attachedToRef="solicitudPrestamoEvaluacion">
 	      <timerEventDefinition>
@@ -69,7 +69,22 @@
 	    </userTask>
 
 		<sequenceFlow id="flujo6" sourceRef="solicitudPrestamoEvaluacionPorGerente"
-			targetRef="fin" />
+			targetRef="aprobacionGateway" />
+			
+    	<exclusiveGateway id="aprobacionGateway" />
+    	
+	    <sequenceFlow id="flujo7" sourceRef="aprobacionGateway" targetRef="procesarSolicitud">
+			  <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == true}</conditionExpression>
+	    </sequenceFlow>    	
+    
+	    <sequenceFlow id="flujo9" sourceRef="aprobacionGateway" targetRef="fin">
+	      <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == false}</conditionExpression>
+	    </sequenceFlow>
+
+        <!-- LA SIGUIENTE TAREA POR EL MOMENTO NO TIENE FUNCIONALIDAD -->
+    	<userTask id="procesarSolicitud" name="Procesar la solicitud de prestamo" activiti:assignee="kermit" 
+    		activiti:formKey="/solicitudPrestamo/edit"/>
+    	<sequenceFlow id="flujo8" sourceRef="procesarSolicitud" targetRef="fin" />			
 			
 		<endEvent id="fin" />
 
