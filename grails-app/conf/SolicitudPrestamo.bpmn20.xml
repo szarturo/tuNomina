@@ -81,8 +81,7 @@
 	      <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == false}</conditionExpression>
 	    </sequenceFlow>
 
-        <!-- LA SIGUIENTE TAREA POR EL MOMENTO NO TIENE FUNCIONALIDAD -->
-    	<userTask id="procesarSolicitud" name="Procesar la solicitud de prestamo" activiti:assignee="kermit" 
+    	<userTask id="procesarSolicitud" name="Procesar la solicitud de prestamo" activiti:assignee="admin" 
     		activiti:formKey="/solicitudPrestamo/edit"/>
     	<sequenceFlow id="flujo8" sourceRef="procesarSolicitud" targetRef="fin" />			
 			

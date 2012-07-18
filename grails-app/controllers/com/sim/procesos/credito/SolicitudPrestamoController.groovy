@@ -84,6 +84,13 @@ class SolicitudPrestamoController {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'solicitudPrestamo.label', default: 'SolicitudPrestamo'), solicitudPrestamoInstance.id])}"
 								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 								if (isComplete) {
+									    //params.prestamoAutorizado regresa on o null, ya que se necesita para una condicion en el proceso
+									    //se asigna true en caso de on y se asigna false en caso de que venga nulo
+									    if (params.prestamoAutorizado){
+											params.prestamoAutorizado = true
+										}else{
+										    params.prestamoAutorizado = false
+										}
 										completeTask(params)
 								} else {
 										params.action="show"
