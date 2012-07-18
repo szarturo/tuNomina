@@ -1,5 +1,7 @@
 package com.sim.procesos.credito
 
+import org.grails.activiti.ApprovalStatus
+
 class SolicitudPrestamoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -87,9 +89,13 @@ class SolicitudPrestamoController {
 									    //params.prestamoAutorizado regresa on o null, ya que se necesita para una condicion en el proceso
 									    //se asigna true en caso de on y se asigna false en caso de que venga nulo
 									    if (params.prestamoAutorizado){
+											params.approvalStatus = ApprovalStatus.APPROVED
 											params.prestamoAutorizado = true
 										}else{
-										    params.prestamoAutorizado = false
+											params.approvalStatus = ApprovalStatus.REJECTED
+											params.prestamoAutorizado = false
+											params.from = grailsApplication.config.activiti.mailServerDefaultFrom
+											params.emailTo = solicitudPrestamoInstance.correoSolicitante
 										}
 										completeTask(params)
 								} else {

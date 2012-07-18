@@ -77,13 +77,41 @@
 			  <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == true}</conditionExpression>
 	    </sequenceFlow>    	
     
-	    <sequenceFlow id="flujo9" sourceRef="aprobacionGateway" targetRef="fin">
+	    <sequenceFlow id="flujo9" sourceRef="aprobacionGateway" targetRef="enviaCorreo">
 	      <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == false}</conditionExpression>
 	    </sequenceFlow>
 
     	<userTask id="procesarSolicitud" name="Procesar la solicitud de prestamo" activiti:assignee="admin" 
     		activiti:formKey="/solicitudPrestamo/edit"/>
-    	<sequenceFlow id="flujo8" sourceRef="procesarSolicitud" targetRef="fin" />			
+    	<sequenceFlow id="flujo8" sourceRef="procesarSolicitud" targetRef="fin" />	
+	    	
+		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
+			activiti:type="mail">
+			<extensionElements>
+				<activiti:field name="from"  expression="${from}" />
+				<activiti:field name="to" expression="${emailTo}" />
+				<activiti:field name="subject" stringValue="Tu credito no ha sido aprobado."  />
+		        <activiti:field name="html">
+		          <activiti:expression>
+		            <![CDATA[
+		              <html>
+		                <body>
+		                  Hola ${nombreSolicitante},<br/><br/>
+		                  
+		                  Tu crédito ha sido denegado por la siguiente razón:
+		                  ${explicacionCredito}.<br/><br/>
+		                  
+		                  Saludos cordiales,<br/>
+		                  
+		                  Tu nomina.
+		                </body>
+		              </html>
+		            ]]>
+		          </activiti:expression>
+		        </activiti:field>   
+			</extensionElements>
+		</serviceTask>
+		<sequenceFlow id="flujo10" sourceRef="enviaCorreo" targetRef="fin" />	 
 			
 		<endEvent id="fin" />
 
