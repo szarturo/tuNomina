@@ -202,7 +202,7 @@ activiti {
 		deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
 						 "file:./grails-app/conf/**/*.png",
 						 "file:./src/taskforms/**/*.form"]
-		jobExecutorActivate = false
+		jobExecutorActivate = true
 		mailServerHost = "smtp.gmail.com"
 		mailServerPort = "465"
 		mailServerUsername = "sistema.microfinanciera@gmail.com"
