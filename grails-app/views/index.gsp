@@ -139,81 +139,35 @@ p {
 							</g:each>
 						</ul>
 					</div>
+					<sec:ifLoggedIn>
+						<div id="controller-list" role="navigation">
+							<h2>Controladoras Procesos</h2>
+							<ul>
+								<g:each var="c"
+									in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+									<g:if test="${c.hasProperty('activiti') && c.clazz.activiti}">
+										<li class="controller">
+											<g:link
+												controller="${c.logicalPropertyName}">
+												${c.fullName}
+											</g:link> 
+											<g:if test="${!c.logicalPropertyName.equals('task')}">
+			                       	 			[<g:link
+													controller="${c.logicalPropertyName}" action="start">Start</g:link>]
+			                       	 		</g:if>
+			                       	 	</li>
+									</g:if>
+								</g:each>
+							</ul>
+						</div>
+					</sec:ifLoggedIn>
+					
 				</div></td>
 		</tr>
 	</table>
 
 	<g:set var="pluginManager"
 		value="${applicationContext.getBean('pluginManager')}"></g:set>
-
-	<div id="pageBody">
-		<h1>Welcome to Grails Activiti Plugin</h1>
-
-		<br />
-		<p>
-			<g:if
-				test="${pluginManager.hasGrailsPlugin('activitiSpringSecurity')}">
-            Please select LoginController and login with valid username/password such as <strong>kermit/kermit</strong> 
-            or <strong>fozzie/fozzie</strong>.
-            </g:if>
-			<g:else>
-            Below is a list of activiti users, you need to select an user as identity 
-            from the combo box before you can start using Grails Activiti related functionality.
-            </g:else>
-		</p>
-		<br />
-		<p>Next, you will see the Activiti Controllers section, you can
-			click on TaskController to start browsing the task list of the user
-			or you can click on "Start" of other Activiti controllers to start
-			process and working on task form. Further below is list of other
-			controllers, click on each to execute its default action:</p>
-		<g:if
-			test="${!pluginManager.hasGrailsPlugin('activitiSpringSecurity')}">
-			<div id="userList" class="dialog">
-				<h2>Activiti Users:</h2>
-				<%
-										def userList=[:]
-										def identityService = ActivitiUtils.identityService
-								    def users = identityService.createUserQuery().orderByUserId().asc().list()
-										for (user in users) {
-                        def groups = identityService.createGroupQuery().groupMember(user.id).orderByGroupId().asc().list()
-                        def groupIds = groups?" ${groups.collect{it.id}}":""
-										    userList[user.id]="${user.id}${groupIds}"
-                                        }		
-								 %>
-				<g:set var="${sessionUsernameKey}" value="${params.username}"
-					scope="session" />
-
-				<g:form>
-					<g:select name="username" from="${userList}" optionKey="key"
-						optionValue="value" noSelection="['null': '[Select User]']"
-						onchange="this.form.submit();"
-						value="${session[sessionUsernameKey]}" />
-				</g:form>
-			</div>
-		</g:if>
-		<g:if test="${session[sessionUsernameKey]}">
-			<br />Current User: <strong> ${session[sessionUsernameKey]}
-			</strong>
-			<div id="controllerList" class="dialog">
-				<h2>Activiti Controllers:</h2>
-				<ul>
-					<g:each var="c"
-						in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<g:if test="${c.hasProperty('activiti') && c.clazz.activiti}">
-							<li class="controller"><g:link
-									controller="${c.logicalPropertyName}">
-									${c.fullName}
-								</g:link> <g:if test="${!c.logicalPropertyName.equals('task')}">
-                       	 		[<g:link
-										controller="${c.logicalPropertyName}" action="start">Start</g:link>]
-                       	 	</g:if></li>
-						</g:if>
-					</g:each>
-				</ul>
-			</div>
-		</g:if>
-	</div>
 
 </body>
 </html>
