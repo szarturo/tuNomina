@@ -15,12 +15,23 @@ hibernate {
 // environment specific settings
 environments {
 	development {
+		
 		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
 			dbCreate = "create-drop"
 			url = "jdbc:mysql://localhost:3306/simGrails2"
 		}
+		
+		dataSource_activiti {
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "root"
+			password = "system"
+			dbCreate = "update"
+			url = "jdbc:mysql://localhost:3306/activiti"
+		}
+		
 	}
+	
 	test {
 		//DEPLOY EN JELASTIC
 		dataSource {

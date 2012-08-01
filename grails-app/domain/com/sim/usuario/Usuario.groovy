@@ -14,6 +14,8 @@ class Usuario {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	
+	boolean isPasswordEncoded = false
 
 	static constraints = {
 		username blank: false, unique: true
@@ -31,15 +33,33 @@ class Usuario {
 		UsuarioRol.findAllByUsuario(this).collect { it.rol } as Set
 	}
 
+	//CAMBIO DEBIDO A LA UTILIZACION DE MAS DE UN DATASOURCE
 	def beforeInsert() {
-		encodePassword()
+		if ( !isPasswordEncoded )
+		{
+			isPasswordEncoded = true
+			encodePassword ()
+		}
 	}
 
+	/*
+	def beforeInsert() {
+		encodePassword()
+	}*/
+
+	def beforeUpdate() {
+		if (isDirty('password')) {
+			isPasswordEncoded = false
+			encodePassword()
+		}
+	}
+	
+	/*
 	def beforeUpdate() {
 		if (isDirty('password')) {
 			encodePassword()
 		}
-	}
+	}*/
 
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
