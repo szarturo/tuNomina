@@ -154,8 +154,31 @@
 						<li><a href="#"><span>Sub Item 7</span></a></li>
 					</ul>
 				</div></li>
-
-			<li><a href="#"><span>Servicios</span></a></li>
+				
+			<sec:ifLoggedIn>
+				<li><a href="#"><span>Servicios</span></a>
+					<div>
+						<ul>
+							<li><g:link controller="task" action="index">
+									<span>Tareas</span>
+								</g:link></li>
+	
+							<li><a href="#" class="parent"><span>Procesos</span></a>
+								<div>
+									<ul>
+										<li><g:link controller="solicitudCredito" action="start">
+												<span>Credito</span>
+											</g:link></li>
+										<li><g:link controller="solicitudPrestamo" action="start">
+												<span>Prestamo</span>
+											</g:link></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>			
+				</li>
+			</sec:ifLoggedIn>
 
 			<li><a href="#"><span>Seguridad</span></a>
 				<div>

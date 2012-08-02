@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+	id="definitions" targetNamespace="http://activiti.org/bpmn20">
+	<process id="solicitudPrestamo" name="Solicitud de Prestamo">
+
+		<!-- Inicia:peter, continua:kermit, despues de un minuto continua:fozzie -->
+		<startEvent id="inicio" />
+
+		<sequenceFlow id="flujo0" sourceRef="inicio"
+			targetRef="iniciaSolicitudPrestamo" />
+
+		<userTask id="iniciaSolicitudPrestamo" activiti:formKey="/solicitudPrestamo/create"
+			name="Inicia Solicitud Prestamo">
+			<documentation>Inicia solicitud de prestamo por ${username}
+			</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_USER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo"
+			targetRef="checarCredito" />
+
+		<scriptTask id="checarCredito" scriptFormat="groovy">
+			<script>
+				out:println "Checar credito para " + nombreSolicitante;
+				creditoViable =	false;
+				if((new BigDecimal(sueldoMensual) / 2) > new BigDecimal(prestamo)){
+					creditoViable = true;
+				}
+				out:println "El resultado del credito para " + nombreSolicitante + " es " +	creditoViable;
+			</script>
+		</scriptTask>
+		
+		<sequenceFlow id="flujo2" sourceRef="checarCredito"
+			targetRef="servicioPrestamo" />	
+			
+		<serviceTask id="servicioPrestamo"	activiti:class="com.sim.procesos.servicios.ServicioTareaPrestamo" />
+		
+		<sequenceFlow id="flujo3" sourceRef="servicioPrestamo"
+			targetRef="solicitudPrestamoEvaluacion" />	
+			
+	    <userTask id="solicitudPrestamoEvaluacion" name="Evaluacion Solicitud Prestamo" activiti:formKey="/solicitudPrestamo/edit"
+	    			 activiti:assignee="kermit">
+	    </userTask>			
+		
+		<sequenceFlow id="flujo4" sourceRef="solicitudPrestamoEvaluacion"
+			targetRef="aprobacionGateway" />		
+			
+	    <boundaryEvent id="tiempoParaEscalar" cancelActivity="true" attachedToRef="solicitudPrestamoEvaluacion">
+	      <timerEventDefinition>
+	        <timeDuration>PT1M</timeDuration>
+		   </timerEventDefinition>
+	    </boundaryEvent>	
+	    
+	    <sequenceFlow id="flujo5" sourceRef="tiempoParaEscalar" targetRef="solicitudPrestamoEvaluacionPorGerente" />
+	    
+		<userTask id="solicitudPrestamoEvaluacionPorGerente" name="Evaluar la solicitud de prestamo por un Gerente" 
+			activiti:formKey="/solicitudPrestamo/edit">
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_MANAGER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>			
+	    </userTask>
+
+		<sequenceFlow id="flujo6" sourceRef="solicitudPrestamoEvaluacionPorGerente"
+			targetRef="aprobacionGateway" />
+			
+    	<exclusiveGateway id="aprobacionGateway" />
+    	
+	    <sequenceFlow id="flujo7" sourceRef="aprobacionGateway" targetRef="procesarSolicitud">
+			  <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == true}</conditionExpression>
+	    </sequenceFlow>    	
+    
+	    <sequenceFlow id="flujo9" sourceRef="aprobacionGateway" targetRef="enviaCorreo">
+	      <conditionExpression xsi:type="tFormalExpression">${prestamoAutorizado == false}</conditionExpression>
+	    </sequenceFlow>
+
+    	<userTask id="procesarSolicitud" name="Procesar la solicitud de prestamo" activiti:assignee="admin" 
+    		activiti:formKey="/solicitudPrestamo/edit"/>
+    	<sequenceFlow id="flujo8" sourceRef="procesarSolicitud" targetRef="fin" />	
+	    	
+		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
+			activiti:type="mail">
+			<extensionElements>
+				<activiti:field name="from"  expression="${from}" />
+				<activiti:field name="to" expression="${emailTo}" />
+				<activiti:field name="subject" stringValue="Tu credito no ha sido aprobado."  />
+		        <activiti:field name="html">
+		          <activiti:expression>
+		            <![CDATA[
+		              <html>
+		                <body>
+		                  Hola ${nombreSolicitante},<br/><br/>
+		                  
+		                  Tu crédito ha sido denegado por la siguiente razón:
+		                  ${explicacionCredito}.<br/><br/>
+		                  
+		                  Saludos cordiales,<br/>
+		                  
+		                  Tu nomina.
+		                </body>
+		              </html>
+		            ]]>
+		          </activiti:expression>
+		        </activiti:field>   
+			</extensionElements>
+		</serviceTask>
+		<sequenceFlow id="flujo10" sourceRef="enviaCorreo" targetRef="fin" />	 
+			
+		<endEvent id="fin" />
+
+	</process>
+</definitions>

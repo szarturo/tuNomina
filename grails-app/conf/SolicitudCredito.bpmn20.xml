@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+	id="definitions" targetNamespace="http://activiti.org/bpmn20">
+	<process id="solicitudCredito" name="Solicitud de Credito">
+
+		<startEvent id="start" />
+
+		<sequenceFlow id="flow0" targetRef="iniciaSolicitudCredito"
+			sourceRef="start" />
+
+		<userTask id="iniciaSolicitudCredito" activiti:formKey="/solicitudCredito/create"
+			name="Inicia Solicitud Credito">
+			<documentation>Solicitud de credito por ${username}</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_USER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flow1" targetRef="manejaSolicitudCredito"
+			sourceRef="iniciaSolicitudCredito" />
+
+		<userTask id="manejaSolicitudCredito" activiti:formKey="/solicitudCredito/approval"
+			name="Maneja solicitud de Credito">
+			<documentation>Credito solicitado por ${username}</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_MANAGER</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flow2" targetRef="creditoAprobado"
+			sourceRef="manejaSolicitudCredito" />
+
+		<exclusiveGateway id="creditoAprobado" name="Credito Aprovado?" />
+
+		<sequenceFlow id="flow3" targetRef="sendConfirmationE-mail"
+			sourceRef="creditoAprobado">
+			<conditionExpression xsi:type="tFormalExpression">${creditoAprobado}</conditionExpression>
+		</sequenceFlow>
+
+		<serviceTask id="sendConfirmationE-mail" name="Envia confirmacion E-mail"
+			activiti:type="mail">
+			<extensionElements>
+				<activiti:field expression="${from}" name="from" />
+				<activiti:field expression="${emailTo}" name="to" />
+				<activiti:field stringValue="Tu credito ha sido aprobado." name="subject" />
+				<activiti:field name="text">
+					<activiti:expression>${approvalRemark}</activiti:expression>
+				</activiti:field>
+			</extensionElements>
+		</serviceTask>
+
+		<sequenceFlow id="flow4" targetRef="end0"
+			sourceRef="sendConfirmationE-mail" />
+
+		<endEvent id="end0" />
+
+		<sequenceFlow id="flow5" targetRef="ajustarSolicitudCredito"
+			sourceRef="creditoAprobado">
+			<conditionExpression xsi:type="tFormalExpression">${!creditoAprobado}</conditionExpression>
+		</sequenceFlow>
+
+		<userTask id="ajustarSolicitudCredito" activiti:formKey="/solicitudCredito/edit"
+			name="Ajustar solicitud de credito">
+			<documentation>Tu gerente no ha aprobado la solicitud de credito
+			</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>
+		</userTask>
+
+		<sequenceFlow id="flow6" targetRef="reenviarSolicitud"
+			sourceRef="ajustarSolicitudCredito" />
+
+		<exclusiveGateway id="reenviarSolicitud" name="Reenviar solicitud?" />
+
+		<sequenceFlow id="flow7" targetRef="manejaSolicitudCredito"
+			sourceRef="reenviarSolicitud">
+			<conditionExpression xsi:type="tFormalExpression">${reenviarSolicitud}</conditionExpression>
+		</sequenceFlow>
+
+		<sequenceFlow id="flow8" sourceRef="reenviarSolicitud"
+			targetRef="end1">
+			<conditionExpression xsi:type="tFormalExpression">${!reenviarSolicitud}</conditionExpression>
+		</sequenceFlow>
+
+		<endEvent id="end1" />
+
+	</process>
+</definitions>

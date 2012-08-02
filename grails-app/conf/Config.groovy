@@ -113,6 +113,8 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.sim.usuario.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.sim.usuario.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'com.sim.usuario.Rol'
+// AÑADIDO YA QUE AL INSTALAR EL PLUGIN DE ACTIVITI INSERTA LA LINEA CON EL PLUGIN DE SECURITY
+grails.plugins.springsecurity.useSecurityEventListener = true
 
 //IMPLEMENTACION DE SEGURIDAD A NIVEL Dynamic request maps
 grails.plugins.springsecurity.requestMap.className = 'com.sim.usuario.Requestmap'
@@ -191,4 +193,45 @@ simpleCaptcha {
 
 	// the charcters shown in the CAPTCHA text must be one of the following
 	chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+}
+
+activiti {
+		processEngineName = "activiti-engine-default"
+		databaseType = "mysql"
+		deploymentName = appName
+		deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
+						 "file:./grails-app/conf/**/*.png",
+						 "file:./src/taskforms/**/*.form"]
+		jobExecutorActivate = true
+		mailServerHost = "smtp.gmail.com"
+		mailServerPort = "465"
+		mailServerUsername = "sistema.microfinanciera@gmail.com"
+		mailServerPassword = "rapidsist"
+		mailServerDefaultFrom = "sistema.microfinanciera@gmail.com"
+		history = "full" // "none", "activity", "audit" or "full"
+		sessionUsernameKey = "username"
+		useFormKey = true
+}
+
+environments {
+	development {
+		activiti {
+			  processEngineName = "activiti-engine-dev"
+			  databaseSchemaUpdate = true // true, false or "create-drop"
+		}
+	}
+	test {
+		activiti {
+			  processEngineName = "activiti-engine-test"
+			  databaseSchemaUpdate = true
+			  mailServerPort = "5025"
+		}
+	}
+	production {
+		activiti {
+			  processEngineName = "activiti-engine-prod"
+			  databaseSchemaUpdate = false
+			  jobExecutorActivate = true
+		}
+	}
 }
