@@ -6,6 +6,8 @@ class Contact {
 	String lastName
 	String email
 	String phone
+	
+	static hasMany = [addresses: Address]
 
     static constraints = {
 		firstName(blank: false)
