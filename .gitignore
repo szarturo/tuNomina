@@ -2,6 +2,7 @@
 .project
 .settings
 stacktrace.log
+caldecott.log
 target/
 web-app/WEB-INF/classes
 target-eclipse/classes
