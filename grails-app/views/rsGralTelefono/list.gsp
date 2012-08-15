@@ -6,7 +6,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'rsGralTelefono.label', default: 'RsGralTelefono')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		<r:require modules="uploadr"/>
 	</head>
 	<body>
 		<a href="#list-rsGralTelefono" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -51,6 +50,5 @@
 				<g:paginate total="${rsGralTelefonoInstanceTotal}" />
 			</div>
 		</div>
-		<uploadr:demo/>
 	</body>
 </html>
