@@ -112,9 +112,12 @@
 						<li><a href="#"><span>Sub Item 3</span></a></li>
 					</ul>
 				</div></li>
-			<li><a href="#"><span>Productos</span></a>
+			<li><a href="#"><span>Prestamos</span></a>
 				<div>
 					<ul>
+						<li><g:link controller="prestamo">
+								<span>Solicitados</span>
+							</g:link></li>					
 						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
 							<div>
 								<ul>
