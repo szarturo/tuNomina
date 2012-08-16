@@ -8,7 +8,7 @@
 	<body>
 		<h1>Documentos para iniciar apertura de Cr&eacute;dito</h1>
 		<uploadr:add name="${clavePrestamo}" path="${path}" direction="up"
-			maxVisible="5"
+			maxVisible="8"
 			unsupported="${createLink(plugin: 'uploadr', controller: 'upload', action: 'warning')}"
 			maxSize="52428800">
 			<g:each in="${imagenes}" var="file">
