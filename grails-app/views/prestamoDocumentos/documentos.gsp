@@ -25,13 +25,13 @@
 				//alert(file.fileName);
 				
 				// open a modal dialog to view the file contents
-				var width = 640;
-				var height= 400;
+				var width = 750;
+				var height= 500;
 				
 				$("#checkout-window").dialog(
 				{
 					title       : file.fileName,
-					position 	: 'center',
+					position 	: 'top',
 					autoOpen 	: true,
 					width 		: width,
 					height 		: height,
@@ -41,10 +41,10 @@
 						close: function() { $(this).dialog('close'); }
 					},
 					create: function(){
-					      $(this).append($("<iframe></iframe>").attr('src','${createLink(action:'obtenerImagen')}?fileName='+
+					      $(this).append($("<iframe style='width:700px; height: 500px;' ></iframe>").attr('src','${createLink(action:'obtenerImagen')}?fileName='+
 					      escape(file.fileName)+'&ruta='+escape('${path}')))
 					}
-				}).width(width - 10).height(height).animate({ top: '0' });				
+				}).width(width).height(height).animate({ top: '10' });				
 			
 				//myWindow=window.open('','','width=500,height=400')
 				//myWindow.document.write("<p>This is 'myWindow'</p>")
@@ -66,6 +66,6 @@
 				
 		</uploadr:add>
 	
-		<div id="checkout-window" style="display:none"><iframe src=""></iframe></div>
+		<div id="checkout-window" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
 	</body>
 </html>
