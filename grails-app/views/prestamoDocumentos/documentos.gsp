@@ -1,10 +1,5 @@
 <%@ page import="org.apache.commons.lang.RandomStringUtils"%>
 
-<%
-def ruta = "${System.getProperty('user.home')}/Documents/tuNomina/imagenes"
-def path = new File("${ruta}/${clavePrestamo}");
-%>
-
 <html>
 	<head>
 		<meta name="layout" content="main">
