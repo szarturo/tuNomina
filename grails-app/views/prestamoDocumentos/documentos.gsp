@@ -36,6 +36,7 @@
 					width 		: width,
 					height 		: height,
 					modal 		: true,
+					close       : function() { window.location.reload() },
 					buttons 	: {
 						close: function() { $(this).dialog('close'); }
 					},
