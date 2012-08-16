@@ -20,15 +20,11 @@
 			</g:each>
 			
 			<uploadr:onView>
-				//var keys = Object.keys(file);
-				//alert(keys);
-				//alert(file.fileName);
-				
 				// open a modal dialog to view the file contents
 				var width = 750;
 				var height= 500;
 				
-				$("#checkout-window").dialog(
+				$("#ventana").dialog(
 				{
 					title       : file.fileName,
 					position 	: 'top',
@@ -41,31 +37,14 @@
 						close: function() { $(this).dialog('close'); }
 					},
 					create: function(){
-					      $(this).append($("<iframe style='width:700px; height: 500px;' ></iframe>").attr('src','${createLink(action:'obtenerImagen')}?fileName='+
+					      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
+					      '${createLink(action:'obtenerImagen')}?fileName='+
 					      escape(file.fileName)+'&ruta='+escape('${path}')))
 					}
 				}).width(width).height(height).animate({ top: '10' });				
-			
-				//myWindow=window.open('','','width=500,height=400')
-				//myWindow.document.write("<p>This is 'myWindow'</p>")
-				
-				//myWindow.document.write("<HTML>")
-				//myWindow.document.write("<HEAD>")
-				//myWindow.document.write("<TITLE>A simple frameset document</TITLE>")
-				//myWindow.document.write("</HEAD>")
-				//myWindow.document.write("<FRAMESET cols='20%, 80%'>")
-				//myWindow.document.write("<FRAMESET rows='100, 200'>")
-				//myWindow.document.write("<FRAME src='21112010043.jpg'>")
-				//myWindow.document.write("<FRAME src='21112010043.jpg'>")
-				//myWindow.document.write("</FRAMESET>")
-				//myWindow.document.write("<FRAME src='21112010043.jpg'>")
-				//myWindow.document.write("</FRAMESET>")
-				//myWindow.document.write("</HTML>")	
-				//myWindow.focus()
 			</uploadr:onView>			
-				
 		</uploadr:add>
 	
-		<div id="checkout-window" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
+		<div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
 	</body>
 </html>
