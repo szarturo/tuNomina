@@ -11,15 +11,14 @@
 			maxVisible="5"
 			unsupported="${createLink(plugin: 'uploadr', controller: 'upload', action: 'warning')}"
 			maxSize="52428800">
-			<% path.listFiles().each { file -> %>
+			<g:each in="${imagenes}" var="file">
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
 					<uploadr:fileModified>${file.lastModified()}</uploadr:fileModified>
 					<uploadr:fileId>myId-${RandomStringUtils.random(32, true, true)}</uploadr:fileId>
 				</uploadr:file>
-			<% } %>
+			</g:each>
 		</uploadr:add>
-	
 	
 	</body>
 </html>
