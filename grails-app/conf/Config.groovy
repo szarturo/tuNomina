@@ -197,7 +197,7 @@ simpleCaptcha {
 
 activiti {
 		processEngineName = "activiti-engine-default"
-		databaseType = "mysql"
+		databaseType = "oracle"
 		deploymentName = appName
 		deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
 						 "file:./grails-app/conf/**/*.png",

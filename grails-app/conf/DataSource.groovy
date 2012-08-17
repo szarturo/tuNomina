@@ -18,8 +18,12 @@ environments {
 		
 		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
-			dbCreate = "create-drop"
-			url = "jdbc:mysql://localhost:3306/simGrails2"
+			//url = "jdbc:mysql://localhost:3306/simGrails2"
+			driverClassName = 'oracle.jdbc.driver.OracleDriver'
+			username = 'nomina'
+			password = 'nomina'
+			url = 'jdbc:oracle:thin:@localhost:1521:XE'
+			dbCreate = 'create-drop'
 		}
 		
 		//EJEMPLO DE COMO USAR UN SEGUNDO DATASOURCE
