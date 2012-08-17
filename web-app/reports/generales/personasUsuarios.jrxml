@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personasUsuarios" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personasUsuarios" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fa7a6afb-a0a4-4a7e-81a2-07cbb881d4af">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -18,14 +18,14 @@ WHERE
 	<field name="username" class="java.lang.String"/>
 	<field name="primer_nombre" class="java.lang.String"/>
 	<field name="apellido_paterno" class="java.lang.String"/>
-	<field name="usuario_id" class="java.lang.Long"/>
+	<field name="usuario_id" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="210" y="42" width="150" height="20"/>
+				<reportElement uuid="482dd559-dde5-42a3-9b08-c22775f2bbfc" x="210" y="42" width="150" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
@@ -36,22 +36,22 @@ WHERE
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="104" y="1" width="100" height="20"/>
+				<reportElement uuid="62b71bbb-da8f-437b-b08d-f949e7db76d4" x="104" y="1" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Username]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="204" y="1" width="100" height="20"/>
+				<reportElement uuid="7bd825b9-2550-42bd-a718-5307c4310ef2" x="204" y="1" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="304" y="1" width="100" height="20"/>
+				<reportElement uuid="6e9fd3cf-cba2-4df8-90e9-6260c9f31e5d" x="304" y="1" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Paterno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="4" y="1" width="100" height="20"/>
+				<reportElement uuid="be126512-ed07-4c7c-abfc-f7f10a953e4a" x="4" y="1" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Usuario Id]]></text>
 			</staticText>
@@ -60,22 +60,22 @@ WHERE
 	<columnHeader>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="104" y="0" width="100" height="20"/>
+				<reportElement uuid="06186add-6944-413f-8fd8-a05e926c75db" x="104" y="0" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="204" y="0" width="100" height="20"/>
+				<reportElement uuid="3cf82f03-cad7-45aa-a8a2-dd2d9205959a" x="204" y="0" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{primer_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="304" y="0" width="100" height="20"/>
+				<reportElement uuid="3158e2d7-daaa-4344-ae35-9cadfb9ea6fc" x="304" y="0" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{apellido_paterno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="0" width="100" height="20"/>
+				<reportElement uuid="8d587282-8b15-4f3d-b04e-1bb17e511188" x="4" y="0" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{usuario_id}]]></textFieldExpression>
 			</textField>
