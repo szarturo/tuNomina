@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="layout" content="graid" />
+<meta name="layout" content="main" />
 <g:set var="entityName"
 	value="${message(code: 'contact.label', default: 'Contact')}" />
 <title><g:message code="default.list.label" args="[entityName]" /></title>
@@ -73,7 +73,7 @@
 </head>
 <body>
 
-	<div class="body" style="width: 100%;">
+	<div class="body" style="width: 115%;">
 		<h1>
 			<g:message code="default.list.label" args="[entityName]" />
 		</h1>
