@@ -1,8 +1,11 @@
 .classpath
 .project
 .settings
+.idea
 stacktrace.log
 caldecott.log
+TuNomina-grailsPlugins.iml
+TuNomina.iml
 target/
 web-app/WEB-INF/classes
 target-eclipse/classes
