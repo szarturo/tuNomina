@@ -22,6 +22,7 @@ environments {
 			url = "jdbc:mysql://localhost:3306/simGrails2"
 		}
 		
+		//EJEMPLO DE COMO USAR UN SEGUNDO DATASOURCE
 		dataSource_activiti {
 			driverClassName = "com.mysql.jdbc.Driver"
 			username = "root"
