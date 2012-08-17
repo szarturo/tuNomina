@@ -9,13 +9,14 @@ class SimCatTipoPersona {
 	String  descripcionTipoPersona
 	
 	//RELACION DE MUCHOS A MUCHOS ENTRE TIPO DE PERSONA Y PERSONA
-	static hasMany = RsPersona 
 	static belongsTo = RsPersona
-
+	static hasMany = [persona: RsPersona] 
+	
     static constraints = {
 		claveTipoPersona(size:3..15, unique: true, nullable: false, blank: false)
 		nombreTipoPersona(size:3..50, unique: true, nullable: false, blank: false)
 		descripcionTipoPersona(size:3..150, nullable: true)
+		persona(nullable: true)
     }
 
 	String toString() {
