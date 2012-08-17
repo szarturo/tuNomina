@@ -5,7 +5,7 @@
 	id="definitions" targetNamespace="http://activiti.org/bpmn20">
 	<process id="solicitudPrestamo" name="Solicitud de Prestamo">
 
-		<!-- Inicia:peter, continua:kermit, despues de un minuto continua:fozzie -->
+		<!-- Inicia:peter, continua:kermit, despues de un minuto continua:fozzie, en caso de aprobar termina Admin -->
 		<startEvent id="inicio" />
 
 		<sequenceFlow id="flujo0" sourceRef="inicio"
