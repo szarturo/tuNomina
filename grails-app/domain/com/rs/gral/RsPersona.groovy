@@ -5,7 +5,7 @@ import com.sim.usuario.Usuario
 import com.sim.catalogo.SimCatDocumento
 import com.sim.catalogo.SimCatEscolaridad
 import com.sim.catalogo.SimCatTipoPersona
-//import com.sim.cliente.RsCliente;
+import com.sim.cliente.RsCliente;
 //import com.sim.cliente.RsReferenciaCliente;
 
 class RsPersona {
@@ -28,6 +28,7 @@ class RsPersona {
 	Usuario           usuario
 	
 	//static hasOne  = [ datosEmpleado : RsEmpleado, datosCliente : RsCliente, referenciaCliente : RsReferenciaCliente]
+    static hasOne  =  [ datosCliente : RsCliente]
 	
 	//RELACION DE MUCHOS A MUCHOS ENTRE TIPO DE PERSONA Y PERSONA
 	static hasMany = [ telefonos : RsGralTelefono, domicilios : RsGralDomicilio, tiposPersona : SimCatTipoPersona]
@@ -62,7 +63,7 @@ class RsPersona {
 			if (rsPersona.usuario) tipoPersona?.claveTipoPersona?.contains('USUARIO') }
 		usuario nullable:true, unique: true
 		//datosEmpleado nullable: true
-		//datosCliente nullable: true
+		datosCliente nullable: true
 		//referenciaCliente nullable: true
 	}
 	
