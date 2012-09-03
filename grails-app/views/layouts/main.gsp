@@ -110,17 +110,17 @@
                         <li><a href="#" class="parent"><span>Estructura Organizacional</span></a>
                             <div>
                                 <ul>
+                                    <li><g:link controller="region">
+                                        <span>Regi&oacute;n</span>
+                                    </g:link></li>
+                                    <li><g:link controller="sucursal">
+                                        <span>Sucursal</span>
+                                    </g:link></li>
                                     <li><g:link controller="oficina">
                                         <span>Oficina</span>
                                     </g:link></li>
                                     <li><g:link controller="delegacion">
                                         <span>Delegaci&oacute;n</span>
-                                    </g:link></li>
-                                    <li><g:link controller="sucursal">
-                                        <span>Sucursal</span>
-                                    </g:link></li>
-                                    <li><g:link controller="region">
-                                        <span>Regi&oacute;n</span>
                                     </g:link></li>
 
                                 </ul>
