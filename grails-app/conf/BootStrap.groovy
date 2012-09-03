@@ -683,12 +683,22 @@ class BootStrap {
 		]
 		personaAdmin.save(failOnError: true)
 
+        new Sucursal(claveSucursal: 'EDOMEX',
+                nombreSucursal: 'ESTADO DE MEXICO',
+        ).save(failOnError: true)
+
+        new Sucursal(claveSucursal: 'ZACATECAS',
+                nombreSucursal: 'ZACATECAS',
+        ).save(failOnError: true)
+
         new Oficina(claveOficina: 'IXT',
                 nombreOficina: 'IXTAPALUCA',
+                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
         new Oficina(claveOficina: 'TOL',
                 nombreOficina: 'TOLUCA',
+                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
         new Delegacion(claveDelegacion: 'EDOMEX',
@@ -699,13 +709,6 @@ class BootStrap {
                 nombreDelegacion: 'ZACATECAS',
         ).save(failOnError: true)
 
-        new Sucursal(claveSucursal: 'EDOMEX',
-                nombreSucursal: 'ESTADO DE MEXICO',
-        ).save(failOnError: true)
-
-        new Sucursal(claveSucursal: 'ZACATECAS',
-                nombreSucursal: 'ZACATECAS',
-        ).save(failOnError: true)
 
     }
 
