@@ -2,6 +2,7 @@ import com.sim.catalogo.*
 import com.sim.usuario.*
 import com.rs.gral.*
 import com.sim.entidad.Oficina
+import com.sim.entidad.Delegacion
 
 class BootStrap {
 
@@ -689,7 +690,13 @@ class BootStrap {
                 nombreOficina: 'TOLUCA',
         ).save(failOnError: true)
 
+        new Delegacion(claveDelegacion: 'EDOMEX',
+                nombreDelegacion: 'ESTADO MEXICO',
+        ).save(failOnError: true)
 
+        new Delegacion(claveDelegacion: 'ZACATECAS',
+                nombreDelegacion: 'ZACATECAS',
+        ).save(failOnError: true)
     }
 
 	def destroy = {

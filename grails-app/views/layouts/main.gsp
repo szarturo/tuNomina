@@ -113,6 +113,10 @@
                                     <li><g:link controller="oficina">
                                         <span>Oficina</span>
                                     </g:link></li>
+                                    <li><g:link controller="delegacion">
+                                        <span>Delegaci&oacute;n</span>
+                                    </g:link></li>
+
                                     <li><a href="#"><span>Delegaci&oacute;n</span></a></li>
                                 </ul>
                             </div></li>
