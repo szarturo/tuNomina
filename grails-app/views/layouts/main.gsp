@@ -116,7 +116,9 @@
                                     <li><g:link controller="delegacion">
                                         <span>Delegaci&oacute;n</span>
                                     </g:link></li>
-
+                                    <li><g:link controller="sucursal">
+                                        <span>Sucursal</span>
+                                    </g:link></li>
                                     <li><a href="#"><span>Delegaci&oacute;n</span></a></li>
                                 </ul>
                             </div></li>
