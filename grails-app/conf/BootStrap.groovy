@@ -703,10 +703,12 @@ class BootStrap {
 
         new Delegacion(claveDelegacion: 'EDOMEX',
                 nombreDelegacion: 'ESTADO MEXICO',
+                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
         new Delegacion(claveDelegacion: 'ZACATECAS',
                 nombreDelegacion: 'ZACATECAS',
+                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
 
