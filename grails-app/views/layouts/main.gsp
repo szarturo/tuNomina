@@ -106,12 +106,25 @@
 										</div></li>
 								</ul>
 							</div></li>
-						<li><g:link controller="simCatBanco">
+
+                        <li><a href="#" class="parent"><span>Estructura Organizacional</span></a>
+                            <div>
+                                <ul>
+                                    <li><g:link controller="oficina">
+                                        <span>Oficina</span>
+                                    </g:link></li>
+                                    <li><a href="#"><span>Delegaci&oacute;n</span></a></li>
+                                </ul>
+                            </div></li>
+
+                        <li><g:link controller="simCatBanco">
 								<span>Banco</span>
 							</g:link></li>
 						<li><a href="#"><span>Sub Item 3</span></a></li>
+
 					</ul>
 				</div></li>
+
 			<li><a href="#"><span>Prestamos</span></a>
 				<div>
 					<ul>

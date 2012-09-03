@@ -1,6 +1,7 @@
 import com.sim.catalogo.*
 import com.sim.usuario.*
 import com.rs.gral.*
+import com.sim.entidad.Oficina
 
 class BootStrap {
 
@@ -680,8 +681,16 @@ class BootStrap {
 		]
 		personaAdmin.save(failOnError: true)
 
+        new Oficina(claveOficina: 'IXT',
+                nombreOficina: 'IXTAPALUCA',
+        ).save(failOnError: true)
 
-	}
+        new Oficina(claveOficina: 'TOL',
+                nombreOficina: 'TOLUCA',
+        ).save(failOnError: true)
+
+
+    }
 
 	def destroy = {
 	}
