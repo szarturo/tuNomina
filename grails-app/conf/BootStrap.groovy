@@ -4,6 +4,7 @@ import com.rs.gral.*
 import com.sim.entidad.Oficina
 import com.sim.entidad.Delegacion
 import com.sim.entidad.Sucursal
+import com.sim.entidad.Region
 
 class BootStrap {
 
@@ -683,12 +684,22 @@ class BootStrap {
 		]
 		personaAdmin.save(failOnError: true)
 
+        new Region(claveRegion: 'CENTRO',
+                nombreRegion: 'CENTRO MEXICO',
+        ).save(failOnError: true)
+
+        new Region(claveRegion: 'NORTE',
+                nombreRegion: 'NORTE MEXICO',
+        ).save(failOnError: true)
+
         new Sucursal(claveSucursal: 'EDOMEX',
                 nombreSucursal: 'ESTADO DE MEXICO',
+                regional: Region.findByClaveRegion('CENTRO'),
         ).save(failOnError: true)
 
         new Sucursal(claveSucursal: 'ZACATECAS',
                 nombreSucursal: 'ZACATECAS',
+                regional: Region.findByClaveRegion('CENTRO'),
         ).save(failOnError: true)
 
         new Oficina(claveOficina: 'IXT',

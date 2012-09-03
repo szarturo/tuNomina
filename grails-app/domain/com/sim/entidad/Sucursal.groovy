@@ -7,6 +7,7 @@ class Sucursal {
     String  descripcionSucursal
 
     static hasMany = [oficinas: Oficina, delegaciones: Delegacion]
+    static belongsTo = [regional: Region]
 
     static constraints = {
         claveSucursal(size:3..15, unique: true, nullable: false, blank: false)
