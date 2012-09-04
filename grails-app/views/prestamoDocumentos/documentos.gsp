@@ -10,12 +10,13 @@
 		<uploadr:add name="${clavePrestamo}" path="${path}" direction="up"
 			maxVisible="8"
 			unsupported="${createLink(plugin: 'uploadr', controller: 'upload', action: 'warning')}"
-			maxSize="52428800">
+			maxSize="52428800" rating="true" voting="true">
 			<g:each in="${imagenes}" var="file">
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
 					<uploadr:fileModified>${file.lastModified()}</uploadr:fileModified>
 					<uploadr:fileId>myId-${RandomStringUtils.random(32, true, true)}</uploadr:fileId>
+                    <uploadr:ratingText>Selecciona los archivos a comparar</uploadr:ratingText>
 				</uploadr:file>
 			</g:each>
 			
@@ -42,9 +43,54 @@
 					      escape(file.fileName)+'&ruta='+escape('${path}')))
 					}
 				}).width(width).height(height).animate({ top: '10' });				
-			</uploadr:onView>			
+			</uploadr:onView>
+
+            <uploadr:onLike>
+                console.log('you clicked like:');
+                console.log(file);
+                console.log(domObj);
+
+                // callback if like action was successfull
+                // and pass the new file rating
+                // En ocaciones lo ejecuta a la segunda
+                callback(file.fileRating + 1);
+                callback(file.fileRating + 1);
+                //alert(file.fileName);
+                //alert(file.fileRating);
+                // Agrega la imagen al arreglo
+                imagenes[file.fileName] = file.fileName;
+
+                for (var key in imagenes)
+                {
+                    if (imagenes.hasOwnProperty(key)){
+                        alert(key + " = " + imagenes[key]);
+                    }
+                }
+
+            </uploadr:onLike>
+
+            <uploadr:onUnlike>
+                console.log('you clicked unlike:');
+                console.log(file);
+                console.log(domObj);
+
+                // callback if unlike action was successfull
+                // and pass the new file rating
+                // En ocaciones lo ejecuta a la segunda
+                callback(file.fileRating - 1);
+                callback(file.fileRating - 1);
+
+                // Borra la imagen del arreglo
+                delete imagenes[file.fileName];
+            </uploadr:onUnlike>
+
 		</uploadr:add>
 	
 		<div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
+
+    <g:javascript>
+        var imagenes = new Object();
+    </g:javascript>
+
 	</body>
 </html>
