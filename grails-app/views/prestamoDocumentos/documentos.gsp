@@ -38,48 +38,31 @@
 						close: function() { $(this).dialog('close'); }
 					},
 					create: function(){
+
 					      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
 					      '${createLink(action:'obtenerImagen')}?fileName='+
 					      escape(file.fileName)+'&ruta='+escape('${path}')))
+
 					}
 				}).width(width).height(height).animate({ top: '10' });				
 			</uploadr:onView>
 
             <uploadr:onLike>
-                console.log('you clicked like:');
-                console.log(file);
-                console.log(domObj);
-
                 // callback if like action was successfull
                 // and pass the new file rating
                 // En ocaciones lo ejecuta a la segunda
                 callback(file.fileRating + 1);
                 callback(file.fileRating + 1);
-                //alert(file.fileName);
-                //alert(file.fileRating);
                 // Agrega la imagen al arreglo
                 imagenes[file.fileName] = file.fileName;
-
-                for (var key in imagenes)
-                {
-                    if (imagenes.hasOwnProperty(key)){
-                        alert(key + " = " + imagenes[key]);
-                    }
-                }
-
             </uploadr:onLike>
 
             <uploadr:onUnlike>
-                console.log('you clicked unlike:');
-                console.log(file);
-                console.log(domObj);
-
                 // callback if unlike action was successfull
                 // and pass the new file rating
                 // En ocaciones lo ejecuta a la segunda
                 callback(file.fileRating - 1);
                 callback(file.fileRating - 1);
-
                 // Borra la imagen del arreglo
                 delete imagenes[file.fileName];
             </uploadr:onUnlike>
@@ -88,8 +71,19 @@
 	
 		<div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
 
+    <button onclick="mostrarDocumentos()">Ver Documentos</button>
+
     <g:javascript>
         var imagenes = new Object();
+
+        function mostrarDocumentos(){
+            for (var key in imagenes)
+            {
+                if (imagenes.hasOwnProperty(key)){
+                    alert(key + " = " + imagenes[key]);
+                }
+            }
+        }
     </g:javascript>
 
 	</body>
