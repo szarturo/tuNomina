@@ -34,7 +34,19 @@ class PrestamoDocumentosController {
         println fileName1
         println fileName2
 
-        render 'Documentos: '+fileName1 +' '+ fileName2
+        render text: """
+
+                <FRAMESET cols="20%, 80%">
+                  <FRAMESET rows="100, 200">
+                      <FRAME src="contents_of_frame1.html">
+                      <FRAME src="contents_of_frame2.gif">
+                  </FRAMESET>
+                  <FRAME src="contents_of_frame3.html">
+                </FRAMESET>
+
+        """,contentType: 'text/html'
+
+        //render 'Documentos: '+fileName1 +' '+ fileName2
     }
 
 
