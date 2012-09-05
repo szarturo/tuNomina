@@ -24,4 +24,19 @@ class PrestamoDocumentosController {
 		response.outputStream.flush()
 		
 	}
+
+    def compararDocumentos(){
+        def fileName1 = params.fileName0
+        def fileName2 = params.fileName1
+        def path = params.ruta
+
+        println path
+        println fileName1
+        println fileName2
+
+        render 'Documentos: '+fileName1 +' '+ fileName2
+    }
+
+
+
 }

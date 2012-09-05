@@ -68,23 +68,58 @@
             </uploadr:onUnlike>
 
 		</uploadr:add>
-	
-		<div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
 
     <button onclick="mostrarDocumentos()">Ver Documentos</button>
 
+
+
     <g:javascript>
         var imagenes = new Object();
+        var documentos = new Array();
+
 
         function mostrarDocumentos(){
+            var i = 0;
             for (var key in imagenes)
             {
                 if (imagenes.hasOwnProperty(key)){
-                    alert(key + " = " + imagenes[key]);
+                    //alert(key + " = " + imagenes[key]);
+                    documentos[i] = imagenes[key];
+                    i = i +1;
                 }
             }
+
+            // open a modal dialog to view the file contents
+            var width = 750;
+            var height= 500;
+
+            $("#ventana").dialog(
+            {
+                title       : 'Documentos',
+                position 	: 'top',
+                autoOpen 	: true,
+                width 		: width,
+                height 		: height,
+                modal 		: true,
+                close       : function() { window.location.reload() },
+                buttons 	: {
+                    close: function() { $(this).dialog('close'); }
+                },
+                create: function(){
+
+                      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
+                      '${createLink(action:'compararDocumentos')}?fileName0='+
+                      documentos[0]+'&fileName1='+documentos[1]+'&ruta='+escape('${path}')))
+
+                }
+            }).width(width).height(height).animate({ top: '10' });
+
+
+
         }
     </g:javascript>
 
-	</body>
+    <div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
+
+    </body>
 </html>
