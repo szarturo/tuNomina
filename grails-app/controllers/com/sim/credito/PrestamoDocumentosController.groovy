@@ -46,7 +46,6 @@ class PrestamoDocumentosController {
 
         """,contentType: 'text/html'
 
-        //render 'Documentos: '+fileName1 +' '+ fileName2
     }
 
 
