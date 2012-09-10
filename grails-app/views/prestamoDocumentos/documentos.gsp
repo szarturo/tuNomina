@@ -90,8 +90,8 @@
             }
 
             // open a modal dialog to view the file contents
-            var width = 750;
-            var height= 500;
+            var width = 1200;
+            var height= 600;
 
             $("#ventana").dialog(
             {
@@ -107,7 +107,7 @@
                 },
                 create: function(){
 
-                      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
+                      $(this).append($("<iframe style='width:1150px; height: 600px;'></iframe>").attr('src',
                       '${createLink(action:'compararDocumentos')}?fileName0='+
                       documentos[0]+'&fileName1='+documentos[1]+'&ruta='+escape('${path}')))
 

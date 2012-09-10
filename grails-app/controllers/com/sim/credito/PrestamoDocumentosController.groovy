@@ -35,19 +35,11 @@ class PrestamoDocumentosController {
         println fileName2
 
         render text: """
-
-                <FRAMESET cols="20%, 80%">
-                  <FRAMESET rows="100, 200">
-                      <FRAME src="contents_of_frame1.html">
-                      <FRAME src="contents_of_frame2.gif">
-                  </FRAMESET>
-                  <FRAME src="contents_of_frame3.html">
+                <FRAMESET cols="50%, 50%">
+                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName1}&ruta=${path}">
+                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName2}&ruta=${path}">
                 </FRAMESET>
-
         """,contentType: 'text/html'
-
     }
-
-
 
 }
