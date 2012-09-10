@@ -31,7 +31,7 @@ class PrestamoDocumentosController {
         def path = params.ruta
 
         render text: """
-                <FRAMESET cols="50%, 50%">
+                <FRAMESET rows="50%, 50%">
                       <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName1}&ruta=${path}">
                       <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName2}&ruta=${path}">
                 </FRAMESET>
