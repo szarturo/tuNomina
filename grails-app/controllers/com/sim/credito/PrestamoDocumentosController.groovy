@@ -4,8 +4,8 @@ class PrestamoDocumentosController {
 
      def listaDocumentos() {
 		
-		 def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/imagenes/${params.id}")
-		 def imagenes = path.listFiles()
+        def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/imagenes/${params.id}")
+		def imagenes = path.listFiles()
 		 
         render(view: "documentos", model: [clavePrestamo:params.id, path:path, imagenes:imagenes])
     }
@@ -29,10 +29,6 @@ class PrestamoDocumentosController {
         def fileName1 = params.fileName0
         def fileName2 = params.fileName1
         def path = params.ruta
-
-        println path
-        println fileName1
-        println fileName2
 
         render text: """
                 <FRAMESET cols="50%, 50%">

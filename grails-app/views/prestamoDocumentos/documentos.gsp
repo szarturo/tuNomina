@@ -71,12 +71,9 @@
 
     <button onclick="mostrarDocumentos()">Ver Documentos</button>
 
-
-
     <g:javascript>
         var imagenes = new Object();
         var documentos = new Array();
-
 
         function mostrarDocumentos(){
             var i = 0;
@@ -109,13 +106,10 @@
 
                       $(this).append($("<iframe style='width:1150px; height: 600px;'></iframe>").attr('src',
                       '${createLink(action:'compararDocumentos')}?fileName0='+
-                      documentos[0]+'&fileName1='+documentos[1]+'&ruta='+escape('${path}')))
+                      escape(documentos[0])+'&fileName1='+escape(documentos[1])+'&ruta='+escape('${path}')))
 
                 }
             }).width(width).height(height).animate({ top: '10' });
-
-
-
         }
     </g:javascript>
 
