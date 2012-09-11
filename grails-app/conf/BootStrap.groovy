@@ -1,10 +1,7 @@
 import com.sim.catalogo.*
 import com.sim.usuario.*
 import com.rs.gral.*
-import com.sim.entidad.Oficina
-import com.sim.entidad.Delegacion
-import com.sim.entidad.Sucursal
-import com.sim.entidad.Region
+import com.sim.entidad.*
 
 class BootStrap {
 
@@ -684,42 +681,42 @@ class BootStrap {
 		]
 		personaAdmin.save(failOnError: true)
 
-        new Region(claveRegion: 'CENTRO',
+        new EntRegion(claveRegion: 'CENTRO',
                 nombreRegion: 'CENTRO MEXICO',
         ).save(failOnError: true)
 
-        new Region(claveRegion: 'NORTE',
+        new EntRegion(claveRegion: 'NORTE',
                 nombreRegion: 'NORTE MEXICO',
         ).save(failOnError: true)
 
-        new Sucursal(claveSucursal: 'EDOMEX',
+        new EntSucursal(claveSucursal: 'EDOMEX',
                 nombreSucursal: 'ESTADO DE MEXICO',
-                regional: Region.findByClaveRegion('CENTRO'),
+                regional: EntRegion.findByClaveRegion('CENTRO'),
         ).save(failOnError: true)
 
-        new Sucursal(claveSucursal: 'ZACATECAS',
+        new EntSucursal(claveSucursal: 'ZACATECAS',
                 nombreSucursal: 'ZACATECAS',
-                regional: Region.findByClaveRegion('CENTRO'),
+                regional: EntRegion.findByClaveRegion('CENTRO'),
         ).save(failOnError: true)
 
-        new Oficina(claveOficina: 'IXT',
+        new EntOficina(claveOficina: 'IXT',
                 nombreOficina: 'IXTAPALUCA',
-                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
-        new Oficina(claveOficina: 'TOL',
+        new EntOficina(claveOficina: 'TOL',
                 nombreOficina: 'TOLUCA',
-                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
-        new Delegacion(claveDelegacion: 'EDOMEX',
+        new EntDelegacion(claveDelegacion: 'EDOMEX',
                 nombreDelegacion: 'ESTADO MEXICO',
-                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
-        new Delegacion(claveDelegacion: 'ZACATECAS',
+        new EntDelegacion(claveDelegacion: 'ZACATECAS',
                 nombreDelegacion: 'ZACATECAS',
-                sucursal: Sucursal.findByClaveSucursal('EDOMEX'),
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
 

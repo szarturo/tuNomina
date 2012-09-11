@@ -1,12 +1,12 @@
 package com.sim.entidad
 
-class Region {
+class EntRegion {
 
     String  claveRegion
     String  nombreRegion
     String  descripcionRegion
 
-    static hasMany = [sucursales: Sucursal]
+    static hasMany = [sucursales: EntSucursal]
 
     static constraints = {
         claveRegion(size:3..15, unique: true, nullable: false, blank: false)

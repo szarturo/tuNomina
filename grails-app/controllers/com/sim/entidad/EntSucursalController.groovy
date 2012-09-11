@@ -1,6 +1,6 @@
 package com.sim.entidad
 
-class SucursalController {
+class EntSucursalController {
 
     def scaffold = true
 }

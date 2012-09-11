@@ -1,13 +1,13 @@
 package com.sim.entidad
 
-class Sucursal {
+class EntSucursal {
 
     String  claveSucursal
     String  nombreSucursal
     String  descripcionSucursal
 
-    static hasMany = [oficinas: Oficina, delegaciones: Delegacion]
-    static belongsTo = [regional: Region]
+    static hasMany = [oficinas: EntOficina, delegaciones: EntDelegacion]
+    static belongsTo = [regional: EntRegion]
 
     static constraints = {
         claveSucursal(size:3..15, unique: true, nullable: false, blank: false)

@@ -1,12 +1,12 @@
 package com.sim.entidad
 
-class Delegacion {
+class EntDelegacion {
 
     String  claveDelegacion
     String  nombreDelegacion
     String  descripcionDelegacion
 
-    static belongsTo = [sucursal: Sucursal]
+    static belongsTo = [sucursal: EntSucursal]
 
     static constraints = {
         claveDelegacion(size:3..15, unique: true, nullable: false, blank: false)

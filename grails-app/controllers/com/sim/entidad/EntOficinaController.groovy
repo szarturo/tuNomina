@@ -1,6 +1,6 @@
 package com.sim.entidad
 
-class RegionController {
+class EntOficinaController {
 
     def scaffold = true
 }
