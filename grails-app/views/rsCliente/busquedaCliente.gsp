@@ -32,12 +32,7 @@
         }
 
         $(document).ready(function() {
-            var standardInitialized = false;
-            var customButtonDefaultInitialized = false;
-            var customActionInitialized = false;
             var subgridInitialized = false;
-            var groupingInitialized = false;
-            var multiselectInitialized = false;
 
             /**
             * Our view is tab based so we must set that up.
@@ -63,7 +58,7 @@
 
 <div class="body" style="width: 115%;">
     <h1>
-        <g:message code="default.list.label" args="[entityName]"/>
+
     </h1>
     <g:if test="${flash.message}">
         <div class="message">
