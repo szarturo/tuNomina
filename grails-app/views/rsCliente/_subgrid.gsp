@@ -3,12 +3,12 @@
   url="'${createLink(action: 'listJSON')}'"
   editurl="'${createLink(action: 'editJSON')}'"
   colNames="'Primer Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
-  colModel="{name:'firstName', editable: true},
+  colModel="{name:'numeroDeNomina', editable: true},
             {name:'persona.apellidoPaterno', editable: true},
-            {name:'email', editable: true},
+            {name:'numeroDeNomina', editable: true},
             {name:'numeroDeNomina', editable: true},
             {name:'id', hidden: true}"
-  sortname="'firstName'"
+  sortname="'numeroDeNomina'"
   caption="'Subgrid'"
   height="300"
   viewrecords="true"
