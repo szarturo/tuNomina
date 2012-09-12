@@ -89,7 +89,7 @@
 											<span>Escolaridad</span>
 										</g:link></li>
 									<li><g:link controller="simCatTipoPersona">
-											<span>Tipo Persona</span>
+											<span>Tipo Personas</span>
 										</g:link></li>
 									<li><g:link controller="simCatDescTelefono">
 											<span>Tipo Tel&eacute;fono</span>
