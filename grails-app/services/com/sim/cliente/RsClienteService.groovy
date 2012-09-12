@@ -35,7 +35,7 @@ class RsClienteService {
         def results = clientes?.collect {
             [
                     cell: [
-                            it.dependencia,
+                            it.numeroDeNomina,
                             it.persona,
                             it.numeroDeNomina,
                             it.numeroDeNomina

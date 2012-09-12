@@ -9,7 +9,7 @@
             {name:'numeroDeNomina', editable: true},
             {name:'id', hidden: true}"
   sortname="'numeroDeNomina'"
-  caption="'Subgrid'"
+  caption="'Clientes'"
   height="300"
   viewrecords="true"
   autowidth="true"
