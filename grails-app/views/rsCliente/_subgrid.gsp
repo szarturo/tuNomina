@@ -23,9 +23,6 @@
 
   <jqgrid:filterToolbar id="contactSubgrid" searchOnEnter="false" />
   <jqgrid:navigation id="contactSubgrid" refresh="true" />
-  <jqgrid:deleteButton id="contactSubgrid" messageId="message" url="${createLink(action: 'editJSON')}" />
-  <jqgrid:editButton id="contactSubgrid" messageId="message" url="${createLink(action: 'edit')}" />
-  <jqgrid:addButton id="contactSubgrid" messageId="message" url="${createLink(action: 'create')}" />
   <jqgrid:searchButton id="contactSubgrid" />
   <jqgrid:resize id="contactSubgrid" resizeOffset="-2" />
   
