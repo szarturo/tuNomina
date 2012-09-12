@@ -4,7 +4,7 @@
     <meta name="layout" content="main"/>
     <g:set var="entityName"
            value="${message(code: 'cliente.label', default: 'Cliente')}"/>
-    <title><g:message code="default.list.label" args="[entityName]"/></title>
+    <title>B&uacute;squeda de Clientes</title>
 
     <jq:resources/>
     <jqui:resources/>
@@ -73,7 +73,7 @@
     <div class="list">
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Busqueda de Clientes</a></li>
+                <li><a href="#tabs-1">B&uacute;squeda de Clientes</a></li>
             </ul>
 
             <div id="tabs-1">
