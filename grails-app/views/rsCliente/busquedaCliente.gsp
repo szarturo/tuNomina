@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main"/>
         <g:set var="entityName"
-               value="${message(code: 'cliente.label', default: 'Cliente')}"/>
+               value="${message(code: 'cliente.label', default: 'RsCliente')}"/>
         <title>B&uacute;squeda de Clientes</title>
 
         <jq:resources/>

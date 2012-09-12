@@ -2,13 +2,13 @@
   id="contactSubgrid"
   url="'${createLink(action: 'listJSON')}'"
   editurl="'${createLink(action: 'editJSON')}'"
-  colNames="'First Name', 'Last Name', 'E-mail', 'Phone', 'id'"
+  colNames="'Primer Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
   colModel="{name:'firstName', editable: true},
-            {name:'lastName', editable: true},
+            {name:'persona.apellidoPaterno', editable: true},
             {name:'email', editable: true},
-            {name:'phone', editable: true},
+            {name:'numeroDeNomina', editable: true},
             {name:'id', hidden: true}"
-  sortname="'lastName'"
+  sortname="'firstName'"
   caption="'Subgrid'"
   height="300"
   viewrecords="true"
