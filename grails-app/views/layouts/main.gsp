@@ -146,6 +146,9 @@
                         <li><g:link controller="rsCliente">
                             <span>Clientes</span>
                         </g:link></li>
+                        <li><g:link controller="rsCliente" action="busquedaCliente">
+                            <span>Busqueda Cliente</span>
+                        </g:link></li>
                         <li><a href="#" class="parent"><span>Sub Item 1</span></a>
 							<div>
 								<ul>
