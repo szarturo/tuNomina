@@ -719,6 +719,14 @@ class BootStrap {
                 sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
 
+        new EntDependencia(claveDependencia: 'IMSS',
+                nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
+        ).save(failOnError: true)
+
+        new EntDependencia(claveDependencia: 'CFE',
+                nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
+        ).save(failOnError: true)
+
 
     }
 

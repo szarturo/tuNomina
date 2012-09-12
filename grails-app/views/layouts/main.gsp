@@ -122,6 +122,9 @@
                                     <li><g:link controller="entDelegacion">
                                         <span>Delegaci&oacute;n</span>
                                     </g:link></li>
+                                    <li><g:link controller="entDependencia">
+                                        <span>Dependencia</span>
+                                    </g:link></li>
 
                                 </ul>
                             </div></li>
