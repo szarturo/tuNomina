@@ -142,8 +142,11 @@
 					<ul>
 						<li><g:link controller="prestamo">
 								<span>Solicitados</span>
-							</g:link></li>					
-						<li><a href="#" class="parent"><span>Sub Item 1</span></a>
+							</g:link></li>
+                        <li><g:link controller="rsCliente">
+                            <span>Clientes</span>
+                        </g:link></li>
+                        <li><a href="#" class="parent"><span>Sub Item 1</span></a>
 							<div>
 								<ul>
 									<li><a href="#"><span>Sub Item 1.1</span></a></li>

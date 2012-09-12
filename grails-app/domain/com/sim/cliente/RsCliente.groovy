@@ -1,23 +1,32 @@
 package com.sim.cliente
 
 import com.rs.gral.RsPersona;
+import com.sim.entidad.EntDependencia
 
 class RsCliente {
 
-    RsPersona persona
+    RsPersona      persona
+    EntDependencia dependencia
+    String         numeroDeNomina
 
+    /*
     BigDecimal ingresoSemanal
     Integer    dependientesEconomicos
     String     destinoDelCredito
     String     rolEnElHogar
     Boolean    listaNegra = false
+    */
 
     /*
     static hasMany = [ cuentasBancarias : RsCuentaBancaria, documentacion : RsClienteDocumentacion, referenciasClientes : RsReferenciaCliente,
             negocios : SimClienteNegocio, integranteUef : SimClienteIntegranteUef, adeudos : SimClienteAdeudos, garantias : SimClienteGarantia ]
      */
     static constraints = {
-        persona  unique: true
+        persona unique: true
+        dependencia nullable: false
+        numeroDeNomina nullable: false
+
+        /*
         ingresoSemanal scale:2, nullable:true
         dependientesEconomicos range:0..30
         destinoDelCredito inList:[
@@ -34,6 +43,7 @@ class RsCliente {
                 "HIJO(A)",
                 "OTRO"]
         listaNegra()
+        */
         //cuentasBancarias nullable : true
         //documentacion nullable : true
         //referenciasClientes nullable : true

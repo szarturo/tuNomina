@@ -2,6 +2,7 @@ import com.sim.catalogo.*
 import com.sim.usuario.*
 import com.rs.gral.*
 import com.sim.entidad.*
+import com.sim.cliente.*
 
 class BootStrap {
 
@@ -727,7 +728,20 @@ class BootStrap {
                 nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
         ).save(failOnError: true)
 
+        //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
+        def robertoPerez = new RsPersona(
+                apellidoPaterno: "PEREZ",
+                primerNombre: "ROBERTO",
+                email : "rperez@gmail.com",
+                tiposPersona : [
+                        SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+                ],
+        ).save(failOnError: true)
 
+        new RsCliente(persona: robertoPerez,
+                dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+                numeroDeNomina: '6967896JK8',
+        ).save(failOnError: true)
     }
 
 	def destroy = {
