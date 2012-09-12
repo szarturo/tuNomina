@@ -35,9 +35,9 @@ class RsClienteService {
         def results = clientes?.collect {
             [
                     cell: [
-                            it.numeroDeNomina,
-                            it.persona,
-                            it.numeroDeNomina,
+                            it.persona.primerNombre,
+                            it.persona.apellidoPaterno,
+                            it.persona.apellidoMaterno,
                             it.numeroDeNomina
                     ],
                     id: it.id

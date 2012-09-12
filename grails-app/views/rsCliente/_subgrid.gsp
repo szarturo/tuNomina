@@ -3,9 +3,9 @@
   url="'${createLink(action: 'listJSON')}'"
   editurl="'${createLink(action: 'editJSON')}'"
   colNames="'Primer Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
-  colModel="{name:'numeroDeNomina', editable: true},
+  colModel="{name:'persona.primerNombre', editable: true},
             {name:'persona.apellidoPaterno', editable: true},
-            {name:'numeroDeNomina', editable: true},
+            {name:'persona.apellidoMaterno', editable: true},
             {name:'numeroDeNomina', editable: true},
             {name:'id', hidden: true}"
   sortname="'numeroDeNomina'"
