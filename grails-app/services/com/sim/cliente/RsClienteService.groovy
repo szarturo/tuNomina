@@ -5,6 +5,8 @@ class RsClienteService {
     static transactional = true
 
     def findClientes(params) {
+
+        println ('Service Params: '+params)
         def sortIndex = params.sidx ?: 'numeroDeNomina'
         def sortOrder  = params.sord ?: 'asc'
         def maxRows = Integer.valueOf(params.rows)
@@ -21,11 +23,11 @@ class RsClienteService {
 
             if (params.email)
                 ilike('email', "%${params.email}%")
-
-            if (params.phone) {
-                ilike('phone', "%${params.phone}%")
-            }
             */
+            if (params.numeroDeNomina) {
+                ilike('numeroDeNomina', "%${params.numeroDeNomina}%")
+            }
+
             order(sortIndex, sortOrder)
         }
 
