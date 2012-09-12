@@ -19,44 +19,43 @@
 
     <script type="text/javascript">
         function customAction() {
-        alert("Custom button pressed");
+            alert("Custom button pressed");
         }
 
         function eventHandler() {
-        alert("Event handler fired");
+            alert("Event handler fired");
         }
 
         function showSelectedRows() {
-        alert("Selected Rows: "
-        + $("#multiselectContactGrid").getGridParam('selarrrow'));
+            alert("Selected Rows: "
+            + $("#multiselectContactGrid").getGridParam('selarrrow'));
         }
 
         $(document).ready(function() {
-        var standardInitialized = false;
-        var customButtonDefaultInitialized = false;
-        var customActionInitialized = false;
-        var subgridInitialized = false;
-        var groupingInitialized = false;
-        var multiselectInitialized = false;
+            var standardInitialized = false;
+            var customButtonDefaultInitialized = false;
+            var customActionInitialized = false;
+            var subgridInitialized = false;
+            var groupingInitialized = false;
+            var multiselectInitialized = false;
 
-        /**
-        * Our view is tab based so we must set that up.
-        * Notice: We must setup things like autocomplete and jqgrid when the correct
-        *         tab is shown. If we don't then size, etc. will not be right. We
-        *         also need to make sure we only set things up once.
-        */
-        $("#tabs").tabs({
-        show : function(event, ui) {
-        if (ui.index == 0 && !standardInitialized) {
-        standardInitialized = true;
-        <g:render template="standard"/>
-        }else if (ui.index == 3 && !subgridInitialized) {
-        subgridInitialized = true;
-        <g:render template="subgrid"/>
-        }
-        }
+            /**
+            * Our view is tab based so we must set that up.
+            * Notice: We must setup things like autocomplete and jqgrid when the correct
+            *         tab is shown. If we don't then size, etc. will not be right. We
+            *         also need to make sure we only set things up once.
+            */
+
+            $("#tabs").tabs({
+                show : function(event, ui) {
+                    if (ui.index == 0 && !subgridInitialized) {
+                        subgridInitialized = true;
+                        <g:render template="subgrid"/>
+                    }
+                }
+            });
         });
-        });
+
     </script>
 </head>
 
@@ -74,41 +73,15 @@
     <div class="list">
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Standard Grid</a></li>
-                <li><a href="#tabs-2">Custom Buttons - Grails Navigation</a></li>
-                <li><a href="#tabs-3">Custom Buttons - Javascript Handler</a></li>
-                <li><a href="#tabs-4">Sub Grids</a></li>
+                <li><a href="#tabs-1">Busqueda de Clientes</a></li>
             </ul>
 
             <div id="tabs-1">
-                <h3>Standard JQGrid</h3>
-                <jqgrid:wrapper id="contactStandard"/>
-            </div>
-
-            <div id="tabs-2">
-                <h3>Custom buttons - Grails Navigation</h3>
-                <jqgrid:wrapper id="contactCustomDefaultAction"/>
-            </div>
-
-            <div id="tabs-3">
-                <h3>Custom buttons - Javascript Handlers</h3>
-                <jqgrid:wrapper id="contactCustomActions"/>
-            </div>
-
-            <div id="tabs-4">
-                <h3>Subgrid</h3>
+                <h3>Con Cr&eacute;ditos</h3>
                 <jqgrid:wrapper id="contactSubgrid"/>
             </div>
 
-            <div id="tabs-5">
-                <h3>Grouping</h3>
-                <jqgrid:wrapper id="groupingContact"/>
-            </div>
 
-            <div id="tabs-6">
-                <h3>Multiselect</h3>
-                <jqgrid:wrapper id="multiselectContact"/>
-            </div>
         </div>
     </div>
 </div>
