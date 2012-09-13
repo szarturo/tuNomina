@@ -19,6 +19,9 @@ class RsClienteService {
             if (params.primerNombre)
                 ilike('primerNombre', "%${params.primerNombre}%")
 
+            if (params.segundoNombre)
+                ilike('segundoNombre', "%${params.segundoNombre}%")
+
             if (params.apellidoPaterno)
                 ilike('apellidoPaterno', "%${params.apellidoPaterno}%")
 
@@ -43,6 +46,7 @@ class RsClienteService {
             [
                     cell: [
                             it.primerNombre,
+                            it.segundoNombre,
                             it.apellidoPaterno,
                             it.apellidoMaterno,
                             it.rfc

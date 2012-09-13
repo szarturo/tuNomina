@@ -2,8 +2,9 @@
   id="contactSubgrid"
   url="'${createLink(action: 'listJSON')}'"
   editurl="'${createLink(action: 'editJSON')}'"
-  colNames="'Primer Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
+  colNames="'Primer Nombre','Segundo Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
   colModel="{name:'primerNombre', editable: true},
+            {name:'segundoNombre', editable: true},
             {name:'apellidoPaterno', editable: true},
             {name:'apellidoMaterno', editable: true},
             {name:'rfc', editable: true},
