@@ -29,6 +29,10 @@ class RsClienteService {
                 ilike('rfc', "%${params.rfc}%")
             }
 
+            tiposPersona {
+                eq("claveTipoPersona", "CLIENTE")
+            }
+
             order(sortIndex, sortOrder)
         }
 
