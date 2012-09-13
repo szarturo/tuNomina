@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${prestamoInstance?.cliente}">
+				<li class="fieldcontain">
+					<span id="cliente-label" class="property-label"><g:message code="prestamo.cliente.label" default="Cliente" /></span>
+					
+						<span class="property-value" aria-labelledby="cliente-label"><g:link controller="rsCliente" action="show" id="${prestamoInstance?.cliente?.id}">${prestamoInstance?.cliente?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

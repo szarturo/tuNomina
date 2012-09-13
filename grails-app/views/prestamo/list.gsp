@@ -26,6 +26,8 @@
 					
 						<g:sortableColumn property="clavePrestamo" title="${message(code: 'prestamo.clavePrestamo.label', default: 'Clave Prestamo')}" />
 					
+						<th><g:message code="prestamo.cliente.label" default="Cliente" /></th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -33,6 +35,8 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${prestamoInstance.id}">${fieldValue(bean: prestamoInstance, field: "clavePrestamo")}</g:link></td>
+					
+						<td>${fieldValue(bean: prestamoInstance, field: "cliente")}</td>
 					
 					</tr>
 				</g:each>

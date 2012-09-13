@@ -1,7 +1,6 @@
 <jqgrid:grid
   id="contactSubgrid"
   url="'${createLink(action: 'listJSON')}'"
-  editurl="'${createLink(action: 'editJSON')}'"
   colNames="'Primer Nombre','Segundo Nombre', 'Apellido Paterno', 'Apellido Materno','RFC', 'id'"
   colModel="{name:'primerNombre', editable: true},
             {name:'segundoNombre', editable: true},
@@ -19,8 +18,8 @@
   showPager="true"
   subGrid="true"
   subGridUrl="'${createLink(action: 'subgridJSON')}'"
-  subGridModel="name: {'Line 1', 'City', 'State', 'Zip'},
-                width: {200, 80, 80, 40}">
+  subGridModel="name: {'Id Prestamo', 'Producto', 'Estatus'},
+                width: {50, 50, 50}">
 
   <jqgrid:filterToolbar id="contactSubgrid" searchOnEnter="false" />
   <jqgrid:navigation id="contactSubgrid" refresh="true" />
