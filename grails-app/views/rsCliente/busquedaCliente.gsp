@@ -2,8 +2,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main"/>
-        <g:set var="entityName"
-               value="${message(code: 'cliente.label', default: 'RsCliente')}"/>
+
         <title>B&uacute;squeda de Clientes</title>
 
         <jq:resources/>
@@ -22,13 +21,6 @@
             $(document).ready(function() {
                 var subgridInitialized = false;
 
-                /**
-                * Our view is tab based so we must set that up.
-                * Notice: We must setup things like autocomplete and jqgrid when the correct
-                *         tab is shown. If we don't then size, etc. will not be right. We
-                *         also need to make sure we only set things up once.
-                */
-
                 $("#tabs").tabs({
                     show : function(event, ui) {
                         if (ui.index == 0 && !subgridInitialized) {
@@ -45,14 +37,13 @@
     <body>
 
         <div class="body" style="width: 115%;">
-            <h1>
 
-            </h1>
             <g:if test="${flash.message}">
                 <div class="message">
                     ${flash.message}
                 </div>
             </g:if>
+
             <div class="list">
                 <div id="tabs">
                     <ul>
@@ -63,10 +54,9 @@
                         <h3>Con Cr&eacute;ditos</h3>
                         <jqgrid:wrapper id="contactSubgrid"/>
                     </div>
-
-
                 </div>
             </div>
+
         </div>
     </body>
 </html>
