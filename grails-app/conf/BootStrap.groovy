@@ -3,6 +3,7 @@ import com.sim.usuario.*
 import com.rs.gral.*
 import com.sim.entidad.*
 import com.sim.cliente.*
+import com.sim.credito.Prestamo
 
 class BootStrap {
 
@@ -742,6 +743,38 @@ class BootStrap {
                 dependencia: EntDependencia.findByClaveDependencia('IMSS'),
                 numeroDeNomina: '6967896JK8',
         ).save(failOnError: true)
+
+        def arturoSalazar = new RsPersona(
+                email : "arturo.salazar@gmail.com",
+                apellidoPaterno: "SALAZAR",
+                apellidoMaterno: "CASTAÑEDA",
+                primerNombre: "ARTURO",
+                segundoNombre: "ARTURIN",
+                sexo: "MASCULINO",
+                estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+                fechaNacimiento : new Date('09/30/1974'),
+                identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+                numeroIdentificacionOficial : "RUFM727328328",
+                rfc : "RUFM89778",
+                curp : "RUMD76878968",
+                escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+                tiposPersona : [
+                        SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+                ],
+        ).save(failOnError: true)
+
+        def clienteArturo = new RsCliente(persona: arturoSalazar,
+                dependencia: EntDependencia.findByClaveDependencia('CFE'),
+                numeroDeNomina: 'KJKSDFYUYUI',
+        ).save(failOnError: true)
+
+        new Prestamo(clavePrestamo: "KLP987",
+                cliente : clienteArturo
+        ).save(failOnError: true)
+
+
+
+
     }
 
 	def destroy = {
