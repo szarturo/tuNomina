@@ -1,31 +1,32 @@
 package com.sim.cliente
 
+import com.rs.gral.RsPersona
+
 class RsClienteService {
 
     static transactional = true
 
     def findClientes(params) {
 
-        println ('Service Params: '+params)
-        def sortIndex = params.sidx ?: 'numeroDeNomina'
+        def sortIndex = params.sidx ?: 'apellidoPaterno'
         def sortOrder  = params.sord ?: 'asc'
         def maxRows = Integer.valueOf(params.rows)
         def currentPage = Integer.valueOf(params.page) ?: 1
         def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
 
-        def clientes = RsCliente.createCriteria().list(max: maxRows, offset: rowOffset) {
-            /*
-            if (params.firstName)
-                ilike('firstName', "%${params.firstName}%")
+        def clientes = RsPersona.createCriteria().list(max: maxRows, offset: rowOffset) {
 
-            if (params.lastName)
-                ilike('lastName', "%${params.lastName}%")
+            if (params.primerNombre)
+                ilike('primerNombre', "%${params.primerNombre}%")
 
-            if (params.email)
-                ilike('email', "%${params.email}%")
-            */
-            if (params.numeroDeNomina) {
-                ilike('numeroDeNomina', "%${params.numeroDeNomina}%")
+            if (params.apellidoPaterno)
+                ilike('apellidoPaterno', "%${params.apellidoPaterno}%")
+
+            if (params.apellidoMaterno)
+                ilike('apellidoMaterno', "%${params.apellidoMaterno}%")
+
+            if (params.rfc) {
+                ilike('rfc', "%${params.rfc}%")
             }
 
             order(sortIndex, sortOrder)
@@ -37,10 +38,10 @@ class RsClienteService {
         def results = clientes?.collect {
             [
                     cell: [
-                            it.persona.primerNombre,
-                            it.persona.apellidoPaterno,
-                            it.persona.apellidoMaterno,
-                            it.numeroDeNomina
+                            it.primerNombre,
+                            it.apellidoPaterno,
+                            it.apellidoMaterno,
+                            it.rfc
                     ],
                     id: it.id
             ]

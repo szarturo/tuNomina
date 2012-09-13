@@ -6,9 +6,9 @@
   colModel="{name:'primerNombre', editable: true},
             {name:'apellidoPaterno', editable: true},
             {name:'apellidoMaterno', editable: true},
-            {name:'numeroDeNomina', editable: true},
+            {name:'rfc', editable: true},
             {name:'id', hidden: true}"
-  sortname="'numeroDeNomina'"
+  sortname="'apellidoPaterno'"
   caption="'Clientes'"
   height="300"
   viewrecords="true"

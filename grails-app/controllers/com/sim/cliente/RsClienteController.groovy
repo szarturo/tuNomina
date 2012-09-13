@@ -15,7 +15,6 @@ class RsClienteController {
     }
 
     def listJSON = {
-        log.info('Parametros listJSON: '+params)
         render rsClienteService.findClientes(params) as JSON
     }
 
