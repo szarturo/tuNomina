@@ -24,7 +24,7 @@
 				// open a modal dialog to view the file contents
 				var width = 750;
 				var height= 500;
-				
+
 				$("#ventana").dialog(
 				{
 					title       : file.fileName,
@@ -41,7 +41,7 @@
 
 					      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
 					      '${createLink(action:'obtenerImagen')}?fileName='+
-					      escape(file.fileName)+'&ruta='+escape('${path}')))
+					      escape(file.fileName)+'&clavePrestamo='+escape('${clavePrestamo}')))
 
 					}
 				}).width(width).height(height).animate({ top: '10' });				

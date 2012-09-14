@@ -13,7 +13,8 @@ class PrestamoDocumentosController {
 	def obtenerImagen(){
 		
 		def fileName = params.fileName
-		def path = params.ruta
+
+        def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/imagenes/${params.clavePrestamo}")
 		
 		def archivo = new File(path, fileName).readBytes()
 		String longitud = archivo.length
