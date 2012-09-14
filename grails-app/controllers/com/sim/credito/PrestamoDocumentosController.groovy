@@ -29,12 +29,12 @@ class PrestamoDocumentosController {
     def compararDocumentos(){
         def fileName1 = params.fileName0
         def fileName2 = params.fileName1
-        def path = params.ruta
+        def clavePrestamo = params.clavePrestamo
 
         render text: """
                 <FRAMESET rows="50%, 50%">
-                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName1}&ruta=${path}">
-                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName2}&ruta=${path}">
+                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName1}&clavePrestamo=${clavePrestamo}">
+                      <FRAME src="${createLink(action:'obtenerImagen')}?fileName=${fileName2}&clavePrestamo=${clavePrestamo}">
                 </FRAMESET>
         """,contentType: 'text/html'
     }

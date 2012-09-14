@@ -106,7 +106,7 @@
 
                       $(this).append($("<iframe style='width:1150px; height: 600px;'></iframe>").attr('src',
                       '${createLink(action:'compararDocumentos')}?fileName0='+
-                      escape(documentos[0])+'&fileName1='+escape(documentos[1])+'&ruta='+escape('${path}')))
+                      escape(documentos[0])+'&fileName1='+escape(documentos[1])+'&clavePrestamo='+escape('${clavePrestamo}')))
 
                 }
             }).width(width).height(height).animate({ top: '10' });
