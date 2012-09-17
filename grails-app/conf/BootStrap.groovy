@@ -870,6 +870,22 @@ class BootStrap {
                 iva : 16,
         ).save(flush: true,failOnError: true)
 
+        new SimCatFormaEntrega(claveFormaEntrega: 'VENBANCO',
+                nombreFormaEntrega: 'ENTREGA EN VENTANILLA DE BANCO',
+        ).save(flush: true,failOnError: true)
+
+        new SimCatFormaEntrega(claveFormaEntrega: 'ELECTRONICA',
+                nombreFormaEntrega: 'TRANSFERENCIA ELECTRONICA',
+        ).save(flush: true,failOnError: true)
+
+        new SimCatFormaEntrega(claveFormaEntrega: 'CAJA',
+                nombreFormaEntrega: 'DIRECTAMENTE EN CAJA',
+        ).save(flush: true,failOnError: true)
+
+        new SimCatFormaEntrega(claveFormaEntrega: 'CHEQUE',
+                nombreFormaEntrega: 'EN CHEQUE',
+        ).save(flush: true,failOnError: true)
+
     }
 
 	def destroy = {
