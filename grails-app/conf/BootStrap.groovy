@@ -773,7 +773,57 @@ class BootStrap {
         ).save(flush: true,failOnError: true)
 
 
+        new SimCatPuesto(clavePuesto:  'DIRGEN',
+                nombrePuesto: 'DIRECTOR GENERAL',
+                descripcionPuesto: 'DIRECTOR GENERAL MICRO',
+        ).save(flush: true,failOnError: true)
 
+        new SimCatPuesto(clavePuesto:  'GERRIE',
+                nombrePuesto: 'GERENTE DE RIESGOS',
+                descripcionPuesto: 'GERENTE DE RIESGOS',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'COORIE',
+                nombrePuesto: 'COORDINADOR DE RIESGOS',
+                descripcionPuesto: 'COORDINADOR DE RIESGOS',
+                dependeDe : SimCatPuesto.findByClavePuesto('GERRIE'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'ASESORSUC',
+                nombrePuesto: 'ASESOR DE SUCURSAL',
+                descripcionPuesto: 'ASESOR DE SUCURSAL',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'GERREG',
+                nombrePuesto: 'GERENTE REGIONAL',
+                descripcionPuesto: 'GERENTE DE REGIONAL',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'COOREG',
+                nombrePuesto: 'COORDINADOR REGIONAL',
+                descripcionPuesto: 'COORDINADOR DE REGIONAL',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'GERSUC',
+                nombrePuesto: 'GERENTE SUCURSAL',
+                descripcionPuesto: 'GERENTE DE SUCURSAL',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'COOSUC',
+                nombrePuesto: 'COORDINADOR SUCURSAL',
+                descripcionPuesto: 'COORDINADOR DE SUCURSAL',
+                dependeDe : SimCatPuesto.findByClavePuesto('DIRGEN'),
+        ).save(flush: true,failOnError: true)
+
+        new SimCatPuesto(clavePuesto:  'VENDE',
+                nombrePuesto: 'VENDEDOR',
+                descripcionPuesto: 'VENDEDOR MTN',
+        ).save(flush: true,failOnError: true)
 
     }
 

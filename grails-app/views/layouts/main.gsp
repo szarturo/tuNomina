@@ -92,9 +92,11 @@
 											<span>Tipo Personas</span>
 										</g:link></li>
 									<li><g:link controller="simCatDescTelefono">
-											<span>Tipo Tel&eacute;fono</span>
+											<span>Tipo Tel&eacute;fonos</span>
 										</g:link></li>
-									<li><a href="#"><span>Sub Item 1.5</span></a></li>
+                                    <li><g:link controller="simCatPuesto">
+                                        <span>Puestos</span>
+                                    </g:link></li>
 									<li><a href="#"><span>Sub Item 1.6</span></a></li>
 									<li><a href="#" class="parent"><span>Sub Item
 												1.7</span></a>
@@ -175,7 +177,7 @@
 				<div>
 					<ul>
 						<li><g:link controller="rsPersona">
-								<span>Persona</span>
+								<span>Personas</span>
 							</g:link></li>
 						<li><g:link controller="rsGralTelefono">
 								<span>Tel&eacute;fonos</span>
