@@ -3,7 +3,8 @@ import com.sim.usuario.*
 import com.rs.gral.*
 import com.sim.entidad.*
 import com.sim.cliente.*
-import com.sim.credito.Prestamo
+import com.sim.credito.*
+import com.sim.empresa.*
 
 class BootStrap {
 
@@ -824,6 +825,38 @@ class BootStrap {
                 nombrePuesto: 'VENDEDOR',
                 descripcionPuesto: 'VENDEDOR MTN',
         ).save(flush: true,failOnError: true)
+
+        def personaAlex = new RsPersona(
+                email : "alejandro.salazar@gmail.com",
+                apellidoPaterno: "MIRANDA",
+                apellidoMaterno: "CASTAÑEDA",
+                primerNombre: "ALEJANDRO",
+                segundoNombre: "ALEX",
+                sexo: "MASCULINO",
+                estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+                fechaNacimiento : new Date('04/30/1980'),
+                identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+                numeroIdentificacionOficial : "RUFM727328328",
+                rfc : "RUFM89778",
+                curp : "RUMD76878968",
+                escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+                tiposPersona : [
+                        SimCatTipoPersona.findByClaveTipoPersona('EMPLEADO')
+                ],
+        ).save(flush: true,failOnError: true)
+
+        //DA DE ALTA A UN EMPLEADO
+        def empleado = new EmpEmpleado(
+                claveEmpleado : "MOR78987",
+                persona : personaAlex,
+                tipoEmpleado : "INTERNO",
+                puesto : SimCatPuesto.findByClavePuesto('VENDE'),
+                fechaIngreso  : new Date('08/20/1999'),
+                numeroNomina : "001",
+                esVigente: 'true',
+                oficina: EntOficina.findByClaveOficina('TOL'),
+        ).save(failOnError: true)
+
 
     }
 

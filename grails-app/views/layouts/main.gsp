@@ -179,6 +179,9 @@
 						<li><g:link controller="rsPersona">
 								<span>Personas</span>
 							</g:link></li>
+                        <li><g:link controller="empEmpleado">
+                            <span>Empleados</span>
+                        </g:link></li>
 						<li><g:link controller="rsGralTelefono">
 								<span>Tel&eacute;fonos</span>
 							</g:link></li>
