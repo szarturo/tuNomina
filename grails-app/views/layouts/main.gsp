@@ -151,6 +151,10 @@
                         <li><g:link controller="rsCliente" action="busquedaCliente">
                             <span>B&uacute;squeda Cliente</span>
                         </g:link></li>
+                        <li><g:link controller="proPromocion">
+                            <span>Promociones</span>
+                        </g:link></li>
+
                         <li><a href="#" class="parent"><span>Sub Item 1</span></a>
 							<div>
 								<ul>
@@ -166,10 +170,6 @@
 								</ul>
 							</div></li>
 						<li><a href="#"><span>Sub Item 3</span></a></li>
-						<li><a href="#"><span>Sub Item 4</span></a></li>
-						<li><a href="#"><span>Sub Item 5</span></a></li>
-						<li><a href="#"><span>Sub Item 6</span></a></li>
-						<li><a href="#"><span>Sub Item 7</span></a></li>
 					</ul>
 				</div></li>
 

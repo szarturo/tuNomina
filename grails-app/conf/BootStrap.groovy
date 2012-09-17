@@ -5,6 +5,7 @@ import com.sim.entidad.*
 import com.sim.cliente.*
 import com.sim.credito.*
 import com.sim.empresa.*
+import com.sim.producto.*
 
 class BootStrap {
 
@@ -855,8 +856,19 @@ class BootStrap {
                 numeroNomina : "001",
                 esVigente: 'true',
                 oficina: EntOficina.findByClaveOficina('TOL'),
-        ).save(failOnError: true)
+        ).save(flush: true,failOnError: true)
 
+        //DA DE ALTA UNA PROMOCION
+        def promocionUno = new ProPromocion(
+                clavePromocion : "MOR78987",
+                nombrePromocion : "PROMOCION ATREVETE A PEDIR",
+                dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+                tasa:  5.45,
+                plazo:  28,
+                fechaInicioVigencia : new Date('04/30/2012'),
+                fechaFinVigencia  : new Date('09/30/2012'),
+                iva : 16,
+        ).save(flush: true,failOnError: true)
 
     }
 
