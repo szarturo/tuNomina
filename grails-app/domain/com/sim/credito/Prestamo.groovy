@@ -1,5 +1,9 @@
 package com.sim.credito
 
+import java.util.Date;
+
+import org.grails.activiti.ApprovalStatus;
+
 import com.sim.cliente.RsCliente
 import com.sim.entidad.EntDependencia
 import com.sim.entidad.EntSucursal
@@ -7,6 +11,7 @@ import com.sim.empresa.EmpEmpleado
 import com.sim.producto.ProPromocion
 import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
+import com.sim.catalogo.SimCatEtapaPrestamo
 
 class Prestamo {
 
@@ -21,9 +26,14 @@ class Prestamo {
     EmpEmpleado    vendedor
     Date    	   fechaSolicitud
     BigDecimal     montoSolicitado
-    String         estatusSolicitud
+    SimCatEtapaPrestamo estatusSolicitud
     SimCatFormaEntrega formaDeDispercion
     Boolean        documentosCorrectos
+	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
+	
+	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
+	Date dateCreated
+	Date lastUpdated
 
     static belongsTo = [cliente : RsCliente]
 	
@@ -38,13 +48,11 @@ class Prestamo {
         vendedor(nullable: false)
         fechaSolicitud()
         montoSolicitado(nullable: false)
-        estatusSolicitud( inList:["INICIO MESA CONTROL",
-                "REVISADO MESA DE CONTROL",
-                "REVISADO CONTROL DE CALIDAD",
-                "PROCESADO",
-                "DEVOLUCION",
-                "COMPRADO"])
+        estatusSolicitud( nullable: false)
         formaDeDispercion(nullable: false)
         documentosCorrectos(nullable: false)
+		approvalStatus nullable:false
+		dateCreated blank:false
+		lastUpdated nullable:true
     }
 }

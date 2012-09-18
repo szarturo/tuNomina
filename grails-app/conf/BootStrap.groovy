@@ -883,6 +883,38 @@ class BootStrap {
         new SimCatFormaEntrega(claveFormaEntrega: 'CHEQUE',
                 nombreFormaEntrega: 'EN CHEQUE',
         ).save(flush: true,failOnError: true)
+		
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'INIMC',
+			nombreEtapaPrestamo: 'INICIO MESA DE CONTROL',
+			descripcionEtapaPrestamo: 'INICIO MESA DE CONTROL EN MTN',
+		).save(flush: true,failOnError: true)
+
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CAPMC',
+			nombreEtapaPrestamo: 'CAPTURADA MESA DE CONTROL',
+			descripcionEtapaPrestamo: 'CAPTURADA MESA DE CONTROL EN MTN',
+		).save(flush: true,failOnError: true)
+		
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEV',
+			nombreEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL',
+			descripcionEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL EN MTN',
+		).save(flush: true,failOnError: true)
+		
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PROC',
+			nombreEtapaPrestamo: 'PROCESO',
+			descripcionEtapaPrestamo: 'PROCESO',
+		).save(flush: true,failOnError: true)
+		
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'AUT',
+			nombreEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
+			descripcionEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
+		).save(flush: true,failOnError: true)
+
+		
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'COMP',
+			nombreEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
+			descripcionEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
+		).save(flush: true,failOnError: true)
+
 
         new Prestamo(clavePrestamo: "KLP987",
                 cliente : clienteArturo,
@@ -894,7 +926,7 @@ class BootStrap {
                 vendedor : empleado,
                 fechaSolicitud: new Date('04/30/2012'),
                 montoSolicitado: 6000,
-                estatusSolicitud: 'INICIO MESA CONTROL',
+                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC'),
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
         ).save(flush: true,failOnError: true)

@@ -117,7 +117,7 @@
 				<li class="fieldcontain">
 					<span id="estatusSolicitud-label" class="property-label"><g:message code="prestamo.estatusSolicitud.label" default="Estatus Solicitud" /></span>
 					
-						<span class="property-value" aria-labelledby="estatusSolicitud-label"><g:fieldValue bean="${prestamoInstance}" field="estatusSolicitud"/></span>
+						<span class="property-value" aria-labelledby="estatusSolicitud-label"><g:link controller="simCatEtapaPrestamo" action="show" id="${prestamoInstance?.estatusSolicitud?.id}">${prestamoInstance?.estatusSolicitud?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -140,13 +140,40 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${prestamoInstance?.approvalStatus}">
+				<li class="fieldcontain">
+					<span id="approvalStatus-label" class="property-label"><g:message code="prestamo.approvalStatus.label" default="Approval Status" /></span>
+					
+						<span class="property-value" aria-labelledby="approvalStatus-label"><g:fieldValue bean="${prestamoInstance}" field="approvalStatus"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${prestamoInstance?.dateCreated}">
+				<li class="fieldcontain">
+					<span id="dateCreated-label" class="property-label"><g:message code="prestamo.dateCreated.label" default="Date Created" /></span>
+					
+						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${prestamoInstance?.dateCreated}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${prestamoInstance?.lastUpdated}">
+				<li class="fieldcontain">
+					<span id="lastUpdated-label" class="property-label"><g:message code="prestamo.lastUpdated.label" default="Last Updated" /></span>
+					
+						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${prestamoInstance?.lastUpdated}" /></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${prestamoInstance?.id}" />
 					<g:link class="edit" action="edit" id="${prestamoInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                    <g:link controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}">Documentos</g:link>
+					<g:link controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}">Documentos</g:link>
 				</fieldset>
 			</g:form>
 		</div>

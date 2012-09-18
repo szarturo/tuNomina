@@ -82,12 +82,12 @@
 	<g:field name="montoSolicitado" value="${fieldValue(bean: prestamoInstance, field: 'montoSolicitado')}" required=""/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: prestamoInstance, field: 'estatusSolicitud', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: prestamoInstance, field: 'estatusSolicitud', 'error')} required">
 	<label for="estatusSolicitud">
 		<g:message code="prestamo.estatusSolicitud.label" default="Estatus Solicitud" />
-		
+		<span class="required-indicator">*</span>
 	</label>
-	<g:select name="estatusSolicitud" from="${prestamoInstance.constraints.estatusSolicitud.inList}" value="${prestamoInstance?.estatusSolicitud}" valueMessagePrefix="prestamo.estatusSolicitud" noSelection="['': '']"/>
+	<g:select id="estatusSolicitud" name="estatusSolicitud.id" from="${com.sim.catalogo.SimCatEtapaPrestamo.list()}" optionKey="id" required="" value="${prestamoInstance?.estatusSolicitud?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: prestamoInstance, field: 'formaDeDispercion', 'error')} required">
@@ -104,5 +104,13 @@
 		
 	</label>
 	<g:checkBox name="documentosCorrectos" value="${prestamoInstance?.documentosCorrectos}" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: prestamoInstance, field: 'approvalStatus', 'error')} required">
+	<label for="approvalStatus">
+		<g:message code="prestamo.approvalStatus.label" default="Approval Status" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="approvalStatus" from="${org.grails.activiti.ApprovalStatus?.values()}" keys="${org.grails.activiti.ApprovalStatus.values()*.name()}" required="" value="${prestamoInstance?.approvalStatus?.name()}"/>
 </div>
 

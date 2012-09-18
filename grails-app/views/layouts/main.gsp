@@ -100,6 +100,9 @@
                                     <li><g:link controller="simCatFormaEntrega">
                                         <span>Forma Entrega</span>
                                     </g:link></li>
+                                    <li><g:link controller="simCatEtapaPrestamo">
+                                        <span>Etapas del Prestamo</span>
+                                    </g:link></li>
 
 
                                     <li><a href="#"><span>Sub Item 1.6</span></a></li>
