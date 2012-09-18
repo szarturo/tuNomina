@@ -9,11 +9,10 @@ import grails.test.mixin.*
 @Mock(Prestamo)
 class PrestamoControllerTests {
 
-
     def populateValidParams(params) {
-      assert params != null
-      // TODO: Populate valid properties like...
-      //params["name"] = 'someValidName'
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
     }
 
     void testIndex() {
@@ -30,9 +29,9 @@ class PrestamoControllerTests {
     }
 
     void testCreate() {
-       def model = controller.create()
+        def model = controller.create()
 
-       assert model.prestamoInstance != null
+        assert model.prestamoInstance != null
     }
 
     void testSave() {
@@ -57,7 +56,6 @@ class PrestamoControllerTests {
         assert flash.message != null
         assert response.redirectedUrl == '/prestamo/list'
 
-
         populateValidParams(params)
         def prestamo = new Prestamo(params)
 
@@ -75,7 +73,6 @@ class PrestamoControllerTests {
 
         assert flash.message != null
         assert response.redirectedUrl == '/prestamo/list'
-
 
         populateValidParams(params)
         def prestamo = new Prestamo(params)
@@ -96,7 +93,6 @@ class PrestamoControllerTests {
         assert response.redirectedUrl == '/prestamo/list'
 
         response.reset()
-
 
         populateValidParams(params)
         def prestamo = new Prestamo(params)

@@ -10,8 +10,8 @@ class PrestamoController {
         redirect(action: "list", params: params)
     }
 
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+    def list(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
         [prestamoInstanceList: Prestamo.list(params), prestamoInstanceTotal: Prestamo.count()]
     }
 
@@ -26,14 +26,14 @@ class PrestamoController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
         redirect(action: "show", id: prestamoInstance.id)
     }
 
-    def show() {
-        def prestamoInstance = Prestamo.get(params.id)
+    def show(Long id) {
+        def prestamoInstance = Prestamo.get(id)
         if (!prestamoInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
             redirect(action: "list")
             return
         }
@@ -41,10 +41,10 @@ class PrestamoController {
         [prestamoInstance: prestamoInstance]
     }
 
-    def edit() {
-        def prestamoInstance = Prestamo.get(params.id)
+    def edit(Long id) {
+        def prestamoInstance = Prestamo.get(id)
         if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
             redirect(action: "list")
             return
         }
@@ -52,16 +52,15 @@ class PrestamoController {
         [prestamoInstance: prestamoInstance]
     }
 
-    def update() {
-        def prestamoInstance = Prestamo.get(params.id)
+    def update(Long id, Long version) {
+        def prestamoInstance = Prestamo.get(id)
         if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
             redirect(action: "list")
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
+        if (version != null) {
             if (prestamoInstance.version > version) {
                 prestamoInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'prestamo.label', default: 'Prestamo')] as Object[],
@@ -78,26 +77,26 @@ class PrestamoController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
         redirect(action: "show", id: prestamoInstance.id)
     }
 
-    def delete() {
-        def prestamoInstance = Prestamo.get(params.id)
+    def delete(Long id) {
+        def prestamoInstance = Prestamo.get(id)
         if (!prestamoInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
             redirect(action: "list")
             return
         }
 
         try {
             prestamoInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])
-            redirect(action: "show", id: params.id)
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
+            redirect(action: "show", id: id)
         }
     }
 }

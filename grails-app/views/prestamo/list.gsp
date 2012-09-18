@@ -1,6 +1,6 @@
 
 <%@ page import="com.sim.credito.Prestamo" %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -26,7 +26,15 @@
 					
 						<g:sortableColumn property="clavePrestamo" title="${message(code: 'prestamo.clavePrestamo.label', default: 'Clave Prestamo')}" />
 					
-						<th><g:message code="prestamo.cliente.label" default="Cliente" /></th>
+						<g:sortableColumn property="folioSolicitud" title="${message(code: 'prestamo.folioSolicitud.label', default: 'Folio Solicitud')}" />
+					
+						<th><g:message code="prestamo.promocion.label" default="Promocion" /></th>
+					
+						<th><g:message code="prestamo.dependencia.label" default="Dependencia" /></th>
+					
+						<th><g:message code="prestamo.sucursal.label" default="Sucursal" /></th>
+					
+						<th><g:message code="prestamo.delegacion.label" default="Delegacion" /></th>
 					
 					</tr>
 				</thead>
@@ -36,7 +44,15 @@
 					
 						<td><g:link action="show" id="${prestamoInstance.id}">${fieldValue(bean: prestamoInstance, field: "clavePrestamo")}</g:link></td>
 					
-						<td>${fieldValue(bean: prestamoInstance, field: "cliente")}</td>
+						<td>${fieldValue(bean: prestamoInstance, field: "folioSolicitud")}</td>
+					
+						<td>${fieldValue(bean: prestamoInstance, field: "promocion")}</td>
+					
+						<td>${fieldValue(bean: prestamoInstance, field: "dependencia")}</td>
+					
+						<td>${fieldValue(bean: prestamoInstance, field: "sucursal")}</td>
+					
+						<td>${fieldValue(bean: prestamoInstance, field: "delegacion")}</td>
 					
 					</tr>
 				</g:each>

@@ -1,5 +1,5 @@
 <%@ page import="com.sim.credito.Prestamo" %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">

@@ -770,9 +770,7 @@ class BootStrap {
                 numeroDeNomina: 'KJKSDFYUYUI',
         ).save(flush: true,failOnError: true)
 
-        new Prestamo(clavePrestamo: "KLP987",
-                cliente : clienteArturo
-        ).save(flush: true,failOnError: true)
+
 
 
         new SimCatPuesto(clavePuesto:  'DIRGEN',
@@ -884,6 +882,21 @@ class BootStrap {
 
         new SimCatFormaEntrega(claveFormaEntrega: 'CHEQUE',
                 nombreFormaEntrega: 'EN CHEQUE',
+        ).save(flush: true,failOnError: true)
+
+        new Prestamo(clavePrestamo: "KLP987",
+                cliente : clienteArturo,
+                folioSolicitud : 34534,
+                dependencia : EntDependencia.findByClaveDependencia('CFE'),
+                promocion: promocionUno,
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
+                delegacion: EntDelegacion.findByClaveDelegacion('ZACATECAS'),
+                vendedor : empleado,
+                fechaSolicitud: new Date('04/30/2012'),
+                montoSolicitado: 6000,
+                estatusSolicitud: 'INICIO MESA CONTROL',
+                formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
+                documentosCorrectos: false,
         ).save(flush: true,failOnError: true)
 
     }
