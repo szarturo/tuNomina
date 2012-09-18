@@ -208,7 +208,7 @@ activiti {
 		mailServerUsername = "sistema.microfinanciera@gmail.com"
 		mailServerPassword = "rapidsist"
 		mailServerDefaultFrom = "sistema.microfinanciera@gmail.com"
-		history = "full" // "none", "activity", "audit" or "full"
+		history = "audit" // "none", "activity", "audit" or "full"
 		sessionUsernameKey = "username"
 		useFormKey = true
 }
