@@ -23,6 +23,15 @@
 			</g:if>
 			<ol class="property-list prestamo">
 			
+				<g:if test="${prestamoInstance?.cliente}">
+				<li class="fieldcontain">
+					<span id="cliente-label" class="property-label"><g:message code="prestamo.cliente.label" default="Cliente" /></span>
+					
+						<span class="property-value" aria-labelledby="cliente-label"><g:link controller="rsCliente" action="show" id="${prestamoInstance?.cliente?.id}">${prestamoInstance?.cliente?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${prestamoInstance?.clavePrestamo}">
 				<li class="fieldcontain">
 					<span id="clavePrestamo-label" class="property-label"><g:message code="prestamo.clavePrestamo.label" default="Clave Prestamo" /></span>
@@ -127,15 +136,6 @@
 					<span id="documentosCorrectos-label" class="property-label"><g:message code="prestamo.documentosCorrectos.label" default="Documentos Correctos" /></span>
 					
 						<span class="property-value" aria-labelledby="documentosCorrectos-label"><g:formatBoolean boolean="${prestamoInstance?.documentosCorrectos}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${prestamoInstance?.cliente}">
-				<li class="fieldcontain">
-					<span id="cliente-label" class="property-label"><g:message code="prestamo.cliente.label" default="Cliente" /></span>
-					
-						<span class="property-value" aria-labelledby="cliente-label"><g:link controller="rsCliente" action="show" id="${prestamoInstance?.cliente?.id}">${prestamoInstance?.cliente?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
