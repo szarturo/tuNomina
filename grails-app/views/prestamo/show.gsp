@@ -14,6 +14,7 @@
 	          <li><g:link class="list" controller="task" action="myTaskList"><g:message code="myTasks.label" default="My Tasks ({0})" args="[myTasksCount]" /></g:link></li>
             <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
             <li><g:link class="create" action="start"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+            <li><g:link controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}">Documentos</g:link><li>
 			  </ul>
 			</div>
         <div class="body">
