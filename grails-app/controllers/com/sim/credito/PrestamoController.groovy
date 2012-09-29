@@ -1,102 +1,123 @@
 package com.sim.credito
 
-import org.springframework.dao.DataIntegrityViolationException
-
 class PrestamoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static activiti = true
 
-    def index() {
+    def index = {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [prestamoInstanceList: Prestamo.list(params), prestamoInstanceTotal: Prestamo.count()]
+    def start = {
+        start(params)
+    }
+	
+    def list = {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [prestamoInstanceList: Prestamo.list(params), 
+			   prestamoInstanceTotal: Prestamo.count(),
+			   myTasksCount: assignedTasksCount]
     }
 
-    def create() {
-        [prestamoInstance: new Prestamo(params)]
+    def create = {
+        def prestamoInstance = new Prestamo()
+        prestamoInstance.properties = params
+        return [prestamoInstance: prestamoInstance,
+			          myTasksCount: assignedTasksCount]
     }
 
-    def save() {
+    def save = {
         def prestamoInstance = new Prestamo(params)
-        if (!prestamoInstance.save(flush: true)) {
-            render(view: "create", model: [prestamoInstance: prestamoInstance])
-            return
+        if (prestamoInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
+			      params.id = prestamoInstance.id
+						if (params.complete) {
+							completeTask(params)
+						} else {
+							params.action="show"
+							saveTask(params)
+						}
+            redirect(action: "show", params: params)
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
-        redirect(action: "show", id: prestamoInstance.id)
+        else {
+            render(view: "create", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
+        }
     }
 
-    def show(Long id) {
-        def prestamoInstance = Prestamo.get(id)
+    def show = {
+        def prestamoInstance = Prestamo.get(params.id)
         if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "list")
-            return
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+            redirect(controller: "task", action: "myTaskList")
         }
-
-        [prestamoInstance: prestamoInstance]
+        else {
+            [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
+        }
     }
 
-    def edit(Long id) {
-        def prestamoInstance = Prestamo.get(id)
+    def edit = {
+        def prestamoInstance = Prestamo.get(params.id)
         if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "list")
-            return
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+            redirect(controller: "task", action: "myTaskList")
         }
-
-        [prestamoInstance: prestamoInstance]
+        else {
+            [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
+        }
     }
 
-    def update(Long id, Long version) {
-        def prestamoInstance = Prestamo.get(id)
-        if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (prestamoInstance.version > version) {
-                prestamoInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'prestamo.label', default: 'Prestamo')] as Object[],
-                          "Another user has updated this Prestamo while you were editing")
-                render(view: "edit", model: [prestamoInstance: prestamoInstance])
-                return
+    def update = {
+        def prestamoInstance = Prestamo.get(params.id)
+        if (prestamoInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (prestamoInstance.version > version) {
+                    
+                    prestamoInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'prestamo.label', default: 'Prestamo')] as Object[], "Another user has updated this Prestamo while you were editing")
+                    render(view: "edit", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
+                    return
+                }
+            }
+            prestamoInstance.properties = params
+            if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
+								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
+								if (isComplete) {
+										completeTask(params)
+								} else {
+										params.action="show"
+										saveTask(params)
+								}				
+                redirect(action: "show", id: prestamoInstance.id, params: [taskId:params.taskId, complete:isComplete?:null])
+            }
+            else {
+                render(view: "edit", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
             }
         }
-
-        prestamoInstance.properties = params
-
-        if (!prestamoInstance.save(flush: true)) {
-            render(view: "edit", model: [prestamoInstance: prestamoInstance])
-            return
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+            redirect(controller: "task", action: "myTaskList")
         }
-
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])
-        redirect(action: "show", id: prestamoInstance.id)
     }
 
-    def delete(Long id) {
-        def prestamoInstance = Prestamo.get(id)
-        if (!prestamoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "list")
-            return
+    def delete = {
+        def prestamoInstance = Prestamo.get(params.id)
+        if (prestamoInstance) {
+            try {
+                prestamoInstance.delete(flush: true)
+                deleteTask(params.taskId)
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+                redirect(controller: "task", action: "myTaskList")
+            }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+                redirect(action: "show", id: params.id, params: params)
+            }
         }
-
-        try {
-            prestamoInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), id])
-            redirect(action: "show", id: id)
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+            redirect(controller: "task", action: "myTaskList")
         }
     }
 }
