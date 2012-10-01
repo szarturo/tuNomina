@@ -108,18 +108,17 @@ class PrestamoController {
 			
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
+				
 				if (estatusSolicitud.claveEtapaPrestamo.equals("INIMC")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
-				}else{
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROC')
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && !params.aprobado.equals("on")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEV')
 				}
-			}else{
-				if (estatusSolicitud.claveEtapaPrestamo.equals("INIMC")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
-				}else{
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
-				}
+				
 			}
+			
             if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 								
