@@ -127,15 +127,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="estatusSolicitud"><g:message code="prestamo.estatusSolicitud.label" default="Estatus Solicitud" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'estatusSolicitud', 'errors')}">
-                                    <g:select name="estatusSolicitud.id" from="${com.sim.catalogo.SimCatEtapaPrestamo.list()}" optionKey="id" value="${prestamoInstance?.estatusSolicitud?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                   <label for="formaDeDispercion"><g:message code="prestamo.formaDeDispercion.label" default="Forma De Dispercion" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'formaDeDispercion', 'errors')}">
@@ -149,15 +140,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'documentosCorrectos', 'errors')}">
                                     <g:checkBox name="documentosCorrectos" value="${prestamoInstance?.documentosCorrectos}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="approvalStatus"><g:message code="prestamo.approvalStatus.label" default="Approval Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'approvalStatus', 'errors')}">
-                                    <g:select name="approvalStatus" from="${org.grails.activiti.ApprovalStatus?.values()}" value="${prestamoInstance?.approvalStatus}"  />
                                 </td>
                             </tr>
                         

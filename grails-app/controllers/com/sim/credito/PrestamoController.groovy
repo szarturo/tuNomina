@@ -1,5 +1,8 @@
 package com.sim.credito
 
+import com.sim.catalogo.SimCatEtapaPrestamo
+import org.grails.activiti.ApprovalStatus
+
 class PrestamoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -29,6 +32,8 @@ class PrestamoController {
 
     def save = {
         def prestamoInstance = new Prestamo(params)
+		prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
+		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			      params.id = prestamoInstance.id
