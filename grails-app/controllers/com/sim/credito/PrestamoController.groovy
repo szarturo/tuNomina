@@ -34,6 +34,7 @@ class PrestamoController {
         def prestamoInstance = new Prestamo(params)
 		prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+		prestamoInstance.documentosCorrectos = false
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			      params.id = prestamoInstance.id
@@ -99,6 +100,16 @@ class PrestamoController {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 								if (isComplete) {
+										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
+										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
+										params.remove("dependencia")
+										params.remove("promocion")
+										params.remove("sucursal")
+										params.remove("delegacion")
+										params.remove("vendedor")
+										params.remove("estatusSolicitud")
+										params.remove("formaDeDispercion")
+										params.remove("cliente")
 										completeTask(params)
 								} else {
 										params.action="show"
