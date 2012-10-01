@@ -30,6 +30,7 @@
                 <g:hiddenField name="id" value="${prestamoInstance?.id}" />
                 <g:hiddenField name="version" value="${prestamoInstance?.version}" />
                 <g:hiddenField name="taskId" value="${params.taskId}" />
+                <g:hiddenField name="estatusSolicitud.id" value="${prestamoInstance?.estatusSolicitud?.id}" />
                 <div class="dialog">
                     <table>
                         <tbody>

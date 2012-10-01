@@ -10,7 +10,7 @@
 		<sequenceFlow id="flujo0" sourceRef="inicio" targetRef="iniciaSolicitudPrestamo" />
 
 		<userTask id="iniciaSolicitudPrestamo" activiti:formKey="/prestamo/create"
-			name="Inicia Solicitud Prestamo">
+			name="Inicia Solicitud de Prestamo Mesa de Control">
 			<documentation>Inicia solicitud de prestamo por ${username}</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
@@ -19,7 +19,19 @@
 			</potentialOwner>
 		</userTask>
 
-		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo" targetRef="fin" />
+		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo" targetRef="revisaControlCalidad" />
+		
+		<userTask id="revisaControlCalidad" activiti:formKey="/prestamo/edit"
+			name="Revisa Solicitud de Prestamo Control de Calidad">
+			<documentation>Prestamo revisado por ${username}</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+		
+		<sequenceFlow id="flujo2" sourceRef="revisaControlCalidad" targetRef="fin" />
 
 		<endEvent id="fin" />
 
