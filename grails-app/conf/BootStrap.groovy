@@ -59,13 +59,17 @@ class BootStrap {
 		managerRole.id = 'ROLE_MANAGER'
 		managerRole.save(flush: true,failOnError: true)
 		
+		def mesaControlRole = new Rol(authority: 'ROLE_MESA_CONTROL', name: 'Mesa de Control')
+		mesaControlRole.id = 'ROLE_MESA_CONTROL'
+		mesaControlRole.save(flush: true,failOnError: true)
+		
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(flush: true)
 
 		UsuarioRol.create usuarioAdmin, adminRole, true
 		
 		assert Usuario.count() == 1
-		assert Rol.count() == 3
+		assert Rol.count() == 4
 		assert UsuarioRol.count() == 1
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO ADMINISTRADOR
@@ -91,6 +95,10 @@ class BootStrap {
 		def usuarioPeter = new Usuario(username: 'peter', enabled: true, password: 'peter')
 		usuarioPeter.save(flush: true)
 		UsuarioRol.create usuarioPeter, userRole, true
+		
+		def usuarioRuben = new Usuario(username: 'ruben', enabled: true, password: 'ruben')
+		usuarioRuben.save(flush: true)
+		UsuarioRol.create usuarioRuben, mesaControlRole, true
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO KERMIT
 		def kermitPersona = new RsPersona(
