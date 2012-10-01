@@ -27,13 +27,14 @@ environments {
 		}
 		
 		//EJEMPLO DE COMO USAR UN SEGUNDO DATASOURCE
+		/*
 		dataSource_activiti {
 			driverClassName = "com.mysql.jdbc.Driver"
 			username = "root"
 			password = "system"
 			dbCreate = "update"
 			url = "jdbc:mysql://localhost:3306/activiti"
-		}
+		}*/
 		
 	}
 	
