@@ -143,6 +143,17 @@
                                 </td>
                             </tr>
                             
+                            <sec:ifAllGranted roles="ROLE_CONTROL_CALIDAD">
+	                            <tr class="prop">
+	                                <td valign="top" class="name">
+	                                  <label for="aprobado"><g:message code="prestamo.aprobado.label" default="Aprobado" /></label>
+	                                </td>
+	                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'aprobado', 'errors')}">
+	                                    <g:checkBox name="aprobado" value="${prestamoInstance?.aprobado}" />
+	                                </td>
+	                            </tr>
+                            </sec:ifAllGranted>
+                            
 							<tr class="prop">
 								<td valign="top" class="name"><label for="comentarios"><g:message
 											code="prestamo.comentarios.label" default="Comentarios" /></label></td>

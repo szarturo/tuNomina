@@ -122,6 +122,14 @@
                             <td valign="top" class="value"><g:formatBoolean boolean="${prestamoInstance?.documentosCorrectos}" /></td>
                             
                         </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.aprobado.label" default="Aprobado" /></td>
+                            
+                            <td valign="top" class="value"><g:formatBoolean boolean="${prestamoInstance?.aprobado}" /></td>
+                            
+                        </tr>
+                        
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.approvalStatus.label" default="Approval Status" /></td>

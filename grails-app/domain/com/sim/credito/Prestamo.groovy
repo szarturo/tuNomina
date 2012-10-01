@@ -29,6 +29,7 @@ class Prestamo {
     SimCatEtapaPrestamo estatusSolicitud
     SimCatFormaEntrega formaDeDispercion
     Boolean        documentosCorrectos
+	Boolean        aprobado
 	String         comentarios
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
@@ -52,6 +53,7 @@ class Prestamo {
         estatusSolicitud( nullable: false)
         formaDeDispercion(nullable: false)
         documentosCorrectos(nullable: false)
+		aprobado(nullable: true)
 		comentarios nullable:true, size:5..255
 		approvalStatus nullable:false
 		dateCreated blank:false
