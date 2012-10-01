@@ -103,7 +103,7 @@ class PrestamoController {
 			
 			def estatusSolicitud = SimCatEtapaPrestamo.get(params.estatusSolicitud.id)
 			
-			println estatusSolicitud
+			log.info("Estatus de la solicitud: "+estatusSolicitud)
 			
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
