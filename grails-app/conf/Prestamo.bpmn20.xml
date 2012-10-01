@@ -14,7 +14,7 @@
 			<documentation>Inicia solicitud de prestamo por ${username}</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
-					<formalExpression>ROLE_USER</formalExpression>
+					<formalExpression>ROLE_MESA_CONTROL</formalExpression>
 				</resourceAssignmentExpression>
 			</potentialOwner>
 		</userTask>
