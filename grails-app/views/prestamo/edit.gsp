@@ -142,6 +142,17 @@
                                     <g:checkBox name="documentosCorrectos" value="${prestamoInstance?.documentosCorrectos}" />
                                 </td>
                             </tr>
+                            
+							<tr class="prop">
+								<td valign="top" class="name"><label for="comentarios"><g:message
+											code="prestamo.comentarios.label" default="Comentarios" /></label></td>
+								<td valign="top"
+									class="value ${hasErrors(bean: prestamoInstance, field: 'comentarios', 'errors')}">
+									<g:textArea name="comentarios" cols="40" rows="5"
+										value="${prestamoInstance?.comentarios}" />
+								</td>
+							</tr>
+                            
                         
                         </tbody>
                     </table>

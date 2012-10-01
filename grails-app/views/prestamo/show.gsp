@@ -143,6 +143,14 @@
                             <td valign="top" class="value"><g:formatDate date="${prestamoInstance?.lastUpdated}" /></td>
                             
                         </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.comentarios.label" default="Comentarios" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "comentarios")}</td>
+                            
+                        </tr>
+                        
                     
                     </tbody>
                 </table>
