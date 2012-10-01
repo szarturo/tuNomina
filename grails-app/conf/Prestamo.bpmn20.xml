@@ -11,7 +11,7 @@
 
 		<userTask id="iniciaSolicitudPrestamo" activiti:formKey="/prestamo/create"
 			name="Inicia Solicitud de Prestamo Mesa de Control">
-			<documentation>Inicia solicitud de prestamo por ${username}</documentation>
+			<documentation>Inicia solicitud de prestamo usuario: ${username}</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
 					<formalExpression>ROLE_MESA_CONTROL</formalExpression>
@@ -23,7 +23,7 @@
 		
 		<userTask id="revisaControlCalidad" activiti:formKey="/prestamo/edit"
 			name="Revisa Solicitud de Prestamo Control de Calidad">
-			<documentation>Prestamo revisado por ${username}</documentation>
+			<documentation>Prestamo revisado por usuario: ${username}</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
 					<formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
@@ -31,7 +31,31 @@
 			</potentialOwner>
 		</userTask>
 		
-		<sequenceFlow id="flujo2" sourceRef="revisaControlCalidad" targetRef="fin" />
+		<sequenceFlow id="flujo2" sourceRef="revisaControlCalidad" targetRef="prestamoAprobado" />
+		
+		<exclusiveGateway id="prestamoAprobado" name="¿Prestamo Aprovado?" />
+		
+		<sequenceFlow id="flujo3" sourceRef="prestamoAprobado" targetRef="fin">
+			<conditionExpression xsi:type="tFormalExpression">${aprobado}</conditionExpression>
+		</sequenceFlow>
+		
+		<sequenceFlow id="flujo4" sourceRef="prestamoAprobado" targetRef="enDevolucion">
+			<conditionExpression xsi:type="tFormalExpression">${!aprobado}</conditionExpression>
+		</sequenceFlow>
+
+		<userTask id="enDevolucion" activiti:formKey="/prestamo/edit"
+			name="Mesa de Control tiene que volver a revisar solicitud de prestamo">
+			<documentation>Control de Calidad no autorizo a Mesa de Control el prestamo
+			</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_MESA_CONTROL</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>			
+		</userTask>
+		
+		<sequenceFlow id="flujo5" sourceRef="enDevolucion" targetRef="fin">
+		</sequenceFlow>
 
 		<endEvent id="fin" />
 

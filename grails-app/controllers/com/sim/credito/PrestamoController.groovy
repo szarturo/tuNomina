@@ -39,6 +39,7 @@ class PrestamoController {
 		}
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 		prestamoInstance.documentosCorrectos = false
+		prestamoInstance.aprobado = false
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			      params.id = prestamoInstance.id
@@ -123,6 +124,7 @@ class PrestamoController {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 								
 								if (isComplete) {
+										params.aprobado = params.aprobado.equals("on")
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
 										params.remove("dependencia")
