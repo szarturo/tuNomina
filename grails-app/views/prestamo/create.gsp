@@ -131,21 +131,12 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="documentosCorrectos"><g:message code="prestamo.documentosCorrectos.label" default="Documentos Correctos" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'documentosCorrectos', 'errors')}">
-                                    <g:checkBox name="documentosCorrectos" value="${prestamoInstance?.documentosCorrectos}" />
-                                </td>
-                            </tr>
-                        
+                       
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-                    <span class="button"><g:submitButton name="complete" class="save" value="${message(code: 'default.button.complete.label', default: 'Complete')}" /></span>
                 </div>
                 <g:hiddenField name="taskId" value="${params.taskId}" />
             </g:form>
