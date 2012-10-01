@@ -32,7 +32,11 @@ class PrestamoController {
 
     def save = {
         def prestamoInstance = new Prestamo(params)
-		prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
+		if (params.complete) {
+			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+		}else{
+			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
+		}
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 		prestamoInstance.documentosCorrectos = false
         if (prestamoInstance.save(flush: true)) {
@@ -96,9 +100,16 @@ class PrestamoController {
                 }
             }
             prestamoInstance.properties = params
+			
+			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
+			if (isComplete) {
+				prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+			}else{
+				prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
+			}
             if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
-								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
+								
 								if (isComplete) {
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
