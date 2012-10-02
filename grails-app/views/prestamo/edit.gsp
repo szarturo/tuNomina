@@ -1,6 +1,7 @@
 
 
 <%@ page import="com.sim.credito.Prestamo" %>
+<%@ page import="org.grails.activiti.ApprovalStatus"%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -153,6 +154,23 @@
 	                                </td>
 	                            </tr>
                             </sec:ifAllGranted>
+                            
+							<g:if
+								test="${prestamoInstance.approvalStatus == ApprovalStatus.REJECTED}">
+								<tr class="prop">
+									<td valign="top" class="name"><label
+										for="reenviarSolicitud"><g:message
+												code="prestamo.reenviarSolicitud.label"
+												default="Reenviar Solicitud" /></label></td>
+									<td valign="top"
+										class="value ${hasErrors(bean: prestamoInstance, field: 'reenviarSolicitud', 'errors')}">
+										<g:checkBox name="reenviarSolicitud"
+											value="${prestamoInstance?.reenviarSolicitud}" />
+									</td>
+								</tr>
+	
+							</g:if>
+                            
                             
 							<tr class="prop">
 								<td valign="top" class="name"><label for="comentarios"><g:message

@@ -40,6 +40,7 @@ class PrestamoController {
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 		prestamoInstance.documentosCorrectos = false
 		prestamoInstance.aprobado = false
+		prestamoInstance.reenviarSolicitud = false
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			      params.id = prestamoInstance.id
@@ -111,10 +112,16 @@ class PrestamoController {
 				
 				if (estatusSolicitud.claveEtapaPrestamo.equals("INIMC")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROC')
+					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEV')
+					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEV") && params.reenviarSolicitud.equals("on")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}
 				
 			}
@@ -124,6 +131,7 @@ class PrestamoController {
 								
 								if (isComplete) {
 										params.aprobado = params.aprobado.equals("on")
+										params.reenviarSolicitud = prestamoInstance.reenviarSolicitud
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
 										params.remove("dependencia")

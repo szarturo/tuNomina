@@ -31,6 +31,7 @@ class Prestamo {
     Boolean        documentosCorrectos
 	Boolean        aprobado
 	String         comentarios
+	Boolean        reenviarSolicitud
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -54,6 +55,7 @@ class Prestamo {
         formaDeDispercion(nullable: false)
         documentosCorrectos(nullable: false)
 		aprobado(nullable: true)
+		reenviarSolicitud(nullable: true)
 		comentarios nullable:true, size:5..255
 		approvalStatus nullable:false
 		dateCreated blank:false

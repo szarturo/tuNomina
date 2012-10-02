@@ -33,7 +33,7 @@
 		
 		<sequenceFlow id="flujo2" sourceRef="revisaControlCalidad" targetRef="prestamoAprobado" />
 		
-		<exclusiveGateway id="prestamoAprobado" name="¿Prestamo Aprovado?" />
+		<exclusiveGateway id="prestamoAprobado" name="¿Prestamo Aprobado?" />
 		
 		<sequenceFlow id="flujo3" sourceRef="prestamoAprobado" targetRef="fin">
 			<conditionExpression xsi:type="tFormalExpression">${aprobado}</conditionExpression>
@@ -54,7 +54,17 @@
 			</potentialOwner>			
 		</userTask>
 		
-		<sequenceFlow id="flujo5" sourceRef="enDevolucion" targetRef="fin">
+		<sequenceFlow id="flujo5" sourceRef="enDevolucion" targetRef="reenviarSolicitud">
+		</sequenceFlow>
+		
+		<exclusiveGateway id="reenviarSolicitud" name="¿Reenviar solicitud a Control de Calidad?" />
+		
+		<sequenceFlow id="flujo6" sourceRef="reenviarSolicitud" targetRef="revisaControlCalidad">
+			<conditionExpression xsi:type="tFormalExpression">${reenviarSolicitud}</conditionExpression>
+		</sequenceFlow>
+		
+		<sequenceFlow id="flujo7" sourceRef="reenviarSolicitud" targetRef="fin">
+			<conditionExpression xsi:type="tFormalExpression">${!reenviarSolicitud}</conditionExpression>
 		</sequenceFlow>
 
 		<endEvent id="fin" />
