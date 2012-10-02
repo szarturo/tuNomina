@@ -54,8 +54,8 @@ class Prestamo {
         estatusSolicitud( nullable: false)
         formaDeDispercion(nullable: false)
         documentosCorrectos(nullable: false)
-		aprobado(nullable: true)
-		reenviarSolicitud(nullable: true)
+		aprobado(nullable: false)
+		reenviarSolicitud(nullable: false)
 		comentarios nullable:true, size:5..255
 		approvalStatus nullable:false
 		dateCreated blank:false
