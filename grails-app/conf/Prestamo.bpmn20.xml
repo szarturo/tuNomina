@@ -39,7 +39,7 @@
 			<conditionExpression xsi:type="tFormalExpression">${!aprobado}</conditionExpression>
 		</sequenceFlow>
 		
-		<sequenceFlow id="flujo4" sourceRef="prestamoAprobado" targetRef="fin">
+		<sequenceFlow id="flujo4" sourceRef="prestamoAprobado" targetRef="servicioWsCreditoRealAutoriza">
 			<conditionExpression xsi:type="tFormalExpression">${aprobado}</conditionExpression>
 		</sequenceFlow>
 
@@ -71,6 +71,9 @@
 		
 		<!-- En caso del que el prestamo sea Aprobado (Flujo4) por Control de Calidad -->
 		
+		<serviceTask id="servicioWsCreditoRealAutoriza"	activiti:class="com.sim.procesos.ServicioWsCreditoRealAutoriza" />
+		
+		<sequenceFlow id="flujo8" sourceRef="servicioWsCreditoRealAutoriza"	targetRef="fin" />	
 
 		<endEvent id="fin" />
 
