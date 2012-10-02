@@ -946,6 +946,8 @@ class BootStrap {
                 estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC'),
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
+				aprobado: false,
+				reenviarSolicitud: false,
         ).save(flush: true,failOnError: true)
 
     }
