@@ -39,6 +39,15 @@
                                     <g:select name="cliente.id" from="${com.sim.cliente.RsCliente.list()}" optionKey="id" value="${prestamoInstance?.cliente?.id}"  />
                                 </td>
                             </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="correoSolicitante"><g:message code="prestamo.correoSolicitante.label" default="Correo Solicitante" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'correoSolicitante', 'errors')}">
+                                    <g:textField name="correoSolicitante" value="${prestamoInstance?.correoSolicitante}" />
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

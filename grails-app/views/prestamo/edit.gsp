@@ -44,6 +44,15 @@
                                     <g:select name="cliente.id" from="${com.sim.cliente.RsCliente.list()}" optionKey="id" value="${prestamoInstance?.cliente?.id}"  />
                                 </td>
                             </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="correoSolicitante"><g:message code="prestamo.correoSolicitante.label" default="Correo Solicitante" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'correoSolicitante', 'errors')}">
+                                    <g:textField name="correoSolicitante" value="${prestamoInstance?.correoSolicitante}" />
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -153,10 +162,32 @@
 	                                    <g:checkBox name="aprobado" value="${prestamoInstance?.aprobado}" />
 	                                </td>
 	                            </tr>
+
+								<tr class="prop">
+									<td valign="top" class="name"><label for="explicacionDevolucion"><g:message
+												code="prestamo.explicacionDevolucion.label" default="Motivo Devoluci&oacute;n" /></label></td>
+									<td valign="top"
+										class="value ${hasErrors(bean: prestamoInstance, field: 'explicacionDevolucion', 'errors')}">
+										<g:textArea name="explicacionDevolucion" cols="40" rows="5"
+											value="${prestamoInstance?.explicacionDevolucion}" />
+									</td>
+								</tr>
+	                            
                             </sec:ifAllGranted>
                             
 							<g:if
 								test="${prestamoInstance.approvalStatus == ApprovalStatus.REJECTED}">
+								
+								<tr class="prop">
+									<td valign="top" class="name"><label for="explicacionDevolucion"><g:message
+												code="prestamo.explicacionDevolucion.label" default="Motivo Devoluci&oacute;n" /></label></td>
+									<td valign="top"
+										class="value ${hasErrors(bean: prestamoInstance, field: 'explicacionDevolucion', 'errors')}">
+										<g:textArea name="explicacionDevolucion" cols="40" rows="5"
+											value="${prestamoInstance?.explicacionDevolucion}" />
+									</td>
+								</tr>
+								
 								<tr class="prop">
 									<td valign="top" class="name"><label
 										for="reenviarSolicitud"><g:message

@@ -1,5 +1,7 @@
 
 <%@ page import="com.sim.credito.Prestamo" %>
+<%@ page import="org.grails.activiti.ApprovalStatus"%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -36,6 +38,13 @@
                             <td valign="top" class="name"><g:message code="prestamo.cliente.label" default="Cliente" /></td>
                             
                             <td valign="top" class="value"><g:link controller="rsCliente" action="show" id="${prestamoInstance?.cliente?.id}">${prestamoInstance?.cliente?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.correoSolicitante.label" default="Correo Solicitante" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "correoSolicitante")}</td>
                             
                         </tr>
                     
@@ -158,6 +167,16 @@
                             <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "comentarios")}</td>
                             
                         </tr>
+                        
+						<g:if test="${prestamoInstance.approvalStatus == ApprovalStatus.REJECTED}">
+								
+	    	                <tr class="prop">
+	                            <td valign="top" class="name"><g:message code="prestamo.explicacionDevolucion.label" default="Motivo Devoluci&oacute;n" /></td>
+	                            
+	                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "explicacionDevolucion")}</td>
+	                        </tr>
+	
+						</g:if>                        
                         
                     
                     </tbody>

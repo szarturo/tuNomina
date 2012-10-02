@@ -41,6 +41,10 @@ class PrestamoController {
 		prestamoInstance.documentosCorrectos = false
 		prestamoInstance.aprobado = false
 		prestamoInstance.reenviarSolicitud = false
+		if (!params.correoSolicitante){
+			log.info("No se asigno correo al solicitante")
+			prestamoInstance.correoSolicitante = "sincorreo@gmail.com"
+		}
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			      params.id = prestamoInstance.id

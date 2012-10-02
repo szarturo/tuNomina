@@ -24,6 +24,7 @@ class Prestamo {
     EntSucursal    sucursal
     EntDelegacion  delegacion
     EmpEmpleado    vendedor
+	String         correoSolicitante
     Date    	   fechaSolicitud
     BigDecimal     montoSolicitado
     SimCatEtapaPrestamo estatusSolicitud
@@ -32,6 +33,7 @@ class Prestamo {
 	Boolean        aprobado
 	String         comentarios
 	Boolean        reenviarSolicitud
+	String         explicacionDevolucion
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -42,6 +44,7 @@ class Prestamo {
 	
     static constraints = {
         cliente(nullable: false)
+		correoSolicitante email:true, nullable: false
 		clavePrestamo(size:1..20, unique: true, nullable: false, blank: false)
         folioSolicitud(nullable: false, unique: true)
         promocion(nullable: false)
@@ -57,6 +60,7 @@ class Prestamo {
 		aprobado(nullable: false)
 		reenviarSolicitud(nullable: false)
 		comentarios nullable:true, size:5..255
+		explicacionDevolucion blank:true, nullable:true, size:5..255
 		approvalStatus nullable:false
 		dateCreated blank:false
 		lastUpdated nullable:true

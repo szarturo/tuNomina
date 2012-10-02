@@ -935,6 +935,7 @@ class BootStrap {
 
         new Prestamo(clavePrestamo: "KLP987",
                 cliente : clienteArturo,
+				correoSolicitante: "arturo.salazar@rapidsist.com",
                 folioSolicitud : 34534,
                 dependencia : EntDependencia.findByClaveDependencia('CFE'),
                 promocion: promocionUno,
