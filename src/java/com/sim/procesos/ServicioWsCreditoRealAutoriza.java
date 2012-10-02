@@ -9,7 +9,7 @@ public class ServicioWsCreditoRealAutoriza implements JavaDelegate{
 		
 		String comentarios = (String)execution.getVariable("comentarios");
 		comentarios = comentarios + " ,Credito Real Autorizo Proceso";
-		System.out.println("Credito Real WS Proceso");
+		System.out.println("Credito Real WS Proceso. "+comentarios);
 		execution.setVariable("comentarios", comentarios);
 		
 	}	
