@@ -71,7 +71,7 @@
 		
 		<!-- En caso del que el prestamo sea Aprobado (Flujo4) por Control de Calidad -->
 		
-		<serviceTask id="servicioWsCreditoRealAutoriza"	activiti:class="com.sim.procesos.ServicioWsCreditoRealAutoriza" />
+		<serviceTask id="servicioWsCreditoRealAutoriza"	name="WS Credito Real Autoriza" activiti:class="com.sim.procesos.ServicioWsCreditoRealAutoriza" />
 		
 		<sequenceFlow id="flujo8" sourceRef="servicioWsCreditoRealAutoriza"	targetRef="enviaCorreo" />
 		
