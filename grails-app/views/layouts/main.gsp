@@ -146,40 +146,44 @@
 
 					</ul>
 				</div></li>
-
-			<li><a href="#"><span>Prestamos</span></a>
-				<div>
-					<ul>
-						<li><g:link controller="prestamo">
-								<span>Solicitados</span>
-							</g:link></li>
-                        <li><g:link controller="rsCliente">
-                            <span>Clientes</span>
-                        </g:link></li>
-                        <li><g:link controller="rsCliente" action="busquedaCliente">
-                            <span>B&uacute;squeda Cliente</span>
-                        </g:link></li>
-                        <li><g:link controller="proPromocion">
-                            <span>Promociones</span>
-                        </g:link></li>
-
-                        <li><a href="#" class="parent"><span>Sub Item 1</span></a>
-							<div>
-								<ul>
-									<li><a href="#"><span>Sub Item 1.1</span></a></li>
-									<li><a href="#"><span>Sub Item 1.2</span></a></li>
-								</ul>
-							</div></li>
-						<li><a href="#" class="parent"><span>Sub Item 2</span></a>
-							<div>
-								<ul>
-									<li><a href="#"><span>Sub Item 2.1</span></a></li>
-									<li><a href="#"><span>Sub Item 2.2</span></a></li>
-								</ul>
-							</div></li>
-						<li><a href="#"><span>Sub Item 3</span></a></li>
-					</ul>
-				</div></li>
+				
+				
+			<sec:ifLoggedIn>
+				<li><a href="#"><span>Prestamos</span></a>
+					<div>
+						<ul>
+							<li><g:link controller="prestamo">
+									<span>Solicitados</span>
+								</g:link></li>
+	                        <li><g:link controller="rsCliente">
+	                            <span>Clientes</span>
+	                        </g:link></li>
+	                        <li><g:link controller="rsCliente" action="busquedaCliente">
+	                            <span>B&uacute;squeda Cliente</span>
+	                        </g:link></li>
+	                        <li><g:link controller="proPromocion">
+	                            <span>Promociones</span>
+	                        </g:link></li>
+	
+	                        <li><a href="#" class="parent"><span>Sub Item 1</span></a>
+								<div>
+									<ul>
+										<li><a href="#"><span>Sub Item 1.1</span></a></li>
+										<li><a href="#"><span>Sub Item 1.2</span></a></li>
+									</ul>
+								</div></li>
+							<li><a href="#" class="parent"><span>Sub Item 2</span></a>
+								<div>
+									<ul>
+										<li><a href="#"><span>Sub Item 2.1</span></a></li>
+										<li><a href="#"><span>Sub Item 2.2</span></a></li>
+									</ul>
+								</div></li>
+							<li><a href="#"><span>Sub Item 3</span></a></li>
+						</ul>
+					</div>
+				</li>
+			</sec:ifLoggedIn>
 
 			<li><a href="#"><span>Empresa</span></a>
 				<div>
@@ -213,9 +217,11 @@
 							<li><a href="#" class="parent"><span>Procesos</span></a>
 								<div>
 									<ul>
-										<li><g:link controller="prestamo" action="start">
-												<span>Inicio solicitud Multiplica tu N&oacute;mina</span>
-											</g:link></li>											
+										<sec:ifAllGranted roles="ROLE_MESA_CONTROL">
+											<li><g:link controller="prestamo" action="start">
+													<span>Inicio solicitud Multiplica tu N&oacute;mina</span>
+												</g:link></li>
+										</sec:ifAllGranted>											
 										<li><g:link controller="solicitudCredito" action="start">
 												<span>Credito</span>
 											</g:link></li>
