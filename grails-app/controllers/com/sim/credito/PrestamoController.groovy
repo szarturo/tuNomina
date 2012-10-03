@@ -1,6 +1,7 @@
 package com.sim.credito
 
 import com.sim.catalogo.SimCatEtapaPrestamo
+import com.sim.cliente.RsCliente
 import org.grails.activiti.ApprovalStatus
 
 class PrestamoController {
@@ -119,6 +120,13 @@ class PrestamoController {
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROC')
+					params.from = grailsApplication.config.activiti.mailServerDefaultFrom
+					params.emailTo = prestamoInstance.correoSolicitante
+					log.info("ID CLIENTE: "+params.cliente.id)
+					def clientePrestamo = RsCliente.get(params.cliente.id)
+					String nombreCliente = clientePrestamo.persona.primerNombre + " " + clientePrestamo.persona.apellidoPaterno
+					log.info("NOMBRE CLIENTE: "+nombreCliente)
+					params.nombreCliente = nombreCliente
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEV')

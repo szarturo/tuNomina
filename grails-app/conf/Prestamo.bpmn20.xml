@@ -73,8 +73,37 @@
 		
 		<serviceTask id="servicioWsCreditoRealAutoriza"	activiti:class="com.sim.procesos.ServicioWsCreditoRealAutoriza" />
 		
-		<sequenceFlow id="flujo8" sourceRef="servicioWsCreditoRealAutoriza"	targetRef="fin" />	
-
+		<sequenceFlow id="flujo8" sourceRef="servicioWsCreditoRealAutoriza"	targetRef="enviaCorreo" />
+		
+		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
+			activiti:type="mail">
+			<extensionElements>
+				<activiti:field name="from"  expression="${from}" />
+				<activiti:field name="to" expression="${emailTo}" />
+				<activiti:field name="subject" stringValue="Tu credito ha sido aprobado."  />
+		        <activiti:field name="html">
+		          <activiti:expression>
+		            <![CDATA[
+		              <html>
+		                <body>
+		                  Estimado(a) ${nombreCliente},<br/><br/>
+		                  
+		                  Tu crédito ha sido aprobado con un monto de: $
+		                  ${montoSolicitado}.<br/><br/>
+		                  
+		                  Saludos cordiales,<br/>
+		                  
+		                  Multiplica Tu Nómina.
+		                </body>
+		              </html>
+		            ]]>
+		          </activiti:expression>
+		        </activiti:field>   
+			</extensionElements>
+		</serviceTask>
+		
+		<sequenceFlow id="flujo9" sourceRef="enviaCorreo" targetRef="fin" />	 
+		
 		<endEvent id="fin" />
 
 	</process>
