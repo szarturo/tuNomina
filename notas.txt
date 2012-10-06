@@ -1,4 +1,6 @@
 Ruta para cambiar imagenes de like y unlike
 /home/miguel/.grails/2.1.1/projects/tuNomina/plugins/uploadr-0.5.8/web-app/images
 
+Esto es una prueba
+
 
