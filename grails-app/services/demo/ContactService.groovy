@@ -36,7 +36,8 @@ class ContactService {
 					it.firstName,
 					it.lastName,
 					it.email,
-					it.phone
+					it.phone,
+					it.estatus
 				 ],
 				 id: it.id
 			]

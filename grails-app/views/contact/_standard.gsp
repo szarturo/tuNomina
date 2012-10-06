@@ -2,11 +2,12 @@
     id="contactStandard"
     url="'${createLink(action: 'listJSON')}'"
     editurl="'${createLink(action: 'editJSON')}'"
-    colNames="'First Name', 'Last Name', 'E-mail', 'Phone', 'id'"
+    colNames="'First Name', 'Last Name', 'E-mail', 'Phone', 'Estatus', 'id'"
     colModel="{name:'firstName', editable: true},
               {name:'lastName', editable: true},
               {name:'email', editable: true},
               {name:'phone', editable: true},
+              {name:'estatus', editable: true, edittype:'select', editoptions: {value:{'PENDIENTE':'PENDIENTE', 'ACTIVO':'ACTIVO', 'PROCESADO':'PROCESADO'}}},
               {name:'id', hidden: true}"
     sortname="'lastName'"
     caption="'Contact List'"

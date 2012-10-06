@@ -6,6 +6,7 @@ class Contact {
 	String lastName
 	String email
 	String phone
+	String estatus="PENDIENTE"
 	
 	static hasMany = [addresses: Address]
 
@@ -14,6 +15,7 @@ class Contact {
 		lastName(blank: false)
 		email(blank: false, email: true)
 		phone(nullable: true)
+		estatus()
     }
 }
 
