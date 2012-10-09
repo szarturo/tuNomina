@@ -7,6 +7,11 @@ import com.sim.credito.*
 import com.sim.empresa.*
 import com.sim.producto.*
 
+import abltutorial.Customer
+import abltutorial.LineItem
+import abltutorial.Product
+import abltutorial.PurchaseOrder
+
 class BootStrap {
 
 	def init = { servletContext ->
@@ -950,7 +955,41 @@ class BootStrap {
 				aprobado: false,
 				reenviarSolicitud: false,
         ).save(flush: true,failOnError: true)
-		
+
+		// Load the basic test data. Note that, since the data is loaded in a transaction, all the
+		// business logic will fire, and all derived attributes will be automagically calculated.
+		if (!Customer.count()) {
+			Customer.withTransaction{tx ->
+				def alpha = new Customer(name: "Alpha and Sons", balance: 0, creditLimit: 900, isPreferred: true).save(flush: true,failOnError: true)
+				def bravo = new Customer(name: "Bravo Hardware", balance: 0, creditLimit: 5000, isPreferred: false).save(flush: true,failOnError: true)
+				def charlie = new Customer(name: "Charlie's Construction", balance: 0, creditLimit: 1500, isPreferred: true).save(flush: true,failOnError: true)
+				def delta = new Customer(name: "Delta Engineering", balance: 0, creditLimit: 0, isPreferred: false).save(flush: true,failOnError: true)
+				
+				def hammer = new Product(name: "Hammer", price: 10).save(flush: true,failOnError: true)
+				def shovel = new Product(name: "Shovel", price: 25).save(flush: true,failOnError: true)
+				def drill = new Product(name: "Drill", price: 315).save(flush: true,failOnError: true)
+				
+				def po1 = new PurchaseOrder(amountTotal: 0, paid: false, ready: true, notes: "This is a small order", customer: alpha).save(flush: true,failOnError: true)
+				def po2 = new PurchaseOrder(amountTotal: 0, paid: true, ready: true, notes: "PRUEBA", customer: bravo).save(flush: true,failOnError: true)
+				def po3 = new PurchaseOrder(amountTotal: 0, paid: false, ready: true, notes: "Please rush this order", customer: bravo).save(flush: true,failOnError: true)
+				def po4 = new PurchaseOrder(amountTotal: 0, paid: false, ready: true, notes: "Deliver by overnight with signature required", customer: charlie).save(flush: true,failOnError: true)
+				def po5 = new PurchaseOrder(amountTotal: 0, paid: false, ready: true, notes: "PRUEBA", customer: charlie).save(flush: true,failOnError: true)
+				def po6 = new PurchaseOrder(amountTotal: 0, paid: false, ready: false, notes: "Pack with care - fragile merchandise", customer: alpha).save(flush: true,failOnError: true)
+				
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: hammer, purchaseOrder: po1).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 2, amount: 0, productPrice: 0, product: hammer, purchaseOrder: po2).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po2).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 3, amount: 0, productPrice: 0, product: drill, purchaseOrder: po2).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: hammer, purchaseOrder: po3).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 2, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po3).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: hammer, purchaseOrder: po4).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 3, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po4).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: hammer, purchaseOrder: po5).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 5, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po5).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 2, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po6).save(flush: true,failOnError: true)
+				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po1).save(flush: true,failOnError: true)
+			}
+		}
 	
     }
 
