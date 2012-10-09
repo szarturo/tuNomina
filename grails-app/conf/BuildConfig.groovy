@@ -25,6 +25,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
 		mavenRepo name: "Activiti", root: "https://maven.alfresco.com/nexus/content/groups/public"
+		mavenRepo "http://resources.automatedbusinesslogic.com/maven2"
 
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
@@ -36,7 +37,9 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
+		compile ('com.autobizlogic.abl:autobizlogic:2.1.6'){  
+            excludes 'slf4j-log4j12'
+		}
         runtime 'mysql:mysql-connector-java:5.1.16'
     }
 
