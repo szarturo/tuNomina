@@ -41,6 +41,7 @@ grails.project.dependency.resolution = {
             excludes 'slf4j-log4j12'
 		}
         runtime 'mysql:mysql-connector-java:5.1.16'
+		runtime 'mylib:BusLogicExt:1.0'
     }
 
     plugins {
