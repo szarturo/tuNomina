@@ -42,6 +42,15 @@ grails.project.dependency.resolution = {
 		}
         runtime 'mysql:mysql-connector-java:5.1.16'
 		runtime 'mylib:BusLogicExt:1.0'
+		// LIBRERIAS PARA CLIENTE DE WEBSERVICES
+		compile 'mylib:credito-client:1.0'
+		runtime 'mylib:axis:1.0'
+		runtime 'mylib:commons-discovery:0.2'
+		runtime 'mylib:commons-logging:1.0'
+		runtime 'mylib:jaxrpc:1.0'
+		runtime 'mylib:saaj:1.0'
+		runtime 'mylib:wsdl4j:1.0'
+
     }
 
     plugins {
