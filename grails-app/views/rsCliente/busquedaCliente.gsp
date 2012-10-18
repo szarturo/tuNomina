@@ -36,7 +36,7 @@
 
     <body>
 
-        <div class="body" style="width: 115%;">
+        <div class="body" style="width: 100%;">
 
             <g:if test="${flash.message}">
                 <div class="message">

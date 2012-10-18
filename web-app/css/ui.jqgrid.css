@@ -1,12 +1,43 @@
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1.1em; }
-.ui-widget .ui-widget { font-size: 1em; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #dddddd; background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x; color: #333333; }
-.ui-widget-content a { color: #333333; }
-.ui-widget-header { border: 1px solid #e78f08; background: #2E6AEA 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
-.ui-widget-header a { color: #ffffff; }
+
+.ui-widget-header {
+    background: none repeat-x scroll 50% 50% #335A35;
+    border: 1px solid #335A35;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background: #335A35;
+    border: 1px solid #335A35;
+    color: #EB8F00;
+    font-weight: bold;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: #335A35;
+    border: 1px solid #335A35;
+    color: #EB8F00;
+    font-weight: bold;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    background: url("images/ui-bg_glass_100_fdf5ce_1x400.png") repeat-x scroll 50% 50% #FDF5CE;
+    border: 1px solid #EB8F00;
+    color: #EB8F00;
+    font-weight: bold;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: #EB8F00;
+    border: 1px solid #FED22F;
+    color: #363636;
+}
+
+.ui-state-highlight .ui-icon {
+    background-image: url("images/ui-icons_ef8c08_256x240.png");
+}
 
 .ui-jqgrid {
 	position: relative;
@@ -255,18 +286,6 @@ tr.ui-search-toolbar select {
 	border-left-width: 1px;
 	border-left-color: inherit;
 	border-left-style: solid;
-}
-
-.ui-jqgrid .ui-jqgrid-pager {
-	border-left: 0 none !important;
-	border-right: 0 none !important;
-	border-bottom: 0 none !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	position: relative;
-	height: 25px;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 .ui-jqgrid .ui-pager-control {
