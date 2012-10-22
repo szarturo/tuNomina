@@ -44,12 +44,12 @@ grails.project.dependency.resolution = {
 		runtime 'mylib:BusLogicExt:1.0'
 		// LIBRERIAS PARA CLIENTE DE WEBSERVICES
 		compile 'mylib:credito-client:1.0'
-		runtime 'mylib:axis:1.0'
+		runtime 'mylib:axis:1.4'
 		runtime 'mylib:commons-discovery:0.2'
-		runtime 'mylib:commons-logging:1.0'
-		runtime 'mylib:jaxrpc:1.0'
-		runtime 'mylib:saaj:1.0'
-		runtime 'mylib:wsdl4j:1.0'
+		runtime 'mylib:commons-logging:1.0.4'
+		runtime 'mylib:jaxrpc:1.1'
+		runtime 'mylib:saaj:1.2'
+		runtime 'mylib:wsdl4j:1.6'
 
     }
 
