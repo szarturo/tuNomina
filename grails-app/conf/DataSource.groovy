@@ -15,11 +15,7 @@ hibernate {
 // environment specific settings
 environments {
 	development {
-		
-		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
-			
-			//url = "jdbc:mysql://localhost:3306/simGrails2"
 			driverClassName = 'oracle.jdbc.driver.OracleDriver'
 			username = 'nomina'
 			password = 'nomina'
