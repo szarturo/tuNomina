@@ -1,5 +1,8 @@
 package com.sim.credito
 
+import com.sim.alfresco.AlfrescoService
+import org.apache.chemistry.opencmis.client.api.Folder
+
 class PrestamoDocumentosController {
 
      def listaDocumentos() {
@@ -7,6 +10,12 @@ class PrestamoDocumentosController {
         def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/imagenes/${params.id}")
 		def imagenes = path.listFiles()
 		 
+		AlfrescoService alfrescoService = new AlfrescoService();
+		//EN CASO DE NO EXISTIR EL FOLDER DEL CREDITO SE CREA EN ALFRESCO
+		Folder creditos= alfrescoService.getRootFolder();
+		Folder folderCliente=alfrescoService.getFolderCliente(creditos, "clientex1");
+		alfrescoService.getFolderCredito(folderCliente, params.id)
+		
         render(view: "documentos", model: [clavePrestamo:params.id, path:path, imagenes:imagenes])
     }
 	 
@@ -38,5 +47,15 @@ class PrestamoDocumentosController {
                 </FRAMESET>
         """,contentType: 'text/html'
     }
+	
+	def salvarAlfresco(){
+		String nombreArchivo = params.nombreArchivo
+		String clavePrestamo = params.clavePrestamo
+		def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/imagenes/${clavePrestamo}")
+		def archivo = new File(path, nombreArchivo).readBytes()
+		
+		AlfrescoService alfrescoService = new AlfrescoService();
+		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", "clientex1", clavePrestamo);
+	}
 
 }

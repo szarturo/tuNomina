@@ -20,6 +20,11 @@
 				</uploadr:file>
 			</g:each>
 			
+			<uploadr:onSuccess>
+				${remoteFunction(controller:'prestamoDocumentos',action:'salvarAlfresco', params:"'nombreArchivo='+file.fileName+'&clavePrestamo=${clavePrestamo}'")};
+				callback();
+			</uploadr:onSuccess>			
+			
 			<uploadr:onView>
 				// open a modal dialog to view the file contents
 				var width = 750;
