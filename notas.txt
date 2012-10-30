@@ -1,4 +1,8 @@
 Ruta para cambiar imagenes de like y unlike
 /home/miguel/.grails/2.1.1/projects/tuNomina/plugins/uploadr-0.5.8/web-app/images
 
+Iniciar servidor Tomcat 7
+Añadir linea al archivo catalina.sh
+JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=256M"
+
 
