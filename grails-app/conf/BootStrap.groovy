@@ -6,6 +6,7 @@ import com.sim.cliente.*
 import com.sim.credito.*
 import com.sim.empresa.*
 import com.sim.producto.*
+import com.sim.calendario.*
 
 import abltutorial.Customer
 import abltutorial.LineItem
@@ -990,6 +991,16 @@ class BootStrap {
 				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po1).save(flush: true,failOnError: true)
 			}
 		}
+		
+		new Evento(evento:"inicia").save(flush: true,failOnError: true)
+		new Evento(evento:"validacion").save(flush: true,failOnError: true)
+		new Evento(evento:"autorizacion").save(flush: true,failOnError: true)
+		new Evento(evento:"finalizacion").save(flush: true,failOnError: true)
+		
+		new Dependencia(nombre:"IMSS").save(flush: true,failOnError: true)
+		new Dependencia(nombre:"IFE").save(flush: true,failOnError: true)
+		new Dependencia(nombre:"SAT").save(flush: true,failOnError: true)
+		new Dependencia(nombre:"SE").save(flush: true,failOnError: true)
 	
     }
 
