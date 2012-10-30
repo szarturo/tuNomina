@@ -104,12 +104,7 @@
 				<input type='password' class='text_' name='j_password' id='password'/>
 			</p>
 
-			<p id="remember_me_holder">
-			    <label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
-				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-				
-			</p>
-			
+		
 			<p id="forgotPassword_holder">
 			    <s2ui:linkButton elementId='register' controller='register' messageCode='spring.security.ui.login.register'/>
 			</p>			
