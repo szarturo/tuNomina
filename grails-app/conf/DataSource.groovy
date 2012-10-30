@@ -18,6 +18,7 @@ environments {
 		
 		//DEPLOY EN TOMCAT LOCAL
 		dataSource {
+			
 			//url = "jdbc:mysql://localhost:3306/simGrails2"
 			driverClassName = 'oracle.jdbc.driver.OracleDriver'
 			username = 'nomina'
@@ -49,14 +50,13 @@ environments {
 		}
 	}
 	production {
-		//DEPLOY EN CLOUDFOUNDRY
 		dataSource {
-			dialect= org.hibernate.dialect.MySQLInnoDBDialect
-			driverClassName = "com.mysql.jdbc.Driver"
-			username = "n/a"
-			password = "n/a"
-			url = "n/a"
-			dbCreate = "update"
+			driverClassName = 'oracle.jdbc.driver.OracleDriver'
+			username = 'nomina'
+			password = 'nomina'
+			url = 'jdbc:oracle:thin:@localhost:1521:XE'
+			dbCreate = 'create-drop'
+			hibernate.current_session_context_class = 'com.autobizlogic.abl.session.CurrentSessionContextProxy'
 		}
 	}
 

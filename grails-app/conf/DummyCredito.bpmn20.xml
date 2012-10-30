@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<process id="dummyCredito" name="Dummy Credito">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="llenaCredito" name="Llena dummy credito" activiti:candidateGroups="ROLE_CONTROL_CALIDAD" activiti:formKey="/dummyCredito/create">
+      <documentation>Inicia tarea de dummy credito ${username}</documentation>
+    </userTask>
+    <serviceTask id="checaCredito" name="Checa solicitud de credito" activiti:class="com.sim.alfresco.procesos.task.test.ChecaSolicitudTask"></serviceTask>
+    <serviceTask id="evaluaCredito" name="Evalua Solicitud de credito" activiti:class="com.sim.alfresco.procesos.task.test.EvaluaSolicitudTask"></serviceTask>
+    <serviceTask id="creaSolicitud" name="Crea solicitud en PDF" activiti:class="com.sim.alfresco.procesos.task.test.CreaSolicitudTask"></serviceTask>
+    <userTask id="evaluateManager" name="Evaluacion de un Gerente" activiti:candidateGroups="ROLE_CONTROL_CALIDAD" activiti:formKey="/dummyCredito/edit">
+      <documentation>Evaluacion con un gerente</documentation>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Parallel Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="llenaCredito"></sequenceFlow>
+    <sequenceFlow id="flow2" name="" sourceRef="llenaCredito" targetRef="checaCredito"></sequenceFlow>
+    <sequenceFlow id="flow3" name="" sourceRef="checaCredito" targetRef="evaluaCredito"></sequenceFlow>
+    <sequenceFlow id="flow4" name="" sourceRef="evaluaCredito" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow5" name="" sourceRef="exclusivegateway1" targetRef="evaluateManager">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[#{evaluateStatus=='needs manager approval'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" name="" sourceRef="exclusivegateway1" targetRef="creaSolicitud">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[#{evaluateStatus=='approved'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" name="" sourceRef="evaluateManager" targetRef="creaSolicitud"></sequenceFlow>
+    <sequenceFlow id="flow8" name="" sourceRef="creaSolicitud" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow9" name="" sourceRef="exclusivegateway1" targetRef="creaSolicitud">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[#{evaluateStatus=='denied'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+ </definitions>

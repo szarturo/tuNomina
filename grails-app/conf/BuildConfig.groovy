@@ -15,7 +15,7 @@ grails.project.dependency.resolution = {
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -37,9 +37,13 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
+		
 		compile ('com.autobizlogic.abl:autobizlogic:2.1.6'){  
             excludes 'slf4j-log4j12'
 		}
+		
+		runtime 'com.autobizlogic.abl:autobizlogic:2.1.6'
+		runtime 'lib:commons-jexl:2.1.1'
         runtime 'mysql:mysql-connector-java:5.1.16'
 		runtime 'mylib:BusLogicExt:1.0'
 		// LIBRERIAS PARA CLIENTE DE WEBSERVICES
@@ -50,6 +54,32 @@ grails.project.dependency.resolution = {
 		runtime 'mylib:jaxrpc:1.1'
 		runtime 'mylib:saaj:1.2'
 		runtime 'mylib:wsdl4j:1.6'
+		
+		
+		//Librerias para alfresco
+		compile 'lib:poi:3.7'
+		compile 'lib:activation:1.1'
+		compile 'lib:chemistry-opencmis-client-api:0.8.0'
+		compile 'lib:chemistry-opencmis-client-bindings:0.8.0'
+		compile 'lib:chemistry-opencmis-client-impl:0.8.0'
+		compile 'lib:chemistry-opencmis-commons-api:0.8.0'
+		compile 'lib:chemistry-opencmis-commons-impl:0.8.0'
+		compile 'lib:jaxb-api:2.1'
+		compile 'lib:jaxb-impl:2.1.11'
+		compile 'lib:jaxws-api:2.1'
+		compile 'lib:jaxws-rt:2.1.7'
+		compile 'lib:mimepull:1.3'
+		compile 'lib:resolver:20050927'
+		compile 'lib:saaj-api:1.3'
+		compile 'lib:saaj-impl:1.3.3'
+		compile 'lib:slf4j-api:1.6.6'
+		compile 'lib:stax-api:1.0-2'
+		compile 'lib:stax-ex:1.2'
+		compile 'lib:streambuffer:0.9'
+		compile 'lib:wstx-asl:3.2.3'
+		compile 'lib:itextpdf:5.0.4'
+		compile 'lib:xmlbeans:2.3.0'
+		
 
     }
 
