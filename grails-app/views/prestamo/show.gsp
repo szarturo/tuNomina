@@ -15,7 +15,13 @@
             <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 	          <li><g:link class="list" controller="task" action="myTaskList"><g:message code="myTasks.label" default="My Tasks ({0})" args="[myTasksCount]" /></g:link></li>
             <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-            <li><g:link controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}">Documentos</g:link><li>
+            <li><g:link controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}"  
+            	params="[clavePrestamo: prestamoInstance.clavePrestamo,
+            	    claveCliente: prestamoInstance?.cliente?.id,
+            	    nombreCliente: prestamoInstance?.cliente?.persona?.apellidoPaterno + ' ' +
+            	             prestamoInstance?.cliente?.persona?.apellidoMaterno + ' ' +
+            	             prestamoInstance?.cliente?.persona?.primerNombre + ' ' +
+            	             prestamoInstance?.cliente?.persona?.segundoNombre ]">Documentos</g:link><li>
 			  </ul>
 			</div>
         <div class="body">
