@@ -8,6 +8,8 @@ import com.sim.empresa.*
 import com.sim.producto.*
 import com.sim.calendario.*
 
+import test.*;
+
 import abltutorial.Customer
 import abltutorial.LineItem
 import abltutorial.Product
@@ -1001,6 +1003,8 @@ class BootStrap {
 		new Dependencia(nombre:"IFE").save(flush: true,failOnError: true)
 		new Dependencia(nombre:"SAT").save(flush: true,failOnError: true)
 		new Dependencia(nombre:"SE").save(flush: true,failOnError: true)
+		
+		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
 	
     }
 
