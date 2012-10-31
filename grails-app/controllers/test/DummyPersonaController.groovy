@@ -56,7 +56,7 @@ class DummyPersonaController {
 		
 		List<Document> documentos = new ArrayList<Document>();
 		AlfrescoService service = new AlfrescoService();
-		Object o=service.getByPath("/Sitios/tuNomina/imagenes");
+		Object o=service.getByPath("/Sites/tuNomina/imagenes");
 		if(o!=null){
 			Folder folder = (Folder)o;
 			
