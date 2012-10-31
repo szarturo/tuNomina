@@ -210,11 +210,14 @@ var objRemove = new Array();var cRemove=0;
 			<ul>
 			
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				 <g:each in="${dependencias}" status="i" var="d">
-					<li><div class='external-event' style="valign:top">
-						<g:link url="${request.contextPath }/fechaEvento/list?dependencia=${fieldValue(bean: d, field: "nombre")}">${fieldValue(bean: d, field: "nombre")}</g:link>
-					</div></li>
-				</g:each>
+				<li>
+					<g:form name="frmReload" action="index">
+						<g:select name="dependencia" value="${dependencia.nombre }"  
+					      from="${dependencias}"
+					      optionValue="nombre"
+					      optionKey="nombre" />
+					</g:form>				      
+				</li>
 				<li>
 					<h1>Dependencia ${dependencia }</h1>
 				</li>
@@ -250,7 +253,12 @@ var objRemove = new Array();var cRemove=0;
 		<input type="button" value="Guardar" onclick="submit();" />
 		
 		
-		
+		<script>	
+		document.frmReload.dependencia.onchange=function(){
+			document.frmReload.submit();
+		}
+		</script>
 </body>
 
 </html>
+
