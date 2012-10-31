@@ -5,4 +5,12 @@ Iniciar servidor Tomcat 7
 Añadir linea al archivo catalina.sh
 JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=256M"
 
+Visor de imagenes
+http://localhost:8080/tuNomina-0.1/viewImageCompare/loadImagen?imagen=
+
+Uso del comparador de imagenes
+http://localhost:8080/tuNomina-0.1/viewImageCompare/index?imagen=<IMAGEN>&info=<ACTION>
+Ejemplo: 
+http://localhost:8080/tuNomina-0.1/viewImageCompare/index?imagen=workspace://SpacesStore/385d2641-953c-46e2-9e5b-99ad7cd55075&info=fechaEvento
+
 
