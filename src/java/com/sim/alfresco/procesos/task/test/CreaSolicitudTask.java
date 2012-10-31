@@ -40,7 +40,8 @@ public class CreaSolicitudTask implements JavaDelegate {
     
      
     org.apache.chemistry.opencmis.client.api.Document document=(org.apache.chemistry.opencmis.client.api.Document) 
-    service.getDocumentByWorkspaceId("workspace://SpacesStore/291f4ec0-e203-475d-9cc8-bbec2624ac37");
+    service.getDocumentByWorkspaceId("workspace://SpacesStore/497b6e91-7a26-48c5-8644-933ebe6598f1");
+    								  
     
  // Verificar que la imagen exista
     if(document!=null && document.getContentStream()!=null && document.getContentStream().getLength()>0){
