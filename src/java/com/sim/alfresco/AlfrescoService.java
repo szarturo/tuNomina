@@ -72,6 +72,29 @@ public class AlfrescoService {
 	
 	
 	/**
+	 * Devuelve un documento o un Folder. Null si no encuentra nada.
+	 * EJemplo /Sitios/tuNomina/creditos/template.xls  o EJemplo /Sitios/tuNomina/imagenes
+	 * @param path
+	 * @return
+	 */
+	public CmisObject getByPath(String path){
+		CmisObject o =(CmisObject)session.getObjectByPath(path);
+		if(o==null){
+			return null;
+		}
+		
+		if(o instanceof Folder){
+			return (Folder)o;
+		}
+		
+		if(o instanceof Document){
+			return (Document)o;
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Obtiene un documento
 	 * @param path  ruta del documento. EJemplo /Sitios/tuNomina/creditos/template.xls 
 	 * @return
@@ -86,12 +109,21 @@ public class AlfrescoService {
 	}
 	
 	/**
-	 * Obtiene un documento por ID
+	 * Obtiene un documento por ID -> workspace://SpacesStore/ +  Id
 	 * @param id
 	 * @return
 	 */
 	public Document getDocument(String id){
 		return (Document) session.getObject("workspace://SpacesStore/"+ id);
+	}
+	
+	/**
+	 * Obtiene un documento por ID -> workspace://SpacesStore/ +  Id
+	 * @param workspace
+	 * @return
+	 */
+	public Document getDocumentByWorkspaceId(String workspace){
+		return (Document) session.getObject(workspace);
 	}
 	
 	

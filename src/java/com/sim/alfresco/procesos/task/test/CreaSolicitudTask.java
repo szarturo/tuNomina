@@ -34,9 +34,22 @@ public class CreaSolicitudTask implements JavaDelegate {
     pdf.addTitle("Subject: loan request");
     pdf.addSubject("Reference number 100898");
     pdf.open();
-    URL imageUrl= new URL("http://localhost:8088/tuNomina/images/tshark3.gif");
-		Image image = Image.getInstance(imageUrl);
-		pdf.add(image);
+    
+    
+    AlfrescoService service = new AlfrescoService();
+    
+     
+    org.apache.chemistry.opencmis.client.api.Document document=(org.apache.chemistry.opencmis.client.api.Document) 
+    service.getDocumentByWorkspaceId("workspace://SpacesStore/291f4ec0-e203-475d-9cc8-bbec2624ac37");
+    
+ // Verificar que la imagen exista
+    if(document!=null && document.getContentStream()!=null && document.getContentStream().getLength()>0){
+    	 byte[] bytes= new byte[(int)document.getContentStream().getLength()];
+    	    document.getContentStream().getStream().read(bytes);
+    	    Image image = Image.getInstance(bytes);
+    	    pdf.add(image);
+    }
+		
 		pdf.add(new Paragraph(" "));
 		pdf.add(new Paragraph(" "));
 		pdf.add(new Paragraph(" "));
@@ -64,7 +77,7 @@ public class CreaSolicitudTask implements JavaDelegate {
 		pdf.add(new Paragraph("Manager Loan Sharks"));
 		pdf.close();
 		
-		AlfrescoService service = new AlfrescoService();
+		
 		service.saveFile("solicitud.pdf", outputStream.toByteArray(), "application/pdf", (String)execution.getVariable("idCliente"), (String)execution.getVariable("idCredito"));
 		
 		System.out.println("Creado !");
