@@ -4,6 +4,13 @@ import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.cliente.RsCliente
 import org.grails.activiti.ApprovalStatus
 
+import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.Folder;
+import org.springframework.dao.DataIntegrityViolationException
+
+import com.sim.alfresco.AlfrescoService;
+
 class PrestamoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -79,6 +86,29 @@ class PrestamoController {
             redirect(controller: "task", action: "myTaskList")
         }
         else {
+
+			List<Document> documentos = new ArrayList<Document>();
+			AlfrescoService service = new AlfrescoService();
+			Object o = null
+			
+			try{
+				o=service.getByPath("/Sites/tuNomina/creditos/${prestamoInstance.cliente.id}/${prestamoInstance.clavePrestamo}");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			if(o!=null){
+				Folder folder = (Folder)o;
+				
+				for(CmisObject cmisObject: folder.getChildren()){
+					if(cmisObject instanceof Document){
+						documentos.add((Document) cmisObject);
+					}
+				}
+				
+				request.putAt("documentos", documentos);
+			}
+			
             [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
         }
     }
