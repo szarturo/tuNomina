@@ -28,12 +28,19 @@ public class EvaluaSolicitudTask  implements JavaDelegate {
 		boolean foundMatch = false;
 		boolean reachedEndOfRules = false;
 		int rowCounter = 1;
+		
+		System.out.println("In EvaluaSolicitudTast  creditCheck:"+creditCheck +" row: "+rowCounter +"  helper: "+helper);
 		while(foundMatch == false && reachedEndOfRules == false) {
+			System.out.println(" row: "+rowCounter);
+			
 			Cell cell = helper.getCell(rowCounter, 0);
 			if(cell == null) {
 				reachedEndOfRules = true;
 				
 			} else if(creditCheck == helper.getBooleanCellValue(rowCounter, 0)) {
+				
+				System.out.println("Credit check es igual  row: "+ rowCounter);
+				
 				String loanAmountRule = helper.getStringCellValue(rowCounter, 1);
 				if("N/A".equalsIgnoreCase(loanAmountRule)) {
 					foundMatch = true;
@@ -41,6 +48,9 @@ public class EvaluaSolicitudTask  implements JavaDelegate {
 					int spaceIndex = loanAmountRule.indexOf(" ");
 					String loanAmountRuleCompare = loanAmountRule.substring(0, spaceIndex);
 					String loanAmountRuleValue = loanAmountRule.substring(spaceIndex + 1, loanAmountRule.length());
+					
+					System.out.println("loanAmountRuleCompare: "+ loanAmountRuleCompare + "   -> loanAmountRuleValue:"+ loanAmountRuleValue);
+					
 					if("<".equals(loanAmountRuleCompare)) {
 						if(loanAmount < Long.valueOf(loanAmountRuleValue)) {
 							foundMatch = true;
@@ -58,7 +68,7 @@ public class EvaluaSolicitudTask  implements JavaDelegate {
 							foundMatch = true;
 						}
 					} else if(">=".equals(loanAmountRuleCompare)) {
-						if(loanAmount > Long.valueOf(loanAmountRuleValue)) {
+						if(loanAmount >= Long.valueOf(loanAmountRuleValue)) {
 							foundMatch = true;
 						}
 					}

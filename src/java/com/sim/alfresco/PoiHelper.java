@@ -57,6 +57,7 @@ public class PoiHelper {
   }
   
   public void recalculateSheetAfterOpening() {
+	  // no disponible en poi 3.7
   	//sheet.setForceFormulaRecalculation(true);
   }
   

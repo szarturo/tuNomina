@@ -42,8 +42,11 @@ public class ChecaSolicitudTask  implements JavaDelegate {
 	    helper.evaluateFormulaCell(6, 1);
 	    
 
-	    System.out.println("Evaluacion de la formula: "+ helper.getBooleanCellValue(6, 1));
-	    execution.setVariable("creditCheck", helper.getBooleanCellValue(6, 1));
+	    // se cambia la implementacion de la formula para que no devuelva un Boolean.
+	    boolean creditCheck=helper.getCell(6, 1).getNumericCellValue()>0;
+	    
+	    System.out.println("Evaluacion de la formula: "+ creditCheck);
+	    execution.setVariable("creditCheck", creditCheck);
 	    
 	    helper.recalculateSheetAfterOpening();
 	    
