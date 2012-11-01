@@ -27,7 +27,7 @@ class ViewImageCompareController {
 		
 	}
 	
-	def loadImagen() {
+	def loadImagen={
 		String imagen = params.get("imagen");
 		AlfrescoService service = new AlfrescoService();
 		
@@ -37,7 +37,6 @@ class ViewImageCompareController {
 		response.contentType = getMimeType(document.getName());
 		response.outputStream << document.getContentStream().getStream().getBytes();
 		response.outputStream.flush();
-		
 	}
 	
 	private String getMimeType(String name){

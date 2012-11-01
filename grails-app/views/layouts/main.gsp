@@ -30,6 +30,19 @@
 
 <g:layoutHead />
 <r:layoutResources />
+
+<script type="text/javascript">
+	function popup(u){
+		littleWindow = window.open(u, "littleWindow", "location=center,width=800,height=600");
+		window.location.href = "${request.contextPath}/task/myTaskList";
+	} 	
+</script>
+<script>
+	if(parent.window.name=="littleWindow"){
+		parent.window.close();
+	}
+</script>
+
 </head>
 <body>
 	<div id="grailsLogo" role="banner">

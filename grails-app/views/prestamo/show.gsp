@@ -190,19 +190,13 @@
             </div>
             <g:if test="${!params.complete && params.taskId}">
             
-				<script type="text/javascript"> 
-				function popup(u){
-						littleWindow = window.open(u, "littleWindow", "location=center,width=800,height=600");
-						window.location.href = "${request.contextPath}/task/myTaskList";
-					} 
-				</script>
 				<div class="fieldcontain">
 					<label>
 						Comparar con el documento:
 					</label>
 				
 					<g:each in="${documentos}" var="doc">
-						<g:link target='_blank' url="javascript:popup('${request.contextPath }/viewImageCompare/index?imagen=${doc.id }&info=/prestamo/edit/${prestamoInstance?.id}?taskId=${params.taskId}');"> ${doc.name}</g:link> |
+						<g:link url="javascript:popup('${request.contextPath }/viewImageCompare/index?imagen=${doc.id }&info=/prestamo/edit/${prestamoInstance?.id}?taskId=${params.taskId}');"> ${doc.name}</g:link> |
 					</g:each>
 				</div>
 						               
