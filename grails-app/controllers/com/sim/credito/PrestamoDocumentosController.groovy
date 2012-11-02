@@ -63,7 +63,7 @@ class PrestamoDocumentosController {
 		def archivo = new File(path, nombreArchivo).readBytes()
 		
 		AlfrescoService alfrescoService = new AlfrescoService();
-		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, clavePrestamo);
+		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, clavePrestamo, "raul");
 	}
 
 }

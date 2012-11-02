@@ -20,8 +20,8 @@ public class AlfrescoApp {
 		
 		int i=1;
 		for(i=1; i<=10; i++){
-			service.saveFile("archivo1.txt", ("archivo "+i ).getBytes(),"text/plain", idCliente, idCredito);
-			service.saveFile("archivo2.txt", "xD los bytes".getBytes(), "text/plain", idCliente, idCredito);
+			service.saveFile("archivo1.txt", ("archivo "+i ).getBytes(),"text/plain", idCliente, idCredito,"Usuariox");
+			service.saveFile("archivo2.txt", "xD los bytes".getBytes(), "text/plain", idCliente, idCredito ,"Usuario 2");
 		}
 		System.out.println(" I: "+i);
 		

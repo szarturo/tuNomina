@@ -28,6 +28,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.definitions.PropertyDefinition;
 import org.apache.chemistry.opencmis.commons.enums.BaseTypeId;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
+import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 
 /**
@@ -39,7 +40,7 @@ import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
  */
 public class AlfrescoService {
 	
-	//session.getObjectByPath("/Sitios/tuNomina/creditos/"+idCliente+"/"+idCredito+"/"+fileName)
+	//session.getObjectByPath("/Sites/tuNomina/creditos/"+idCliente+"/"+idCredito+"/"+fileName)
 	
 	private final String ALFRESCO_SERVER;
 	private final String USERNAME;
@@ -73,7 +74,7 @@ public class AlfrescoService {
 	
 	/**
 	 * Devuelve un documento o un Folder. Null si no encuentra nada.
-	 * EJemplo /Sitios/tuNomina/creditos/template.xls  o EJemplo /Sitios/tuNomina/imagenes
+	 * EJemplo /Sites/tuNomina/creditos/template.xls  o EJemplo /Sitios/tuNomina/imagenes
 	 * @param path
 	 * @return
 	 */
@@ -96,7 +97,7 @@ public class AlfrescoService {
 	
 	/**
 	 * Obtiene un documento
-	 * @param path  ruta del documento. EJemplo /Sitios/tuNomina/creditos/template.xls 
+	 * @param path  ruta del documento. EJemplo /Sites/tuNomina/creditos/template.xls 
 	 * @return
 	 */
 	public Document getDocumentByPath(String path){
@@ -191,10 +192,10 @@ public class AlfrescoService {
 	 * @param bytesFile bytes del documento
 	 * @param idCliente 
 	 * @param idCredito
+	 * @param usuario
 	 * @return
 	 */
-	public boolean saveFile(String fileName, byte[] bytesFile, String mimeType,  String idCliente, String idCredito){
-		
+	public boolean saveFile(String fileName, byte[] bytesFile, String mimeType,  String idCliente, String idCredito, String usuario){
 		Folder creditos= getRootFolder();
 		Folder folderCliente=getFolderCliente(creditos, idCliente);
 		Folder folderCredito =getFolderCredito(folderCliente, idCredito);
@@ -216,7 +217,7 @@ public class AlfrescoService {
 //				checkFile.updateProperties(properties,true);
 				checkFile.setContentStream(getStream(fileName,bytesFile,mimeType), true);
 				
-				result=checkFile.checkIn(true, null, checkFile.getContentStream(), "Nueva version [AlfrescoService]");
+				result=checkFile.checkIn(true, null, checkFile.getContentStream(), "Modifica ["+usuario+"]");
 				//result=oldFile.checkIn(true, null, getStream(fileName, bytesFile, mimeType)  ,"n/a");
 			}else{
 				Map<String, Object> docProps = new HashMap<String, Object>();
@@ -226,7 +227,12 @@ public class AlfrescoService {
 			    ByteArrayInputStream in = new ByteArrayInputStream(bytesFile);
 			    ContentStream contentStream = session.getObjectFactory().createContentStream(fileName, bytesFile.length, mimeType, in);
 			    
-			    result = session.createDocument(docProps, folderCredito, contentStream, null, null, null, null);
+			    //result = session.createDocument(docProps, folderCredito, contentStream, null, null, null, null);
+			    result = session.createDocument(docProps, folderCredito, null, VersioningState.CHECKEDOUT, null, null, null);
+			    
+			    Document ch=(Document) session.getObject((ObjectId) result);
+			    
+			    ch.checkIn(true, properties, contentStream, "Crea documento ["+usuario+"]");
 				
 			}
 		} catch (Exception e) {

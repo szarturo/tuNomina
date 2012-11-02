@@ -41,7 +41,6 @@ public class CreaSolicitudTask implements JavaDelegate {
      
     org.apache.chemistry.opencmis.client.api.Document document=(org.apache.chemistry.opencmis.client.api.Document) 
     service.getDocumentByWorkspaceId("workspace://SpacesStore/497b6e91-7a26-48c5-8644-933ebe6598f1");
-    								  
     
  // Verificar que la imagen exista
     if(document!=null && document.getContentStream()!=null && document.getContentStream().getLength()>0){
@@ -78,8 +77,9 @@ public class CreaSolicitudTask implements JavaDelegate {
 		pdf.add(new Paragraph("Manager Loan Sharks"));
 		pdf.close();
 		
+		String usuario= (String)execution.getVariable("username");
 		
-		service.saveFile("solicitud.pdf", outputStream.toByteArray(), "application/pdf", (String)execution.getVariable("idCliente"), (String)execution.getVariable("idCredito"));
+		service.saveFile("solicitud.pdf", outputStream.toByteArray(), "application/pdf", (String)execution.getVariable("idCliente"), (String)execution.getVariable("idCredito"),usuario);
 		
 		System.out.println("Creado !");
 	}

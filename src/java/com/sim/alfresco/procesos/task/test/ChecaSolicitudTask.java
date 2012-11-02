@@ -47,10 +47,12 @@ public class ChecaSolicitudTask  implements JavaDelegate {
 	    
 	    System.out.println("Evaluacion de la formula: "+ creditCheck);
 	    execution.setVariable("creditCheck", creditCheck);
-	    
+
 	    helper.recalculateSheetAfterOpening();
+
+	    String usuario= (String)execution.getVariable("username");
 	    
-	    service.saveFile("tempexcel.xls", helper.getBytes(), EXCEL_MIMETYPE, (String)execution.getVariable("idCliente"), (String)execution.getVariable("idCredito"));
+	    service.saveFile("tempexcel.xls", helper.getBytes(), EXCEL_MIMETYPE, (String)execution.getVariable("idCliente"), (String)execution.getVariable("idCredito"),usuario);
 	    
 		
 //		for(String s:execution.getVariableNames()){
