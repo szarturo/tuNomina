@@ -4,6 +4,8 @@ import com.sim.alfresco.AlfrescoService
 import org.apache.chemistry.opencmis.client.api.Folder
 
 class PrestamoDocumentosController {
+	
+	 def springSecurityService
 
      def listaDocumentos() {
 		 
@@ -61,9 +63,12 @@ class PrestamoDocumentosController {
 		String claveCliente = params.claveCliente
 		def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${claveCliente}/${clavePrestamo}")
 		def archivo = new File(path, nombreArchivo).readBytes()
+
+		def user = springSecurityService.getCurrentUser()
+		String username = user.username;
 		
 		AlfrescoService alfrescoService = new AlfrescoService();
-		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, clavePrestamo, "raul");
+		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, clavePrestamo, username);
 	}
 
 }
