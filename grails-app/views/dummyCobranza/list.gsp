@@ -6,6 +6,8 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'dummyCobranza.label', default: 'DummyCobranza')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<link rel='stylesheet' type='text/css' href='${request.contextPath}/css/cobranza/color_estados.css' />
+		<calendar:resources lang="es" theme="green"  />
 		<script>
 			function select(opt){
 			    for(var i=0; i < document.frmLista.elements.length; i++) {
@@ -25,6 +27,22 @@
 			}
 			
 		</script>
+		<!-- You may redefine styles -->
+		<style type="text/css" media="screen">
+			div.combobox	*	{font-family: Tahoma;font-size: 12px}
+			div.combobox	{position: relative; }
+			div.combobox	div.dropdownlist	{display: none;width: 100px;border: solid 1px #000;
+				height: 200px;overflow: auto;position: absolute;background-color: #fff;top: 27px;left: 0px;}
+			div.combobox	.dropdownlist	a	{display: block;text-decoration: none;color: #000;padding: 1px}
+			/*div.combobox	.dropdownlist	a.light	{color: #fff;background-color: #007}
+			div.combobox	.dropdownlist, input {font-family: Tahoma;font-size: 12px;}*/
+			div.combobox	input {float: left;width: 90px;border: solid 1px #ccc;height: 20px} 
+			div.combobox	span	{border: solid 1px #ccc;background: #eee;width: 16px;height: 25px;
+				float: left;text-align: center;border-left: none}
+				tr:hover {
+				background-color: #C7E0EB;
+				}
+		</style>
 	</head>
 	<body>
 		<a href="#list-dummyCobranza" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -48,15 +66,18 @@
 					<tr>
 						<td></td>
 						
-						<g:sortableColumn property="field1" title="${message(code: 'dummyCobranza.field1.label', default: 'Field1')}" />
+						<g:sortableColumn property="field1" title="${message(code: 'dummyCobranza.field1.label', default: 'Pago')}" />
 					
-						<g:sortableColumn property="field2" title="${message(code: 'dummyCobranza.field2.label', default: 'Field2')}" />
+						<g:sortableColumn property="field2" title="${message(code: 'dummyCobranza.field2.label', default: 'Cobrado')}" />
 					
 						<g:sortableColumn property="field3" title="${message(code: 'dummyCobranza.field3.label', default: 'Field3')}" />
+						
+						<g:sortableColumn property="field6" title="${message(code: 'dummyCobranza.field6.label', default: 'Field6')}" />
 					
 						<g:sortableColumn property="field4" title="${message(code: 'dummyCobranza.field4.label', default: 'Field4')}" />
 					
 						<g:sortableColumn property="field5" title="${message(code: 'dummyCobranza.field5.label', default: 'Field5')}" />
+						
 						
 						<td>Action r1</td>
 						
@@ -69,7 +90,20 @@
 					<g:hiddenField name="numeroFila" value=""/>
 				
 					<g:each in="${dummyCobranzaInstanceList}" status="i" var="dummyCobranzaInstance">
-						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+						<tr
+							<g:if test="${dummyCobranzaInstance.field1 == dummyCobranzaInstance.field2}">
+								class="pago_igual"
+							</g:if>
+							<g:if test="${dummyCobranzaInstance.field1>dummyCobranzaInstance.field2 && dummyCobranzaInstance.field2>0 }">
+								class="pago_menor"
+							</g:if>
+							<g:if test="${dummyCobranzaInstance.field1<dummyCobranzaInstance.field2}">
+								class="pago_mayor"
+							</g:if>
+							<g:if test="${0 >= dummyCobranzaInstance.field2}">
+								class="sin_pago"
+							</g:if>
+						>
 							
 							<td>
 								<g:checkBox name="rowcheck${i}" />
@@ -78,23 +112,48 @@
 							<td>
 								<g:hiddenField name="field1" value="${fieldValue(bean: dummyCobranzaInstance, field: "field1")}"/>
 								<g:hiddenField name="id" value="${dummyCobranzaInstance.id}"/>
-							<g:link action="show" id="${dummyCobranzaInstance.id}">${fieldValue(bean: dummyCobranzaInstance, field: "field1")}</g:link>
+								
+								<g:link  action="show" id="${dummyCobranzaInstance.id}"><g:formatNumber  number="${dummyCobranzaInstance.field1}" format="#.####" locale="es_MX" /></g:link>
 							</td>
 						
 							<td>
-								<g:textField name="field2" value="${fieldValue(bean: dummyCobranzaInstance, field: "field2")}"/>
+								<input type="text" name="field2" id="field2" value="<g:formatNumber  number="${dummyCobranzaInstance.field2}" format="#.####" locale="es_MX" />" size="3" />
 							</td>
 						
 							<td>
-								<g:textField name="field3" value="${fieldValue(bean: dummyCobranzaInstance, field: "field3")}"/>
+								<input type="text" name="field3" id="field3" value="<g:fieldValue bean="${dummyCobranzaInstance}" field="field3"/>" size="3" />
+							</td>
+							
+							<td>
+								<!-- HTML code -->
+								<div class="combobox">
+									<input type="text" name="field6" id="field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}" value="${fieldValue(bean: dummyCobranzaInstance, field: "field6")}">
+									<span>↓</span>
+									<div class="dropdownlist" style="z-index:100000000;">
+										<a>${fieldValue(bean: dummyCobranzaInstance, field: "field6")}</a>
+										<g:each var="item" in="${dependencias }">
+											<a>${item }</a>
+										</g:each>
+									</div>
+								</div>
+								<!-- JS code -->
+								<script type="text/javascript" charset="utf-8" src="${request.contextPath }/js/combobox/combobox.js"></script>
+								<script type="text/javascript" charset="utf-8">
+								var no = new ComboBox('field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}');
+								</script>
+							
 							</td>
 						
 							<td>${fieldValue(bean: dummyCobranzaInstance, field: "field4")}
 								<g:hiddenField name="field4" value="${fieldValue(bean: dummyCobranzaInstance, field: "field4")}"/>
 							</td>
 						
-							<td>${fieldValue(bean: dummyCobranzaInstance, field: "field5")}
-								<g:hiddenField name="field5" value="${fieldValue(bean: dummyCobranzaInstance, field: "field5")}"/>
+							<td nowrap="nowrap">
+								<calendar:datePicker dateFormat="%d/%m/%Y"  name="field5${i }" defaultValue="${dummyCobranzaInstance.field5}" />
+								<script type="text/javascript">
+									document.frmLista.field5${i }_value.style.width="80px";
+									document.getElementById('field5${i }_value').style.width="80px";
+								</script>
 							</td>
 							
 							<td>

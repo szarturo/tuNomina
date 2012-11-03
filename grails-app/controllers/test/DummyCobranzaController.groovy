@@ -1,6 +1,9 @@
 package test
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.dao.DataIntegrityViolationException
+import com.sim.calendario.Dependencia;
 
 class DummyCobranzaController {
 
@@ -10,21 +13,13 @@ class DummyCobranzaController {
 		System.out.println("saveAll");
 		Object o= params.get("id");
 		String[] ids;
-		String[] fields2;
-		String[] fields3;
 		
 		// Es un Array
 		if(o.getProperties().empty==null){
 			ids= ((String[])params.get("id"));
-			fields2= ((String[])params.get("field2"));
-			fields3= ((String[])params.get("field3"));
 		}else{
 			ids= new String[1];
-			fields2= new String[1];
-			fields3= new String[1];
 			ids[0]=params.get("id");
-			fields2[0]= params.get("field2");
-			fields3[0]= params.get("field3");
 		}
 		
 		for(int i=0; i<ids.length; i++){
@@ -89,21 +84,29 @@ class DummyCobranzaController {
 		
 		Object o= params.get("id");
 		String[] ids;
-		String[] fields2;
+		double[] fields2;
 		String[] fields3;
+		String[] fields6;
+		Date[] fields5;
 		
 		// Es un Array
 		if(o.getProperties().empty==null){
 			ids= ((String[])params.get("id"));
-			fields2= ((String[])params.get("field2"));
+			//fields2= ((double[])params.get("field2"));
+			fields2= parseDoubleArray(((String[])params.get("field2")));
 			fields3= ((String[])params.get("field3"));
+			fields6= ((String[])params.get("field6"));
+			fields5= getFechas(params, ids.length);
 		}else{
 			ids= new String[1];
-			fields2= new String[1];
+			fields2= new double[1];
 			fields3= new String[1];
+			fields6= new String[1];
 			ids[0]=params.get("id");
-			fields2[0]= params.get("field2");
+			fields2[0]= Double.parseDouble( params.get("field2") );
 			fields3[0]= params.get("field3");
+			fields6[0]= params.get("field6");
+			fields5= getFechas(params, ids.length);
 		}
 		
 		
@@ -124,6 +127,8 @@ class DummyCobranzaController {
 	
 			dummyCobranzaInstance.setField2(fields2[i]);
 			dummyCobranzaInstance.setField3(fields3[i]);
+			dummyCobranzaInstance.setField6(fields6[i]);
+			dummyCobranzaInstance.setField5(fields5[i]);
 	
 			dummyCobranzaInstance.save(flush: true);
 		}
@@ -140,18 +145,26 @@ class DummyCobranzaController {
 		
 		Object o= params.get("id");
 		String id;
-		String field2;
+		double field2;
 		String field3;
+		String field6;
+		Date field5;
 		
 		// Es un Array
 		if(o.getProperties().empty==null){
 			id= ((String[])params.get("id"))[idrow];
-			field2= ((String[])params.get("field2"))[idrow];
+			//field2= ((String[])params.get("field2"))[idrow];
+			field2=Double.parseDouble(  ((String[])params.get("field2"))[idrow] );
 			field3= ((String[])params.get("field3"))[idrow];
+			field6= ((String[])params.get("field6"))[idrow];
+			field5=getFecha(params.get("field50_value"));
+			
 		}else{
 			id= params.get("id");
-			field2=params.get("field2");
+			field2=Double.parseDouble(params.get("field2"));
 			field3=params.get("field3");
+			field6=params.get("field6");
+			field5=getFecha(params.get("field50_value"));
 		}
 		
 		
@@ -162,6 +175,8 @@ class DummyCobranzaController {
 		System.out.println("id:"+id);
 		System.out.println("f2:"+field2);
 		System.out.println("f3:"+field3);
+		System.out.println("f6:"+field6);
+		System.out.println("f5:"+field5);
 		
 		def dummyCobranzaInstance = DummyCobranza.get(id)
 		if (!dummyCobranzaInstance) {
@@ -172,10 +187,47 @@ class DummyCobranzaController {
 
 		dummyCobranzaInstance.setField2(field2);
 		dummyCobranzaInstance.setField3(field3);
+		dummyCobranzaInstance.setField6(field6);
+		dummyCobranzaInstance.setField5(field5);
 
 		dummyCobranzaInstance.save(flush: true);
 		
 		redirect(action: "list", params: params)
+	}
+	
+	private Date[] getFechas(Map<Object,Object> params, int number){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date[] dates= new Date[number];
+		
+		for(int i=0; i<number; i++){
+			try{
+				dates[i]=format.parse(params.get("field5"+i+"_value"));
+			}catch(Exception e){
+			}
+		}
+		
+		return dates;
+		
+	}
+	
+	private Date getFecha(String value){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		return format.parse(value);
+	}
+	
+	private double[] parseDoubleArray(String[] array){
+		double[] arrayDouble =null;
+		if(array==null || array.length<=0){
+			return null;
+		}
+		arrayDouble = new double[array.length+1];
+		
+		int i=0;
+		for(String v:array){
+			arrayDouble[i++]=Double.parseDouble(v);
+		}
+		
+		return arrayDouble;
 	}
 	
 	def clean(){
@@ -189,7 +241,17 @@ class DummyCobranzaController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+		
+		try{
+		request.putAt("dependencias", Dependencia.list());
+		System.out.println("d: "+ request.getAt("dependencias").size());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
         [dummyCobranzaInstanceList: DummyCobranza.list(params), dummyCobranzaInstanceTotal: DummyCobranza.count()]
+		
+		
     }
 
     def create() {

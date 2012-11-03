@@ -1,0 +1,12 @@
+.pago_igual{
+	background-color: GREEN;
+}
+.pago_menor{
+	background-color: YELLOW;
+}
+.pago_mayor{
+	background-color: BLUE;
+}
+.sin_pago{
+	background-color: RED;
+}

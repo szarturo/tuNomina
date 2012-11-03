@@ -39,6 +39,14 @@
 		<g:message code="dummyCobranza.field5.label" default="Field5" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="field5" required="" value="${dummyCobranzaInstance?.field5}"/>
+	<g:datePicker name="field5" value="${dummyCobranzaInstance?.field5}" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: dummyCobranzaInstance, field: 'field6', 'error')} required">
+	<label for="field6">
+		<g:message code="dummyCobranza.field6.label" default="Field6" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="field6" required="" value="${dummyCobranzaInstance?.field6}"/>
 </div>
 

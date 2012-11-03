@@ -67,6 +67,15 @@
 					
 				</li>
 				</g:if>
+				
+				<g:if test="${dummyCobranzaInstance?.field6}">
+				<li class="fieldcontain">
+					<span id="field6-label" class="property-label"><g:message code="dummyCobranza.field6.label" default="Field6" /></span>
+					
+						<span class="property-value" aria-labelledby="field6-label"><g:fieldValue bean="${dummyCobranzaInstance}" field="field6"/></span>
+					
+				</li>
+				</g:if>
 			
 			</ol>
 			<g:form>
