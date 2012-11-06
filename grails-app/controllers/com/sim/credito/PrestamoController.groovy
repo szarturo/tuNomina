@@ -12,6 +12,8 @@ import org.springframework.dao.DataIntegrityViolationException
 import com.sim.alfresco.AlfrescoService;
 
 class PrestamoController {
+	
+	def tablaAmortizacionService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -220,4 +222,17 @@ class PrestamoController {
             redirect(controller: "task", action: "myTaskList")
         }
     }
+	
+	def generaTablaAmortizacion = {
+		log.info(params.idPrestamo)
+		Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
+		
+		log.info("Resultado Servicio: " + tablaAmortizacionService.miMetodo())
+		
+		tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
+		
+		
+		
+	}
+	
 }

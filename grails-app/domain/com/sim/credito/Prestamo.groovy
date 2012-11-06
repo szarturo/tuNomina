@@ -12,6 +12,7 @@ import com.sim.producto.ProPromocion
 import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.catalogo.SimCatEtapaPrestamo
+import com.sim.tablaAmortizacion.TablaAmortizacion
 
 class Prestamo {
 
@@ -39,6 +40,8 @@ class Prestamo {
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
 	Date dateCreated
 	Date lastUpdated
+	
+	static hasMany = [ tablaAmortizacion : TablaAmortizacion ]
 
     static belongsTo = [cliente : RsCliente]
 	
