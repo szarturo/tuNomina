@@ -143,7 +143,51 @@ class BootStrap {
 			System.setProperty k, v
 			}
 			
+			
+		new SimCatMetodoCalculo(claveMetodoCalculo:  'METODO01',
+				nombreMetodoCalculo: 'PAGOS IGUALES DE CAPITAL E INTERES',
+				descripcionMetodoCalculo: 'INTERES GLOBAL',
+				).save(failOnError: true)
 
+		new SimCatMetodoCalculo(claveMetodoCalculo:  'METODO02',
+				nombreMetodoCalculo: 'PAGOS IGUALES DE CAPITAL, CALCULO DE INTERES SOBRE EL SALDO INSOLUTO',
+				descripcionMetodoCalculo: 'INTERES SOBRE SALDO INSOLUTO',
+				).save(failOnError: true)
+
+		new SimCatMetodoCalculo(claveMetodoCalculo:  'METODO05',
+				nombreMetodoCalculo: 'PAGOS IGUALES DE CAPITAL MAS INTERES, CALCULO DE INTERES SOBRE EL SALDO INSOLUTO',
+				descripcionMetodoCalculo: 'SIN RECALCULO DE INTERESES POR PAGOS ADELANTADOS, CONOCIDO COMO METODO FRANCES',
+				).save(failOnError: true)
+
+		new SimCatMetodoCalculo(claveMetodoCalculo:  'METODO06',
+				nombreMetodoCalculo: 'PAGOS IGUALES DE CAPITAL MAS INTERES, CALCULO DE INTERES SOBRE EL SALDO INSOLUTO RI',
+				descripcionMetodoCalculo: 'RECALCULO DE INTERESES POR PAGOS ADELANTADOS, CONOCIDO COMO METODO FRANCES',
+				).save(failOnError: true)
+				
+		new SimCatPeriodicidad(clavePeriodicidad:  'SEMANA',
+					nombrePeriodicidad: 'SEMANAL',
+					cantidadPagos: 52,
+					numeroDias: 7,
+					).save(failOnError: true)
+	
+		new SimCatPeriodicidad(clavePeriodicidad:  'CATORCENA',
+					nombrePeriodicidad: 'CATORCENAL',
+					cantidadPagos: 26,
+					numeroDias: 14,
+					).save(failOnError: true)
+	
+		new SimCatPeriodicidad(clavePeriodicidad:  'QUINCENA',
+					nombrePeriodicidad: 'QUINCENAL',
+					cantidadPagos:  24 ,
+					numeroDias: 15,
+					).save(failOnError: true)
+					
+		new SimCatPeriodicidad(clavePeriodicidad:  'MES',
+					nombrePeriodicidad: 'MENSUAL',
+					cantidadPagos: 12,
+					numeroDias: 30,
+					).save(failOnError: true)
+		
 		new SimCatTipoDocumento(claveTipoDocumento:  'IDENTIFICACION',
 				nombreTipoDocumento: 'IDENTIFICACION OFICIAL',
 				).save(flush: true,failOnError: true)
@@ -885,9 +929,11 @@ class BootStrap {
         def promocionUno = new ProPromocion(
                 clavePromocion : "MOR78987",
                 nombrePromocion : "PROMOCION ATREVETE A PEDIR",
-                dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-                tasa:  5.45,
-                plazo:  28,
+                tasaDeInteres:  5.45,
+				metodoCalculo : SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'),
+				periodicidadTasa: SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+                numeroDePagos:  10,
+				periodicidadPagos: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
                 fechaInicioVigencia : new Date('04/30/2012'),
                 fechaFinVigencia  : new Date('09/30/2012'),
                 iva : 16,

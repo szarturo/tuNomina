@@ -118,7 +118,12 @@
 									<li><g:link controller="simCatEtapaPrestamo">
 											<span>Etapas del Prestamo</span>
 										</g:link></li>
-
+									<li><g:link controller="simCatPeriodicidad">
+											<span>Periodicidad</span>
+										</g:link></li>
+									<li><g:link controller="SimCatMetodoCalculo">
+											<span>M&eacute;todo de C&aacute;lculo</span>
+										</g:link></li>
 
 									<li><a href="#"><span>Sub Item 1.6</span></a></li>
 									<li><a href="#" class="parent"><span>Sub Item
