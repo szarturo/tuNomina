@@ -7,6 +7,7 @@ import com.sim.credito.*
 import com.sim.empresa.*
 import com.sim.producto.*
 import com.sim.calendario.*
+import com.sim.pfin.*
 
 import test.*;
 
@@ -1051,6 +1052,46 @@ class BootStrap {
 		new Dependencia(nombre:"SE").save(flush: true,failOnError: true)
 		
 		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
+
+		//ARTURO Y JOSE DAN DE ALTA LOS CONCEPTOS QUE INDIQUE MINE
+		//DATOS PARA EL CORE FINANCIERO
+		
+		new CatConcepto(claveConcepto:  'INTERES',
+			descripcionCorta: 'INTERES',
+			descripcionLarga: 'INTERES',
+			situacion: 'ACTIVO'
+		).save(flush: true,failOnError: true)
+		
+		new CatAfectaOperacion(claveAfecta:  'CREDITO',
+			descripcionAfecta: 'AFECTA AL CREDITO'
+		).save(flush: true,failOnError: true)
+		
+		new CatAfectaOperacion(claveAfecta:  'CUENTA',
+			descripcionAfecta: 'AFECTA A LA CUENTA'
+		).save(flush: true,failOnError: true)
+
+		new CatAfectaOperacion(claveAfecta:  'CAJA',
+			descripcionAfecta: 'AFECTA A LA CAJA'
+		).save(flush: true,failOnError: true)
+
+		new CatOperacion(claveOperacion:  'TEDEPEFE',
+			claveAfectaSaldo: 'INCREMENTA',
+			descripcionCorta: 'DEPOSITO DE EFECTIVO',
+			descripcionLarga: 'DEPOSITO DE EFECTIVO A LA CUENTA DEL CLIENTE',
+			situacion: 'ACTIVO',
+			afecta: CatAfectaOperacion.findByClaveAfecta('CUENTA')
+		).save(flush: true,failOnError: true)
+
+		new CatOperacion(claveOperacion:  'CANPAG',
+			claveAfectaSaldo: 'INCREMENTA',
+			descripcionCorta: 'CANCELA PAGO',
+			descripcionLarga: 'CANCELACION DEL PAGO DEL CREDITO',
+			situacion: 'ACTIVO',
+			afecta: CatAfectaOperacion.findByClaveAfecta('CREDITO')
+		).save(flush: true,failOnError: true)
+
+
+
 	
     }
 

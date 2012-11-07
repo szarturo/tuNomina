@@ -100,6 +100,21 @@
 													</g:link></li>
 											</ul>
 										</div></li>
+									<li><a href="#" class="parent"><span>Core Financiero</span></a>
+										<div>
+											<ul>
+												<li><g:link controller="catConcepto">
+														<span>Conceptos</span>
+													</g:link></li>
+												<li><g:link controller="catAfectaOperacion">
+														<span>Afecta Operacion</span>
+													</g:link></li>
+												<li><g:link controller="catOperacion">
+														<span>Operacion</span>
+													</g:link></li>
+													
+											</ul>
+										</div></li>
 									<li><g:link controller="simCatEscolaridad">
 											<span>Escolaridad</span>
 										</g:link></li>
