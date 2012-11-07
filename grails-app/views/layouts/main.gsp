@@ -115,6 +115,12 @@
 												<li><g:link controller="catOperacionConcepto">
 														<span>Operacion Concepto</span>
 													</g:link></li>
+												<li><g:link controller="cuenta">
+														<span>Cuenta</span>
+													</g:link></li>
+												<li><g:link controller="saldo">
+														<span>Saldo</span>
+													</g:link></li>
 													
 											</ul>
 										</div></li>

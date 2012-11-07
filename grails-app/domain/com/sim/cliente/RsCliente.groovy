@@ -3,6 +3,7 @@ package com.sim.cliente
 import com.rs.gral.RsPersona;
 import com.sim.entidad.EntDependencia
 import com.sim.credito.Prestamo
+import com.sim.pfin.Cuenta
 
 class RsCliente {
 
@@ -23,13 +24,14 @@ class RsCliente {
             negocios : SimClienteNegocio, integranteUef : SimClienteIntegranteUef, adeudos : SimClienteAdeudos, garantias : SimClienteGarantia ]
      */
 
-    static hasMany = [ creditos : Prestamo]
+    static hasMany = [ creditos : Prestamo, cuentas : Cuenta]
 
     static constraints = {
         persona unique: true
         dependencia nullable: false
         numeroDeNomina nullable: false
         creditos nullable: true
+		cuentas nullable:true
 
         /*
         ingresoSemanal scale:2, nullable:true

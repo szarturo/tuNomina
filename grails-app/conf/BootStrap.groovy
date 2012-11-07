@@ -1102,7 +1102,22 @@ class BootStrap {
 			claveAfecta: 'INCREMENTA',
 			situacion: 'ACTIVO',
 		).save(flush: true,failOnError: true)
-	
+
+		def cuenta1 = new Cuenta(tipoCuenta:  'EJE',
+			situacion: 'ACTIVO',
+			cliente: clienteArturo,
+		).save(flush: true,failOnError: true)
+
+		new Saldo(fechaFoto:  new Date('09/30/2012'),
+			saldo: 100,
+			cuenta: cuenta1,
+		).save(flush: true,failOnError: true)
+		
+		new Saldo(fechaFoto:  new Date('10/30/2012'),
+			saldo: 10,
+			cuenta: cuenta1,
+		).save(flush: true,failOnError: true)
+					
     }
 
 	def destroy = {
