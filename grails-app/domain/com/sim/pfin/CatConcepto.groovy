@@ -15,7 +15,7 @@ class CatConcepto {
     }
 	
 	String toString() {
-		"${descripcionCorta}}"
+		"${descripcionCorta}"
 	}
 
 }

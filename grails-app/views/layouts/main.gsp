@@ -121,9 +121,16 @@
 												<li><g:link controller="saldo">
 														<span>Saldo</span>
 													</g:link></li>
-												<li><g:link controller="Divisa">
+												<li><g:link controller="divisa">
 														<span>Divisa</span>
 													</g:link></li>
+												<li><g:link controller="pfinPreMovimiento">
+														<span>Premovimiento</span>
+													</g:link></li>
+												<li><g:link controller="pfinPreMovimientoDet">
+														<span>Premovimiento Detalle</span>
+													</g:link></li>
+													
 													
 											</ul>
 										</div></li>
