@@ -112,6 +112,9 @@
 												<li><g:link controller="catOperacion">
 														<span>Operacion</span>
 													</g:link></li>
+												<li><g:link controller="catOperacionConcepto">
+														<span>Operacion Concepto</span>
+													</g:link></li>
 													
 											</ul>
 										</div></li>

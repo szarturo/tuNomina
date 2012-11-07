@@ -1062,6 +1062,13 @@ class BootStrap {
 			situacion: 'ACTIVO'
 		).save(flush: true,failOnError: true)
 		
+		new CatConcepto(claveConcepto:  'IMPBRU',
+			descripcionCorta: 'IMPORTE BRUTO',
+			descripcionLarga: 'IMPORTE BRUTO',
+			situacion: 'ACTIVO'
+		).save(flush: true,failOnError: true)
+
+		
 		new CatAfectaOperacion(claveAfecta:  'CREDITO',
 			descripcionAfecta: 'AFECTA AL CREDITO'
 		).save(flush: true,failOnError: true)
@@ -1090,8 +1097,11 @@ class BootStrap {
 			afecta: CatAfectaOperacion.findByClaveAfecta('CREDITO')
 		).save(flush: true,failOnError: true)
 
-
-
+		new CatOperacionConcepto(operacion:  CatOperacion.findByClaveOperacion('TEDEPEFE'),
+			concepto:  CatConcepto.findByClaveConcepto('IMPBRU'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
 	
     }
 

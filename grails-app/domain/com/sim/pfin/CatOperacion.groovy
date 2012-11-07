@@ -20,6 +20,6 @@ class CatOperacion {
     }
 	
 	String toString() {
-		"${descripcionCorta}}"
+		"${descripcionCorta}"
 	}
 }
