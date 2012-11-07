@@ -121,6 +121,9 @@
 												<li><g:link controller="saldo">
 														<span>Saldo</span>
 													</g:link></li>
+												<li><g:link controller="Divisa">
+														<span>Divisa</span>
+													</g:link></li>
 													
 											</ul>
 										</div></li>

@@ -5,7 +5,7 @@ import java.util.Date;
 class Saldo {
 	
 	Date       fechaFoto
-	//Divisa divisa
+	Divisa     divisa
 	BigDecimal saldo
 
 	static belongsTo = [cuenta:Cuenta]
@@ -13,7 +13,7 @@ class Saldo {
     static constraints = {
 		fechaFoto(nullable:false)
 		cuenta(nullable:true)
-		//divisa(nullable:false)
+		divisa(nullable:false)
 		saldo(nullable:false)
     }
 	

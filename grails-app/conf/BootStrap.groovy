@@ -1108,16 +1108,23 @@ class BootStrap {
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
 
+		new Divisa(claveDivisa:'MXP',
+			descripcionDivisa:'Peso Mexicano'
+		).save(flush: true,failOnError: true)
+	
 		new Saldo(fechaFoto:  new Date('09/30/2012'),
-			saldo: 100,
+			divisa:  Divisa.findByClaveDivisa('MXP'),
+			saldo: 100, 
 			cuenta: cuenta1,
 		).save(flush: true,failOnError: true)
-		
+
 		new Saldo(fechaFoto:  new Date('10/30/2012'),
+			divisa:  Divisa.findByClaveDivisa('MXP'),
 			saldo: 10,
 			cuenta: cuenta1,
 		).save(flush: true,failOnError: true)
-					
+	
+				
     }
 
 	def destroy = {
