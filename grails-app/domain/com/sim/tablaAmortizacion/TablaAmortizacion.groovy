@@ -9,10 +9,8 @@ class TablaAmortizacion {
 	BigDecimal  amortizacionCapital
 	BigDecimal  pagoTotal
 	BigDecimal  saldoInsoluto
-	BigDecimal	interesTotal
-	BigDecimal	pagoTotalPrestamo
 
-	static belongsTo = Prestamo
+	static belongsTo = [prestamo:Prestamo]
 
 	static constraints = {
 		numeroDePago range:1..360
@@ -20,8 +18,6 @@ class TablaAmortizacion {
 		amortizacionCapital scale:2, nullable:true
 		pagoTotal scale:2, nullable:true
 		saldoInsoluto scale:2, nullable:true
-		interesTotal scale:2, nullable:true
-		pagoTotalPrestamo scale:2, nullable:true
 	}
 
 	String toString() {

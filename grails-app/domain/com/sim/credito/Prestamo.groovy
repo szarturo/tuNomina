@@ -42,6 +42,10 @@ class Prestamo {
 	Date lastUpdated
 	
 	static hasMany = [ tablaAmortizacion : TablaAmortizacion ]
+	
+	static mapping = {
+		tablaAmortizacion cascade: "all-delete-orphan"
+	 }
 
     static belongsTo = [cliente : RsCliente]
 	

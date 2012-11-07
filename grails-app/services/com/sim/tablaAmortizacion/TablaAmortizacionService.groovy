@@ -12,19 +12,15 @@ class TablaAmortizacionService {
 
 	Boolean generaTablaAmortizacion(Prestamo prestamoInstance) {
 
-		log.info ("Servicio Prestamo: ${prestamoInstance}")
 		def NumeroPagos = 1
 
 		BigDecimal saldoInsoluto         = prestamoInstance.montoSolicitado
-		//Integer iIdCliente               = tablaAmortizacionInstance.idCliente
 		String sMetodoCalculo 			 = prestamoInstance.promocion.metodoCalculo.claveMetodoCalculo
 		BigDecimal Capital				 = prestamoInstance.montoSolicitado
 		String sDiasPeriodicidadTasa 	 = prestamoInstance.promocion.periodicidadTasa.clavePeriodicidad
 		String sDiasPeriodicidadPago 	 = prestamoInstance.promocion.periodicidadPagos.clavePeriodicidad
 		Integer iDiasPeriodicidadTasa 	 = prestamoInstance.promocion.periodicidadTasa.numeroDias
 		Integer iDiasPeriodicidadPago 	 = prestamoInstance.promocion.periodicidadPagos.numeroDias
-
-		println "Metodo Calculo = ${sMetodoCalculo}, Periodicidad Tasa = ${sDiasPeriodicidadTasa}, PeriodicidadPago = ${sDiasPeriodicidadPago}"
 
 		(1..prestamoInstance.promocion.numeroDePagos).each{
 
@@ -42,30 +38,21 @@ class TablaAmortizacionService {
 			if (sMetodoCalculo.equals("METODO01")){
 				//FORMULA PARA EL CALCULO DE LA AMORTIZACION
 				Amortizacion = Capital / prestamoInstance.promocion.numeroDePagos
-				//FORMULA PARA EL PAGO DE INTERES MENSUAL
+				//FORMULA PARA EL PAGO DE INTERES
 				PagoIntereses = Capital * Tasa
-				//FORMULA PARA VER EL PAGO TOTAL DEL MES
+				//FORMULA PARA VER EL PAGO TOTAL
 				CuotaTotal = Amortizacion + PagoIntereses
-				//CALCULA EL SALDO RESTANTE DEL CAPITAL
-				saldoInsoluto = saldoInsoluto - Amortizacion
+
 				//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 				bPagoTotalInteres  = PagoIntereses * prestamoInstance.promocion.numeroDePagos
 				bPagoTotalPrestamo = Capital + bPagoTotalInteres
-				println "*************************"
-				println"""
-					NumeroPago: 			 ${NumeroPagos}
-					Interes: 				 ${PagoIntereses}
-					Amortizacion Capital:    ${Amortizacion}
-					Pago Total: 			 ${CuotaTotal}
-					Saldo Insoluto: 		 ${saldoInsoluto}
-					Pago total de interes:   ${bPagoTotalInteres}
-					Pago total del prestamo: ${bPagoTotalPrestamo}
-				"""
 
 			}
 
 			//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
-			prestamoInstance.addToTablaAmortizacion(new TablaAmortizacion(numeroDePago:NumeroPagos,interes:PagoIntereses,amortizacionCapital:Amortizacion,pagoTotal:CuotaTotal,saldoInsoluto:saldoInsoluto,interesTotal:bPagoTotalInteres, pagoTotalPrestamo:bPagoTotalPrestamo)).save()
+			prestamoInstance.addToTablaAmortizacion(new TablaAmortizacion(numeroDePago:NumeroPagos,interes:PagoIntereses,amortizacionCapital:Amortizacion,pagoTotal:CuotaTotal,saldoInsoluto:saldoInsoluto,)).save()
+			//CALCULA EL SALDO RESTANTE DEL CAPITAL
+			saldoInsoluto = saldoInsoluto - Amortizacion
 			NumeroPagos++
 		}
 
