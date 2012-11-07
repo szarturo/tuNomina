@@ -22,7 +22,7 @@
 /* menu::base */
 div#menu {
     height: 52px;
-    padding-left: 6px;
+    padding-left: 0px;
     background: url(../images/menu/leftgreen.png) no-repeat;
     _background: url(../images/menu/left.gif) no-repeat;
     width:auto;

@@ -301,12 +301,20 @@
 				</div></li>
 
 			<sec:ifNotLoggedIn>
+				<li><g:link controller="login" action="auth">
+						____________________________________________________________
+					</g:link></li>					
+			
 				<li class="last"><g:link controller="login" action="auth">
 						<span>Entrar</span>
 					</g:link></li>
+					
 			</sec:ifNotLoggedIn>
 
 			<sec:ifLoggedIn>
+				<li><g:link controller="login" action="auth">
+						______________________________________
+					</g:link></li>				
 				<li class="last"><g:link controller="logout">
 						<span>Salir</span>
 					</g:link></li>

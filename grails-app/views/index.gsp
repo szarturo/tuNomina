@@ -95,7 +95,13 @@ p {
 			<td><a href="#page-body" class="skip"><g:message
 						code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 				<div id="status" role="complementary">
-					<h1>Estatus de la aplicación</h1>
+					<h1>Múltiplica tu Nómina</h1>
+					<li>Multiplica tu Nómina es una empresa 100% mexicana fundada en el año 2009, 
+					    que nace para atender a un creciente número de empleados de empresas 
+					    públicas y privadas, que requieren de préstamos en efectivo.
+					</li>	
+						
+					<h1>Información Técnica</h1>			
 					<ul>
 						<li>App version: <g:meta name="app.version" /></li>
 						<li>Grails version: <g:meta name="app.grails.version" /></li>
@@ -107,6 +113,7 @@ p {
 						<li>Services: ${grailsApplication.serviceClasses.size()}</li>
 						<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
 					</ul>
+					
 					<h1>Plugins instalados</h1>
 					<ul>
 						<g:each var="plugin"
@@ -118,14 +125,15 @@ p {
 					</ul>
 				</div>
 				<div id="page-body" role="main">
+				
+					<img src="${resource(dir: 'images', file: 'mas_lana.png')}" alt="Grails" />
 					<h1>Sistema Integral de Microfinanciamiento</h1>
-					<p>La descripción del SIM se encuentra sustentada para resolver
-						la operación de las entidades financieras otorgantes de
-						micro-créditos. El Sistema Integral de Microfinanciamiento, esta
-						estructurado por módulos que operaran con vínculos que permitan
-						una adecuada navegación y sobre todo una administración eficiente,
-						para brindar una gestión operativa e información financiera en
-						línea.</p>
+					<p>Nuestra empresa tiene como objetivo dar soluciones innovadoras e integrales 
+					   para el otorgamiento de préstamos en efectivo vía descuento nómina, garantizando 
+					   tasas competitivas, servicio de alta calidad, atención personalizada, seriedad y 
+					   respuestas inmediatas a las necesidades del empleado.
+					   La diferencia y característica única de nuestro servicio es la rapidez, 
+                       y sencillez en el trámite, aunado al servicio profesional de nuestros asesores.</p>
 
 					<div id="controller-list" role="navigation">
 						<h2>Controladoras disponibles</h2>
