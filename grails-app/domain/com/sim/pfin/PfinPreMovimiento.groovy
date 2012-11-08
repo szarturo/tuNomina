@@ -5,8 +5,8 @@ import com.sim.usuario.Usuario
 
 class PfinPreMovimiento {
 
-	Cuenta     cuenta
-	Divisa     divisa
+	PfinCuenta     cuenta
+	PfinDivisa     divisa
 	Date       fechaOperacion
 	Date       fechaLiquidacion
 	BigDecimal importeNeto
@@ -24,7 +24,7 @@ class PfinPreMovimiento {
 	Usuario    usuario
 	Date       fechaAplicacion
 	Integer    numeroPagoAmortizacion
-	CatOperacion  operacion
+	PfinCatOperacion  operacion
 
 	//static hasOne = [pfinMovimiento : PfinMovimiento]
 	static hasMany = [pfinPreMovimientoDet : PfinPreMovimientoDet]

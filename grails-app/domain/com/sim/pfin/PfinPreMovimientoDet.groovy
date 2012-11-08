@@ -2,7 +2,7 @@ package com.sim.pfin
 
 class PfinPreMovimientoDet {
 	
-	CatConcepto concepto
+	PfinCatConcepto concepto
 	BigDecimal  importeConcepto
 	String      nota
 

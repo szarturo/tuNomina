@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class DivisaController {
+class PfinCatOperacionConceptoController {
 
     def scaffold = true
 }

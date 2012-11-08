@@ -1,13 +1,13 @@
 package com.sim.pfin
 
-class CatOperacion {
+class PfinCatOperacion {
 
 	String claveOperacion
 	String claveAfectaSaldo
 	String descripcionCorta
 	String descripcionLarga
 	String situacion
-    CatAfectaOperacion afecta
+    PfinCatAfectaOperacion afecta
 	
 
     static constraints = {

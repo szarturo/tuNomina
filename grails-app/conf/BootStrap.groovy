@@ -1056,76 +1056,76 @@ class BootStrap {
 		//ARTURO Y JOSE DAN DE ALTA LOS CONCEPTOS QUE INDIQUE MINE
 		//DATOS PARA EL CORE FINANCIERO
 		
-		new CatConcepto(claveConcepto:  'INTERES',
+		new PfinCatConcepto(claveConcepto:  'INTERES',
 			descripcionCorta: 'INTERES',
 			descripcionLarga: 'INTERES',
 			situacion: 'ACTIVO'
 		).save(flush: true,failOnError: true)
 		
-		new CatConcepto(claveConcepto:  'IMPBRU',
+		new PfinCatConcepto(claveConcepto:  'IMPBRU',
 			descripcionCorta: 'IMPORTE BRUTO',
 			descripcionLarga: 'IMPORTE BRUTO',
 			situacion: 'ACTIVO'
 		).save(flush: true,failOnError: true)
 
 		
-		new CatAfectaOperacion(claveAfecta:  'CREDITO',
+		new PfinCatAfectaOperacion(claveAfecta:  'CREDITO',
 			descripcionAfecta: 'AFECTA AL CREDITO'
 		).save(flush: true,failOnError: true)
 		
-		new CatAfectaOperacion(claveAfecta:  'CUENTA',
+		new PfinCatAfectaOperacion(claveAfecta:  'CUENTA',
 			descripcionAfecta: 'AFECTA A LA CUENTA'
 		).save(flush: true,failOnError: true)
 
-		new CatAfectaOperacion(claveAfecta:  'CAJA',
+		new PfinCatAfectaOperacion(claveAfecta:  'CAJA',
 			descripcionAfecta: 'AFECTA A LA CAJA'
 		).save(flush: true,failOnError: true)
 
-		new CatOperacion(claveOperacion:  'TEDEPEFE',
+		new PfinCatOperacion(claveOperacion:  'TEDEPEFE',
 			claveAfectaSaldo: 'INCREMENTA',
 			descripcionCorta: 'DEPOSITO DE EFECTIVO',
 			descripcionLarga: 'DEPOSITO DE EFECTIVO A LA CUENTA DEL CLIENTE',
 			situacion: 'ACTIVO',
-			afecta: CatAfectaOperacion.findByClaveAfecta('CUENTA')
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CUENTA')
 		).save(flush: true,failOnError: true)
 
-		new CatOperacion(claveOperacion:  'CANPAG',
+		new PfinCatOperacion(claveOperacion:  'CANPAG',
 			claveAfectaSaldo: 'INCREMENTA',
 			descripcionCorta: 'CANCELA PAGO',
 			descripcionLarga: 'CANCELACION DEL PAGO DEL CREDITO',
 			situacion: 'ACTIVO',
-			afecta: CatAfectaOperacion.findByClaveAfecta('CREDITO')
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
 		).save(flush: true,failOnError: true)
 
-		new CatOperacionConcepto(operacion:  CatOperacion.findByClaveOperacion('TEDEPEFE'),
-			concepto:  CatConcepto.findByClaveConcepto('IMPBRU'),
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('TEDEPEFE'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('IMPBRU'),
 			claveAfecta: 'INCREMENTA',
 			situacion: 'ACTIVO',
 		).save(flush: true,failOnError: true)
 
-		def cuenta1 = new Cuenta(tipoCuenta:  'EJE',
+		def cuenta1 = new PfinCuenta(tipoCuenta:  'EJE',
 			situacion: 'ACTIVO',
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
 
-		new Divisa(claveDivisa:'MXP',
+		new PfinDivisa(claveDivisa:'MXP',
 			descripcionDivisa:'Peso Mexicano'
 		).save(flush: true,failOnError: true)
 	
-		new Saldo(fechaFoto:  new Date('09/30/2012'),
-			divisa:  Divisa.findByClaveDivisa('MXP'),
+		new PfinSaldo(fechaFoto:  new Date('09/30/2012'),
+			divisa:  PfinDivisa.findByClaveDivisa('MXP'),
 			saldo: 100, 
 			cuenta: cuenta1,
 		).save(flush: true,failOnError: true)
 
-		new Saldo(fechaFoto:  new Date('10/30/2012'),
-			divisa:  Divisa.findByClaveDivisa('MXP'),
+		new PfinSaldo(fechaFoto:  new Date('10/30/2012'),
+			divisa:  PfinDivisa.findByClaveDivisa('MXP'),
 			saldo: 10,
 			cuenta: cuenta1,
 		).save(flush: true,failOnError: true)
 		
 		def preMovimientoUno = new PfinPreMovimiento(cuenta:  cuenta1,
-			divisa: Divisa.findByClaveDivisa('MXP'),
+			divisa: PfinDivisa.findByClaveDivisa('MXP'),
 			fechaOperacion:new Date('09/30/2012'),
 			fechaLiquidacion:new Date('09/30/2012'),
 			importeNeto: 1000.50,
@@ -1142,16 +1142,16 @@ class BootStrap {
 			usuario : usuarioKermit,
 			fechaAplicacion:new Date('09/30/2012'),
 			numeroPagoAmortizacion: 1,
-			operacion: CatOperacion.findByClaveOperacion('TEDEPEFE'), 
+			operacion: PfinCatOperacion.findByClaveOperacion('TEDEPEFE'), 
 		).save(flush: true,failOnError: true)
 		
-		new PfinPreMovimientoDet(concepto:  CatConcepto.findByClaveConcepto('IMPBRU'),
+		new PfinPreMovimientoDet(concepto:  PfinCatConcepto.findByClaveConcepto('IMPBRU'),
 			importeConcepto: 1000.50,
 			nota : 'Capital',
 			preMovimiento : preMovimientoUno,
 		).save(flush: true,failOnError: true)
 
-		new PfinPreMovimientoDet(concepto:  CatConcepto.findByClaveConcepto('INTERES'),
+		new PfinPreMovimientoDet(concepto:  PfinCatConcepto.findByClaveConcepto('INTERES'),
 			importeConcepto: 88888.88,
 			nota : 'Capital',
 			preMovimiento : preMovimientoUno,

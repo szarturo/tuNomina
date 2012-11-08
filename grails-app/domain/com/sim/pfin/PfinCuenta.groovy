@@ -2,14 +2,14 @@ package com.sim.pfin
 
 import com.sim.cliente.RsCliente
 
-class Cuenta {
+class PfinCuenta {
 
 
 	String tipoCuenta
 	String situacion
 	String comentario
 	
-	static hasMany = [ saldos : Saldo]
+	static hasMany = [ saldos : PfinSaldo]
 	static belongsTo = [cliente:RsCliente]
 
     static constraints = {

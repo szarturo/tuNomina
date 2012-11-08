@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class CatAfectaOperacion {
+class PfinCatAfectaOperacion {
 
 	String claveAfecta
 	String descripcionAfecta

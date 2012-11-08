@@ -1,5 +1,5 @@
 package com.sim.pfin
 
-class CatAfectaOperacionController {
+class PfinCatAfectaOperacionController {
 	def scaffold = true	
 }

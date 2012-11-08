@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class Divisa {
+class PfinDivisa {
 
 	String claveDivisa
 	String descripcionDivisa

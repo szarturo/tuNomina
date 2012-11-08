@@ -66,6 +66,9 @@ class PrestamoDocumentosController {
 
 		def user = springSecurityService.getCurrentUser()
 		String username = user.username;
+		log.info ("Usuario actual: ${username}")
+		if (!username) username = "RUBEN"
+		
 		
 		AlfrescoService alfrescoService = new AlfrescoService();
 		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, clavePrestamo, username);

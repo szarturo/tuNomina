@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class CatConceptoController {
+class PfinCatConceptoController {
 
     def scaffold = true
 }

@@ -2,13 +2,13 @@ package com.sim.pfin
 
 import java.util.Date;
 
-class Saldo {
+class PfinSaldo {
 	
 	Date       fechaFoto
-	Divisa     divisa
+	PfinDivisa     divisa
 	BigDecimal saldo
 
-	static belongsTo = [cuenta:Cuenta]
+	static belongsTo = [cuenta:PfinCuenta]
 	
     static constraints = {
 		fechaFoto(nullable:false)

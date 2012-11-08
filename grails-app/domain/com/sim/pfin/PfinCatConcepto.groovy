@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class CatConcepto {
+class PfinCatConcepto {
 	
 	String claveConcepto
 	String descripcionCorta

@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class CatOperacionController {
+class PfinCuentaController {
 
     def scaffold = true
 }

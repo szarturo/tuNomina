@@ -100,40 +100,6 @@
 													</g:link></li>
 											</ul>
 										</div></li>
-									<li><a href="#" class="parent"><span>Core Financiero</span></a>
-										<div>
-											<ul>
-												<li><g:link controller="catConcepto">
-														<span>Conceptos</span>
-													</g:link></li>
-												<li><g:link controller="catAfectaOperacion">
-														<span>Afecta Operacion</span>
-													</g:link></li>
-												<li><g:link controller="catOperacion">
-														<span>Operacion</span>
-													</g:link></li>
-												<li><g:link controller="catOperacionConcepto">
-														<span>Operacion Concepto</span>
-													</g:link></li>
-												<li><g:link controller="cuenta">
-														<span>Cuenta</span>
-													</g:link></li>
-												<li><g:link controller="saldo">
-														<span>Saldo</span>
-													</g:link></li>
-												<li><g:link controller="divisa">
-														<span>Divisa</span>
-													</g:link></li>
-												<li><g:link controller="pfinPreMovimiento">
-														<span>Premovimiento</span>
-													</g:link></li>
-												<li><g:link controller="pfinPreMovimientoDet">
-														<span>Premovimiento Detalle</span>
-													</g:link></li>
-													
-													
-											</ul>
-										</div></li>
 									<li><g:link controller="simCatEscolaridad">
 											<span>Escolaridad</span>
 										</g:link></li>
@@ -197,8 +163,41 @@
 						<li><g:link controller="simCatBanco">
 								<span>Banco</span>
 							</g:link></li>
-						<li><a href="#"><span>Sub Item 3</span></a></li>
-
+							
+						<li><a href="#" class="parent"><span>Core Financiero</span></a>
+							<div>
+								<ul>
+									<li><g:link controller="pfinCatConcepto">
+											<span>Conceptos</span>
+										</g:link></li>
+									<li><g:link controller="pfinCatAfectaOperacion">
+											<span>Afecta Operacion</span>
+										</g:link></li>
+									<li><g:link controller="pfinCatOperacion">
+											<span>Operacion</span>
+										</g:link></li>
+									<li><g:link controller="pfinCatOperacionConcepto">
+											<span>Operacion Concepto</span>
+										</g:link></li>
+									<li><g:link controller="pfinCuenta">
+											<span>Cuenta</span>
+										</g:link></li>
+									<li><g:link controller="pfinSaldo">
+											<span>Saldo</span>
+										</g:link></li>
+									<li><g:link controller="pfinDivisa">
+											<span>Divisa</span>
+										</g:link></li>
+									<li><g:link controller="pfinPreMovimiento">
+											<span>Premovimiento</span>
+										</g:link></li>
+									<li><g:link controller="pfinPreMovimientoDet">
+											<span>Premovimiento Detalle</span>
+										</g:link></li>
+								</ul>
+							</div></li>
+							
+							
 					</ul>
 				</div></li>
 
@@ -220,21 +219,14 @@
 									<span>Promociones</span>
 								</g:link></li>
 
-							<li><a href="#" class="parent"><span>Sub Item 1</span></a>
+							<li><a href="#" class="parent"><span>Generales</span></a>
 								<div>
 									<ul>
 										<li><a href="#"><span>Sub Item 1.1</span></a></li>
 										<li><a href="#"><span>Sub Item 1.2</span></a></li>
 									</ul>
 								</div></li>
-							<li><a href="#" class="parent"><span>Sub Item 2</span></a>
-								<div>
-									<ul>
-										<li><a href="#"><span>Sub Item 2.1</span></a></li>
-										<li><a href="#"><span>Sub Item 2.2</span></a></li>
-									</ul>
-								</div></li>
-							<li><a href="#"><span>Sub Item 3</span></a></li>
+
 						</ul>
 					</div></li>
 			</sec:ifLoggedIn>
@@ -254,9 +246,9 @@
 						<li><g:link controller="rsGralDomicilio">
 								<span>Domicilios</span>
 							</g:link></li>
-						<li><a href="#"><span>Sub Item 5</span></a></li>
-						<li><a href="#"><span>Sub Item 6</span></a></li>
-						<li><a href="#"><span>Sub Item 7</span></a></li>
+						<li><g:link controller="fechaEvento">
+								<span>Calendario</span>
+							</g:link></li>
 					</ul>
 				</div></li>
 
@@ -273,7 +265,7 @@
 									<ul>
 										<sec:ifAllGranted roles="ROLE_MESA_CONTROL">
 											<li><g:link controller="prestamo" action="start">
-													<span>Inicio solicitud Multiplica tu N&oacute;mina</span>
+													<span>Inicio Solicitud</span>
 												</g:link></li>
 										</sec:ifAllGranted>
 										<li><g:link controller="solicitudCredito" action="start">

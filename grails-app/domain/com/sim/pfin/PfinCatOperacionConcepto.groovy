@@ -1,9 +1,9 @@
 package com.sim.pfin
 
-class CatOperacionConcepto {
+class PfinCatOperacionConcepto {
 
-	CatOperacion operacion
-	CatConcepto  concepto
+	PfinCatOperacion operacion
+	PfinCatConcepto  concepto
 	String claveAfecta
 	String situacion
 

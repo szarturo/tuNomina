@@ -5,9 +5,9 @@ package com.sim.pfin
 import org.junit.*
 import grails.test.mixin.*
 
-@TestFor(CatAfectaOperacionController)
-@Mock(CatAfectaOperacion)
-class CatAfectaOperacionControllerTests {
+@TestFor(PfinCatAfectaOperacionController)
+@Mock(PfinCatAfectaOperacion)
+class PfinCatAfectaOperacionControllerTests {
 
     def populateValidParams(params) {
         assert params != null
@@ -47,7 +47,7 @@ class CatAfectaOperacionControllerTests {
 
         assert response.redirectedUrl == '/catAfectaOperacion/show/1'
         assert controller.flash.message != null
-        assert CatAfectaOperacion.count() == 1
+        assert PfinCatAfectaOperacion.count() == 1
     }
 
     void testShow() {
@@ -57,7 +57,7 @@ class CatAfectaOperacionControllerTests {
         assert response.redirectedUrl == '/catAfectaOperacion/list'
 
         populateValidParams(params)
-        def catAfectaOperacion = new CatAfectaOperacion(params)
+        def catAfectaOperacion = new PfinCatAfectaOperacion(params)
 
         assert catAfectaOperacion.save() != null
 
@@ -75,7 +75,7 @@ class CatAfectaOperacionControllerTests {
         assert response.redirectedUrl == '/catAfectaOperacion/list'
 
         populateValidParams(params)
-        def catAfectaOperacion = new CatAfectaOperacion(params)
+        def catAfectaOperacion = new PfinCatAfectaOperacion(params)
 
         assert catAfectaOperacion.save() != null
 
@@ -95,7 +95,7 @@ class CatAfectaOperacionControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def catAfectaOperacion = new CatAfectaOperacion(params)
+        def catAfectaOperacion = new PfinCatAfectaOperacion(params)
 
         assert catAfectaOperacion.save() != null
 
@@ -139,17 +139,17 @@ class CatAfectaOperacionControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def catAfectaOperacion = new CatAfectaOperacion(params)
+        def catAfectaOperacion = new PfinCatAfectaOperacion(params)
 
         assert catAfectaOperacion.save() != null
-        assert CatAfectaOperacion.count() == 1
+        assert PfinCatAfectaOperacion.count() == 1
 
         params.id = catAfectaOperacion.id
 
         controller.delete()
 
-        assert CatAfectaOperacion.count() == 0
-        assert CatAfectaOperacion.get(catAfectaOperacion.id) == null
+        assert PfinCatAfectaOperacion.count() == 0
+        assert PfinCatAfectaOperacion.get(catAfectaOperacion.id) == null
         assert response.redirectedUrl == '/catAfectaOperacion/list'
     }
 }

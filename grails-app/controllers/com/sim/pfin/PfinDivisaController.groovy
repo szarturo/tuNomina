@@ -1,6 +1,6 @@
 package com.sim.pfin
 
-class CuentaController {
+class PfinDivisaController {
 
     def scaffold = true
 }
