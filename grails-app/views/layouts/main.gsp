@@ -197,6 +197,14 @@
 								</ul>
 							</div></li>
 							
+						<li><a href="#" class="parent"><span>Pruebas CR</span></a>
+							<div>
+								<ul>
+									<li><g:link controller="pfinPagoCredito">
+											<span>Pago Credito</span>
+										</g:link></li>
+								</ul>
+							</div></li>
 							
 					</ul>
 				</div></li>

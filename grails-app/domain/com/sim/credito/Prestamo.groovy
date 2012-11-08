@@ -72,4 +72,8 @@ class Prestamo {
 		dateCreated blank:false
 		lastUpdated nullable:true
     }
+	
+	String toString() {
+		"${cliente} - ${clavePrestamo}"
+	}
 }
