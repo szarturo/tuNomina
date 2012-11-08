@@ -28,8 +28,6 @@ class PfinPagoCreditoController {
             return
         }
 		
-		log.info("Respuesta servicio Pago:"+pagoService.miMetodoPago())
-		
 		pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'pfinPagoCredito.label', default: 'PfinPagoCredito'), pfinPagoCreditoInstance.id])

@@ -1108,6 +1108,12 @@ class BootStrap {
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
 
+		new PfinCuenta(tipoCuenta:  'CREDTIO',
+			situacion: 'ACTIVO',
+			cliente: clienteArturo,
+		).save(flush: true,failOnError: true)
+
+		
 		new PfinDivisa(claveDivisa:'MXP',
 			descripcionDivisa:'Peso Mexicano'
 		).save(flush: true,failOnError: true)
