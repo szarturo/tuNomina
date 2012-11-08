@@ -5,6 +5,8 @@ import org.springframework.dao.DataIntegrityViolationException
 class PfinPagoCreditoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	
+	def pagoService
 
     def index() {
         redirect(action: "list", params: params)
@@ -25,6 +27,10 @@ class PfinPagoCreditoController {
             render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
             return
         }
+		
+		log.info("Respuesta servicio Pago:"+pagoService.miMetodoPago())
+		
+		pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'pfinPagoCredito.label', default: 'PfinPagoCredito'), pfinPagoCreditoInstance.id])
         redirect(action: "show", id: pfinPagoCreditoInstance.id)
