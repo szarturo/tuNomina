@@ -188,6 +188,10 @@
 									<li><g:link controller="pfinDivisa">
 											<span>Divisa</span>
 										</g:link></li>
+									<li><g:link controller="pfinCatParametro">
+											<span>Parametros</span>
+										</g:link></li>
+										
 									<li><g:link controller="pfinPreMovimiento">
 											<span>Premovimiento</span>
 										</g:link></li>

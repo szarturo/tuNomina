@@ -4,7 +4,7 @@ import com.sim.credito.Prestamo;
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.pfin.PfinCuenta
 import com.sim.pfin.PfinPreMovimiento
-//import com.sim.pfin.PfinParametros
+import com.sim.pfin.PfinCatParametro
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
 
@@ -27,15 +27,14 @@ class PagoService {
 		String username = springSecurityService.getCurrentUser().username;
 		log.info ("Usuario Service Pago: ${username}")
 		
-		/*
+		
 		//SE OBTIENE LA FECHA DEL MEDIO
 		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
-		PfinParametros parametros = PfinParametros.findByClaveMedio("System")
-		Date fechaMedio = parametros.fechaMedio
+		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+		Date fechaMedio = parametros?.fechaMedio
 		if (!fechaMedio){
 			throw new AplicaPagoIndividualException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
 		}
-        */
 		
 		//FECHA DE APLICACION
 		Date fechaAplicacion = pagoCreditoInstance.fechaPago
