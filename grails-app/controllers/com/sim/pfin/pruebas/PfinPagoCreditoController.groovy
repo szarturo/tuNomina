@@ -1,6 +1,8 @@
 package com.sim.pfin.pruebas
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.sim.servicios.credito.AplicaPagoIndividualException
+import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class PfinPagoCreditoController {
 
@@ -28,7 +30,22 @@ class PfinPagoCreditoController {
             return
         }
 		
-		pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
+		try{
+			pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
+		//VERIFICAR SI SE GENERO ALGUN ERROR
+		}catch(AplicaPagoIndividualException errorPago){
+			//EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+			pfinPagoCreditoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
+			log.error "Failed:", errorPago
+			render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+			return
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			//EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+			pfinPagoCreditoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
+			log.error "Failed:", errorProcesadorFinanciero
+			render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+			return
+		}
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'pfinPagoCredito.label', default: 'PfinPagoCredito'), pfinPagoCreditoInstance.id])
         redirect(action: "show", id: pfinPagoCreditoInstance.id)

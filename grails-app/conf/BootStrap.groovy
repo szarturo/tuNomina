@@ -1108,7 +1108,7 @@ class BootStrap {
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
 
-		new PfinCuenta(tipoCuenta:  'CREDTIO',
+		new PfinCuenta(tipoCuenta:  'CREDITO',
 			situacion: 'ACTIVO',
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
