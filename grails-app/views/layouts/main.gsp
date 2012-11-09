@@ -197,7 +197,12 @@
 									<li><g:link controller="pfinCatDiaFestivo">
 											<span>Dia Festivo</span>
 										</g:link></li>
-										
+									<li><g:link controller="pfinMovimiento">
+											<span>Movimiento</span>
+										</g:link></li>
+									<li><g:link controller="pfinMovimientoDet">
+											<span>Movimiento Detalle</span>
+										</g:link></li>										
 									<li><g:link controller="pfinPreMovimiento">
 											<span>Premovimiento</span>
 										</g:link></li>
