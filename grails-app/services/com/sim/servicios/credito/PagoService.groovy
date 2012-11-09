@@ -3,6 +3,7 @@ package com.sim.servicios.credito
 import com.sim.credito.Prestamo;
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.pfin.PfinCuenta
+import com.sim.pfin.PfinPreMovimiento
 //import com.sim.pfin.PfinParametros
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
@@ -46,10 +47,11 @@ class PagoService {
 		if (!cuentaCliente){
 			throw new AplicaPagoIndividualException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
 		}
-
-		//INSERTA EL PREMOVIMIENTO		
+		
+		//INSERTA EL PREMOVIMIENTO
+		PfinPreMovimiento preMovimientoInsertado
 		try{
-			procesadorFinancieroService.generaPreMovimiento(pagoCreditoInstance)
+			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(pagoCreditoInstance,cuentaCliente)
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}

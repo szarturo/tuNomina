@@ -11,9 +11,10 @@ class ProcesadorFinancieroService {
 	def springSecurityService
     
 	//METODO PARA INSERTAR EL PREMOVIMIENTO
-	Boolean generaPreMovimiento(PfinPagoCredito pagoCreditoInstance) {
+	PfinPreMovimiento generaPreMovimiento(PfinPagoCredito pagoCreditoInstance, PfinCuenta cuentaCliente) {
+		PfinPreMovimiento preMovimiento
 		try{
-			PfinPreMovimiento preMovimiento = new PfinPreMovimiento(cuenta:  cuenta1,
+			preMovimiento = new PfinPreMovimiento(cuenta:  cuentaCliente,
 				divisa: PfinDivisa.findByClaveDivisa('MXP'),
 				fechaOperacion:new Date('09/30/2012'),
 				fechaLiquidacion:new Date('09/30/2012'),
@@ -37,5 +38,6 @@ class ProcesadorFinancieroService {
 		}catch(Exception errorInsertarPreMovimiento){
 			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el PreMovimiento")
 		}
+		return preMovimiento
     }
 }
