@@ -11,7 +11,7 @@ import com.sim.pfin.ProcesadorFinancieroServiceException
 import com.sim.pfin.PfinCatOperacion
 
 
-class AplicaPagoIndividualException extends RuntimeException {
+class PagoServiceException extends RuntimeException {
 	String mensaje
 	PfinPagoCredito pagoCreditoInstance
 }
@@ -37,18 +37,18 @@ class PagoService {
 		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
 		Date fechaMedio = parametros?.fechaMedio
 		if (!fechaMedio){
-			throw new AplicaPagoIndividualException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
+			throw new PagoServiceException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
 		}
 		
 		//FECHA DE APLICACION
 		Date fechaAplicacion = pagoCreditoInstance.fechaPago
 		
 		//OBTIENE LA CUENTA DEL CLIENTE
-		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("CREDITO",pagoCreditoInstance.prestamo.cliente)
+		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",pagoCreditoInstance.prestamo.cliente)
 		log.info("Cuenta Cliente: ${cuentaCliente}")
 		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
 		if (!cuentaCliente){
-			throw new AplicaPagoIndividualException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
+			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
 		}
 		
 		//ASIGNA VALORES AL PREMOVIMIENTO

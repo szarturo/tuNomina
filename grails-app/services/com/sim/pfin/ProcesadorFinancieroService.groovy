@@ -7,8 +7,6 @@ class ProcesadorFinancieroServiceException extends RuntimeException {
 }
 
 class ProcesadorFinancieroService {
-	//SERVICIO PARA RECUPERAR EL USUARIO
-	def springSecurityService
     
 	//METODO PARA INSERTAR EL PREMOVIMIENTO
 	PfinPreMovimiento generaPreMovimiento(PfinPreMovimiento preMovimiento) {

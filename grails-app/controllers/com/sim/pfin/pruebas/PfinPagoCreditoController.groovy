@@ -1,7 +1,7 @@
 package com.sim.pfin.pruebas
 
 import org.springframework.dao.DataIntegrityViolationException
-import com.sim.servicios.credito.AplicaPagoIndividualException
+import com.sim.servicios.credito.PagoServiceException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class PfinPagoCreditoController {
@@ -33,7 +33,7 @@ class PfinPagoCreditoController {
 		try{
 			pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
 		//VERIFICAR SI SE GENERO ALGUN ERROR
-		}catch(AplicaPagoIndividualException errorPago){
+		}catch(PagoServiceException errorPago){
 			//EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
 			pfinPagoCreditoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
 			log.error "Failed:", errorPago
