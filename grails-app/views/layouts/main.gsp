@@ -191,6 +191,12 @@
 									<li><g:link controller="pfinCatParametro">
 											<span>Parametros</span>
 										</g:link></li>
+									<li><g:link controller="pfinCatPais">
+											<span>Pais</span>
+										</g:link></li>
+									<li><g:link controller="pfinCatDiaFestivo">
+											<span>Dia Festivo</span>
+										</g:link></li>
 										
 									<li><g:link controller="pfinPreMovimiento">
 											<span>Premovimiento</span>
