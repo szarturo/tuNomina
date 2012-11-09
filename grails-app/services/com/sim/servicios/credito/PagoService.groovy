@@ -1,11 +1,14 @@
 package com.sim.servicios.credito
 
 import com.sim.credito.Prestamo;
+import com.sim.usuario.Usuario
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.pfin.PfinCuenta
 import com.sim.pfin.PfinPreMovimiento
 import com.sim.pfin.PfinCatParametro
+import com.sim.pfin.PfinDivisa
 import com.sim.pfin.ProcesadorFinancieroServiceException
+import com.sim.pfin.PfinCatOperacion
 
 
 class AplicaPagoIndividualException extends RuntimeException {
@@ -24,9 +27,10 @@ class PagoService {
 
 	Boolean aplicaPagoIndividual(PfinPagoCredito pagoCreditoInstance) {
 		
-		String username = springSecurityService.getCurrentUser().username;
-		log.info ("Usuario Service Pago: ${username}")
+		//String username = springSecurityService.getCurrentUser().username;
 		
+		Usuario usuario = springSecurityService.getCurrentUser()
+		log.info ("Usuario Service Pago: ${usuario}")
 		
 		//SE OBTIENE LA FECHA DEL MEDIO
 		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
@@ -47,10 +51,29 @@ class PagoService {
 			throw new AplicaPagoIndividualException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
 		}
 		
-		//INSERTA EL PREMOVIMIENTO
-		PfinPreMovimiento preMovimientoInsertado
+		//ASIGNA VALORES AL PREMOVIMIENTO
+		PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(cuenta:  cuentaCliente,
+			divisa: PfinDivisa.findByClaveDivisa('MXP'),
+			fechaOperacion:fechaMedio, //FECHA DEL MEDIO
+			fechaLiquidacion:fechaMedio, //FECHA DEL MEDIO
+			importeNeto: pagoCreditoInstance.importePago,
+			//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
+			prestamo : pagoCreditoInstance.prestamo,
+			nota : "Deposito de efectivo",
+			listaCobro : 1,
+			//pfinMovimiento()
+			situacionPreMovimiento : 'NP',
+			fechaRegistro:new Date(),
+			logIpDireccion: 'xxxxxxxxx',
+			logUsuario:'xxxxxxxxxx',
+			logHost:'xxxxxxxxxx',
+			usuario : usuario,
+			fechaAplicacion:pagoCreditoInstance.fechaPago,
+			numeroPagoAmortizacion: 0,
+			operacion: PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
 		try{
-			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(pagoCreditoInstance,cuentaCliente)
+			// GENERA EL PREMOVIMIENTO
+			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
