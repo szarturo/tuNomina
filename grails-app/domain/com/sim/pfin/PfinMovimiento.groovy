@@ -29,6 +29,7 @@ class PfinMovimiento {
 
 
 	static hasMany = [pfinMovimientoDet : PfinMovimientoDet]
+	static belongsTo = [pfinPreMovimiento : PfinPreMovimiento]
 
 	static mapping = {
 		pfinMovimientoDet joinTable: [name:'REL_MOVIMIENTOS', key:'ID_MOVIMIENTO', column:'ID_MOVIMIENTO_DET']
@@ -40,7 +41,7 @@ class PfinMovimiento {
 		fechaOperacion()
 		fechaLiquidacion()
 		importeNeto()
-		referencia()
+		referencia(nullable:true, blank:true)
 		prestamo()
 		nota()
 		listaCobro(nullable:true)
@@ -53,7 +54,8 @@ class PfinMovimiento {
 		fechaAplicacion()
 		numeroPagoAmortizacion()
 		operacion()
-		cancelaTransaccion()
+		cancelaTransaccion(nullable:true)
+		pfinPreMovimiento()
 	}
 
 	String toString() {

@@ -5,6 +5,7 @@ import com.sim.usuario.Usuario
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.pfin.PfinCuenta
 import com.sim.pfin.PfinPreMovimiento
+import com.sim.pfin.PfinMovimiento
 import com.sim.pfin.PfinCatParametro
 import com.sim.pfin.PfinDivisa
 import com.sim.pfin.ProcesadorFinancieroServiceException
@@ -77,6 +78,20 @@ class PagoService {
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
+		
+		//ASIGNA VALORES AL MOVIMIENTO
+		PfinMovimiento movimiento = new PfinMovimiento(
+			pfinPreMovimiento : preMovimientoInsertado,
+			situacionMovimiento : 'PV',
+			usuario : usuario,
+			fechaAplicacion : fechaAplicacion)
+		try{
+			// GENERA EL MOVIMIENTO
+			movimiento = procesadorFinancieroService.generaMovimiento(movimiento)
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			throw errorProcesadorFinanciero
+		}
+
 		
 		return true
 	}

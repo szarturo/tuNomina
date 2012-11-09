@@ -1162,6 +1162,15 @@ class BootStrap {
 			nota : 'Capital',
 			preMovimiento : preMovimientoUno,
 		).save(flush: true,failOnError: true)
+		
+		new PfinCatParametro(
+			claveMedio : 'SistemaMtn',
+			fechaMedio : new Date('01/11/2012'),
+			operaSabado : 'false',
+			operaDomingo : 'false',
+			operaDiaFestivo : 'false',
+			numeroDigitosDespliega : 2,
+		).save(flush: true,failOnError: true)
 
     }
 

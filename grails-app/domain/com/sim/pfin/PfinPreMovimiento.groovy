@@ -26,8 +26,9 @@ class PfinPreMovimiento {
 	Integer    numeroPagoAmortizacion
 	PfinCatOperacion  operacion
 
-	//static hasOne = [pfinMovimiento : PfinMovimiento]
+	
 	static hasMany = [pfinPreMovimientoDet : PfinPreMovimientoDet]
+	static hasOne = [pfinMovimiento : PfinMovimiento]
 	
     static constraints = {
 		cuenta()
@@ -49,6 +50,7 @@ class PfinPreMovimiento {
 		fechaAplicacion()
 		numeroPagoAmortizacion()
 		operacion()
+		pfinMovimiento(nullable:true)
     }
 	
 	String toString() {
