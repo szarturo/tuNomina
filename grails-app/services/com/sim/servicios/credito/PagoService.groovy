@@ -79,15 +79,11 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}
 		
-		//ASIGNA VALORES AL MOVIMIENTO
-		PfinMovimiento movimiento = new PfinMovimiento(
-			pfinPreMovimiento : preMovimientoInsertado,
-			situacionMovimiento : 'PV',
-			usuario : usuario,
-			fechaAplicacion : fechaAplicacion)
+		PfinMovimiento movimiento
 		try{
 			// GENERA EL MOVIMIENTO
-			movimiento = procesadorFinancieroService.generaMovimiento(movimiento)
+			movimiento = procesadorFinancieroService.generaMovimiento(preMovimientoInsertado,
+				'PV', fechaAplicacion)
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}

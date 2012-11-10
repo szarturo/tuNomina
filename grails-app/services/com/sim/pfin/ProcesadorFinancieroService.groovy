@@ -1,12 +1,16 @@
 package com.sim.pfin
 
-import com.sim.pfin.pruebas.PfinPagoCredito;
+import com.sim.pfin.pruebas.PfinPagoCredito
+import com.sim.usuario.Usuario
 
 class ProcesadorFinancieroServiceException extends RuntimeException {
 	String mensaje
 }
 
 class ProcesadorFinancieroService {
+	
+	//SERVICIO PARA RECUPERAR EL USUARIO
+	def springSecurityService
 	
 	//RECUPERA LA FECHA DEL MEDIO
 	Date obtenerFechaMedio(){
@@ -32,12 +36,18 @@ class ProcesadorFinancieroService {
     }
 	
 	//METODO PARA INSERTAR EL MOVIMIENTO
-	PfinMovimiento generaMovimiento(PfinMovimiento movimiento) {
-		
-		if (movimiento.situacionMovimiento!='CA'){
+	PfinMovimiento generaMovimiento(PfinPreMovimiento pfinPreMovimiento,String situacionMovimiento,
+		 Date fechaAplicacion) {
+		 
+		 PfinMovimiento movimiento = new PfinMovimiento()
+		if (situacionMovimiento!='CA'){
 			//ASIGNA VALORES AL MOVIMIENTO
-			movimiento.cuenta = movimiento.pfinPreMovimiento.cuenta
-			movimiento.divisa = movimiento.pfinPreMovimiento.divisa
+			movimiento.situacionMovimiento = situacionMovimiento
+			movimiento.pfinPreMovimiento = pfinPreMovimiento
+			movimiento.fechaAplicacion = fechaAplicacion
+			movimiento.usuario =   Usuario.get(1)
+			movimiento.cuenta = pfinPreMovimiento.cuenta
+			movimiento.divisa = pfinPreMovimiento.divisa
 			try{
 				movimiento.fechaOperacion = obtenerFechaMedio()
 				movimiento.fechaLiquidacion = obtenerFechaMedio()
@@ -45,17 +55,17 @@ class ProcesadorFinancieroService {
 				log.error(errorFechaMedio)
 				throw errorFechaMedio
 			}
-			movimiento.operacion = movimiento.pfinPreMovimiento.operacion
-			movimiento.importeNeto = movimiento.pfinPreMovimiento.importeNeto
-			movimiento.referencia = movimiento.pfinPreMovimiento.referencia
-			movimiento.prestamo = movimiento.pfinPreMovimiento.prestamo
-			movimiento.nota = movimiento.pfinPreMovimiento.nota
-			movimiento.listaCobro = movimiento.pfinPreMovimiento.listaCobro
+			movimiento.operacion = pfinPreMovimiento.operacion
+			movimiento.importeNeto = pfinPreMovimiento.importeNeto
+			movimiento.referencia = pfinPreMovimiento.referencia
+			movimiento.prestamo = pfinPreMovimiento.prestamo
+			movimiento.nota = pfinPreMovimiento.nota
+			movimiento.listaCobro = pfinPreMovimiento.listaCobro
 			movimiento.fechaRegistro = new Date()
-			movimiento.logIpDireccion = movimiento.pfinPreMovimiento.logIpDireccion
-			movimiento.logUsuario = movimiento.pfinPreMovimiento.logUsuario
-			movimiento.logHost = movimiento.pfinPreMovimiento.logHost
-			movimiento.numeroPagoAmortizacion = movimiento.pfinPreMovimiento.numeroPagoAmortizacion
+			movimiento.logIpDireccion = pfinPreMovimiento.logIpDireccion
+			movimiento.logUsuario = pfinPreMovimiento.logUsuario
+			movimiento.logHost = pfinPreMovimiento.logHost
+			movimiento.numeroPagoAmortizacion = pfinPreMovimiento.numeroPagoAmortizacion
 			movimiento.cancelaTransaccion = 0
 		}
 		
