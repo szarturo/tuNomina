@@ -80,33 +80,45 @@ class ProcesadorFinancieroService {
 			movimiento.logHost = pfinPreMovimiento.logHost
 			movimiento.numeroPagoAmortizacion = pfinPreMovimiento.numeroPagoAmortizacion
 			movimiento.cancelaTransaccion = 0
-		}
-
-		try{
-			movimiento.save(flush: true,failOnError: true)
-
-		}catch(Exception errorInsertarMovimiento){
-			log.error(errorInsertarMovimiento)
-			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el Movimiento")
-		}
 		
-		//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
-		def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
-		
-		log.info("Procesador Service: ${listaPreMovimientosDetalle}")
-		
-		PfinMovimientoDet movimientoDetalle
-		listaPreMovimientosDetalle.each() {
-			log.info("PreMovimientosDetalle Service PF: ${it.id}")
-			movimientoDetalle = new PfinMovimientoDet()
-			//ASIGNA VALORES AL MOVIMIENTO DETALLE
-			movimientoDetalle.movimiento = movimiento
-			movimientoDetalle.concepto = it.concepto
-			movimientoDetalle.importeConcepto = it.importeConcepto
-			movimientoDetalle.nota =   it.nota
-			movimientoDetalle.save(flush: true,failOnError: true)
-		}
+			try{
+				movimiento.save(flush: true,failOnError: true)
+	
+			}catch(Exception errorInsertarMovimiento){
+				log.error(errorInsertarMovimiento)
+				throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el Movimiento")
+			}
+			
+			//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
+			def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
+			
+			log.info("Procesador Service: ${listaPreMovimientosDetalle}")
+			//CREA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO
+			PfinMovimientoDet movimientoDetalle
+			listaPreMovimientosDetalle.each() {
+				log.info("PreMovimientosDetalle Service PF: ${it.id}")
+				movimientoDetalle = new PfinMovimientoDet()
+				//ASIGNA VALORES AL MOVIMIENTO DETALLE
+				movimientoDetalle.movimiento = movimiento
+				movimientoDetalle.concepto = it.concepto
+				movimientoDetalle.importeConcepto = it.importeConcepto
+				movimientoDetalle.nota =   it.nota
+				movimientoDetalle.save(flush: true,failOnError: true)
+			}
+			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
+			pfinPreMovimiento.situacionPreMovimiento = 'PV'
+			pfinPreMovimiento.pfinMovimiento = movimiento
+			pfinPreMovimiento.save(flush:true)
+		}else{
+			//EN CASO DE SER UNA CANCELACION SOLO SE ACTUALIZA LA SITUACION DEL MOVIMIENTO Y PREMOVIMIENTO
+			//SE MODIFICA LA SITUACION DEL PREMOVIMIENTO
+			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
+			pfinPreMovimiento.situacionPreMovimiento = 'CA'
+			pfinPreMovimiento.pfinMovimiento = null
+			pfinPreMovimiento.usuario = usuario
+			pfinPreMovimiento.save(flush:true)
 
+		}
 		return movimiento
 	}
 
