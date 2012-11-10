@@ -1,5 +1,6 @@
 package com.sim.pfin
 
+import com.mysql.jdbc.log.Log;
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.usuario.Usuario
 
@@ -88,10 +89,23 @@ class ProcesadorFinancieroService {
 			log.error(errorInsertarMovimiento)
 			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el Movimiento")
 		}
-
-
-
-
+		
+		//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
+		def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
+		
+		log.info("Procesador Service: ${listaPreMovimientosDetalle}")
+		
+		PfinMovimientoDet movimientoDetalle
+		listaPreMovimientosDetalle.each() {
+			log.info("PreMovimientosDetalle Service PF: ${it.id}")
+			movimientoDetalle = new PfinMovimientoDet()
+			//ASIGNA VALORES AL MOVIMIENTO DETALLE
+			movimientoDetalle.movimiento = movimiento
+			movimientoDetalle.concepto = it.concepto
+			movimientoDetalle.importeConcepto = it.importeConcepto
+			movimientoDetalle.nota =   it.nota
+			movimientoDetalle.save(flush: true,failOnError: true)
+		}
 
 		return movimiento
 	}

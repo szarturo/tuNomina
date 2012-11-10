@@ -80,7 +80,10 @@ class PagoService {
 			listaConceptos.each() {
 				log.info("Conceptos: ${it.concepto}")
 				PfinPreMovimientoDet preMovimientoDet = procesadorFinancieroService.generaPreMovimientoDet(preMovimientoInsertado, it.concepto, 100, "Si pasa!")
+				preMovimientoInsertado.addToPfinPreMovimientoDet(preMovimientoDet)
 			}
+			
+			log.info"Detalles del PreMovimiento: ${preMovimientoInsertado.pfinPreMovimientoDet}"
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
