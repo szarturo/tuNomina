@@ -8,10 +8,7 @@ class ProcesadorFinancieroServiceException extends RuntimeException {
 }
 
 class ProcesadorFinancieroService {
-	
-	//SERVICIO PARA RECUPERAR EL USUARIO
-	def springSecurityService
-	
+
 	//RECUPERA LA FECHA DEL MEDIO
 	Date obtenerFechaMedio(){
 		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
@@ -22,30 +19,45 @@ class ProcesadorFinancieroService {
 		}
 		return fechaMedio
 	}
-    
+
 	//METODO PARA INSERTAR EL PREMOVIMIENTO
 	PfinPreMovimiento generaPreMovimiento(PfinPreMovimiento preMovimiento) {
 		try{
 			preMovimiento.save(flush: true,failOnError: true)
-		
+
 		}catch(Exception errorInsertarPreMovimiento){
 			log.error(errorInsertarPreMovimiento)
 			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el PreMovimiento")
 		}
+
+
 		return preMovimiento
-    }
-	
-	//METODO PARA INSERTAR EL MOVIMIENTO
-	PfinMovimiento generaMovimiento(PfinPreMovimiento pfinPreMovimiento,String situacionMovimiento,
-		 Date fechaAplicacion) {
-		 
-		 PfinMovimiento movimiento = new PfinMovimiento()
+	}
+
+	PfinPreMovimientoDet generaPreMovimientoDet(PfinPreMovimiento preMovimiento, PfinCatConcepto catConcepto, BigDecimal importeConcepto, String nota) {
+		try {
+			new PfinPreMovimientoDet(concepto:  catConcepto,
+					importeConcepto: importeConcepto,
+					nota : nota,
+					preMovimiento : preMovimiento).save(flush: true,failOnError: true)
+			
+		}catch(Exception errorInsertarPreMovimientoDet) {
+			log.error(errorInsertarPreMovimientoDet)
+			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el PreMovimientoDet")
+		}
+	}
+
+	//METODO PARA PROCESAR EL MOVIMIENTO
+	PfinMovimiento procesaMovimiento(PfinPreMovimiento pfinPreMovimiento,
+		String situacionMovimiento, Usuario usuario, Date fechaAplicacion) {
+
+		PfinMovimiento movimiento = new PfinMovimiento()
 		if (situacionMovimiento!='CA'){
 			//ASIGNA VALORES AL MOVIMIENTO
 			movimiento.situacionMovimiento = situacionMovimiento
 			movimiento.pfinPreMovimiento = pfinPreMovimiento
 			movimiento.fechaAplicacion = fechaAplicacion
-			movimiento.usuario =   Usuario.get(1)
+			movimiento.usuario =   usuario
 			movimiento.cuenta = pfinPreMovimiento.cuenta
 			movimiento.divisa = pfinPreMovimiento.divisa
 			try{
@@ -68,15 +80,20 @@ class ProcesadorFinancieroService {
 			movimiento.numeroPagoAmortizacion = pfinPreMovimiento.numeroPagoAmortizacion
 			movimiento.cancelaTransaccion = 0
 		}
-		
+
 		try{
 			movimiento.save(flush: true,failOnError: true)
-		
+
 		}catch(Exception errorInsertarMovimiento){
 			log.error(errorInsertarMovimiento)
 			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el Movimiento")
 		}
+
+
+
+
+
 		return movimiento
 	}
-	
+
 }
