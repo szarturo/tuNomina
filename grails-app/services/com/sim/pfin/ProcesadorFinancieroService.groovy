@@ -148,7 +148,7 @@ class ProcesadorFinancieroService {
 			if (situacionMovimiento != SituacionPremovimiento.CANCELADO){
 				afectaSaldo = comoAfectaSaldo == 'INCREMENTA' ? 1 : -1
 			}else{
-				afectaSaldo = comoAfectaSaldo == 'DECREMENTA' ? -1 : 1
+				afectaSaldo = comoAfectaSaldo == 'INCREMENTA' ? -1 : 1
 			}
 			
 			PfinSaldo saldoCliente = PfinSaldo.findWhere(fechaFoto: fechaAplicacion, cuenta: pfinPreMovimiento.cuenta,
@@ -175,7 +175,7 @@ class ProcesadorFinancieroService {
 					new PfinSaldo(
 						fechaFoto: fechaAplicacion,
 						   divisa: pfinPreMovimiento.divisa,
-						    saldo: pfinPreMovimiento.importeNeto * afectaSaldo, //UTIL PARA CUANDO DECREMENTA EL SALDO 
+						    saldo: pfinPreMovimiento.importeNeto * afectaSaldo,  
 						   cuenta: pfinPreMovimiento.cuenta,
 					).save(flush: true,failOnError: true)
 				}catch(Exception errorInsertarSaldoCuenta){
