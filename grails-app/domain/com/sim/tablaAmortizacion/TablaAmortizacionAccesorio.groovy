@@ -1,13 +1,10 @@
 package com.sim.tablaAmortizacion
 
-import com.sim.credito.Prestamo
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
 
-
 class TablaAmortizacionAccesorio {
 
-	Integer     	numeroPagoAmortizacion
 	SimCatAccesorio accesorio
 	SimCatFormaAplicacion	formaAplicacion
 	BigDecimal		importeAccesorio
@@ -18,7 +15,6 @@ class TablaAmortizacionAccesorio {
 	static belongsTo = [tablaAmortizacion:TablaAmortizacion]
 
 	static constraints = {
-		numeroPagoAmortizacion() 		
 		accesorio()
 		formaAplicacion() 			
 		importeAccesorio			nullable:false
@@ -28,6 +24,6 @@ class TablaAmortizacionAccesorio {
 	}
 
 	String toString() {
-		"Pago no: ${numeroPagoAmortizacion} - ${accesorio}"
+		"${tablaAmortizacion} - ${accesorio}"
 	}
 }

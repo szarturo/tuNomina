@@ -1,6 +1,6 @@
 package com.sim.tablaAmortizacion
 
-class TablaAmortizacionController {
+class TablaAmortizacionAccesorioController {
 
     def scaffold = true
 }

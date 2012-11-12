@@ -4,49 +4,55 @@ import com.sim.credito.Prestamo
 
 class TablaAmortizacion {
 	
-	Integer     numeroPagoAmortizacion //numeroDePago
-	Date		fechaAmortizacion
-	BigDecimal	importeSaldoInicial
+	Integer     numeroPago //numeroDePago
+	Date		fecha
+	BigDecimal	impSaldoInicial
 	BigDecimal  tasaInteres
-	BigDecimal  importeInteres //interes
-	BigDecimal  importeIvaInteres
-	BigDecimal  importeCapitalAmortizacion //amortizacionCapital
-	BigDecimal  importePago //pagoTotal
-	BigDecimal  importeSaldoFinal //saldoInsoluto
+	BigDecimal  impInteres //interes
+	BigDecimal  impIvaInteres
+	BigDecimal  impCapital //amortizacionCapital
+	BigDecimal  impPago //pagoTotal
+	BigDecimal  impSaldoFinal //saldoInsoluto
 	Boolean     pagoPuntual = false
-	BigDecimal  importeInteresPagado
-	BigDecimal  importeIvaInteresPagado
-	BigDecimal  importeCapitalAmortizacionPagado
-	BigDecimal  importePagoPagado
+	BigDecimal  impInteresPagado
+	BigDecimal  impIvaInteresPagado
+	BigDecimal  impCapitalPagado
+	BigDecimal  impPagoPagado
 	Boolean     pagado = false
-	Date		fechaAmortizacionPagoUltimo
+	Date		fechaPagoUltimo
 	Date		fechaValorCalculado
 
 	static belongsTo = [prestamo:Prestamo]
 
+	
 	static hasMany =   [tablaAmortizacionAccesorio : TablaAmortizacionAccesorio]
+	
+	/*
+	static mapping = {
+		tablaAmortizacionAccesorio joinTable: [name:'REL_TA_ACCESORIO', key:'ID_TA', column:'ID_TA_ACCESORIO']
+	}*/
 
 	static constraints = {
-		numeroPagoAmortizacion()
-		fechaAmortizacion()
-		importeSaldoInicial 			nullable:false
+		numeroPago()
+		fecha()
+		impSaldoInicial 			nullable:false
 		tasaInteres						nullable:false
-		importeInteres					nullable:false
-		importeIvaInteres				nullable:false
-		importeCapitalAmortizacion		nullable:false
-		importePago						nullable:false
-		importeSaldoFinal				nullable:false
+		impInteres					nullable:false
+		impIvaInteres				nullable:false
+		impCapital		nullable:false
+		impPago						nullable:false
+		impSaldoFinal				nullable:false
 		pagoPuntual()
-		importeInteresPagado			 nullable:true
-		importeIvaInteresPagado			 nullable:true
-		importeCapitalAmortizacionPagado nullable:true
-		importePagoPagado				 nullable:true
+		impInteresPagado			 nullable:true
+		impIvaInteresPagado			 nullable:true
+		impCapitalPagado nullable:true
+		impPagoPagado				 nullable:true
 		pagado()
-		fechaAmortizacionPagoUltimo()
+		fechaPagoUltimo()
 		fechaValorCalculado()
 	}
 
 	String toString() {
-		"Pago no: ${numeroPagoAmortizacion}"
+		"${prestamo} :Pago ${numeroPago}"
 	}
 }
