@@ -124,6 +124,9 @@
 									<li><g:link controller="SimCatMetodoCalculo">
 											<span>M&eacute;todo de C&aacute;lculo</span>
 										</g:link></li>
+								    <li><g:link controller="simCatFormaAplicacion">
+											<span>Forma Aplicaci&oacute;n</span>
+										</g:link></li>
 
 									<li><a href="#"><span>Sub Item 1.6</span></a></li>
 									<li><a href="#" class="parent"><span>Sub Item
@@ -134,6 +137,18 @@
 												<li><a href="#"><span>Sub Item 1.7.2</span></a></li>
 											</ul>
 										</div></li>
+								</ul>
+							</div></li>
+							
+							<li><a href="#" class="parent"><span>Promoci&oacute;n</span></a>
+							<div>
+								<ul>
+								<li><g:link controller="simCatTipoAccesorio">
+											<span>Tipo Accesorio</span>
+										</g:link></li>
+								<li><g:link controller="simCatAccesorio">
+											<span>Accesorio</span>
+										</g:link></li>		
 								</ul>
 							</div></li>
 

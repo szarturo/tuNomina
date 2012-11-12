@@ -16,6 +16,8 @@ class ProPromocion {
 	SimCatPeriodicidad  periodicidadPagos
     Integer        		iva
 	SimCatMetodoCalculo metodoCalculo
+	
+	static hasMany = [proPromocionAccesorio : ProPromocionAccesorio]
 
     static constraints = {
         clavePromocion(size:1..20, unique: true, nullable: false, blank: false)
