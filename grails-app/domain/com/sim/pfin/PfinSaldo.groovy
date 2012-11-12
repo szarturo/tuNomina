@@ -5,7 +5,7 @@ import java.util.Date;
 class PfinSaldo {
 	
 	Date       fechaFoto
-	PfinDivisa     divisa
+	PfinDivisa divisa
 	BigDecimal saldo
 
 	static belongsTo = [cuenta:PfinCuenta]
