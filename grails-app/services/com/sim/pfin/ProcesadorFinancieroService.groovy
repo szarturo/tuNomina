@@ -29,9 +29,6 @@ class ProcesadorFinancieroService {
 			log.error(errorInsertarPreMovimiento)
 			throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el PreMovimiento")
 		}
-
-
-		return preMovimiento
 	}
 
 	PfinPreMovimientoDet generaPreMovimientoDet(PfinPreMovimiento preMovimiento, PfinCatConcepto catConcepto, BigDecimal importeConcepto, String nota) {
@@ -106,7 +103,6 @@ class ProcesadorFinancieroService {
 			//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
 			def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
 			
-			log.info("Procesador Service: ${listaPreMovimientosDetalle}")
 			//CREA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO
 			PfinMovimientoDet movimientoDetalle
 			listaPreMovimientosDetalle.each() {
@@ -133,6 +129,8 @@ class ProcesadorFinancieroService {
 			pfinPreMovimiento.save(flush:true)
 
 		}
+		
+		//if (vlBufOperacion.CVE_AFECTA_SALDO=='I' || vlBufOperacion.CVE_AFECTA_SALDO=='D'){
 		
 		
 		return movimiento
