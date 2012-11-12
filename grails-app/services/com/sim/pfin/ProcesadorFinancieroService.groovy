@@ -50,7 +50,22 @@ class ProcesadorFinancieroService {
 	//METODO PARA PROCESAR EL MOVIMIENTO
 	PfinMovimiento procesaMovimiento(PfinPreMovimiento pfinPreMovimiento,
 		SituacionPremovimiento situacionMovimiento, Usuario usuario, Date fechaAplicacion) {
+		
+		log.info("Tipo de actualización de ${pfinPreMovimiento.situacionPreMovimiento} a ${situacionMovimiento}")
+		//SE VALIDA QUE LA ACTUALIZACION SEA CORRECTA
+		if (! (pfinPreMovimiento.situacionPreMovimiento == SituacionPremovimiento.NO_PROCESADO &&
+			(situacionMovimiento ==  SituacionPremovimiento.PROCESADO_VIRTUAL || situacionMovimiento ==  SituacionPremovimiento.PROCESADO_REAL))
+			|| (pfinPreMovimiento.situacionPreMovimiento == SituacionPremovimiento.PROCESADO_VIRTUAL &&
+			(situacionMovimiento == SituacionPremovimiento.CANCELADO || situacionMovimiento == SituacionPremovimiento.PROCESADO_REAL))){
 
+			throw new ProcesadorFinancieroServiceException(mensaje: 
+				"Tipo de actualización ilegal de ${pfinPreMovimiento.situacionPreMovimiento} a ${situacionMovimiento}")
+		}
+		
+		//ACTUALIZACIONES LEGALES
+		//NO_PROCESADO      -> (PROCESADO_VIRTUAL,PROCESADO_REAL)
+		//PROCESADO_VIRTUAL -> (CANCELADO,PROCESADO_REAL)
+		
 		PfinMovimiento movimiento = new PfinMovimiento()
 		if (situacionMovimiento != SituacionPremovimiento.CANCELADO){
 			//ASIGNA VALORES AL MOVIMIENTO
@@ -118,6 +133,8 @@ class ProcesadorFinancieroService {
 			pfinPreMovimiento.save(flush:true)
 
 		}
+		
+		
 		return movimiento
 	}
 
