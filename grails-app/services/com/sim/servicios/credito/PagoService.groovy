@@ -94,7 +94,11 @@ class PagoService {
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, fechaAplicacion)
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
+		}catch(Exception errorGenerarMovimiento){
+			log.error(errorGenerarMovimiento)
+			throw new PagoServiceException(mensaje: "No se genero el movimiento", pagoCreditoInstance:pagoCreditoInstance )
 		}
+
 
 		return true
 	}

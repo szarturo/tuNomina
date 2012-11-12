@@ -101,6 +101,7 @@ class ProcesadorFinancieroService {
 				throw new ProcesadorFinancieroServiceException(mensaje: "No inserto el Movimiento")
 			}
 			
+			//CORRECTA LA SIGUIENTE LINEA PERO SE AFECTA EL PERFORMACE DE LA BASE DE DATOS
 			//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
 			def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
 			
@@ -122,12 +123,18 @@ class ProcesadorFinancieroService {
 			pfinPreMovimiento.save(flush:true)
 		}else{
 			//EN CASO DE SER UNA CANCELACION SOLO SE ACTUALIZA LA SITUACION DEL MOVIMIENTO Y PREMOVIMIENTO
+			//¿PORQUE MOVIMIENTO?
 			//SE MODIFICA LA SITUACION DEL PREMOVIMIENTO
 			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
 			pfinPreMovimiento.situacionPreMovimiento = SituacionPremovimiento.CANCELADO
 			pfinPreMovimiento.pfinMovimiento = null
 			pfinPreMovimiento.usuario = usuario
-			pfinPreMovimiento.save(flush:true)
+			try{
+				pfinPreMovimiento.save(flush:true)
+			}catch(Exception errorActualizarSaldoCuenta){
+				log.error(errorActualizarSaldoCuenta)
+				throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al cancelar el premovimiento")
+			}
 		}
 		
 		//VERIFICA DE QUE FORMA VA A AFECTAR EL SALDO DEL CLIENTE
@@ -154,21 +161,30 @@ class ProcesadorFinancieroService {
 				//¿PORQUE EL SALDO LO LLEVA POR FECHA?
 				log.info("Actualiza el saldo de la cuenta")
 				saldoCliente.saldo = saldoCliente.saldo + (pfinPreMovimiento.importeNeto * afectaSaldo)
-				saldoCliente.save(flush:true)
+				try{
+					saldoCliente.save(flush:true)
+				}catch(Exception errorActualizarSaldoCuenta){
+					log.error(errorActualizarSaldoCuenta)
+					throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al actualizar el saldo de la cuenta")
+				}
 			}else{
 				//NO EXISTE EL SALDO PARA LA CUENTA
 				//INSERTA EL SALDO DE LA CUENTA CON LA FOTO
 				log.info("Inserta el saldo de la cuenta")
-				new PfinSaldo(
-					fechaFoto: fechaAplicacion,
-					   divisa: pfinPreMovimiento.divisa,
-					    saldo: pfinPreMovimiento.importeNeto * afectaSaldo, //UTIL PARA CUANDO DECREMENTA EL SALDO 
-					   cuenta: pfinPreMovimiento.cuenta,
-				).save(flush: true,failOnError: true)
+				try{
+					new PfinSaldo(
+						fechaFoto: fechaAplicacion,
+						   divisa: pfinPreMovimiento.divisa,
+						    saldo: pfinPreMovimiento.importeNeto * afectaSaldo, //UTIL PARA CUANDO DECREMENTA EL SALDO 
+						   cuenta: pfinPreMovimiento.cuenta,
+					).save(flush: true,failOnError: true)
+				}catch(Exception errorInsertarSaldoCuenta){
+					log.error(errorInsertarSaldoCuenta)
+					throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al insertar el saldo de la cuenta")
+				}
 			}
 		}
 		
 		return movimiento
 	}
-
 }
