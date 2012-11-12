@@ -31,6 +31,7 @@ class ProcesadorFinancieroService {
 		}
 	}
 
+	//METODO PARA INSERTAR EL PREMOVIMIENTO DETALLE
 	PfinPreMovimientoDet generaPreMovimientoDet(PfinPreMovimiento preMovimiento, PfinCatConcepto catConcepto, BigDecimal importeConcepto, String nota) {
 		try {
 			new PfinPreMovimientoDet(concepto:  catConcepto,
@@ -127,11 +128,45 @@ class ProcesadorFinancieroService {
 			pfinPreMovimiento.pfinMovimiento = null
 			pfinPreMovimiento.usuario = usuario
 			pfinPreMovimiento.save(flush:true)
-
 		}
 		
-		//if (vlBufOperacion.CVE_AFECTA_SALDO=='I' || vlBufOperacion.CVE_AFECTA_SALDO=='D'){
+		//VERIFICA DE QUE FORMA VA A AFECTAR EL SALDO DEL CLIENTE
+		String comoAfectaSaldo = pfinPreMovimiento.operacion.claveAfectaSaldo
+		log.info("Afecta Saldo: ${comoAfectaSaldo}")
 		
+		if (comoAfectaSaldo =='INCREMENTA' || comoAfectaSaldo=='DECREMENTA'){
+			
+			Integer afectaSaldo = 0
+			
+			if (situacionMovimiento != SituacionPremovimiento.CANCELADO){
+				afectaSaldo = comoAfectaSaldo == 'INCREMENTA' ? 1 : -1
+			}else{
+				afectaSaldo = comoAfectaSaldo == 'DECREMENTA' ? -1 : 1
+			}
+			
+			PfinSaldo saldoCliente = PfinSaldo.findWhere(fechaFoto: fechaAplicacion, cuenta: pfinPreMovimiento.cuenta,
+															   divisa: pfinPreMovimiento.divisa)
+			log.info("Saldo Cliente: ${saldoCliente}")
+			
+			if (saldoCliente){
+				//YA EXISTE LA CUENTA
+				//ACTUALIZA EL SALDO DE LA CUENTA CON LA FOTO
+				//¿PORQUE EL SALDO LO LLEVA POR FECHA?
+				log.info("Actualiza el saldo de la cuenta")
+				saldoCliente.saldo = saldoCliente.saldo + (pfinPreMovimiento.importeNeto * afectaSaldo)
+				saldoCliente.save(flush:true)
+			}else{
+				//NO EXISTE EL SALDO PARA LA CUENTA
+				//INSERTA EL SALDO DE LA CUENTA CON LA FOTO
+				log.info("Inserta el saldo de la cuenta")
+				new PfinSaldo(
+					fechaFoto: fechaAplicacion,
+					   divisa: pfinPreMovimiento.divisa,
+					    saldo: pfinPreMovimiento.importeNeto * afectaSaldo, //UTIL PARA CUANDO DECREMENTA EL SALDO 
+					   cuenta: pfinPreMovimiento.cuenta,
+				).save(flush: true,failOnError: true)
+			}
+		}
 		
 		return movimiento
 	}
