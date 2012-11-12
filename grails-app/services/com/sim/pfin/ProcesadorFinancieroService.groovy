@@ -157,7 +157,7 @@ class ProcesadorFinancieroService {
 			
 			if (saldoCliente){
 				//YA EXISTE LA CUENTA
-				//ACTUALIZA EL SALDO DE LA CUENTA CON LA FOTO
+				//ACTUALIZA EL SALDO DE LA CUENTA CON LA FECHA FOTO
 				//¿PORQUE EL SALDO LO LLEVA POR FECHA?
 				log.info("Actualiza el saldo de la cuenta")
 				saldoCliente.saldo = saldoCliente.saldo + (pfinPreMovimiento.importeNeto * afectaSaldo)
