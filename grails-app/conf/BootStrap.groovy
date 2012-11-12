@@ -1140,7 +1140,7 @@ class BootStrap {
 			nota : 'Pago de Prestamo',
 			listaCobro : 3453,
 			//pfinMovimiento()
-			situacionPreMovimiento : 'PV',
+			situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
 			fechaRegistro:new Date('09/30/2012'),
 			logIpDireccion: 'xxxxxxxxx',
 			logUsuario:'xxxxxxxxxx',

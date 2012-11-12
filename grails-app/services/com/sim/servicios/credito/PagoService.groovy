@@ -5,7 +5,6 @@ import com.sim.usuario.Usuario
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.pfin.*
 
-
 class PagoServiceException extends RuntimeException {
 	String mensaje
 	PfinPagoCredito pagoCreditoInstance
@@ -57,7 +56,7 @@ class PagoService {
 				nota : "Deposito de efectivo",
 				listaCobro : 1,
 				//pfinMovimiento()
-				situacionPreMovimiento : 'NP',
+				situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro:new Date(),
 				logIpDireccion: 'xxxxxxxxx',
 				logUsuario:'xxxxxxxxxx',
@@ -92,11 +91,10 @@ class PagoService {
 		try{
 			// GENERA EL MOVIMIENTO
 			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
-					'PV', usuario, fechaAplicacion)
+					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, fechaAplicacion)
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
-
 
 		return true
 	}

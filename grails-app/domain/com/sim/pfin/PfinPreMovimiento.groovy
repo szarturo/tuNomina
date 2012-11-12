@@ -2,6 +2,7 @@ package com.sim.pfin
 
 import com.sim.credito.Prestamo
 import com.sim.usuario.Usuario
+import com.sim.pfin.SituacionPremovimiento
 
 class PfinPreMovimiento {
 
@@ -16,7 +17,6 @@ class PfinPreMovimiento {
 	//IMPLEMENTACION TEMPORAL QUE HAY QUE CAMBIAR AL DEFINIR EL DOMINIO DE LISTAS DE COBRO
 	//ListaCobro listaCobro
 	Integer    listaCobro
-	String     situacionPreMovimiento
 	Date       fechaRegistro
 	String     logIpDireccion
 	String     logUsuario
@@ -24,8 +24,8 @@ class PfinPreMovimiento {
 	Usuario    usuario
 	Date       fechaAplicacion
 	Integer    numeroPagoAmortizacion
-	PfinCatOperacion  operacion
-
+	PfinCatOperacion       operacion
+	SituacionPremovimiento situacionPreMovimiento
 	
 	static hasMany = [pfinPreMovimientoDet : PfinPreMovimientoDet]
 	static hasOne = [pfinMovimiento : PfinMovimiento]

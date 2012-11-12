@@ -16,7 +16,6 @@ class PfinMovimiento {
 	//IMPLEMENTACION TEMPORAL QUE HAY QUE CAMBIAR AL DEFINIR EL DOMINIO DE LISTAS DE COBRO
 	//ListaCobro   listaCobro
 	Integer        listaCobro
-	String         situacionMovimiento
 	Date           fechaRegistro
 	String         logIpDireccion
 	String         logUsuario
@@ -25,7 +24,8 @@ class PfinMovimiento {
 	Date           fechaAplicacion
 	Integer        numeroPagoAmortizacion
 	Integer        cancelaTransaccion
-	PfinCatOperacion   operacion
+	PfinCatOperacion       operacion
+	SituacionPremovimiento situacionMovimiento
 
 
 	static hasMany = [pfinMovimientoDet : PfinMovimientoDet]

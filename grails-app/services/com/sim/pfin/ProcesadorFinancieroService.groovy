@@ -1,6 +1,5 @@
 package com.sim.pfin
 
-import com.mysql.jdbc.log.Log;
 import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.usuario.Usuario
 
@@ -50,10 +49,10 @@ class ProcesadorFinancieroService {
 
 	//METODO PARA PROCESAR EL MOVIMIENTO
 	PfinMovimiento procesaMovimiento(PfinPreMovimiento pfinPreMovimiento,
-		String situacionMovimiento, Usuario usuario, Date fechaAplicacion) {
+		SituacionPremovimiento situacionMovimiento, Usuario usuario, Date fechaAplicacion) {
 
 		PfinMovimiento movimiento = new PfinMovimiento()
-		if (situacionMovimiento!='CA'){
+		if (situacionMovimiento != SituacionPremovimiento.CANCELADO){
 			//ASIGNA VALORES AL MOVIMIENTO
 			movimiento.situacionMovimiento = situacionMovimiento
 			movimiento.pfinPreMovimiento = pfinPreMovimiento
@@ -106,14 +105,14 @@ class ProcesadorFinancieroService {
 				movimientoDetalle.save(flush: true,failOnError: true)
 			}
 			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
-			pfinPreMovimiento.situacionPreMovimiento = 'PV'
+			pfinPreMovimiento.situacionPreMovimiento = SituacionPremovimiento.PROCESADO_VIRTUAL
 			pfinPreMovimiento.pfinMovimiento = movimiento
 			pfinPreMovimiento.save(flush:true)
 		}else{
 			//EN CASO DE SER UNA CANCELACION SOLO SE ACTUALIZA LA SITUACION DEL MOVIMIENTO Y PREMOVIMIENTO
 			//SE MODIFICA LA SITUACION DEL PREMOVIMIENTO
 			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
-			pfinPreMovimiento.situacionPreMovimiento = 'CA'
+			pfinPreMovimiento.situacionPreMovimiento = SituacionPremovimiento.CANCELADO
 			pfinPreMovimiento.pfinMovimiento = null
 			pfinPreMovimiento.usuario = usuario
 			pfinPreMovimiento.save(flush:true)
