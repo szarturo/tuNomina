@@ -1,5 +1,5 @@
 
-<%@ page import="com.sim.calendario.SimCatEvento" %>
+<%@ page import="com.sim.catalogo.SimCatEvento" %>
 <!DOCTYPE html>
 <html>
 	<head>

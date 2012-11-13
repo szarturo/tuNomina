@@ -128,7 +128,10 @@
 											<span>Forma Aplicaci&oacute;n</span>
 										</g:link></li>
 
-									<li><a href="#"><span>Sub Item 1.6</span></a></li>
+								    <li><g:link controller="simCatEvento">
+											<span>Eventos Dependencias</span>
+										</g:link></li>
+
 									<li><a href="#" class="parent"><span>Sub Item
 												1.7</span></a>
 										<div>

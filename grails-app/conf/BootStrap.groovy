@@ -1,6 +1,6 @@
+import com.rs.gral.*
 import com.sim.catalogo.*
 import com.sim.usuario.*
-import com.rs.gral.*
 import com.sim.entidad.*
 import com.sim.cliente.*
 import com.sim.credito.*
@@ -9,12 +9,8 @@ import com.sim.producto.*
 import com.sim.calendario.*
 import com.sim.pfin.*
 
-import test.*;
-
-import abltutorial.Customer
-import abltutorial.LineItem
-import abltutorial.Product
-import abltutorial.PurchaseOrder
+import test.*
+import abltutorial.*
 
 class BootStrap {
 
@@ -1041,10 +1037,10 @@ class BootStrap {
 			}
 		}
 		
-		new SimCatEvento(evento:"inicia").save(flush: true,failOnError: true)
-		new SimCatEvento(evento:"validacion").save(flush: true,failOnError: true)
-		new SimCatEvento(evento:"autorizacion").save(flush: true,failOnError: true)
-		new SimCatEvento(evento:"finalizacion").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"Envio Lista de Cobro").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"Aplicacion Lista de Cobro").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"Devolucion Lista de Cobro").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"Pago de la Dependencia").save(flush: true,failOnError: true)
 		
 		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
 

@@ -3,6 +3,9 @@ package com.sim.calendario
 
 
 import org.junit.*
+
+import com.sim.catalogo.SimCatEvento;
+
 import grails.test.mixin.*
 
 @TestFor(SimCatEventoController)

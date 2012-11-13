@@ -1,4 +1,4 @@
-package com.sim.calendario
+package com.sim.catalogo
 
 class SimCatEvento {
 

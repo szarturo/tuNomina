@@ -2,6 +2,8 @@ package com.sim.calendario
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import com.sim.catalogo.SimCatEvento;
+
 class SimCatEventoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

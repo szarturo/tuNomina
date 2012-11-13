@@ -1,6 +1,8 @@
 package com.sim.calendario
 
 import java.text.SimpleDateFormat
+
+import com.sim.catalogo.SimCatEvento;
 import com.sim.entidad.EntDependencia
 
 import org.springframework.dao.DataIntegrityViolationException

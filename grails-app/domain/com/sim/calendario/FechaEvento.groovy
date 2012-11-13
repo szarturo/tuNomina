@@ -1,4 +1,5 @@
 package com.sim.calendario
+import com.sim.catalogo.SimCatEvento;
 import com.sim.entidad.EntDependencia
 
 class FechaEvento {
