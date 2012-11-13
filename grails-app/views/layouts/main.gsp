@@ -66,7 +66,7 @@
 							<div>
 								<ul>
 
-									<li><a href="#" class="parent"><span>Direcciones</span></a>
+									<li><a href="#" class="parent"><span>Direcci&oacute;n</span></a>
 										<div>
 											<ul>
 												<li><g:link controller="rsGralEstado">
@@ -100,52 +100,47 @@
 													</g:link></li>
 											</ul>
 										</div></li>
+									<li><g:link controller="simCatBanco">
+											<span>Banco</span>
+										</g:link></li>
 									<li><g:link controller="simCatEscolaridad">
 											<span>Escolaridad</span>
 										</g:link></li>
 									<li><g:link controller="simCatTipoPersona">
-											<span>Tipo Personas</span>
+											<span>Tipo Persona</span>
 										</g:link></li>
 									<li><g:link controller="simCatDescTelefono">
-											<span>Tipo Tel&eacute;fonos</span>
+											<span>Tipo Tel&eacute;fono</span>
 										</g:link></li>
-									<li><g:link controller="simCatPuesto">
-											<span>Puestos</span>
-										</g:link></li>
-									<li><g:link controller="simCatFormaEntrega">
-											<span>Forma Entrega</span>
-										</g:link></li>
-									<li><g:link controller="simCatEtapaPrestamo">
-											<span>Etapas del Prestamo</span>
-										</g:link></li>
-									<li><g:link controller="simCatPeriodicidad">
-											<span>Periodicidad</span>
-										</g:link></li>
-									<li><g:link controller="SimCatMetodoCalculo">
-											<span>M&eacute;todo de C&aacute;lculo</span>
-										</g:link></li>
-								    <li><g:link controller="simCatFormaAplicacion">
-											<span>Forma Aplicaci&oacute;n</span>
-										</g:link></li>
-
-								    <li><g:link controller="simCatEvento">
-											<span>Eventos Dependencias</span>
-										</g:link></li>
-
-									<li><a href="#" class="parent"><span>Sub Item
-												1.7</span></a>
-										<div>
-											<ul>
-												<li><a href="#"><span>Sub Item 1.7.1</span></a></li>
-												<li><a href="#"><span>Sub Item 1.7.2</span></a></li>
-											</ul>
-										</div></li>
-								</ul>
+						</ul>
 							</div></li>
 							
+							<li><a href="#" class="parent"><span>Prestamo</span></a>
+								<div>
+									<ul>
+										<li><g:link controller="simCatFormaEntrega">
+												<span>Forma Entrega</span>
+											</g:link></li>
+										<li><g:link controller="simCatEtapaPrestamo">
+												<span>Etapas del Prestamo</span>
+											</g:link></li>
+
+									</ul>
+								</div>
+							</li>
+																	
 							<li><a href="#" class="parent"><span>Promoci&oacute;n</span></a>
 							<div>
 								<ul>
+								<li><g:link controller="simCatPeriodicidad">
+											<span>Periodicidad</span>
+										</g:link></li>
+								<li><g:link controller="SimCatMetodoCalculo">
+											<span>M&eacute;todo de C&aacute;lculo</span>
+										</g:link></li>
+							    <li><g:link controller="simCatFormaAplicacion">
+											<span>Forma Aplicaci&oacute;n</span>
+										</g:link></li>								
 								<li><g:link controller="simCatTipoAccesorio">
 											<span>Tipo Accesorio</span>
 										</g:link></li>
@@ -159,6 +154,9 @@
 									Organizacional</span></a>
 							<div>
 								<ul>
+									<li><g:link controller="simCatPuesto">
+											<span>Puesto</span>
+										</g:link></li>
 									<li><g:link controller="entRegion">
 											<span>Regi&oacute;n</span>
 										</g:link></li>
@@ -178,24 +176,21 @@
 								</ul>
 							</div></li>
 
-						<li><g:link controller="simCatBanco">
-								<span>Banco</span>
-							</g:link></li>
 							
 						<li><a href="#" class="parent"><span>Core Financiero</span></a>
 							<div>
 								<ul>
-									<li><g:link controller="pfinCatConcepto">
-											<span>Conceptos</span>
-										</g:link></li>
-									<li><g:link controller="pfinCatAfectaOperacion">
-											<span>Afecta Operacion</span>
-										</g:link></li>
 									<li><g:link controller="pfinCatOperacion">
 											<span>Operacion</span>
 										</g:link></li>
+									<li><g:link controller="pfinCatConcepto">
+											<span>Concepto</span>
+										</g:link></li>
 									<li><g:link controller="pfinCatOperacionConcepto">
 											<span>Operacion Concepto</span>
+										</g:link></li>
+									<li><g:link controller="pfinCatAfectaOperacion">
+											<span>Afecta Operacion</span>
 										</g:link></li>
 									<li><g:link controller="pfinCuenta">
 											<span>Cuenta</span>
@@ -207,13 +202,16 @@
 											<span>Divisa</span>
 										</g:link></li>
 									<li><g:link controller="pfinCatParametro">
-											<span>Parametros</span>
-										</g:link></li>
-									<li><g:link controller="pfinCatPais">
-											<span>Pais</span>
+											<span>Parametro</span>
 										</g:link></li>
 									<li><g:link controller="pfinCatDiaFestivo">
 											<span>Dia Festivo</span>
+										</g:link></li>
+									<li><g:link controller="pfinPreMovimiento">
+											<span>Premovimiento</span>
+										</g:link></li>
+									<li><g:link controller="pfinPreMovimientoDet">
+											<span>Premovimiento Detalle</span>
 										</g:link></li>
 									<li><g:link controller="pfinMovimiento">
 											<span>Movimiento</span>
@@ -221,12 +219,6 @@
 									<li><g:link controller="pfinMovimientoDet">
 											<span>Movimiento Detalle</span>
 										</g:link></li>										
-									<li><g:link controller="pfinPreMovimiento">
-											<span>Premovimiento</span>
-										</g:link></li>
-									<li><g:link controller="pfinPreMovimientoDet">
-											<span>Premovimiento Detalle</span>
-										</g:link></li>
 								</ul>
 							</div></li>
 							
@@ -238,6 +230,10 @@
 										</g:link></li>
 								</ul>
 							</div></li>
+
+					    <li><g:link controller="simCatEvento">
+								<span>Eventos Dependencias</span>
+							</g:link></li>
 							
 					</ul>
 				</div></li>
