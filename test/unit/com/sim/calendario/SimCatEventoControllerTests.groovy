@@ -5,9 +5,9 @@ package com.sim.calendario
 import org.junit.*
 import grails.test.mixin.*
 
-@TestFor(EventoController)
-@Mock(Evento)
-class EventoControllerTests {
+@TestFor(SimCatEventoController)
+@Mock(SimCatEvento)
+class SimCatEventoControllerTests {
 
     def populateValidParams(params) {
         assert params != null
@@ -47,7 +47,7 @@ class EventoControllerTests {
 
         assert response.redirectedUrl == '/evento/show/1'
         assert controller.flash.message != null
-        assert Evento.count() == 1
+        assert SimCatEvento.count() == 1
     }
 
     void testShow() {
@@ -57,7 +57,7 @@ class EventoControllerTests {
         assert response.redirectedUrl == '/evento/list'
 
         populateValidParams(params)
-        def evento = new Evento(params)
+        def evento = new SimCatEvento(params)
 
         assert evento.save() != null
 
@@ -75,7 +75,7 @@ class EventoControllerTests {
         assert response.redirectedUrl == '/evento/list'
 
         populateValidParams(params)
-        def evento = new Evento(params)
+        def evento = new SimCatEvento(params)
 
         assert evento.save() != null
 
@@ -95,7 +95,7 @@ class EventoControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def evento = new Evento(params)
+        def evento = new SimCatEvento(params)
 
         assert evento.save() != null
 
@@ -139,17 +139,17 @@ class EventoControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def evento = new Evento(params)
+        def evento = new SimCatEvento(params)
 
         assert evento.save() != null
-        assert Evento.count() == 1
+        assert SimCatEvento.count() == 1
 
         params.id = evento.id
 
         controller.delete()
 
-        assert Evento.count() == 0
-        assert Evento.get(evento.id) == null
+        assert SimCatEvento.count() == 0
+        assert SimCatEvento.get(evento.id) == null
         assert response.redirectedUrl == '/evento/list'
     }
 }

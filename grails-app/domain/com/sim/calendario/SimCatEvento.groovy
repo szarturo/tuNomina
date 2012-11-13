@@ -1,6 +1,6 @@
 package com.sim.calendario
 
-class Evento {
+class SimCatEvento {
 
 	String evento;
 	

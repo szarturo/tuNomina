@@ -2,7 +2,7 @@ package com.sim.calendario
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class EventoController {
+class SimCatEventoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -12,15 +12,15 @@ class EventoController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [eventoInstanceList: Evento.list(params), eventoInstanceTotal: Evento.count()]
+        [eventoInstanceList: SimCatEvento.list(params), eventoInstanceTotal: SimCatEvento.count()]
     }
 
     def create() {
-        [eventoInstance: new Evento(params)]
+        [eventoInstance: new SimCatEvento(params)]
     }
 
     def save() {
-        def eventoInstance = new Evento(params)
+        def eventoInstance = new SimCatEvento(params)
         if (!eventoInstance.save(flush: true)) {
             render(view: "create", model: [eventoInstance: eventoInstance])
             return
@@ -31,7 +31,7 @@ class EventoController {
     }
 
     def show(Long id) {
-        def eventoInstance = Evento.get(id)
+        def eventoInstance = SimCatEvento.get(id)
         if (!eventoInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'evento.label', default: 'Evento'), id])
             redirect(action: "list")
@@ -42,7 +42,7 @@ class EventoController {
     }
 
     def edit(Long id) {
-        def eventoInstance = Evento.get(id)
+        def eventoInstance = SimCatEvento.get(id)
         if (!eventoInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'evento.label', default: 'Evento'), id])
             redirect(action: "list")
@@ -53,7 +53,7 @@ class EventoController {
     }
 
     def update(Long id, Long version) {
-        def eventoInstance = Evento.get(id)
+        def eventoInstance = SimCatEvento.get(id)
         if (!eventoInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'evento.label', default: 'Evento'), id])
             redirect(action: "list")
@@ -82,7 +82,7 @@ class EventoController {
     }
 
     def delete(Long id) {
-        def eventoInstance = Evento.get(id)
+        def eventoInstance = SimCatEvento.get(id)
         if (!eventoInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'evento.label', default: 'Evento'), id])
             redirect(action: "list")

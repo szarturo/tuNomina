@@ -3,7 +3,7 @@ import com.sim.entidad.EntDependencia
 
 class FechaEvento {
 
-	Evento evento;
+	SimCatEvento evento;
 	
 	EntDependencia dependencia;
 	

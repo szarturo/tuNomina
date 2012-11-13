@@ -1041,10 +1041,10 @@ class BootStrap {
 			}
 		}
 		
-		new Evento(evento:"inicia").save(flush: true,failOnError: true)
-		new Evento(evento:"validacion").save(flush: true,failOnError: true)
-		new Evento(evento:"autorizacion").save(flush: true,failOnError: true)
-		new Evento(evento:"finalizacion").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"inicia").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"validacion").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"autorizacion").save(flush: true,failOnError: true)
+		new SimCatEvento(evento:"finalizacion").save(flush: true,failOnError: true)
 		
 		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
 

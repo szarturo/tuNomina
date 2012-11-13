@@ -56,7 +56,7 @@ class FechaEventoController {
 					
 					fechaEventoInstance.setFecha(format.parse(fechaSave[i]))
 					
-					def query = Evento.where {
+					def query = SimCatEvento.where {
 						evento in eventoSave[i]
 					 }
 					def eventoInstance = query.find();
@@ -95,7 +95,7 @@ class FechaEventoController {
     def list(Integer max) {
 		
 		params.max = 100;
-		request.putAt("eventos", Evento.list(params));
+		request.putAt("eventos", SimCatEvento.list(params));
 		
 		EntDependencia selectDependencia=null;
 		def dependencias= EntDependencia.list(params);

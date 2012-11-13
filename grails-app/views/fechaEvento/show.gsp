@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="evento-label" class="property-label"><g:message code="fechaEvento.evento.label" default="Evento" /></span>
 					
-						<span class="property-value" aria-labelledby="evento-label"><g:link controller="evento" action="show" id="${fechaEventoInstance?.evento?.id}">${fechaEventoInstance?.evento?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="evento-label"><g:link controller="simCatEvento" action="show" id="${fechaEventoInstance?.evento?.id}">${fechaEventoInstance?.evento?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
