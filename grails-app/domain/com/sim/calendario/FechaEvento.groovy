@@ -1,10 +1,11 @@
 package com.sim.calendario
+import com.sim.entidad.EntDependencia
 
 class FechaEvento {
 
 	Evento evento;
 	
-	Dependencia dependencia;
+	EntDependencia dependencia;
 	
 	Date fecha;
 	

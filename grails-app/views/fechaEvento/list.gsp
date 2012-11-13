@@ -212,14 +212,14 @@ var objRemove = new Array();var cRemove=0;
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li>
 					<g:form name="frmReload" action="index">
-						<g:select name="dependencia" value="${dependencia.nombre }"  
+						<g:select name="dependencia" value="${dependencia.nombreDependencia }"  
 					      from="${dependencias}"
-					      optionValue="nombre"
-					      optionKey="nombre" />
+					      optionValue="nombreDependencia"
+					      optionKey="nombreDependencia" />
 					</g:form>				      
 				</li>
 				<li>
-					<h1>Dependencia ${dependencia }</h1>
+					<h1>${dependencia }</h1>
 				</li>
 			 <!-- 
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>

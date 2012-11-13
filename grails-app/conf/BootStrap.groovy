@@ -1046,11 +1046,6 @@ class BootStrap {
 		new Evento(evento:"autorizacion").save(flush: true,failOnError: true)
 		new Evento(evento:"finalizacion").save(flush: true,failOnError: true)
 		
-		new Dependencia(nombre:"IMSS").save(flush: true,failOnError: true)
-		new Dependencia(nombre:"IFE").save(flush: true,failOnError: true)
-		new Dependencia(nombre:"SAT").save(flush: true,failOnError: true)
-		new Dependencia(nombre:"SE").save(flush: true,failOnError: true)
-		
 		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
 
 		//ARTURO Y JOSE DAN DE ALTA LOS CONCEPTOS QUE INDIQUE MINE

@@ -3,7 +3,6 @@ package test
 import java.text.SimpleDateFormat;
 
 import org.springframework.dao.DataIntegrityViolationException
-import com.sim.calendario.Dependencia;
 
 class DummyCobranzaController {
 

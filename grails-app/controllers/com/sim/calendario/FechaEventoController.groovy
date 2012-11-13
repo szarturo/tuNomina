@@ -1,6 +1,7 @@
 package com.sim.calendario
 
 import java.text.SimpleDateFormat
+import com.sim.entidad.EntDependencia
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -44,7 +45,7 @@ class FechaEventoController {
 		}
 		
 		
-		def dependenciaInstance = Dependencia.get(dependenciaid);
+		def dependenciaInstance = EntDependencia.get(dependenciaid);
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
 		if(eventoSave!=null){
@@ -96,11 +97,11 @@ class FechaEventoController {
 		params.max = 100;
 		request.putAt("eventos", Evento.list(params));
 		
-		Dependencia selectDependencia=null;
-		def dependencias= Dependencia.list(params);
-		for(Dependencia dependencia:dependencias){
+		EntDependencia selectDependencia=null;
+		def dependencias= EntDependencia.list(params);
+		for(EntDependencia dependencia:dependencias){
 			selectDependencia=dependencia;
-			if(dependencia.getNombre().equalsIgnoreCase(params.get("dependencia"))){
+			if(dependencia.getNombreDependencia().equalsIgnoreCase(params.get("dependencia"))){
 				selectDependencia=dependencia;
 				break ;
 			}
@@ -112,7 +113,7 @@ class FechaEventoController {
 		params.max = Math.min(max ?: 10, 1000)
 		
 		def query = FechaEvento.where {
-			dependencia.nombre in selectDependencia.getNombre()
+			dependencia.nombreDependencia in selectDependencia.getNombreDependencia()
 		 }
 		
 		[fechaEventoInstanceList:  query.findAll(), fechaEventoInstanceTotal: FechaEvento.count()]
