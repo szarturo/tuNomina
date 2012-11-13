@@ -4,6 +4,7 @@ import com.sim.credito.Prestamo
 
 class TablaAmortizacion {
 	
+	//LOS NOMBRE QUE APARECEN EN COMENTARIO HACEN REFERENCIA AL SERVICIO DE TABLA AMORTIZACION ORIGINADO POR MIKE
 	Integer     numeroPago //numeroDePago
 	Date		fecha
 	BigDecimal	impSaldoInicial
@@ -23,15 +24,9 @@ class TablaAmortizacion {
 	Date		fechaValorCalculado
 
 	static belongsTo = [prestamo:Prestamo]
-
 	
 	static hasMany =   [tablaAmortizacionAccesorio : TablaAmortizacionAccesorio]
 	
-	/*
-	static mapping = {
-		tablaAmortizacionAccesorio joinTable: [name:'REL_TA_ACCESORIO', key:'ID_TA', column:'ID_TA_ACCESORIO']
-	}*/
-
 	static constraints = {
 		numeroPago()
 		fecha()

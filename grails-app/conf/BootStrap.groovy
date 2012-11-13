@@ -1062,12 +1062,23 @@ class BootStrap {
 			situacion: 'ACTIVO'
 		).save(flush: true,failOnError: true)
 		
+		new PfinCatConcepto(claveConcepto:  'CAPITAL',
+			descripcionCorta: 'CAPITAL',
+			descripcionLarga: 'CAPITAL',
+			situacion: 'ACTIVO'
+		).save(flush: true,failOnError: true)
+
+		new PfinCatConcepto(claveConcepto:  'IVAINT',
+			descripcionCorta: 'IVA INTERES',
+			descripcionLarga: 'IVA DE INTERES',
+			situacion: 'ACTIVO'
+		).save(flush: true,failOnError: true)
+		
 		new PfinCatConcepto(claveConcepto:  'IMPBRU',
 			descripcionCorta: 'IMPORTE BRUTO',
 			descripcionLarga: 'IMPORTE BRUTO',
 			situacion: 'ACTIVO'
 		).save(flush: true,failOnError: true)
-
 		
 		new PfinCatAfectaOperacion(claveAfecta:  'CREDITO',
 			descripcionAfecta: 'AFECTA AL CREDITO'
@@ -1096,9 +1107,54 @@ class BootStrap {
 			situacion: 'ACTIVO',
 			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
 		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacion(claveOperacion:  'CRPAGOPRES',
+			claveAfectaSaldo: 'DECREMENTA',
+			descripcionCorta: 'PAGO PRESTAMO',
+			descripcionLarga: 'PAGO DEL PRESTAMO',
+			situacion: 'ACTIVO',
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
+		).save(flush: true,failOnError: true)
 
 		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('TEDEPEFE'),
 			concepto:  PfinCatConcepto.findByClaveConcepto('IMPBRU'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CANPAG'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('INTERES'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CANPAG'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('CAPITAL'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CANPAG'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('IVAINT'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('INTERES'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('CAPITAL'),
+			claveAfecta: 'INCREMENTA',
+			situacion: 'ACTIVO',
+		).save(flush: true,failOnError: true)
+		
+		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'),
+			concepto:  PfinCatConcepto.findByClaveConcepto('IVAINT'),
 			claveAfecta: 'INCREMENTA',
 			situacion: 'ACTIVO',
 		).save(flush: true,failOnError: true)
@@ -1171,7 +1227,27 @@ class BootStrap {
 			operaDiaFestivo : 'false',
 			numeroDigitosDespliega : 2,
 		).save(flush: true,failOnError: true)
-
+		
+		new SimCatFormaAplicacion(
+			claveFormaAplicacion : '1',
+			nombreFormaAplicacion : 'Cargo inicial'
+		).save(flush: true,failOnError: true)
+		
+		new SimCatFormaAplicacion(
+			claveFormaAplicacion : '3',
+			nombreFormaAplicacion : 'Periodicamente dependiendo del monto prestamo'
+		).save(flush: true,failOnError: true)
+		
+		new SimCatFormaAplicacion(
+			claveFormaAplicacion : '4',
+			nombreFormaAplicacion : 'Periodicamente dependiendo del saldo a la fecha de calculo'
+		).save(flush: true,failOnError: true)
+		
+		new SimCatFormaAplicacion(
+			claveFormaAplicacion : '5',
+			nombreFormaAplicacion : 'Periodicamente cargo fijo'
+		).save(flush: true,failOnError: true)
+		
     }
 
 	def destroy = {

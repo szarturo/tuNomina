@@ -5,7 +5,7 @@ class SimCatFormaAplicacion {
 	String  nombreFormaAplicacion
 
     static constraints = {
-		claveFormaAplicacion (size:3..10, unique: true, nullable: false, blank: false)
+		claveFormaAplicacion (size:1..10, unique: true, nullable: false, blank: false)
 		nombreFormaAplicacion (size:3..60, unique: true, nullable: false, blank: false)
     }
 	String toString() {
