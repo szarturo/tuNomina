@@ -1,6 +1,6 @@
 package com.sim.activiti
 
-class Grupo {
+class ActivitiGrupo {
 	
 	//EJEMPLO DE COMO USAR OTRO DATASOURCE
 	//EJEMPLO DE COMO MAPEAR A UNA TABLA EXISTENTE

@@ -1,6 +1,6 @@
 package com.sim.activiti
 
-class GrupoController {
+class ActivitiGrupoController {
 
     def scaffold = true
 }
