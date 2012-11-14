@@ -1,4 +1,4 @@
-package com.sim.pfin
+package com.sim.catalogo
 
 
 
@@ -8,8 +8,8 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(PfinCatPais)
-class PfinCatPaisTests {
+@TestFor(SimCatPais)
+class SimCatPaisTests {
 
     void testSomething() {
        fail "Implement me"

@@ -100,6 +100,9 @@
 													</g:link></li>
 											</ul>
 										</div></li>
+									<li><g:link controller="simCatPais">
+											<span>Pais</span>
+										</g:link></li>
 									<li><g:link controller="simCatBanco">
 											<span>Banco</span>
 										</g:link></li>

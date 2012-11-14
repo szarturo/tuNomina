@@ -1,6 +1,6 @@
-package com.sim.pfin
+package com.sim.catalogo
 
-class PfinCatPais {
+class SimCatPais {
 
 	String clavePais
 	String nombrePais

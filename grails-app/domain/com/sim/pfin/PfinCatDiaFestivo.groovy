@@ -1,8 +1,10 @@
 package com.sim.pfin
 
+import com.sim.catalogo.SimCatPais
+
 class PfinCatDiaFestivo {
 
-	PfinCatPais  pais
+	SimCatPais   pais
 	Date         fechaDiaFestivo
 	String       descripcionDiaFestivo
 
