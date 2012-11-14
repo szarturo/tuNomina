@@ -8,17 +8,26 @@ import mx.com.creditoreal.ws.exception.ClientException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 
+import com.sim.credito.Prestamo;
+
 public class WsEnvioPresamoCreditoReal implements JavaDelegate{
 	
+	//SERVICIO QUE ENVIA LA SOLICITUD DE UN PRESTAMO A CREDITO REAL
 	public void execute(DelegateExecution execution) {
 		
+		/*
 		String comentarios = (String)execution.getVariable("comentarios");
 		comentarios = comentarios + " ,Envio de prestamo a Credito Real";
 		System.out.println("Credito Real Envio Credito. "+comentarios);
 		execution.setVariable("comentarios", comentarios);
+		*/
+		
+		String referencia = (String)execution.getVariable("folioSolicitud");
+		System.out.println("REFERENCIA Envio CR: "+referencia);
 		
 		Client client = null;
 		try {
+			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
 			client = new Client(true);
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
@@ -26,7 +35,7 @@ public class WsEnvioPresamoCreditoReal implements JavaDelegate{
 		}
 		
 		Solicitud solicitud = new Solicitud();
-		solicitud.setReferencia("3");
+		solicitud.setReferencia(referencia);
 		solicitud.setDistribuidor("9999");
 		solicitud.setSucursal("1111");
 		solicitud.setVendedor("");
@@ -47,22 +56,8 @@ public class WsEnvioPresamoCreditoReal implements JavaDelegate{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("consecutivo: "+ consecutivo);
-		
-		Adicional adicional = new Adicional();
-		adicional.setConsecutivo(consecutivo);
-		adicional.setDocAd("3".getBytes());
-		
-		boolean respuesta = false;
-		try {
-			respuesta = client.documentoAdicional(adicional);
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Respuesta: "+ respuesta);		
-		
-		
+		System.out.println("***CR*** Respuesta Credito Real Consecutivo: "+ consecutivo);
+
 	}	
 
 }
