@@ -3,6 +3,7 @@ package com.sim.credito
 import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.cliente.RsCliente
 import com.sim.tablaAmortizacion.TablaAmortizacion
+import com.sim.tablaAmortizacion.TablaAmortizacionServiceException
 import org.grails.activiti.ApprovalStatus
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -240,7 +241,17 @@ class PrestamoController {
 		}
 		prestamoInstance.save(flush: true)
 		*/
-		tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
+		
+		try{
+			tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
+		//VERIFICAR SI SE GENERO ALGUN ERROR
+		}catch(TablaAmortizacionServiceException errorGeneraTablaAmor){
+			prestamoInstance.errors.reject("ErrorGeneraTablaAmor",errorGeneraTablaAmor.mensaje)
+			log.error "Failed:", errorGeneraTablaAmor
+			//AL APLICAR LA FUNCIONALIDAD REAL HAY QUE MOSTRAR EL MENSAJE
+			redirect(action: "show", params: [id: params.idPrestamo])
+			return
+		}
 		
 		redirect(controller: "tablaAmortizacion", action: "list", params: [idPrestamo: params.idPrestamo])
 		
