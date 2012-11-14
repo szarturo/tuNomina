@@ -35,8 +35,15 @@
 						<g:sortableColumn property="impInteres" title="${message(code: 'tablaAmortizacion.impInteres.label', default: 'Imp Interes')}" />
 					
 						<g:sortableColumn property="impIvaInteres" title="${message(code: 'tablaAmortizacion.impIvaInteres.label', default: 'Imp Iva Interes')}" />
-					
-					</tr>
+						
+						<g:sortableColumn property="impCapital" title="${message(code: 'tablaAmortizacion.impCapital.label', default: 'Importe Capital')}" />
+
+						<g:sortableColumn property="impPago"	title="${message(code: 'tablaAmortizacion.impPago.label', default: 'Importe Pago')}" />
+						
+						<g:sortableColumn property="impSaldoFinal"	title="${message(code: 'tablaAmortizacion.impSaldoFinal.label', default: 'Importe Saldo Final')}" />
+
+
+				</tr>
 				</thead>
 				<tbody>
 				<g:each in="${tablaAmortizacionInstanceList}" status="i" var="tablaAmortizacionInstance">
@@ -44,7 +51,7 @@
 					
 						<td><g:link action="show" id="${tablaAmortizacionInstance.id}">${fieldValue(bean: tablaAmortizacionInstance, field: "numeroPago")}</g:link></td>
 					
-						<td><g:formatDate date="${tablaAmortizacionInstance.fecha}" /></td>
+						<td><g:formatDate format="dd/MM/yyyy"	date="${tablaAmortizacionInstance.fecha}" /></td>
 					
 						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impSaldoInicial")}</td>
 					
@@ -53,6 +60,12 @@
 						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impInteres")}</td>
 					
 						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impIvaInteres")}</td>
+						
+						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impCapital")}</td>
+					
+						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impPago")}</td>
+					
+						<td>${fieldValue(bean: tablaAmortizacionInstance, field: "impSaldoFinal")}</td>
 					
 					</tr>
 				</g:each>

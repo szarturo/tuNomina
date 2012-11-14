@@ -231,6 +231,7 @@ class PrestamoController {
 		log.info(params.idPrestamo)
 		Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
 	
+		/*
 		//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO
 		def registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
 		
@@ -238,7 +239,7 @@ class PrestamoController {
 			prestamoInstance.removeFromTablaAmortizacion(it)
 		}
 		prestamoInstance.save(flush: true)
-		
+		*/
 		tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
 		
 		redirect(controller: "tablaAmortizacion", action: "list", params: [idPrestamo: params.idPrestamo])
