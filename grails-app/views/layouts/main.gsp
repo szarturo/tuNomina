@@ -149,7 +149,10 @@
 										</g:link></li>
 								<li><g:link controller="simCatAccesorio">
 											<span>Accesorio</span>
-										</g:link></li>		
+										</g:link></li>	
+								<li><g:link controller="simCatUnidad">
+											<span>Unidad</span>
+										</g:link></li>											
 								</ul>
 							</div></li>
 

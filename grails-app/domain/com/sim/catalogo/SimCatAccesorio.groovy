@@ -1,12 +1,16 @@
 package com.sim.catalogo
 
 class SimCatAccesorio {
+	String  claveAccesorio
+	String  nombreAccesorio
 	SimCatTipoAccesorio  tipoAccesorio
-	String         nombreAccesorio
+	
 
     static constraints = {
-		tipoAccesorio (nullable: false, blank: false)
+		claveAccesorio  (size:3..80, unique: true, nullable: false, blank: false)
 		nombreAccesorio (size:3..80, unique: true, nullable: false, blank: false)
+		tipoAccesorio   (nullable: false, blank: false)
+		
     }
 	String toString() {
 		"${nombreAccesorio}"

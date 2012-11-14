@@ -41,7 +41,7 @@ class Prestamo {
 	Date dateCreated
 	Date lastUpdated
 	
-	static hasMany = [ tablaAmortizacion : TablaAmortizacion ]
+	static hasMany = [ tablaAmortizacion : TablaAmortizacion ,  prestamoAccesorio : PrestamoAccesorio]
 	
 	static mapping = {
 		tablaAmortizacion cascade: "all-delete-orphan"

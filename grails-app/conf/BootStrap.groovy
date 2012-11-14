@@ -1239,6 +1239,98 @@ class BootStrap {
 			nombreFormaAplicacion : 'Periodicamente cargo fijo'
 		).save(flush: true,failOnError: true)
 		
+		new SimCatTipoAccesorio(
+			claveTipoAccesorio : 'CARGO_COMISION',
+			nombreTipoAccesorio : 'Cargo y Comisiones del Prestamo'
+			).save(flush: true,failOnError: true)
+
+		new SimCatTipoAccesorio(
+			claveTipoAccesorio : 'INTERES',
+			nombreTipoAccesorio : 'Interes'
+			).save(flush: true,failOnError: true)
+	
+		new SimCatTipoAccesorio(
+			claveTipoAccesorio : 'IVA',
+			nombreTipoAccesorio : 'IVA'
+			).save(flush: true,failOnError: true)
+	
+		new SimCatAccesorio(
+				claveAccesorio : 'SEGUNICO',
+				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
+				nombreAccesorio : 'Seguro Unico'
+				).save(flush: true,failOnError: true)
+	
+		new SimCatAccesorio(
+				claveAccesorio : 'SEGUNICOA',
+				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
+				nombreAccesorio : 'Seguro A'
+				).save(flush: true,failOnError: true)
+	
+		new SimCatAccesorio(
+				claveAccesorio : 'SEGUNICOB',
+				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
+				nombreAccesorio : 'Seguro B'
+				).save(flush: true,failOnError: true)
+	
+		new SimCatAccesorio(
+				claveAccesorio : 'SEGUNICOC',
+				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
+				nombreAccesorio : 'Seguro C'
+				).save(flush: true,failOnError: true)
+
+		new SimCatUnidad(
+				claveUnidad  : 'UNIDAD',
+				nombreUnidad : 'Unidad',
+				valor 		 : '1'
+				).save(flush: true,failOnError: true)
+
+		new SimCatUnidad(
+				claveUnidad  : 'PORCENTUAL',
+				nombreUnidad : 'Porcentual',
+				valor 		 : '100'
+				).save(flush: true,failOnError: true)
+	
+		new SimCatUnidad(
+				claveUnidad  : 'ALMILLAR',
+				nombreUnidad : 'Al millar',
+				valor 		 : '1000'
+				).save(flush: true,failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICO'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('1'),
+				valor			:	'500',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				).save(flush: true,failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOA'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('3'),
+				valor			:	'100',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				).save(flush: true,failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOB'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('4'),
+				valor			:	'100',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				).save(flush: true,failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOC'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('5'),
+				valor			:	'100',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				).save(flush: true,failOnError: true)
     }
 
 	def destroy = {
