@@ -4,11 +4,14 @@ import java.util.Date;
 
 import com.sim.credito.Prestamo
 import com.sim.pfin.PfinMovimiento
+import com.sim.producto.ProPromocion
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
+import com.sim.catalogo.SimCatMetodoCalculo
+import com.sim.catalogo.SimCatPeriodicidad
 
 class TablaAmortizacionServiceException extends RuntimeException {
-	String		mensaje
+	String	mensaje
 }
 
 class TablaAmortizacionService {
@@ -17,7 +20,7 @@ class TablaAmortizacionService {
 
 	Boolean generaTablaAmortizacion(Prestamo prestamoInstance) {
 
-		def NumeroPagos = 1
+		Integer numeroPagos = 1
 
 		//VALIDA QUE NO EXISTE NINGUN MOVIMIENTO DE PAGO PARA EL PRESTAMO
 		def listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
@@ -25,59 +28,76 @@ class TablaAmortizacionService {
 		if (!listaMovimiento) {
 			log.info("Se genera la tabla de amortizacion")
 
-			/*
-			//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO
-			def registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
-
-			registrosTabla.each() {
-				prestamoInstance.removeFromTablaAmortizacion(it)
-			}
-			prestamoInstance.save(flush: true)
-
-			//Se obtienen todos los datos del prestamo
-			BigDecimal ImporteIvaInteres
-			BigDecimal saldoInsoluto         = prestamoInstance.montoSolicitado
-			String sMetodoCalculo 			 = prestamoInstance.promocion.metodoCalculo.claveMetodoCalculo
-			BigDecimal Capital				 = prestamoInstance.montoSolicitado
-			BigDecimal SaldoInicial			 = prestamoInstance.montoSolicitado
-			String sDiasPeriodicidadTasa 	 = prestamoInstance.promocion.periodicidadTasa.clavePeriodicidad
-			String sDiasPeriodicidadPago 	 = prestamoInstance.promocion.periodicidadPagos.clavePeriodicidad
-			Integer iDiasPeriodicidadTasa 	 = prestamoInstance.promocion.periodicidadTasa.numeroDias
-			Integer iDiasPeriodicidadPago 	 = prestamoInstance.promocion.periodicidadPagos.numeroDias
-			Integer iva 	 				 = prestamoInstance.promocion.iva
-			(1..prestamoInstance.promocion.numeroDePagos).each{
-				//FORMULA PARA EL CALCULO DE LA TASA
-				BigDecimal Tasa = (prestamoInstance.promocion.tasaDeInteres/100) * (iDiasPeriodicidadPago / iDiasPeriodicidadTasa)
-				//Variables a calcular.
-				BigDecimal Amortizacion       = 0
-				BigDecimal PagoIntereses      = 0
-				BigDecimal CuotaTotal         = 0
-				BigDecimal bPagoTotalInteres  = 0
-				BigDecimal bPagoTotalPrestamo = 0
-				if (sMetodoCalculo.equals("METODO01")){
-					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
-					Amortizacion = Capital / prestamoInstance.promocion.numeroDePagos
-					//FORMULA PARA EL PAGO DE INTERES
-					PagoIntereses = Capital * Tasa
-					//Calcula el Iva del interés
-					ImporteIvaInteres = PagoIntereses * (iva/100)
-					//FORMULA PARA VER EL PAGO TOTAL
-					CuotaTotal = Amortizacion + PagoIntereses + ImporteIvaInteres
-					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
-					bPagoTotalInteres  = PagoIntereses * prestamoInstance.promocion.numeroDePagos
-					bPagoTotalPrestamo = Capital + bPagoTotalInteres
-					saldoInsoluto = saldoInsoluto - Amortizacion
+			//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO PARA ELIMINARLOS
+			
+			//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion
+			ArrayList registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
+			log.info prestamoInstance.tablaAmortizacion.class
+			log.info registrosTabla.class
+			
+			if(registrosTabla){
+				log.info("Elimina los registros de la tabla de amortizacion del credito")
+				registrosTabla.each() {
+					prestamoInstance.removeFromTablaAmortizacion(it)
 				}
+				prestamoInstance.save(flush: true)
+			}
+
+			//SE OBTIENEN LOS DATOS DEL PRESTAMO
+			ProPromocion promocion = prestamoInstance.promocion
+			SimCatMetodoCalculo metodoCalculo 	 = promocion.metodoCalculo
+			SimCatPeriodicidad  periodicidadTasa = promocion.periodicidadTasa
+			SimCatPeriodicidad  periodicidadPago = promocion.periodicidadPagos
+			
+			Integer diasPeriodicidadTasa 	 = periodicidadTasa.numeroDias
+			Integer diasPeriodicidadPago 	 = periodicidadPago.numeroDias
+			Integer iva 	 				 = promocion.iva
+						
+			BigDecimal importeIvaInteres
+			BigDecimal saldoInsoluto         = prestamoInstance.montoSolicitado
+			BigDecimal capital				 = prestamoInstance.montoSolicitado
+			BigDecimal saldoInicial			 = prestamoInstance.montoSolicitado
+			
+			log.info("Numero de pagos: ${promocion.numeroDePagos}")
+			
+			(1..promocion.numeroDePagos).each{
+				
+				//FORMULA PARA EL CALCULO DE LA TASA
+				BigDecimal tasa = (promocion.tasaDeInteres/100) * (diasPeriodicidadPago / diasPeriodicidadTasa)
+				//VARIABLES A CALCULAR
+				BigDecimal amortizacion      = 0
+				BigDecimal pagoIntereses     = 0
+				BigDecimal cuotaTotal        = 0
+				BigDecimal pagoTotalInteres  = 0
+				BigDecimal pagoTotalPrestamo = 0
+				
+				log.info("Tasa: ${tasa}")
+				
+				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))){
+					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
+					amortizacion = capital / promocion.numeroDePagos
+					//FORMULA PARA EL PAGO DE INTERES
+					pagoIntereses = capital * tasa
+					//CALCULA EL IVA DEL INTERES
+					importeIvaInteres = pagoIntereses * (iva/100)
+					//FORMULA PARA VER EL PAGO TOTAL
+					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
+					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
+					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
+					pagoTotalPrestamo = capital + pagoTotalInteres
+					saldoInsoluto = saldoInsoluto - amortizacion
+				}
+				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
 				TablaAmortizacion tablaAmortizacionInsertada = new TablaAmortizacion(
-						numeroPago:				NumeroPagos,
-						fecha : 				new Date(),
-						impSaldoInicial: 		SaldoInicial,
-						tasaInteres: 			Tasa,
-						impInteres: 			PagoIntereses,
-						impIvaInteres: 			ImporteIvaInteres,
-						impCapital: 			Amortizacion,
-						impPago: 				CuotaTotal,
+						numeroPago:				numeroPagos,
+						fecha : 				new Date(), //CORREGIR FECHA DE PAGO
+						impSaldoInicial: 		saldoInicial,
+						tasaInteres: 			tasa,
+						impInteres: 			pagoIntereses,
+						impIvaInteres: 			importeIvaInteres,
+						impCapital: 			amortizacion,
+						impPago: 				cuotaTotal,
 						impSaldoFinal: 			saldoInsoluto,
 						pagoPuntual: 			false,
 						impInteresPagado: 		0,
@@ -85,13 +105,15 @@ class TablaAmortizacionService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						fechaPagoUltimo: 		new Date(),
+						//fechaPagoUltimo: 		new Date(),
 						fechaValorCalculado: 	new Date(),
 						prestamo:               prestamoInstance).save()
 
+				
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
-				SaldoInicial  = SaldoInicial  - Amortizacion
-
+				saldoInicial  = saldoInicial  - amortizacion
+				
+				/*
 				//Recupera los accesorios del prestamo
 				def listaAccesorios	= prestamoInstance.prestamoAccesorio
 
@@ -169,9 +191,10 @@ class TablaAmortizacionService {
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
 					}
-				}
-				NumeroPagos++
-			}*/
+				}*/
+				numeroPagos++
+			}
+				
 
 		}
 		else {

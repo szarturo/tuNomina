@@ -31,19 +31,19 @@ class TablaAmortizacion {
 		numeroPago()
 		fecha()
 		impSaldoInicial 			nullable:false
-		tasaInteres						nullable:false
+		tasaInteres					nullable:false
 		impInteres					nullable:false
 		impIvaInteres				nullable:false
-		impCapital		nullable:false
+		impCapital					nullable:false
 		impPago						nullable:false
 		impSaldoFinal				nullable:false
 		pagoPuntual()
-		impInteresPagado			 nullable:true
-		impIvaInteresPagado			 nullable:true
-		impCapitalPagado nullable:true
-		impPagoPagado				 nullable:true
+		impInteresPagado			nullable:true
+		impIvaInteresPagado			nullable:true
+		impCapitalPagado 			nullable:true
+		impPagoPagado				nullable:true
 		pagado()
-		fechaPagoUltimo()
+		fechaPagoUltimo             nullable:true
 		fechaValorCalculado()
 	}
 
