@@ -21,7 +21,7 @@ class TablaAmortizacionService {
 
 	Boolean generaTablaAmortizacion(Prestamo prestamoInstance) {
 
-		Integer numeroPagos = 1
+		Integer numeroPago = 1
 
 		//VALIDA QUE NO EXISTE NINGUN MOVIMIENTO DE PAGO PARA EL PRESTAMO
 		def listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
@@ -91,7 +91,7 @@ class TablaAmortizacionService {
 				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
 				TablaAmortizacion tablaAmortizacionInsertada = new TablaAmortizacion(
-						numeroPago:				numeroPagos,
+						numeroPago:				numeroPago,
 						fecha : 				new Date(), //CORREGIR FECHA DE PAGO
 						impSaldoInicial: 		saldoInicial,
 						tasaInteres: 			tasa,
@@ -132,13 +132,13 @@ class TablaAmortizacionService {
 					
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'))) {
-						if (numeroPagos == 1) {
-							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPagos}")
+						if (numeroPago == 1) {
+							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPago}")
 							importeAccesorio = valor
 							TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
 									accesorio:                   accesorio,
 									formaAplicacion : 			 formaAplicacion,
-									numPago:					 numeroPagos,
+									numPago:					 numeroPago,
 									importeAccesorio :			 importeAccesorio,
 									importeIvaAccesorio : 		 0,
 									importeAccesorioPagado:	 	 0,
@@ -147,7 +147,7 @@ class TablaAmortizacionService {
 									).save(flush: true,failOnError: true)
 						}
 						else {
-							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPagos}")
+							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPago}")
 							log.info("No debe de llenar los otros pagos.")
 						}
 
