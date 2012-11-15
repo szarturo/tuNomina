@@ -9,6 +9,7 @@ import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
 import com.sim.catalogo.SimCatMetodoCalculo
 import com.sim.catalogo.SimCatPeriodicidad
+import com.sim.catalogo.SimCatUnidad
 
 class TablaAmortizacionServiceException extends RuntimeException {
 	String	mensaje
@@ -113,40 +114,44 @@ class TablaAmortizacionService {
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
 				saldoInicial  = saldoInicial  - amortizacion
 				
-				/*
-				//Recupera los accesorios del prestamo
+				//RECUPERA LOS ACCESORIOS DEL PRESTAMO
 				def listaAccesorios	= prestamoInstance.prestamoAccesorio
 
 				def each = listaAccesorios.each() {
 					
-					//Recupera los datos de los accesorios 
-					SimCatAccesorio pAccesorio 			   = it.accesorio
-					SimCatFormaAplicacion oFormaAplicacion = it.formaAplicacion
-					String claveFormaAplicacion            = oFormaAplicacion.claveFormaAplicacion
-					BigDecimal pValor 					   = it.valor
-					Integer pValorUnidad 				   = it.unidad.valor
-					Integer pDiasPeriodicidad			   = it.periodicidad.numeroDias
-					BigDecimal bImporteAccesorio
-					BigDecimal bImporteIvaAccesorio
-
+					//RECUPERA LOS DATOS DEL ACCESORIO 
+					SimCatPeriodicidad periodicidadAccesorio = it.periodicidad
+					SimCatFormaAplicacion formaAplicacion    = it.formaAplicacion
+					SimCatAccesorio accesorio = it.accesorio
+					SimCatUnidad    unidad    = it.unidad
+					
+					BigDecimal valor  = it.valor
+					BigDecimal importeAccesorio
+					BigDecimal importeIvaAccesorio
+					//String claveFormaAplicacion = oFormaAplicacion.claveFormaAplicacion
+					
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO
-					if (claveFormaAplicacion.equals("1")) {
-						if (NumeroPagos == 1) {
-							bImporteAccesorio = pValor
+					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'))) {
+						if (numeroPagos == 1) {
+							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPagos}")
+							importeAccesorio = valor
 							TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
-									accesorio:                   pAccesorio,
-									formaAplicacion : 			 oFormaAplicacion,
-									numPago:					 NumeroPagos,
-									importeAccesorio :			 bImporteAccesorio,
+									accesorio:                   accesorio,
+									formaAplicacion : 			 formaAplicacion,
+									numPago:					 numeroPagos,
+									importeAccesorio :			 importeAccesorio,
 									importeIvaAccesorio : 		 0,
 									importeAccesorioPagado:	 	 0,
 									importeIvaAccesorioPagado :  0,
 									tablaAmortizacion:			 tablaAmortizacionInsertada
 									).save(flush: true,failOnError: true)
 						}
-						else log.info("No debe de llenar los otros pagos.")
+						else {
+							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPagos}")
+							log.info("No debe de llenar los otros pagos.")
+						}
 
-					} else
+					}/* else
 
 					if (claveFormaAplicacion.equals("3")) {
 						bImporteAccesorio = (((prestamoInstance.montoSolicitado * pValor) / pValorUnidad) / pDiasPeriodicidad) * iDiasPeriodicidadPago
@@ -190,8 +195,8 @@ class TablaAmortizacionService {
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
-					}
-				}*/
+					}*/
+				}
 				numeroPagos++
 			}
 				

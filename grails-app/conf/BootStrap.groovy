@@ -1220,22 +1220,22 @@ class BootStrap {
 		).save(flush: true,failOnError: true)
 		
 		new SimCatFormaAplicacion(
-			claveFormaAplicacion : '1',
+			claveFormaAplicacion : 'CARGO_INICIAL',
 			nombreFormaAplicacion : 'Cargo inicial'
 		).save(flush: true,failOnError: true)
 		
 		new SimCatFormaAplicacion(
-			claveFormaAplicacion : '3',
+			claveFormaAplicacion : 'MONTO_PRESTADO',
 			nombreFormaAplicacion : 'Periodicamente dependiendo del monto prestamo'
 		).save(flush: true,failOnError: true)
 		
 		new SimCatFormaAplicacion(
-			claveFormaAplicacion : '4',
+			claveFormaAplicacion : 'SALDOA_LAFECHA',
 			nombreFormaAplicacion : 'Periodicamente dependiendo del saldo a la fecha de calculo'
 		).save(flush: true,failOnError: true)
 		
 		new SimCatFormaAplicacion(
-			claveFormaAplicacion : '5',
+			claveFormaAplicacion : 'CARGO_FIJO',
 			nombreFormaAplicacion : 'Periodicamente cargo fijo'
 		).save(flush: true,failOnError: true)
 		
@@ -1298,7 +1298,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICO'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('1'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'),
 				valor			:	'500',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
@@ -1307,7 +1307,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOA'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('3'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
 				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
@@ -1316,7 +1316,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOB'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('4'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
 				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
@@ -1325,7 +1325,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOC'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('5'),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
 				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
