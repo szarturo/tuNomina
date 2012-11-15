@@ -33,8 +33,8 @@ class TablaAmortizacionService {
 			
 			//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion
 			ArrayList registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
-			log.info prestamoInstance.tablaAmortizacion.class
-			log.info registrosTabla.class
+			//log.info prestamoInstance.tablaAmortizacion.class
+			//log.info registrosTabla.class
 			
 			if(registrosTabla){
 				log.info("Elimina los registros de la tabla de amortizacion del credito")
@@ -60,6 +60,10 @@ class TablaAmortizacionService {
 			BigDecimal saldoInicial			 = prestamoInstance.montoSolicitado
 			
 			log.info("Numero de pagos: ${promocion.numeroDePagos}")
+			
+			//RECUPERA LOS ACCESORIOS DEL PRESTAMO
+			ArrayList listaAccesorios	= prestamoInstance.prestamoAccesorio
+			log.info listaAccesorios.class
 			
 			(1..promocion.numeroDePagos).each{
 				
@@ -114,8 +118,6 @@ class TablaAmortizacionService {
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
 				saldoInicial  = saldoInicial  - amortizacion
 				
-				//RECUPERA LOS ACCESORIOS DEL PRESTAMO
-				def listaAccesorios	= prestamoInstance.prestamoAccesorio
 
 				def each = listaAccesorios.each() {
 					
@@ -197,7 +199,7 @@ class TablaAmortizacionService {
 								).save(flush: true,failOnError: true)
 					}*/
 				}
-				numeroPagos++
+				numeroPago++
 			}
 				
 
