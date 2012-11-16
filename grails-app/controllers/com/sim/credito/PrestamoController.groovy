@@ -258,5 +258,24 @@ class PrestamoController {
 		redirect(controller: "tablaAmortizacion", action: "list", params: [idPrestamo: params.idPrestamo])
 		
 	}
+
+    def validaRespuestaCr = {
+
+        def prestamoInstance = Prestamo.get(params.id)
+
+        log.info params
+        log.info "Estatus Solicitud: ${prestamoInstance.estatusSolicitud}"
+
+        if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("PROCESADA"))){
+            log.info "La solicitud continua en Proceso"
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en PROCESO"
+        }else{
+            completeTask(params)
+            flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.clavePrestamo} a ${prestamoInstance.estatusSolicitud}"
+        }
+
+        redirect(controller: "task", action: "myTaskList")
+
+    }
 	
 }

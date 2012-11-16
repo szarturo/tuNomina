@@ -69,62 +69,29 @@
 			<conditionExpression xsi:type="tFormalExpression">${!reenviarSolicitud}</conditionExpression>
 		</sequenceFlow>
 		
-		<!-- En caso del que el prestamo sea Aprobado (Flujo4) por Control de Calidad -->
+		<!-- En caso del que el prestamo sea Aprobado  por Control de Calidad (Flujo4) se envia WS a CR-->
 		
 		<serviceTask id="servicioWsEnvioPrestamoCreditoReal" name="Envio de la solicitud a Credito Real" 
 						activiti:class="com.sim.procesos.WsEnvioPresamoCreditoReal" />
-		
-		<sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="respuestaCreditoRealGateway" />
-		
-   		<exclusiveGateway id="respuestaCreditoRealGateway" />
-    	
-	    <sequenceFlow id="flujo10" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEsperandoRespuestaCR">
-			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("PROCESADA")}</conditionExpression>
-	    </sequenceFlow>    	
 
-	    <sequenceFlow id="flujo11" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
-			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("AUTORIZADA")}</conditionExpression>
-	    </sequenceFlow>    	
+        <sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="validarRespuestaCr">
+        </sequenceFlow>
 
-	    <sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
-			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("COMPRADA")}</conditionExpression>
-	    </sequenceFlow>
-	    
-	    <sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
-			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("DEVOLUCION_CR")}</conditionExpression>
-	    </sequenceFlow>    	
+        <userTask id="validarRespuestaCr" activiti:formKey="/prestamo/validaRespuestaCr"
+                  name="Validar respuesta de Credito Real">
+            <documentation>Revisar la respuesta que Credito Real envia
+            </documentation>
+            <potentialOwner>
+                <resourceAssignmentExpression>
+                    <formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
+                </resourceAssignmentExpression>
+            </potentialOwner>
+        </userTask>
 
-	    <sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
-			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
-	    </sequenceFlow>
+        <sequenceFlow id="flujo9" sourceRef="validarRespuestaCr" targetRef="enviaCorreo">
+        </sequenceFlow>
 
-        <scriptTask id="mostrarEsperandoRespuestaCR" scriptFormat="groovy">
-            <script>
-                out:println "Esperando Respuesta de CR: " + estatusSolicitudActual;
-            </script>
-        </scriptTask>
 
-        <sequenceFlow id="flujo16" sourceRef="mostrarEsperandoRespuestaCR" targetRef="timer" />
-
-        <intermediateCatchEvent id="timer">
-            <timerEventDefinition>
-                <timeDuration>PT1M</timeDuration>
-            </timerEventDefinition>
-        </intermediateCatchEvent>
-
-        <sequenceFlow id="flujo17" sourceRef="timer" targetRef="respuestaCreditoRealGateway" />
-    
-		<scriptTask id="mostrarEstatus" scriptFormat="groovy">
-			<script>
-				out:println "Estatus Actual: " + estatusSolicitudActual;
-
-			</script>
-		</scriptTask>	    
-		
-		<sequenceFlow id="flujo18" sourceRef="mostrarEstatus" targetRef="enviaCorreo" />
-		
-		<!-- Revisar cada 1 minuto si existe cambio de situación del prestamo -->
-		
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
 			activiti:type="mail">
 			<extensionElements>
@@ -152,7 +119,7 @@
 			</extensionElements>
 		</serviceTask>
 		
-		<sequenceFlow id="flujo9" sourceRef="enviaCorreo" targetRef="fin" />	 
+		<sequenceFlow id="flujo30" sourceRef="enviaCorreo" targetRef="fin" />
 		
 		<endEvent id="fin" />
 
