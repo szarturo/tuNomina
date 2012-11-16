@@ -78,7 +78,7 @@
 		
    		<exclusiveGateway id="respuestaCreditoRealGateway" />
     	
-	    <sequenceFlow id="flujo10" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+	    <sequenceFlow id="flujo10" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEsperandoRespuestaCR">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("PROCESADA")}</conditionExpression>
 	    </sequenceFlow>    	
 
@@ -96,8 +96,23 @@
 
 	    <sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
-	    </sequenceFlow>    	
-	        		        	
+	    </sequenceFlow>
+
+        <scriptTask id="mostrarEsperandoRespuestaCR" scriptFormat="groovy">
+            <script>
+                out:println "Esperando Respuesta de CR: " + estatusSolicitudActual;
+            </script>
+        </scriptTask>
+
+        <sequenceFlow id="flujo16" sourceRef="mostrarEsperandoRespuestaCR" targetRef="timer" />
+
+        <intermediateCatchEvent id="timer">
+            <timerEventDefinition>
+                <timeDuration>PT1M</timeDuration>
+            </timerEventDefinition>
+        </intermediateCatchEvent>
+
+        <sequenceFlow id="flujo17" sourceRef="timer" targetRef="respuestaCreditoRealGateway" />
     
 		<scriptTask id="mostrarEstatus" scriptFormat="groovy">
 			<script>
@@ -106,7 +121,7 @@
 			</script>
 		</scriptTask>	    
 		
-		<sequenceFlow id="flujo15" sourceRef="mostrarEstatus" targetRef="enviaCorreo" />		
+		<sequenceFlow id="flujo18" sourceRef="mostrarEstatus" targetRef="enviaCorreo" />
 		
 		<!-- Revisar cada 1 minuto si existe cambio de situación del prestamo -->
 		
