@@ -277,5 +277,17 @@ class PrestamoController {
         redirect(controller: "task", action: "myTaskList")
 
     }
+
+    // METODO PARA CAMBIAR EL ESTATUS A UN PRESTAMO
+    def cambiaEstatusPrestamo = {
+        log.info params
+        def prestamoInstance = Prestamo.get(params.id)
+        log.info prestamoInstance
+        log.info"Anterior estatus:" + prestamoInstance.estatusSolicitud
+        prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo(params.etapa)
+        prestamoInstance.save(flush: true)
+        log.info"Nuevo estatus:" + prestamoInstance.estatusSolicitud
+        redirect(uri:'/')
+    }
 	
 }
