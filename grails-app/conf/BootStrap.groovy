@@ -1012,6 +1012,7 @@ class BootStrap {
 				reenviarSolicitud: false,
         ).save(flush: true,failOnError: true)
 
+        /*
 		// Load the basic test data. Note that, since the data is loaded in a transaction, all the
 		// business logic will fire, and all derived attributes will be automagically calculated.
 		if (!Customer.count()) {
@@ -1046,7 +1047,7 @@ class BootStrap {
 				new LineItem(qtyOrdered: 1, amount: 0, productPrice: 0, product: shovel, purchaseOrder: po1).save(flush: true,failOnError: true)
 			}
 		}
-		
+		*/
 		new SimCatEvento(evento:"Envio Lista de Cobro").save(flush: true,failOnError: true)
 		new SimCatEvento(evento:"Aplicacion Lista de Cobro").save(flush: true,failOnError: true)
 		new SimCatEvento(evento:"Devolucion Lista de Cobro").save(flush: true,failOnError: true)
