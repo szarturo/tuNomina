@@ -952,35 +952,45 @@ class BootStrap {
                 nombreFormaEntrega: 'EN CHEQUE',
         ).save(flush: true,failOnError: true)
 		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'INIMC',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'INICIO_MESA',
 			nombreEtapaPrestamo: 'INICIO MESA DE CONTROL',
 			descripcionEtapaPrestamo: 'INICIO MESA DE CONTROL EN MTN',
 		).save(flush: true,failOnError: true)
 
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CAPMC',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CAPTURADA_MESA',
 			nombreEtapaPrestamo: 'CAPTURADA MESA DE CONTROL',
 			descripcionEtapaPrestamo: 'CAPTURADA MESA DE CONTROL EN MTN',
 		).save(flush: true,failOnError: true)
 		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEV',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEVOLUCION_AMESA',
 			nombreEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL',
 			descripcionEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL EN MTN',
 		).save(flush: true,failOnError: true)
 		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PROC',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PROCESADA',
 			nombreEtapaPrestamo: 'PROCESO',
 			descripcionEtapaPrestamo: 'PROCESO',
 		).save(flush: true,failOnError: true)
 		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'AUT',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'AUTORIZADA',
 			nombreEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
 			descripcionEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
 		).save(flush: true,failOnError: true)
 
 		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'COMP',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'COMPRADA',
 			nombreEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
 			descripcionEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
+		).save(flush: true,failOnError: true)
+
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEVOLUCION_CR',
+			nombreEtapaPrestamo: 'DEVUELTA POR CREDITO REAL',
+			descripcionEtapaPrestamo: 'DEVUELTA POR CREDITO REAL',
+		).save(flush: true,failOnError: true)
+
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'RECHAZADA_CR',
+			nombreEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
+			descripcionEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
 		).save(flush: true,failOnError: true)
 
 
@@ -995,7 +1005,7 @@ class BootStrap {
                 vendedor : empleado,
                 fechaSolicitud: new Date('04/30/2012'),
                 montoSolicitado: 6000,
-                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC'),
+                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INICIO_MESA'),
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
 				aprobado: false,

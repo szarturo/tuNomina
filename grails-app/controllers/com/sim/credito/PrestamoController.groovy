@@ -45,9 +45,9 @@ class PrestamoController {
     def save = {
         def prestamoInstance = new Prestamo(params)
 		if (params.complete) {
-			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 		}else{
-			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INIMC')
+			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INICIO_MESA')
 		}
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 		prestamoInstance.documentosCorrectos = false
@@ -152,11 +152,11 @@ class PrestamoController {
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
 				
-				if (estatusSolicitud.claveEtapaPrestamo.equals("INIMC")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+				if (estatusSolicitud.claveEtapaPrestamo.equals("INICIO_MESA")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && params.aprobado.equals("on")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROC')
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && params.aprobado.equals("on")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					params.from = grailsApplication.config.activiti.mailServerDefaultFrom
 					params.emailTo = prestamoInstance.correoSolicitante
 					log.info("ID CLIENTE: "+params.cliente.id)
@@ -165,11 +165,11 @@ class PrestamoController {
 					log.info("NOMBRE CLIENTE: "+nombreCliente)
 					params.nombreCliente = nombreCliente
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPMC") && !params.aprobado.equals("on")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEV')
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEV") && params.reenviarSolicitud.equals("on")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPMC')
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_AMESA") && params.reenviarSolicitud.equals("on")){
+					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}
 				
@@ -181,6 +181,8 @@ class PrestamoController {
 								if (isComplete) {
 										params.aprobado = params.aprobado.equals("on")
 										params.reenviarSolicitud = prestamoInstance.reenviarSolicitud
+										//RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
+										params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
 										params.remove("dependencia")
