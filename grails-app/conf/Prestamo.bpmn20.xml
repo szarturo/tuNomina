@@ -74,7 +74,41 @@
 		<serviceTask id="servicioWsEnvioPrestamoCreditoReal" name="Envio de la solicitud a Credito Real" 
 						activiti:class="com.sim.procesos.WsEnvioPresamoCreditoReal" />
 		
-		<sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="enviaCorreo" />
+		<sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="respuestaCreditoRealGateway" />
+		
+   		<exclusiveGateway id="respuestaCreditoRealGateway" />
+    	
+	    <sequenceFlow id="flujo10" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("PROCESADA")}</conditionExpression>
+	    </sequenceFlow>    	
+
+	    <sequenceFlow id="flujo11" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("AUTORIZADA")}</conditionExpression>
+	    </sequenceFlow>    	
+
+	    <sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("COMPRADA")}</conditionExpression>
+	    </sequenceFlow>
+	    
+	    <sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("DEVOLUCION_CR")}</conditionExpression>
+	    </sequenceFlow>    	
+
+	    <sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="mostrarEstatus">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
+	    </sequenceFlow>    	
+	        		        	
+    
+		<scriptTask id="mostrarEstatus" scriptFormat="groovy">
+			<script>
+				out:println "Estatus Actual: " + estatusSolicitudActual;
+
+			</script>
+		</scriptTask>	    
+		
+		<sequenceFlow id="flujo15" sourceRef="mostrarEstatus" targetRef="enviaCorreo" />		
+		
+		<!-- Revisar cada 1 minuto si existe cambio de situación del prestamo -->
 		
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
 			activiti:type="mail">
