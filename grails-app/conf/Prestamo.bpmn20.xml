@@ -93,19 +93,19 @@
 
    		<exclusiveGateway id="respuestaCreditoRealGateway" />
 
-		<sequenceFlow id="flujo11" sourceRef="respuestaCreditoRealGateway" targetRef="validarRespuestaCr">
+		<sequenceFlow id="flujo10" sourceRef="respuestaCreditoRealGateway" targetRef="validarRespuestaCr">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("AUTORIZADA")}</conditionExpression>
 		</sequenceFlow>    	
 
-		<sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="dispersarPrestamo">
+		<sequenceFlow id="flujo11" sourceRef="respuestaCreditoRealGateway" targetRef="dispersarPrestamo">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("COMPRADA")}</conditionExpression>
 		</sequenceFlow>
 
-		<sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="revisaControlCalidad">
+		<sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="revisaControlCalidad">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("DEVOLUCION_CR")}</conditionExpression>
 		</sequenceFlow>    	
 
-		<sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="fin">
+		<sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="fin">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
 		</sequenceFlow>    	
 
@@ -120,7 +120,19 @@
 		    </potentialOwner>
 		</userTask>
 
-		<sequenceFlow id="flujo15" sourceRef="dispersarPrestamo" targetRef="enviaCorreo">
+		<sequenceFlow id="flujo14" sourceRef="dispersarPrestamo" targetRef="formaDeEntregaGateway">
+		</sequenceFlow>
+
+		<exclusiveGateway id="formaDeEntregaGateway" name="Valida la forma de entrega" />
+
+		<sequenceFlow id="flujo15" sourceRef="formaDeEntregaGateway" targetRef="enviaCorreo">
+			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("ELECTRONICA")}
+			</conditionExpression>
+		</sequenceFlow>		
+
+		<sequenceFlow id="flujo16" sourceRef="formaDeEntregaGateway" targetRef="fin">
+			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("VENBANCO")}
+			</conditionExpression>
 		</sequenceFlow>
 
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"

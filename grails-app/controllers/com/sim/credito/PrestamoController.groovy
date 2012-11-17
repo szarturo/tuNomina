@@ -2,6 +2,7 @@ package com.sim.credito
 
 import com.sim.alfresco.AlfrescoService
 import com.sim.catalogo.SimCatEtapaPrestamo
+import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.cliente.RsCliente
 import com.sim.tablaAmortizacion.TablaAmortizacionServiceException
 import org.apache.chemistry.opencmis.client.api.CmisObject
@@ -261,25 +262,10 @@ class PrestamoController {
 
             //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
             params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
-
-            //SI LA SOLICITUD ES COMPRADA PREPARA PARAMETROS PARA ENVIAR EL CORREO
-            if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
-                //PARAMETROS PARA ENVIAR EL CORREO
-                params.from = grailsApplication.config.activiti.mailServerDefaultFrom
-                params.emailTo = prestamoInstance.correoSolicitante
-                log.info("ID CLIENTE: "+ prestamoInstance.cliente.id)
-                def clientePrestamo = RsCliente.get(prestamoInstance.cliente.id)
-                String nombreCliente = clientePrestamo.persona.primerNombre + " " + clientePrestamo.persona.apellidoPaterno
-                log.info("NOMBRE CLIENTE: "+nombreCliente)
-                params.nombreCliente = nombreCliente
-            }
-
             completeTask(params)
             flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.clavePrestamo} a ${prestamoInstance.estatusSolicitud}"
         }
-
         redirect(controller: "task", action: "myTaskList")
-
     }
 
 
@@ -291,8 +277,22 @@ class PrestamoController {
             log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}"
             flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}"
         }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA"))){
-            //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
-            //params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
+            //CONSULTA SI EL PAGO AL CLIENTE SE REALIZA A TRAVES DE TRANSFERENCIA ELECTRONICA O
+            //POR VENTANILLA BANCARIA
+            SimCatFormaEntrega formaDeEntrega = prestamoInstance.formaDeDispercion
+            log.info "Forma Dispercion: ${formaDeEntrega}"
+            params.formaEntrega = formaDeEntrega.claveFormaEntrega
+
+            //PARAMETROS PARA ENVIAR EL CORREO
+            params.from = grailsApplication.config.activiti.mailServerDefaultFrom
+            params.emailTo = prestamoInstance.correoSolicitante
+            log.info("ID CLIENTE: "+ prestamoInstance.cliente.id)
+            def clientePrestamo = RsCliente.get(prestamoInstance.cliente.id)
+            String nombreCliente = clientePrestamo.persona.primerNombre + " " + clientePrestamo.persona.apellidoPaterno
+            log.info("NOMBRE CLIENTE: "+nombreCliente)
+            params.nombreCliente = nombreCliente
+
+
             completeTask(params)
             flash.message = "La solicitud ${prestamoInstance.clavePrestamo} a cambiado al estatus ${prestamoInstance.estatusSolicitud}"
         }else{
