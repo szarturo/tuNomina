@@ -44,7 +44,7 @@ class TablaAmortizacionRegistro {
 		impPagoPagado				nullable:true
 		pagado()
 		fechaPagoUltimo             nullable:true
-		fechaValorCalculado()
+		fechaValorCalculado 		nullable:true
 	}
 
 	String toString() {

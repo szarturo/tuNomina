@@ -166,7 +166,6 @@ class TablaAmortizacionRegistroService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						fechaValorCalculado: 	fechaMedio,
 						prestamo:               prestamoInstance).save()
 
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
