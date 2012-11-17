@@ -1,10 +1,15 @@
 package com.sim.tablaAmortizacion
 
-import java.util.Date;
+import java.util.Date
 
 import com.sim.credito.Prestamo
-import com.sim.pfin.PfinMovimiento
 import com.sim.producto.ProPromocion
+
+import com.sim.pfin.PfinMovimiento
+import com.sim.pfin.PfinCatOperacion
+import com.sim.pfin.SituacionPremovimiento
+import com.sim.pfin.PfinCatParametro
+
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
 import com.sim.catalogo.SimCatMetodoCalculo
@@ -21,12 +26,31 @@ class TablaAmortizacionService {
 
 	Boolean generaTablaAmortizacion(Prestamo prestamoInstance) {
 
-		Integer numeroPago = 1
+		//DEFINIMOS VARIABLE PARA DEFINIR EL PLAZO
+		Integer numeroPago  = 1
 
+		//VARIABLE PARA SABER CUANTOS PAGOS TIENE EL CREDITO
+		Integer pagoCredito = 0
+
+		//OBTIENE TODOS LOS MOVIMIENTOS DEL PRESTAMO
+		ArrayList listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
+		
 		//VALIDA QUE NO EXISTE NINGUN MOVIMIENTO DE PAGO PARA EL PRESTAMO
-		def listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
-
-		if (!listaMovimiento) {
+		listaMovimiento.each(){
+			PfinCatOperacion 		operacion = it.operacion
+			SituacionPremovimiento  situacion = it.situacionMovimiento
+			//VALIDA SI EL MOVIMIENTO TIENE CLAVE DE OPERACION IGUAL A CRPAGOPRES
+			if (operacion.equals(PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'))) {
+				//VALIDA SI EL MOVIMIENTO TIENE SITUACION DIFERENTE DE CANCELADO
+				if(situacion != SituacionPremovimiento.CANCELADO) {
+					//CUENTA LOS MOVIMIENTOS QUE TIENEN CLAVE DE OPERACION IGUAL A CRPAGOPRES Y NO ESTAN CACELADOS
+					pagoCredito++
+				}
+			}
+		}
+		
+		//SI NO EXISTEN MOVIMIENTOS CON CLAVE OPERACION IGUAL A CRPAGOPRES Y QUE NO ESTEN CANCELADOS, SE CREA LA TABLA DE AMORTIZACION
+		if (pagoCredito == 0) {
 			log.info("Se genera la tabla de amortizacion")
 
 			//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO PARA ELIMINARLOS
@@ -55,15 +79,42 @@ class TablaAmortizacionService {
 			Integer iva 	 				 = promocion.iva
 						
 			BigDecimal importeIvaInteres
-			BigDecimal saldoInsoluto         = prestamoInstance.montoSolicitado
-			BigDecimal capital				 = prestamoInstance.montoSolicitado
-			BigDecimal saldoInicial			 = prestamoInstance.montoSolicitado
+			BigDecimal cargoInicial			 = prestamoInstance.montoSolicitado
+			BigDecimal capitalTotal          = 0
 			
-			log.info("Numero de pagos: ${promocion.numeroDePagos}")
+			Date fechaPago
+			
+			//SE OBTIENE LA FECHA DEL MEDIO
+			PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+
+			if (!parametros){
+				log.info("No se encontro la fecha del medio")
+				throw new TablaAmortizacionServiceException(mensaje: "No se encontro la fecha del medio")
+			}
+
+			Date fechaMedio = parametros.fechaMedio
+			
+			//PARA OBTENER LA PRIMERA FECHA DE AMORTIZACION SE SUMAN 60 DIAS
+			//IMPLEMENTACION TEMPORAL PARA ASIGNAR LAS FECHAS DE AMORTIZACION
+			fechaPago = fechaMedio + 60
 			
 			//RECUPERA LOS ACCESORIOS DEL PRESTAMO
 			ArrayList listaAccesorios	= prestamoInstance.prestamoAccesorio
-			log.info listaAccesorios.class
+			
+			//VERFICA SI EXISTEN ACCESORIOS QUE DEBEN SER CARGOS INICIALES
+			listaAccesorios.each() {
+				SimCatFormaAplicacion formaAplicacion    = it.formaAplicacion
+				BigDecimal valorAccesorio  				 = it.valor
+				if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))) {
+					cargoInicial = cargoInicial + valorAccesorio
+				}
+			}
+			
+			//ASIGNA EL CARGO INICIAL CALCULADO A LA VARIALBLE capitalTotal PARA LOS CALCULOS POSTERIORES
+			capitalTotal = cargoInicial
+			
+			BigDecimal saldoInicial			 = capitalTotal
+			BigDecimal saldoInsoluto         = capitalTotal
 			
 			(1..promocion.numeroDePagos).each{
 				
@@ -76,27 +127,28 @@ class TablaAmortizacionService {
 				BigDecimal pagoTotalInteres  = 0
 				BigDecimal pagoTotalPrestamo = 0
 				
-				log.info("Tasa: ${tasa}")
-				
+				//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
 				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))){
 					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
-					amortizacion = capital / promocion.numeroDePagos
+					amortizacion = capitalTotal / promocion.numeroDePagos
 					//FORMULA PARA EL PAGO DE INTERES
-					pagoIntereses = capital * tasa
+					pagoIntereses = capitalTotal * tasa
 					//CALCULA EL IVA DEL INTERES
 					importeIvaInteres = pagoIntereses * (iva/100)
 					//FORMULA PARA VER EL PAGO TOTAL
 					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
 					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
-					pagoTotalPrestamo = capital + pagoTotalInteres
+					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
 					saldoInsoluto = saldoInsoluto - amortizacion
+					//CALCULA LA FECHA DE PAGO
+					fechaPago = fechaPago + diasPeriodicidadPago
 				}
 				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
 				TablaAmortizacion tablaAmortizacionInsertada = new TablaAmortizacion(
 						numeroPago:				numeroPago,
-						fecha : 				new Date(), //CORREGIR FECHA DE PAGO
+						fecha : 				fechaPago,
 						impSaldoInicial: 		saldoInicial,
 						tasaInteres: 			tasa,
 						impInteres: 			pagoIntereses,
@@ -110,16 +162,14 @@ class TablaAmortizacionService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						//fechaPagoUltimo: 		new Date(),
-						fechaValorCalculado: 	new Date(),
+						fechaValorCalculado: 	fechaMedio,
 						prestamo:               prestamoInstance).save()
 
-				
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
 				saldoInicial  = saldoInicial  - amortizacion
 				
-
-				def each = listaAccesorios.each() {
+				//POR CADA ACCESORIO DEL PRESTAMO, SE INTRODUCIRAN LOS REGISTROS CORRESPONDIENTE A LA TABLA DE AMORTIZACION DE ACCESORIO 
+				listaAccesorios.each() {
 					
 					//RECUPERA LOS DATOS DEL ACCESORIO 
 					SimCatPeriodicidad periodicidadAccesorio = it.periodicidad
@@ -127,86 +177,64 @@ class TablaAmortizacionService {
 					SimCatAccesorio accesorio = it.accesorio
 					SimCatUnidad    unidad    = it.unidad
 					
+					Integer    valorUnidad = unidad.valor
+					
 					BigDecimal valor  = it.valor
 					BigDecimal importeAccesorio
 					BigDecimal importeIvaAccesorio
-					//String claveFormaAplicacion = oFormaAplicacion.claveFormaAplicacion
 					
-					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO
+					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE MONTO_PRESTADO
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'))) {
-						if (numeroPago == 1) {
-							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPago}")
-							importeAccesorio = valor
-							TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
-									accesorio:                   accesorio,
-									formaAplicacion : 			 formaAplicacion,
-									numPago:					 numeroPago,
-									importeAccesorio :			 importeAccesorio,
-									importeIvaAccesorio : 		 0,
-									importeAccesorioPagado:	 	 0,
-									importeIvaAccesorioPagado :  0,
-									tablaAmortizacion:			 tablaAmortizacionInsertada
-									).save(flush: true,failOnError: true)
-						}
-						else {
-							log.info("TABLA AMORTIZACION ACCESORIO PAGO: ${numeroPago}")
-							log.info("No debe de llenar los otros pagos.")
-						}
-
-					}/* else
-
-					if (claveFormaAplicacion.equals("3")) {
-						bImporteAccesorio = (((prestamoInstance.montoSolicitado * pValor) / pValorUnidad) / pDiasPeriodicidad) * iDiasPeriodicidadPago
-						bImporteIvaAccesorio	= bImporteAccesorio * (iva/100)
+						importeAccesorio = (((prestamoInstance.montoSolicitado * valor) / valorUnidad) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
-								accesorio:                   pAccesorio,
-								formaAplicacion : 			 oFormaAplicacion,
-								numPago:					 NumeroPagos,
-								importeAccesorio :			 bImporteAccesorio,
-								importeIvaAccesorio : 		 bImporteIvaAccesorio,
+								accesorio:                   accesorio,
+								formaAplicacion : 			 formaAplicacion,
+								numPago:					 numeroPago,
+								importeAccesorio :			 importeAccesorio,
+								importeIvaAccesorio : 		 importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
 					} else
-
-					if (claveFormaAplicacion.equals("4")) {
-						bImporteAccesorio = (((SaldoInicial * pValor) / pValorUnidad) / pDiasPeriodicidad) * iDiasPeriodicidadPago
-						bImporteIvaAccesorio	= bImporteAccesorio * (iva/100)
+					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE SALDOA_LAFECHA
+					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'))) {
+						importeAccesorio = (((saldoInicial * valor) / valorUnidad) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
-								accesorio:                   pAccesorio,
-								formaAplicacion : 			 oFormaAplicacion,
-								numPago:					 NumeroPagos,
-								importeAccesorio :			 bImporteAccesorio,
-								importeIvaAccesorio : 		 bImporteIvaAccesorio,
+								accesorio:                   accesorio,
+								formaAplicacion : 			 formaAplicacion,
+								numPago:					 numeroPago,
+								importeAccesorio :			 importeAccesorio,
+								importeIvaAccesorio : 		 importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
 					} else
-					if (claveFormaAplicacion.equals("5")) {
-						bImporteAccesorio = (((1 * pValor) / 1) / pDiasPeriodicidad) * iDiasPeriodicidadPago
-						bImporteIvaAccesorio	= bImporteAccesorio * (iva/100)
+					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE CARGO_FIJO
+					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'))) {
+						importeAccesorio = (((1 * valor) / 1) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
-								accesorio:                   pAccesorio,
-								formaAplicacion : 			 oFormaAplicacion,
-								numPago:					 NumeroPagos,
-								importeAccesorio :			 bImporteAccesorio,
-								importeIvaAccesorio : 		 bImporteIvaAccesorio,
+								accesorio:                   accesorio,
+								formaAplicacion : 			 formaAplicacion,
+								numPago:					 numeroPago,
+								importeAccesorio :			 importeAccesorio,
+								importeIvaAccesorio : 		 importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
-					}*/
+					}
 				}
 				numeroPago++
 			}
-				
-
 		}
 		else {
 			log.info("No se genera la tabla ya que existen pagos al credito.")
-			throw new TablaAmortizacionServiceException(mensaje: "No se genero la Tabla de Amortizacion ya existen pagos al credito")
+			throw new TablaAmortizacionServiceException(mensaje: "No se genero la Tabla de Amortizacion ya que existen pagos al credito")
 		}
 
 		return true
