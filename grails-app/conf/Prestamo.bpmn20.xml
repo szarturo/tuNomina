@@ -10,8 +10,8 @@
 		<sequenceFlow id="flujo0" sourceRef="inicio" targetRef="iniciaSolicitudPrestamo" />
 
 		<userTask id="iniciaSolicitudPrestamo" activiti:formKey="/prestamo/create"
-			name="Inicia Solicitud de Prestamo Mesa de Control">
-			<documentation>Inicia solicitud de prestamo usuario: ${username}</documentation>
+			name="Inicio de solicitud de Prestamo por Mesa de Control">
+			<documentation>Inicio de solicitud de prestamo por el usuario: ${username}</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
 					<formalExpression>ROLE_MESA_CONTROL</formalExpression>
@@ -22,8 +22,8 @@
 		<sequenceFlow id="flujo1" sourceRef="iniciaSolicitudPrestamo" targetRef="revisaControlCalidad" />
 		
 		<userTask id="revisaControlCalidad" activiti:formKey="/prestamo/edit"
-			name="Revisa Solicitud de Prestamo Control de Calidad">
-			<documentation>Prestamo revisado por usuario: ${username}</documentation>
+			name="Revisión de solicitud de Prestamo por Control de Calidad">
+			<documentation>Revisión de solicitud de Prestamo por Control de Calidad</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
 					<formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
@@ -47,7 +47,7 @@
         
 		<userTask id="enDevolucion" activiti:formKey="/prestamo/edit"
 			name="Mesa de Control tiene que volver a revisar solicitud de prestamo">
-			<documentation>Control de Calidad no autorizo a Mesa de Control el prestamo
+			<documentation>Control de Calidad devuelve solicitud de credito a Mesa de Control
 			</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>
@@ -78,8 +78,8 @@
 		</sequenceFlow>
 
 		<userTask id="validarRespuestaCr" activiti:formKey="/prestamo/validaRespuestaCr"
-		          name="Validar respuesta de Credito Real">
-		    <documentation>Revisar la respuesta que Credito Real envia
+		          name="Revisar respuesta de Credito Real">
+		    <documentation>Revisar respuesta que Credito Real asigna al Prestamo
 		    </documentation>
 		    <potentialOwner>
 		        <resourceAssignmentExpression>
