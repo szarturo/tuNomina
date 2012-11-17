@@ -148,22 +148,15 @@ class PrestamoController {
 			def estatusSolicitud = SimCatEtapaPrestamo.get(params.estatusSolicitud.id)
 			
 			log.info("Estatus de la solicitud: "+estatusSolicitud)
-			
+
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
-				
+
 				if (estatusSolicitud.claveEtapaPrestamo.equals("INICIO_MESA")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
-					params.from = grailsApplication.config.activiti.mailServerDefaultFrom
-					params.emailTo = prestamoInstance.correoSolicitante
-					log.info("ID CLIENTE: "+params.cliente.id)
-					def clientePrestamo = RsCliente.get(params.cliente.id)
-					String nombreCliente = clientePrestamo.persona.primerNombre + " " + clientePrestamo.persona.apellidoPaterno
-					log.info("NOMBRE CLIENTE: "+nombreCliente)
-					params.nombreCliente = nombreCliente
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
@@ -171,18 +164,24 @@ class PrestamoController {
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_AMESA") && params.reenviarSolicitud.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-				}
-				
-			}
+				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
+                    prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+                }else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && !params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
+                    prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
+                }
+
+            }
 			
             if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 								
 								if (isComplete) {
+                                        log.info "LA TAREA ES COMPLETADA"
 										params.aprobado = params.aprobado.equals("on")
 										params.reenviarSolicitud = prestamoInstance.reenviarSolicitud
-										//RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
-										params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
+
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
 										params.remove("dependencia")
@@ -267,9 +266,28 @@ class PrestamoController {
         log.info "Estatus Solicitud: ${prestamoInstance.estatusSolicitud}"
 
         if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("PROCESADA"))){
-            log.info "La solicitud continua en Proceso"
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en PROCESO"
+            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}"
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}"
+        }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("AUTORIZADA"))){
+            log.info "La solicitud se encuentra en ${prestamoInstance.clavePrestamo}"
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} se encuentra en ${prestamoInstance.estatusSolicitud}"
         }else{
+
+            //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
+            params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
+
+            //SI LA SOLICITUD ES COMPRADA PREPARA PARAMETROS PARA ENVIAR EL CORREO
+            if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
+                //PARAMETROS PARA ENVIAR EL CORREO
+                params.from = grailsApplication.config.activiti.mailServerDefaultFrom
+                params.emailTo = prestamoInstance.correoSolicitante
+                log.info("ID CLIENTE: "+ prestamoInstance.cliente.id)
+                def clientePrestamo = RsCliente.get(prestamoInstance.cliente.id)
+                String nombreCliente = clientePrestamo.persona.primerNombre + " " + clientePrestamo.persona.apellidoPaterno
+                log.info("NOMBRE CLIENTE: "+nombreCliente)
+                params.nombreCliente = nombreCliente
+            }
+
             completeTask(params)
             flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.clavePrestamo} a ${prestamoInstance.estatusSolicitud}"
         }

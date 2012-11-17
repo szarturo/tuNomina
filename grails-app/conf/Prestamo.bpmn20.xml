@@ -74,23 +74,40 @@
 		<serviceTask id="servicioWsEnvioPrestamoCreditoReal" name="Envio de la solicitud a Credito Real" 
 						activiti:class="com.sim.procesos.WsEnvioPresamoCreditoReal" />
 
-        <sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="validarRespuestaCr">
-        </sequenceFlow>
+		<sequenceFlow id="flujo8" sourceRef="servicioWsEnvioPrestamoCreditoReal" targetRef="validarRespuestaCr">
+		</sequenceFlow>
 
-        <userTask id="validarRespuestaCr" activiti:formKey="/prestamo/validaRespuestaCr"
-                  name="Validar respuesta de Credito Real">
-            <documentation>Revisar la respuesta que Credito Real envia
-            </documentation>
-            <potentialOwner>
-                <resourceAssignmentExpression>
-                    <formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
-                </resourceAssignmentExpression>
-            </potentialOwner>
-        </userTask>
+		<userTask id="validarRespuestaCr" activiti:formKey="/prestamo/validaRespuestaCr"
+		          name="Validar respuesta de Credito Real">
+		    <documentation>Revisar la respuesta que Credito Real envia
+		    </documentation>
+		    <potentialOwner>
+		        <resourceAssignmentExpression>
+		            <formalExpression>ROLE_CONTROL_CALIDAD</formalExpression>
+		        </resourceAssignmentExpression>
+		    </potentialOwner>
+		</userTask>
 
-        <sequenceFlow id="flujo9" sourceRef="validarRespuestaCr" targetRef="enviaCorreo">
-        </sequenceFlow>
+		<sequenceFlow id="flujo9" sourceRef="validarRespuestaCr" targetRef="respuestaCreditoRealGateway">
+		</sequenceFlow>
 
+   		<exclusiveGateway id="respuestaCreditoRealGateway" />
+
+		<sequenceFlow id="flujo11" sourceRef="respuestaCreditoRealGateway" targetRef="validarRespuestaCr">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("AUTORIZADA")}</conditionExpression>
+		</sequenceFlow>    	
+
+		<sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="enviaCorreo">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("COMPRADA")}</conditionExpression>
+		</sequenceFlow>
+
+		<sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="revisaControlCalidad">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("DEVOLUCION_CR")}</conditionExpression>
+		</sequenceFlow>    	
+
+		<sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="fin">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
+		</sequenceFlow>    	
 
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
 			activiti:type="mail">
