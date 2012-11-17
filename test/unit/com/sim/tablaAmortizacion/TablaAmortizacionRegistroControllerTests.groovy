@@ -5,9 +5,9 @@ package com.sim.tablaAmortizacion
 import org.junit.*
 import grails.test.mixin.*
 
-@TestFor(TablaAmortizacionController)
-@Mock(TablaAmortizacion)
-class TablaAmortizacionControllerTests {
+@TestFor(TablaAmortizacionRegistroController)
+@Mock(TablaAmortizacionRegistro)
+class TablaAmortizacionRegistroControllerTests {
 
     def populateValidParams(params) {
         assert params != null
@@ -47,7 +47,7 @@ class TablaAmortizacionControllerTests {
 
         assert response.redirectedUrl == '/tablaAmortizacion/show/1'
         assert controller.flash.message != null
-        assert TablaAmortizacion.count() == 1
+        assert TablaAmortizacionRegistro.count() == 1
     }
 
     void testShow() {
@@ -57,7 +57,7 @@ class TablaAmortizacionControllerTests {
         assert response.redirectedUrl == '/tablaAmortizacion/list'
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacion(params)
+        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
 
         assert tablaAmortizacion.save() != null
 
@@ -75,7 +75,7 @@ class TablaAmortizacionControllerTests {
         assert response.redirectedUrl == '/tablaAmortizacion/list'
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacion(params)
+        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
 
         assert tablaAmortizacion.save() != null
 
@@ -95,7 +95,7 @@ class TablaAmortizacionControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacion(params)
+        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
 
         assert tablaAmortizacion.save() != null
 
@@ -139,17 +139,17 @@ class TablaAmortizacionControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacion(params)
+        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
 
         assert tablaAmortizacion.save() != null
-        assert TablaAmortizacion.count() == 1
+        assert TablaAmortizacionRegistro.count() == 1
 
         params.id = tablaAmortizacion.id
 
         controller.delete()
 
-        assert TablaAmortizacion.count() == 0
-        assert TablaAmortizacion.get(tablaAmortizacion.id) == null
+        assert TablaAmortizacionRegistro.count() == 0
+        assert TablaAmortizacionRegistro.get(tablaAmortizacion.id) == null
         assert response.redirectedUrl == '/tablaAmortizacion/list'
     }
 }

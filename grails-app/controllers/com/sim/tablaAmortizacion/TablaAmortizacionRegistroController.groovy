@@ -2,7 +2,7 @@ package com.sim.tablaAmortizacion
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class TablaAmortizacionController {
+class TablaAmortizacionRegistroController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -12,15 +12,15 @@ class TablaAmortizacionController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [tablaAmortizacionInstanceList: TablaAmortizacion.list(params), tablaAmortizacionInstanceTotal: TablaAmortizacion.count()]
+        [tablaAmortizacionInstanceList: TablaAmortizacionRegistro.list(params), tablaAmortizacionInstanceTotal: TablaAmortizacionRegistro.count()]
     }
 
     def create() {
-        [tablaAmortizacionInstance: new TablaAmortizacion(params)]
+        [tablaAmortizacionInstance: new TablaAmortizacionRegistro(params)]
     }
 
     def save() {
-        def tablaAmortizacionInstance = new TablaAmortizacion(params)
+        def tablaAmortizacionInstance = new TablaAmortizacionRegistro(params)
         if (!tablaAmortizacionInstance.save(flush: true)) {
             render(view: "create", model: [tablaAmortizacionInstance: tablaAmortizacionInstance])
             return
@@ -31,7 +31,7 @@ class TablaAmortizacionController {
     }
 
     def show(Long id) {
-        def tablaAmortizacionInstance = TablaAmortizacion.get(id)
+        def tablaAmortizacionInstance = TablaAmortizacionRegistro.get(id)
         if (!tablaAmortizacionInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tablaAmortizacion.label', default: 'TablaAmortizacion'), id])
             redirect(action: "list")
@@ -42,7 +42,7 @@ class TablaAmortizacionController {
     }
 
     def edit(Long id) {
-        def tablaAmortizacionInstance = TablaAmortizacion.get(id)
+        def tablaAmortizacionInstance = TablaAmortizacionRegistro.get(id)
         if (!tablaAmortizacionInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tablaAmortizacion.label', default: 'TablaAmortizacion'), id])
             redirect(action: "list")
@@ -53,7 +53,7 @@ class TablaAmortizacionController {
     }
 
     def update(Long id, Long version) {
-        def tablaAmortizacionInstance = TablaAmortizacion.get(id)
+        def tablaAmortizacionInstance = TablaAmortizacionRegistro.get(id)
         if (!tablaAmortizacionInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tablaAmortizacion.label', default: 'TablaAmortizacion'), id])
             redirect(action: "list")
@@ -82,7 +82,7 @@ class TablaAmortizacionController {
     }
 
     def delete(Long id) {
-        def tablaAmortizacionInstance = TablaAmortizacion.get(id)
+        def tablaAmortizacionInstance = TablaAmortizacionRegistro.get(id)
         if (!tablaAmortizacionInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tablaAmortizacion.label', default: 'TablaAmortizacion'), id])
             redirect(action: "list")

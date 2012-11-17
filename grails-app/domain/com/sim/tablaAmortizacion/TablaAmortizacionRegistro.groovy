@@ -2,7 +2,7 @@ package com.sim.tablaAmortizacion
 
 import com.sim.credito.Prestamo
 
-class TablaAmortizacion {
+class TablaAmortizacionRegistro {
 	
 	//LOS NOMBRE QUE APARECEN EN COMENTARIO HACEN REFERENCIA AL SERVICIO DE TABLA AMORTIZACION ORIGINADO POR MIKE
 	Integer     numeroPago //numeroDePago

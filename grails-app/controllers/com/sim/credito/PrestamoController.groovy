@@ -11,7 +11,7 @@ import org.grails.activiti.ApprovalStatus
 
 class PrestamoController {
 	
-	def tablaAmortizacionService
+	def tablaAmortizacionRegistroService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -230,7 +230,7 @@ class PrestamoController {
 		Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
 	
 		try{
-			tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
+			tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoInstance)
 		//VERIFICAR SI SE GENERO ALGUN ERROR
 		}catch(TablaAmortizacionServiceException errorGeneraTablaAmor){
 			prestamoInstance.errors.reject("ErrorGeneraTablaAmor",errorGeneraTablaAmor.mensaje)
@@ -240,7 +240,7 @@ class PrestamoController {
 			return
 		}
 		
-		redirect(controller: "tablaAmortizacion", action: "list", params: [idPrestamo: params.idPrestamo])
+		redirect(controller: "tablaAmortizacionRegistro", action: "list", params: [idPrestamo: params.idPrestamo])
 		
 	}
 

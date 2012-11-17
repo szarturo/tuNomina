@@ -10,7 +10,7 @@ class TablaAmortizacionAccesorio {
 	BigDecimal  	importeAccesorioPagado
 	BigDecimal  	importeIvaAccesorioPagado
 
-	static belongsTo = [tablaAmortizacion:TablaAmortizacion]
+	static belongsTo = [tablaAmortizacion:TablaAmortizacionRegistro]
 
 	static constraints = {
 		accesorio()			

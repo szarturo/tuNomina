@@ -20,7 +20,7 @@ class TablaAmortizacionServiceException extends RuntimeException {
 	String	mensaje
 }
 
-class TablaAmortizacionService {
+class TablaAmortizacionRegistroService {
 
 	static transactional = true
 
@@ -56,7 +56,7 @@ class TablaAmortizacionService {
 			//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO PARA ELIMINARLOS
 			
 			//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion
-			ArrayList registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
+			ArrayList registrosTabla = TablaAmortizacionRegistro.findAllByPrestamo(prestamoInstance)
 			//log.info prestamoInstance.tablaAmortizacion.class
 			//log.info registrosTabla.class
 			
@@ -150,7 +150,7 @@ class TablaAmortizacionService {
 				}
 				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
-				TablaAmortizacion tablaAmortizacionInsertada = new TablaAmortizacion(
+				TablaAmortizacionRegistro tablaAmortizacionInsertada = new TablaAmortizacionRegistro(
 						numeroPago:				numeroPago,
 						fecha : 				fechaPago,
 						impSaldoInicial: 		saldoInicial,

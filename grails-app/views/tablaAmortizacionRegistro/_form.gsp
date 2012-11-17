@@ -1,4 +1,4 @@
-<%@ page import="com.sim.tablaAmortizacion.TablaAmortizacion" %>
+<%@ page import="com.sim.tablaAmortizacion.TablaAmortizacionRegistro" %>
 
 
 
