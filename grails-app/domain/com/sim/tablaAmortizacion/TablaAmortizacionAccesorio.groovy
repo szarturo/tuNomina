@@ -1,12 +1,10 @@
 package com.sim.tablaAmortizacion
 
 import com.sim.catalogo.SimCatAccesorio
-import com.sim.catalogo.SimCatFormaAplicacion
 
 class TablaAmortizacionAccesorio {
 
 	SimCatAccesorio accesorio
-	SimCatFormaAplicacion	formaAplicacion
 	BigDecimal		importeAccesorio
 	BigDecimal		importeIvaAccesorio
 	BigDecimal  	importeAccesorioPagado
@@ -15,8 +13,7 @@ class TablaAmortizacionAccesorio {
 	static belongsTo = [tablaAmortizacion:TablaAmortizacion]
 
 	static constraints = {
-		accesorio()
-		formaAplicacion() 			
+		accesorio()			
 		importeAccesorio			nullable:false
 		importeIvaAccesorio			nullable:false
 		importeAccesorioPagado		nullable:true

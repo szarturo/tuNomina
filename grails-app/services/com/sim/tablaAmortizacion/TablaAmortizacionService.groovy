@@ -115,20 +115,24 @@ class TablaAmortizacionService {
 			
 			BigDecimal saldoInicial			 = capitalTotal
 			BigDecimal saldoInsoluto         = capitalTotal
+
+			//*****En las siguientes variables no importa el método de calculo*****
+				
+			//VARIABLES A CALCULAR
+			BigDecimal amortizacion      = 0
+			BigDecimal pagoIntereses     = 0
+			BigDecimal cuotaTotal        = 0
+			BigDecimal pagoTotalInteres  = 0
+			BigDecimal pagoTotalPrestamo = 0
+
+			//FORMULA PARA EL CALCULO DE LA TASA
+			BigDecimal tasa = (promocion.tasaDeInteres / 100) * (diasPeriodicidadPago / diasPeriodicidadTasa)
 			
 			(1..promocion.numeroDePagos).each{
 				
-				//FORMULA PARA EL CALCULO DE LA TASA
-				BigDecimal tasa = (promocion.tasaDeInteres/100) * (diasPeriodicidadPago / diasPeriodicidadTasa)
-				//VARIABLES A CALCULAR
-				BigDecimal amortizacion      = 0
-				BigDecimal pagoIntereses     = 0
-				BigDecimal cuotaTotal        = 0
-				BigDecimal pagoTotalInteres  = 0
-				BigDecimal pagoTotalPrestamo = 0
-				
 				//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
-				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))){
+				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))) {
+					
 					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
 					amortizacion = capitalTotal / promocion.numeroDePagos
 					//FORMULA PARA EL PAGO DE INTERES
@@ -182,10 +186,11 @@ class TablaAmortizacionService {
 					BigDecimal valor  = it.valor
 					BigDecimal importeAccesorio
 					BigDecimal importeIvaAccesorio
+					Integer	diasPeriodicidadAccesorio = periodicidadAccesorio.numeroDias
 					
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE MONTO_PRESTADO
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'))) {
-						importeAccesorio = (((prestamoInstance.montoSolicitado * valor) / valorUnidad) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeAccesorio = (((prestamoInstance.montoSolicitado * valor) / valorUnidad) / diasPeriodicidadAccesorio) * diasPeriodicidadPago
 						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
 								accesorio:                   accesorio,
@@ -200,7 +205,7 @@ class TablaAmortizacionService {
 					} else
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE SALDOA_LAFECHA
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'))) {
-						importeAccesorio = (((saldoInicial * valor) / valorUnidad) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeAccesorio = (((saldoInicial * valor) / valorUnidad) / diasPeriodicidadAccesorio) * diasPeriodicidadPago
 						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
 								accesorio:                   accesorio,
@@ -215,7 +220,7 @@ class TablaAmortizacionService {
 					} else
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE CARGO_FIJO
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'))) {
-						importeAccesorio = (((1 * valor) / 1) / diasPeriodicidadTasa) * diasPeriodicidadPago
+						importeAccesorio = (((1 * valor) / 1) / diasPeriodicidadAccesorio) * diasPeriodicidadPago
 						importeIvaAccesorio	= importeAccesorio * (iva/100)
 						TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
 								accesorio:                   accesorio,
