@@ -282,6 +282,27 @@ class PrestamoController {
 
     }
 
+
+   def dispersarPrestamo = {
+
+        def prestamoInstance = Prestamo.get(params.id)
+
+        if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
+            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}"
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}"
+        }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA"))){
+            //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
+            //params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
+            completeTask(params)
+            flash.message = "La solicitud ${prestamoInstance.clavePrestamo} a cambiado al estatus ${prestamoInstance.estatusSolicitud}"
+        }else{
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} debe cambiar al estatus  ${SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA")}"
+        }
+
+        redirect(controller: "task", action: "myTaskList")
+
+    }
+
     // METODO PARA CAMBIAR EL ESTATUS A UN PRESTAMO
     def cambiaEstatusPrestamo = {
         log.info params

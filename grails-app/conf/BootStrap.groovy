@@ -71,14 +71,18 @@ class BootStrap {
 		def controlCalidadRole = new Rol(authority: 'ROLE_CONTROL_CALIDAD', name: 'Control de Calidad')
 		controlCalidadRole.id = 'ROLE_CONTROL_CALIDAD'
 		controlCalidadRole.save(flush: true,failOnError: true)
-				
+
+		def dispersionRole = new Rol(authority: 'ROLE_DISPERSION', name: 'Tesoreria - Dispersion')
+		dispersionRole.id = 'ROLE_DISPERSION'
+		dispersionRole.save(flush: true,failOnError: true)
+
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(flush: true)
 
 		UsuarioRol.create usuarioAdmin, adminRole, true
 		
 		assert Usuario.count() == 1
-		assert Rol.count() == 5
+		assert Rol.count() == 6
 		assert UsuarioRol.count() == 1
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO ADMINISTRADOR
@@ -113,6 +117,9 @@ class BootStrap {
 		usuarioRaul.save(flush: true)
 		UsuarioRol.create usuarioRaul, controlCalidadRole, true
 
+		def usuarioRamon = new Usuario(username: 'ramon', enabled: true, password: 'ramon')
+		usuarioRamon.save(flush: true)
+		UsuarioRol.create usuarioRamon, dispersionRole, true
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO KERMIT
 		def kermitPersona = new RsPersona(
@@ -993,6 +1000,15 @@ class BootStrap {
 			descripcionEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
 		).save(flush: true,failOnError: true)
 
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DISPERSADA',
+			nombreEtapaPrestamo: 'POR DISPERSAR',
+			descripcionEtapaPrestamo: 'TESORERIA DISPERSA CREDITO',
+		).save(flush: true,failOnError: true)
+
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PENDIENTE_COBRO',
+			nombreEtapaPrestamo: 'PENDIENTE DE COBRO EN BANCO',
+			descripcionEtapaPrestamo: 'PENDIENTE DE COBRO EN VENTANILLA DE BANCO',
+		).save(flush: true,failOnError: true)
 
         new Prestamo(clavePrestamo: "KLP987",
                 cliente : clienteArturo,

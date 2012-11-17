@@ -97,7 +97,7 @@
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("AUTORIZADA")}</conditionExpression>
 		</sequenceFlow>    	
 
-		<sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="enviaCorreo">
+		<sequenceFlow id="flujo12" sourceRef="respuestaCreditoRealGateway" targetRef="dispersarPrestamo">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("COMPRADA")}</conditionExpression>
 		</sequenceFlow>
 
@@ -108,6 +108,20 @@
 		<sequenceFlow id="flujo14" sourceRef="respuestaCreditoRealGateway" targetRef="fin">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
 		</sequenceFlow>    	
+
+		<userTask id="dispersarPrestamo" activiti:formKey="/prestamo/dispersarPrestamo"
+		          name="Revisar si el prestamo ha sido Dispersado">
+		    <documentation>Revisar si el prestamo ha sido Dispersado
+		    </documentation>
+		    <potentialOwner>
+		        <resourceAssignmentExpression>
+		            <formalExpression>ROLE_DISPERSION</formalExpression>
+		        </resourceAssignmentExpression>
+		    </potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flujo15" sourceRef="dispersarPrestamo" targetRef="enviaCorreo">
+		</sequenceFlow>
 
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
 			activiti:type="mail">
