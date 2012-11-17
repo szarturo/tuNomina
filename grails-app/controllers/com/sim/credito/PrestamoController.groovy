@@ -1,17 +1,13 @@
 package com.sim.credito
 
+import com.sim.alfresco.AlfrescoService
 import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.cliente.RsCliente
-import com.sim.tablaAmortizacion.TablaAmortizacion
 import com.sim.tablaAmortizacion.TablaAmortizacionServiceException
+import org.apache.chemistry.opencmis.client.api.CmisObject
+import org.apache.chemistry.opencmis.client.api.Document
+import org.apache.chemistry.opencmis.client.api.Folder
 import org.grails.activiti.ApprovalStatus
-
-import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Document;
-import org.apache.chemistry.opencmis.client.api.Folder;
-import org.springframework.dao.DataIntegrityViolationException
-
-import com.sim.alfresco.AlfrescoService;
 
 class PrestamoController {
 	
@@ -233,16 +229,6 @@ class PrestamoController {
 		log.info(params.idPrestamo)
 		Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
 	
-		/*
-		//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO
-		def registrosTabla = TablaAmortizacion.findAllByPrestamo(prestamoInstance)
-		
-		registrosTabla.each() { 
-			prestamoInstance.removeFromTablaAmortizacion(it)
-		}
-		prestamoInstance.save(flush: true)
-		*/
-		
 		try{
 			tablaAmortizacionService.generaTablaAmortizacion(prestamoInstance)
 		//VERIFICAR SI SE GENERO ALGUN ERROR
