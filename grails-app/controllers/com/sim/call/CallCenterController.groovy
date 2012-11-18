@@ -34,6 +34,9 @@ class CallCenterController {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'callCenter.label', default: 'CallCenter'), callCenterInstance.id])}"
 			      params.id = callCenterInstance.id
 						if (params.complete) {
+                            //LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
+                            //SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
+                            params.remove("prestamo")                            
 							completeTask(params)
 						} else {
 							params.action="show"
