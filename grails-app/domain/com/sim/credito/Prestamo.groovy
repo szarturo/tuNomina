@@ -13,6 +13,7 @@ import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
+import com.sim.call.CallCenter
 
 class Prestamo {
 
@@ -41,7 +42,8 @@ class Prestamo {
 	Date dateCreated
 	Date lastUpdated
 	
-	static hasMany = [ tablaAmortizacion : TablaAmortizacionRegistro ,  prestamoAccesorio : PrestamoAccesorio]
+	static hasMany = [ tablaAmortizacion : TablaAmortizacionRegistro ,  prestamoAccesorio : PrestamoAccesorio,
+                       callCenter: CallCenter]
 	
 	static mapping = {
 		tablaAmortizacion cascade: "all-delete-orphan"
