@@ -322,12 +322,14 @@ class PrestamoController {
 
     }    
 
+    //TEMPORAL PARA EL CAMBIO DE ESTATUS A UN CREDITO. MOSTRAR EDIT
     def editCambioEstatus = {
         def prestamoInstance = Prestamo.get(params.id)
-        [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
+        [prestamoInstance: prestamoInstance]
     }
 
-   def updateEstatus = {
+    //TEMPORAL PARA EL CAMBIO DE ESTATUS A UN CREDITO. EJECUTAR UPDATE
+    def updateEstatus = {
         def prestamoInstance = Prestamo.get(params.id)
         if (prestamoInstance) {
             if (params.version) {
