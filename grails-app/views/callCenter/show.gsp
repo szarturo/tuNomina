@@ -61,9 +61,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="callCenter.prestamoCancelado.label" default="Prestamo Cancelado" /></td>
+                            <td valign="top" class="name"><g:message code="callCenter.cerrarRegistro.label" default="Cerrar Registro" /></td>
                             
-                            <td valign="top" class="value"><g:formatBoolean boolean="${callCenterInstance?.prestamoCancelado}" /></td>
+                            <td valign="top" class="value"><g:formatBoolean boolean="${callCenterInstance?.cerrarRegistro}" /></td>
                             
                         </tr>
                     

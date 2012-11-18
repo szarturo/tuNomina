@@ -35,7 +35,7 @@
                         
                             <g:sortableColumn property="comentarios" title="${message(code: 'callCenter.comentarios.label', default: 'Comentarios')}" />
                         
-                            <g:sortableColumn property="prestamoCancelado" title="${message(code: 'callCenter.prestamoCancelado.label', default: 'Prestamo Cancelado')}" />
+                            <g:sortableColumn property="cerrarRegistro" title="${message(code: 'callCenter.cerrarRegistro.label', default: 'Cerrar Registro')}" />
                         
                         </tr>
                     </thead>
@@ -53,7 +53,7 @@
                         
                             <td>${fieldValue(bean: callCenterInstance, field: "comentarios")}</td>
                         
-                            <td><g:formatBoolean boolean="${callCenterInstance.prestamoCancelado}" /></td>
+                            <td><g:formatBoolean boolean="${callCenterInstance.cerrarRegistro}" /></td>
                         
                         </tr>
                     </g:each>

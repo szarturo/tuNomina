@@ -69,10 +69,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="prestamoCancelado"><g:message code="callCenter.prestamoCancelado.label" default="Prestamo Cancelado" /></label>
+                                    <label for="cerrarRegistro"><g:message code="callCenter.cerrarRegistro.label" default="Cerrar Registro" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: callCenterInstance, field: 'prestamoCancelado', 'errors')}">
-                                    <g:checkBox name="prestamoCancelado" value="${callCenterInstance?.prestamoCancelado}" />
+                                <td valign="top" class="value ${hasErrors(bean: callCenterInstance, field: 'cerrarRegistro', 'errors')}">
+                                    <g:checkBox name="cerrarRegistro" value="${callCenterInstance?.cerrarRegistro}" />
                                 </td>
                             </tr>
                         

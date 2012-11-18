@@ -8,7 +8,7 @@ class CallCenter {
     Boolean  seContacto = false
     Boolean  prestamoCobrado = false
     String   comentarios
-    Boolean  prestamoCancelado = false
+    Boolean  cerrarRegistro = false
 
     static belongsTo = [prestamo:Prestamo]
 
@@ -17,7 +17,7 @@ class CallCenter {
         fechaLlamada(nullable: false)
         prestamoCobrado()
         comentarios(nullable:true, size:5..255)
-        prestamoCancelado()
+        cerrarRegistro()
 
     }
 }
