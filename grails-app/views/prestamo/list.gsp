@@ -37,7 +37,7 @@
                         
                             <th><g:message code="prestamo.promocion.label" default="Promocion" /></th>
                         
-                            <th><g:message code="prestamo.dependencia.label" default="Dependencia" /></th>
+                            <th><g:message code="prestamo.estatusSolicitud.label" default="Estatus" /></th>
                         
                         </tr>
                     </thead>
@@ -55,7 +55,11 @@
                         
                             <td>${fieldValue(bean: prestamoInstance, field: "promocion")}</td>
                         
-                            <td>${fieldValue(bean: prestamoInstance, field: "dependencia")}</td>
+                            <td>
+                                <g:link action="editCambioEstatus" id="${prestamoInstance.id}">
+                                ${fieldValue(bean: prestamoInstance, field: "estatusSolicitud")}</g:link>
+                            </td>
+
                         
                         </tr>
                     </g:each>

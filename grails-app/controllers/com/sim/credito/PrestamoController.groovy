@@ -322,16 +322,40 @@ class PrestamoController {
 
     }    
 
-    // METODO PARA CAMBIAR EL ESTATUS A UN PRESTAMO
-    def cambiaEstatusPrestamo = {
-        log.info params
+    def editCambioEstatus = {
         def prestamoInstance = Prestamo.get(params.id)
-        log.info prestamoInstance
-        log.info"Anterior estatus:" + prestamoInstance.estatusSolicitud
-        prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo(params.etapa)
-        prestamoInstance.save(flush: true)
-        log.info"Nuevo estatus:" + prestamoInstance.estatusSolicitud
-        redirect(uri:'/')
+        [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
     }
+
+   def updateEstatus = {
+        def prestamoInstance = Prestamo.get(params.id)
+        if (prestamoInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (prestamoInstance.version > version) {
+                    
+                    prestamoInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'prestamo.label', default: 'Prestamo')] as Object[], "Another user has updated this Prestamo while you were editing")
+                    render(view: "edit", model: [prestamoInstance: prestamoInstance])
+                    return
+                }
+            }
+            prestamoInstance.properties = params
+            
+            
+            if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
+                                
+                redirect(action: "show", id: prestamoInstance.id)
+            }
+            else {
+                render(view: "edit", model: [prestamoInstance: prestamoInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), params.id])}"
+            redirect(controller: "task", action: "myTaskList")
+        }
+    }
+
 	
 }
