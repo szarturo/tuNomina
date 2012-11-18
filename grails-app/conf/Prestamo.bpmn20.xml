@@ -159,12 +159,12 @@
 			</conditionExpression>
 		</sequenceFlow>		
 
-		<sequenceFlow id="flujo17" sourceRef="formaDeEntregaGateway" targetRef="llamarCallCenter">
+		<sequenceFlow id="flujo17" sourceRef="formaDeEntregaGateway" targetRef="informarCallCenter">
 			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("VENBANCO")}
 			</conditionExpression>
 		</sequenceFlow>
 
-		<userTask id="llamarCallCenter" activiti:formKey="/prestamo/seguimientoCallCenter"
+		<userTask id="informarCallCenter" activiti:formKey="/prestamo/seguimientoCallCenter"
 		          name="Call Center notifica al cliente">
 		    <documentation>Notificar al usuario que puede pasar a cobrar su prestamo
 		    </documentation>
@@ -175,7 +175,7 @@
 		    </potentialOwner>
 		</userTask>
 
-		<sequenceFlow id="flujo30" sourceRef="llamarCallCenter" targetRef="fin" />
+		<sequenceFlow id="flujo30" sourceRef="informarCallCenter" targetRef="fin" />
 		
 		<endEvent id="fin" />
 
