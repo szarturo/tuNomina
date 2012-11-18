@@ -21,6 +21,7 @@ class CallCenterController {
     }
 
     def create = {
+        log.info "Parametros Call Center: ${params}"
         def callCenterInstance = new CallCenter()
         callCenterInstance.properties = params
         return [callCenterInstance: callCenterInstance,

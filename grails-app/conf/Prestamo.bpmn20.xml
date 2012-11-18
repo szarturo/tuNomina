@@ -164,7 +164,7 @@
 			</conditionExpression>
 		</sequenceFlow>
 
-		<userTask id="informarCallCenter" activiti:formKey="/prestamo/seguimientoCallCenter"
+		<userTask id="informarCallCenter" activiti:formKey="/callCenter/create"
 		          name="Call Center notifica al cliente">
 		    <documentation>Notificar al usuario que puede pasar a cobrar su prestamo
 		    </documentation>
