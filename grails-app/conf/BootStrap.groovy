@@ -77,8 +77,8 @@ class BootStrap {
 		dispersionRole.save(flush: true,failOnError: true)
 
 		def callCenterRole = new Rol(authority: 'ROLE_CALLCENTER', name: 'Call Center')
-		dispersionRole.id = 'ROLE_CALLCENTER'
-		dispersionRole.save(flush: true,failOnError: true)
+		callCenterRole.id = 'ROLE_CALLCENTER'
+		callCenterRole.save(flush: true,failOnError: true)
 
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(flush: true)

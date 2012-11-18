@@ -292,9 +292,16 @@ class PrestamoController {
             log.info("NOMBRE CLIENTE: "+nombreCliente)
             params.nombreCliente = nombreCliente
 
+            if (formaDeEntrega.equals(SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'))){
+                flash.message = "La solicitud ${prestamoInstance.clavePrestamo} a cambiado al estatus de ${prestamoInstance.estatusSolicitud}"
+            }else{
+                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')
+                prestamoInstance.save(flush: true)
+                flash.message = "La solicitud ${prestamoInstance.clavePrestamo} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
+            }
 
             completeTask(params)
-            flash.message = "La solicitud ${prestamoInstance.clavePrestamo} a cambiado al estatus ${prestamoInstance.estatusSolicitud}"
+            
         }else{
             flash.message = " La solicitud ${prestamoInstance.clavePrestamo} debe cambiar al estatus  ${SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA")}"
         }
@@ -302,6 +309,18 @@ class PrestamoController {
         redirect(controller: "task", action: "myTaskList")
 
     }
+
+
+   def seguimientoCallCenter = {
+
+        def prestamoInstance = Prestamo.get(params.id)
+
+        log.info "CALL CENTER realiza seguimiento"
+
+        completeTask(params)
+        redirect(controller: "task", action: "myTaskList")
+
+    }    
 
     // METODO PARA CAMBIAR EL ESTATUS A UN PRESTAMO
     def cambiaEstatusPrestamo = {

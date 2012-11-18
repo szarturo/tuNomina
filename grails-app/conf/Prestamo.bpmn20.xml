@@ -120,19 +120,7 @@
 		    </potentialOwner>
 		</userTask>
 
-		<sequenceFlow id="flujo14" sourceRef="dispersarPrestamo" targetRef="formaDeEntregaGateway">
-		</sequenceFlow>
-
-		<exclusiveGateway id="formaDeEntregaGateway" name="Valida la forma de entrega" />
-
-		<sequenceFlow id="flujo15" sourceRef="formaDeEntregaGateway" targetRef="enviaCorreo">
-			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("ELECTRONICA")}
-			</conditionExpression>
-		</sequenceFlow>		
-
-		<sequenceFlow id="flujo16" sourceRef="formaDeEntregaGateway" targetRef="fin">
-			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("VENBANCO")}
-			</conditionExpression>
+		<sequenceFlow id="flujo14" sourceRef="dispersarPrestamo" targetRef="enviaCorreo">
 		</sequenceFlow>
 
 		<serviceTask id="enviaCorreo" name="Envia confirmacion Correo"
@@ -161,8 +149,33 @@
 		        </activiti:field>   
 			</extensionElements>
 		</serviceTask>
-		
-		<sequenceFlow id="flujo30" sourceRef="enviaCorreo" targetRef="fin" />
+
+		<sequenceFlow id="flujo15" sourceRef="enviaCorreo" targetRef="formaDeEntregaGateway" />
+
+		<exclusiveGateway id="formaDeEntregaGateway" name="Valida la forma de entrega" />
+
+		<sequenceFlow id="flujo16" sourceRef="formaDeEntregaGateway" targetRef="fin">
+			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("ELECTRONICA")}
+			</conditionExpression>
+		</sequenceFlow>		
+
+		<sequenceFlow id="flujo17" sourceRef="formaDeEntregaGateway" targetRef="llamarCallCenter">
+			<conditionExpression xsi:type="tFormalExpression">${formaEntrega.equals("VENBANCO")}
+			</conditionExpression>
+		</sequenceFlow>
+
+		<userTask id="llamarCallCenter" activiti:formKey="/prestamo/seguimientoCallCenter"
+		          name="Call Center notifica al cliente">
+		    <documentation>Notificar al usuario que puede pasar a cobrar su prestamo
+		    </documentation>
+		    <potentialOwner>
+		        <resourceAssignmentExpression>
+		            <formalExpression>ROLE_CALLCENTER</formalExpression>
+		        </resourceAssignmentExpression>
+		    </potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flujo30" sourceRef="llamarCallCenter" targetRef="fin" />
 		
 		<endEvent id="fin" />
 
