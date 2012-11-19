@@ -1,5 +1,8 @@
 package com.sim.call
 
+import com.sim.credito.Prestamo
+import com.sim.catalogo.SimCatEtapaPrestamo
+
 class CallCenterController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -31,18 +34,30 @@ class CallCenterController {
     def save = {
         def callCenterInstance = new CallCenter(params)
         if (callCenterInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'callCenter.label', default: 'CallCenter'), callCenterInstance.id])}"
-			      params.id = callCenterInstance.id
-						if (params.complete) {
-                            //LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
-                            //SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
-                            params.remove("prestamo")                            
-							completeTask(params)
-						} else {
-							params.action="show"
-							saveTask(params)
-						}
-            redirect(action: "show", params: params)
+			params.id = callCenterInstance.id
+			if (params.complete) {
+                //LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
+                //SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
+                params.remove("prestamo")
+                Prestamo prestamo = callCenterInstance.prestamo
+                SimCatEtapaPrestamo estatusPrestamo = prestamo.estatusSolicitud
+                log.info "Estatus Solicitud: ${estatusPrestamo}"
+                log.info "Registro Cerrado?: ${callCenterInstance.cerrarRegistro}"
+                if (estatusPrestamo.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')) || 
+                    params.cerrarRegistro.equals("on")){
+                    params.continuaLocalizando = false
+                    flash.message = "El registro de las llamadas para localizar al cliente ha sido cerrado"
+                }else{
+                    params.continuaLocalizando = true
+                    flash.message = "El registro ha sido guardado, vuelva a contactar mas tarde"
+                }
+
+				completeTask(params)
+			} else {
+				params.action="show"
+				saveTask(params)
+			}
+            redirect(controller: "task", action: "unassignedTaskList")
         }
         else {
             render(view: "create", model: [callCenterInstance: callCenterInstance, myTasksCount: assignedTasksCount])

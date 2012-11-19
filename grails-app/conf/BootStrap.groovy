@@ -1009,7 +1009,7 @@ class BootStrap {
 		).save(flush: true,failOnError: true)
 
 		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DISPERSADA',
-			nombreEtapaPrestamo: 'POR DISPERSAR',
+			nombreEtapaPrestamo: 'DISPERSADA',
 			descripcionEtapaPrestamo: 'TESORERIA DISPERSA CREDITO',
 		).save(flush: true,failOnError: true)
 

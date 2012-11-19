@@ -274,8 +274,8 @@ class PrestamoController {
         def prestamoInstance = Prestamo.get(params.id)
 
         if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
-            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}"
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}"
+            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}, necesita ser DISPERSADA"
+            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}, necesita ser DISPERSADA"
         }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA"))){
             //CONSULTA SI EL PAGO AL CLIENTE SE REALIZA A TRAVES DE TRANSFERENCIA ELECTRONICA O
             //POR VENTANILLA BANCARIA
@@ -293,13 +293,13 @@ class PrestamoController {
             params.nombreCliente = nombreCliente
 
             if (formaDeEntrega.equals(SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'))){
-                flash.message = "La solicitud ${prestamoInstance.clavePrestamo} a cambiado al estatus de ${prestamoInstance.estatusSolicitud}"
+                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PENDIENTE_COBRO')
             }else{
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')
-                prestamoInstance.save(flush: true)
-                flash.message = "La solicitud ${prestamoInstance.clavePrestamo} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
             }
-
+            
+            flash.message = "La solicitud ${prestamoInstance.clavePrestamo} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
+            prestamoInstance.save(flush: true)
             completeTask(params)
             
         }else{

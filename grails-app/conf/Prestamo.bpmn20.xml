@@ -175,6 +175,21 @@
 		    </potentialOwner>
 		</userTask>
 
+		<sequenceFlow id="flujo18" sourceRef="informarCallCenter" targetRef="continuaCallCenterGateway" />
+
+		<exclusiveGateway id="continuaCallCenterGateway" name="Valida si Call Center continua localizando al cliente" />		
+
+		<sequenceFlow id="flujo19" sourceRef="continuaCallCenterGateway" targetRef="informarCallCenter">
+			<conditionExpression xsi:type="tFormalExpression">${continuaLocalizando}
+			</conditionExpression>
+		</sequenceFlow>		
+
+		<sequenceFlow id="flujo20" sourceRef="continuaCallCenterGateway" targetRef="fin">
+			<conditionExpression xsi:type="tFormalExpression">${!continuaLocalizando}
+			</conditionExpression>
+		</sequenceFlow>
+
+
 		<sequenceFlow id="flujo30" sourceRef="informarCallCenter" targetRef="fin" />
 		
 		<endEvent id="fin" />
