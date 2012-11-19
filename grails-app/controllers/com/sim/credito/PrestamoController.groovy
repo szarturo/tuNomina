@@ -294,7 +294,7 @@ class PrestamoController {
 
             if (formaDeEntrega.equals(SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'))){
                 //LA SIGUIENTE DEFINICION SE USA COMO EJEMPLO DE COMO PASAR UNA VARIABLE A LA SIGUIENTE TAREA
-                //params.idPrestamo = params.id
+                params.idPrestamo = params.id
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PENDIENTE_COBRO')
             }else{
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')

@@ -33,11 +33,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="prestamo"><g:message code="callCenter.prestamo.label" default="Prestamo" /></label>
+                                    <label> ${prestamoInstance}
+                                    </label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: callCenterInstance, field: 'prestamo', 'errors')}">
-                                    <g:select name="prestamo.id" from="${com.sim.credito.Prestamo.list()}" optionKey="id" value="${callCenterInstance?.prestamo?.id}"  />
-                                </td>
+
                             </tr>
                         
                             <tr class="prop">
