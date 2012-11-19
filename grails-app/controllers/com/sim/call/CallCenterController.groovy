@@ -24,15 +24,24 @@ class CallCenterController {
     }
 
     def create = {
-        log.info "Parametros Call Center: ${params}"
+
+        //EJEMPLO DE COMO OBTENER UNA PARAMENTRO DEFINIDO EN UNA TAREA PREVIA
+        //def taskService = org.grails.activiti.ActivitiUtils.taskService
+        //log.info " idPrestamo definido en una tarea previa: ${taskService.getVariable(params.taskId,"idPrestamo")}"
+
+        def prestamoInstance = Prestamo.get(params.id)
+
         def callCenterInstance = new CallCenter()
         callCenterInstance.properties = params
         return [callCenterInstance: callCenterInstance,
-			          myTasksCount: assignedTasksCount]
+			          myTasksCount: assignedTasksCount,
+                      prestamoInstance : prestamoInstance]
     }
 
     def save = {
+        log.info ("Prestamo: ${prestamo.id}")
         def callCenterInstance = new CallCenter(params)
+        log.info ("Instancia Call Center: ${callCenterInstance}")
         if (callCenterInstance.save(flush: true)) {
 			params.id = callCenterInstance.id
 			if (params.complete) {

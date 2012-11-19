@@ -92,6 +92,7 @@
                     <span class="button"><g:submitButton name="complete" class="save" value="${message(code: 'default.button.complete.label', default: 'Complete')}" /></span>
                 </div>
                 <g:hiddenField name="taskId" value="${params.taskId}" />
+                <g:hiddenField name="prestamo.id" value="${prestamoInstance.id}" />
             </g:form>
         </div>
     </body>

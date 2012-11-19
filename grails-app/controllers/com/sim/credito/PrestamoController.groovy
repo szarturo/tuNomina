@@ -293,11 +293,13 @@ class PrestamoController {
             params.nombreCliente = nombreCliente
 
             if (formaDeEntrega.equals(SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'))){
+                //LA SIGUIENTE DEFINICION SE USA COMO EJEMPLO DE COMO PASAR UNA VARIABLE A LA SIGUIENTE TAREA
+                //params.idPrestamo = params.id
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PENDIENTE_COBRO')
             }else{
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')
             }
-            
+
             flash.message = "La solicitud ${prestamoInstance.clavePrestamo} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
             prestamoInstance.save(flush: true)
             completeTask(params)
@@ -309,18 +311,6 @@ class PrestamoController {
         redirect(controller: "task", action: "myTaskList")
 
     }
-
-
-   def seguimientoCallCenter = {
-
-        def prestamoInstance = Prestamo.get(params.id)
-
-        log.info "CALL CENTER realiza seguimiento"
-
-        completeTask(params)
-        redirect(controller: "task", action: "myTaskList")
-
-    }    
 
     //TEMPORAL PARA EL CAMBIO DE ESTATUS A UN CREDITO. MOSTRAR EDIT
     def editCambioEstatus = {
