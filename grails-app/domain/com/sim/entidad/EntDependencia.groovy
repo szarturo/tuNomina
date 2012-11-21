@@ -10,7 +10,6 @@ class EntDependencia {
 
     static hasMany = [listaCobro: ListaCobro]
 
-
     static constraints = {
         claveDependencia(size:3..15, unique: true, nullable: false, blank: false)
         nombreDependencia(size:3..50, unique: true, nullable: false, blank: false)

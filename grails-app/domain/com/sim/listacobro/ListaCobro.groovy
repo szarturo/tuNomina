@@ -1,6 +1,7 @@
 package com.sim.listacobro
 
 import com.sim.entidad.EntDependencia
+import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 
 class ListaCobro {
 
@@ -10,6 +11,7 @@ class ListaCobro {
     Date    fechaFin
     Boolean parcialidades = false
 
+    static hasMany = [registroTablaAmor:TablaAmortizacionRegistro]
     static belongsTo = [dependencia:EntDependencia]
 
     static constraints = {
