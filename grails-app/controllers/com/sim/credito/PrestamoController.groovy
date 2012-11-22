@@ -68,6 +68,7 @@ class PrestamoController {
 							params.remove("estatusSolicitud")
 							params.remove("formaDeDispercion")
 							params.remove("cliente")
+                            params.remove("primerPagoDependcia")
 							completeTask(params)
 						} else {
 							params.action="show"
@@ -189,6 +190,7 @@ class PrestamoController {
 										params.remove("estatusSolicitud")
 										params.remove("formaDeDispercion")
 										params.remove("cliente")
+                                        params.remove("primerPagoDependcia")
 										completeTask(params)
 								} else {
 										params.action="show"

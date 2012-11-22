@@ -94,6 +94,15 @@
                                     <g:select name="dependencia.id" from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" value="${prestamoInstance?.dependencia?.id}"  />
                                 </td>
                             </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="primerPagoDependcia"><g:message code="prestamo.primerPagoDependcia.label" default="Primer pago de la Dependencia" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'primerPagoDependcia', 'errors')}">
+                                    <g:select name="primerPagoDependcia.id" from="${com.sim.listacobro.ListaCobro.list()}" optionKey="id" value="${prestamoInstance?.primerPagoDependcia?.id}"  />
+                                </td>
+                            </tr>                                 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -148,7 +157,7 @@
                                     <g:select name="formaDeDispercion.id" from="${com.sim.catalogo.SimCatFormaEntrega.list()}" optionKey="id" value="${prestamoInstance?.formaDeDispercion?.id}"  />
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="documentosCorrectos"><g:message code="prestamo.documentosCorrectos.label" default="Documentos Correctos" /></label>

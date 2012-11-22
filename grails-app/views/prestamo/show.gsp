@@ -82,6 +82,13 @@
                             <td valign="top" class="value"><g:link controller="entDependencia" action="show" id="${prestamoInstance?.dependencia?.id}">${prestamoInstance?.dependencia?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.primerPagoDependcia.label" default="Primer pago de la Dependencia" /></td>
+                            
+                            <td valign="top" class="value"><g:link controller="listaCobro" action="show" id="${prestamoInstance?.primerPagoDependcia?.id}">${prestamoInstance?.primerPagoDependcia?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>                        
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.sucursal.label" default="Sucursal" /></td>
