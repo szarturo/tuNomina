@@ -4,11 +4,11 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'tablaAmortizacion.label', default: 'TablaAmortizacion')}" />
+		<g:set var="entityName" value="${message(code: 'tablaAmortizacionRegistro.label', default: 'TablaAmortizacionRegistro')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-tablaAmortizacion" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<a href="#show-tablaAmortizacionRegistro" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -16,180 +16,189 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="show-tablaAmortizacion" class="content scaffold-show" role="main">
+		<div id="show-tablaAmortizacionRegistro" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list tablaAmortizacion">
+			<ol class="property-list tablaAmortizacionRegistro">
 			
-				<g:if test="${tablaAmortizacionInstance?.numeroPago}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.numeroPago}">
 				<li class="fieldcontain">
-					<span id="numeroPago-label" class="property-label"><g:message code="tablaAmortizacion.numeroPago.label" default="Numero Pago" /></span>
+					<span id="numeroPago-label" class="property-label"><g:message code="tablaAmortizacionRegistro.numeroPago.label" default="Numero Pago" /></span>
 					
-						<span class="property-value" aria-labelledby="numeroPago-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="numeroPago"/></span>
+						<span class="property-value" aria-labelledby="numeroPago-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="numeroPago"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.fecha}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.fecha}">
 				<li class="fieldcontain">
-					<span id="fecha-label" class="property-label"><g:message code="tablaAmortizacion.fecha.label" default="Fecha" /></span>
+					<span id="fecha-label" class="property-label"><g:message code="tablaAmortizacionRegistro.fecha.label" default="Fecha" /></span>
 					
-						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${tablaAmortizacionInstance?.fecha}" /></span>
+						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${tablaAmortizacionRegistroInstance?.fecha}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impSaldoInicial}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impSaldoInicial}">
 				<li class="fieldcontain">
-					<span id="impSaldoInicial-label" class="property-label"><g:message code="tablaAmortizacion.impSaldoInicial.label" default="Imp Saldo Inicial" /></span>
+					<span id="impSaldoInicial-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impSaldoInicial.label" default="Imp Saldo Inicial" /></span>
 					
-						<span class="property-value" aria-labelledby="impSaldoInicial-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impSaldoInicial"/></span>
+						<span class="property-value" aria-labelledby="impSaldoInicial-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impSaldoInicial"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.tasaInteres}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.tasaInteres}">
 				<li class="fieldcontain">
-					<span id="tasaInteres-label" class="property-label"><g:message code="tablaAmortizacion.tasaInteres.label" default="Tasa Interes" /></span>
+					<span id="tasaInteres-label" class="property-label"><g:message code="tablaAmortizacionRegistro.tasaInteres.label" default="Tasa Interes" /></span>
 					
-						<span class="property-value" aria-labelledby="tasaInteres-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="tasaInteres"/></span>
+						<span class="property-value" aria-labelledby="tasaInteres-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="tasaInteres"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impInteres}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impInteres}">
 				<li class="fieldcontain">
-					<span id="impInteres-label" class="property-label"><g:message code="tablaAmortizacion.impInteres.label" default="Imp Interes" /></span>
+					<span id="impInteres-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impInteres.label" default="Imp Interes" /></span>
 					
-						<span class="property-value" aria-labelledby="impInteres-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impInteres"/></span>
+						<span class="property-value" aria-labelledby="impInteres-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impInteres"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impIvaInteres}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impIvaInteres}">
 				<li class="fieldcontain">
-					<span id="impIvaInteres-label" class="property-label"><g:message code="tablaAmortizacion.impIvaInteres.label" default="Imp Iva Interes" /></span>
+					<span id="impIvaInteres-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impIvaInteres.label" default="Imp Iva Interes" /></span>
 					
-						<span class="property-value" aria-labelledby="impIvaInteres-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impIvaInteres"/></span>
+						<span class="property-value" aria-labelledby="impIvaInteres-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impIvaInteres"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impCapital}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impCapital}">
 				<li class="fieldcontain">
-					<span id="impCapital-label" class="property-label"><g:message code="tablaAmortizacion.impCapital.label" default="Imp Capital" /></span>
+					<span id="impCapital-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impCapital.label" default="Imp Capital" /></span>
 					
-						<span class="property-value" aria-labelledby="impCapital-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impCapital"/></span>
+						<span class="property-value" aria-labelledby="impCapital-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impCapital"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impPago}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impPago}">
 				<li class="fieldcontain">
-					<span id="impPago-label" class="property-label"><g:message code="tablaAmortizacion.impPago.label" default="Imp Pago" /></span>
+					<span id="impPago-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impPago.label" default="Imp Pago" /></span>
 					
-						<span class="property-value" aria-labelledby="impPago-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impPago"/></span>
+						<span class="property-value" aria-labelledby="impPago-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impPago"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impSaldoFinal}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impSaldoFinal}">
 				<li class="fieldcontain">
-					<span id="impSaldoFinal-label" class="property-label"><g:message code="tablaAmortizacion.impSaldoFinal.label" default="Imp Saldo Final" /></span>
+					<span id="impSaldoFinal-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impSaldoFinal.label" default="Imp Saldo Final" /></span>
 					
-						<span class="property-value" aria-labelledby="impSaldoFinal-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impSaldoFinal"/></span>
+						<span class="property-value" aria-labelledby="impSaldoFinal-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impSaldoFinal"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.pagoPuntual}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.pagoPuntual}">
 				<li class="fieldcontain">
-					<span id="pagoPuntual-label" class="property-label"><g:message code="tablaAmortizacion.pagoPuntual.label" default="Pago Puntual" /></span>
+					<span id="pagoPuntual-label" class="property-label"><g:message code="tablaAmortizacionRegistro.pagoPuntual.label" default="Pago Puntual" /></span>
 					
-						<span class="property-value" aria-labelledby="pagoPuntual-label"><g:formatBoolean boolean="${tablaAmortizacionInstance?.pagoPuntual}" /></span>
+						<span class="property-value" aria-labelledby="pagoPuntual-label"><g:formatBoolean boolean="${tablaAmortizacionRegistroInstance?.pagoPuntual}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impInteresPagado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impInteresPagado}">
 				<li class="fieldcontain">
-					<span id="impInteresPagado-label" class="property-label"><g:message code="tablaAmortizacion.impInteresPagado.label" default="Imp Interes Pagado" /></span>
+					<span id="impInteresPagado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impInteresPagado.label" default="Imp Interes Pagado" /></span>
 					
-						<span class="property-value" aria-labelledby="impInteresPagado-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impInteresPagado"/></span>
+						<span class="property-value" aria-labelledby="impInteresPagado-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impInteresPagado"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impIvaInteresPagado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impIvaInteresPagado}">
 				<li class="fieldcontain">
-					<span id="impIvaInteresPagado-label" class="property-label"><g:message code="tablaAmortizacion.impIvaInteresPagado.label" default="Imp Iva Interes Pagado" /></span>
+					<span id="impIvaInteresPagado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impIvaInteresPagado.label" default="Imp Iva Interes Pagado" /></span>
 					
-						<span class="property-value" aria-labelledby="impIvaInteresPagado-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impIvaInteresPagado"/></span>
+						<span class="property-value" aria-labelledby="impIvaInteresPagado-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impIvaInteresPagado"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impCapitalPagado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impCapitalPagado}">
 				<li class="fieldcontain">
-					<span id="impCapitalPagado-label" class="property-label"><g:message code="tablaAmortizacion.impCapitalPagado.label" default="Imp Capital Pagado" /></span>
+					<span id="impCapitalPagado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impCapitalPagado.label" default="Imp Capital Pagado" /></span>
 					
-						<span class="property-value" aria-labelledby="impCapitalPagado-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impCapitalPagado"/></span>
+						<span class="property-value" aria-labelledby="impCapitalPagado-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impCapitalPagado"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.impPagoPagado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.impPagoPagado}">
 				<li class="fieldcontain">
-					<span id="impPagoPagado-label" class="property-label"><g:message code="tablaAmortizacion.impPagoPagado.label" default="Imp Pago Pagado" /></span>
+					<span id="impPagoPagado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.impPagoPagado.label" default="Imp Pago Pagado" /></span>
 					
-						<span class="property-value" aria-labelledby="impPagoPagado-label"><g:fieldValue bean="${tablaAmortizacionInstance}" field="impPagoPagado"/></span>
+						<span class="property-value" aria-labelledby="impPagoPagado-label"><g:fieldValue bean="${tablaAmortizacionRegistroInstance}" field="impPagoPagado"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.pagado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.pagado}">
 				<li class="fieldcontain">
-					<span id="pagado-label" class="property-label"><g:message code="tablaAmortizacion.pagado.label" default="Pagado" /></span>
+					<span id="pagado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.pagado.label" default="Pagado" /></span>
 					
-						<span class="property-value" aria-labelledby="pagado-label"><g:formatBoolean boolean="${tablaAmortizacionInstance?.pagado}" /></span>
+						<span class="property-value" aria-labelledby="pagado-label"><g:formatBoolean boolean="${tablaAmortizacionRegistroInstance?.pagado}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.fechaPagoUltimo}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.fechaPagoUltimo}">
 				<li class="fieldcontain">
-					<span id="fechaPagoUltimo-label" class="property-label"><g:message code="tablaAmortizacion.fechaPagoUltimo.label" default="Fecha Pago Ultimo" /></span>
+					<span id="fechaPagoUltimo-label" class="property-label"><g:message code="tablaAmortizacionRegistro.fechaPagoUltimo.label" default="Fecha Pago Ultimo" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaPagoUltimo-label"><g:formatDate date="${tablaAmortizacionInstance?.fechaPagoUltimo}" /></span>
+						<span class="property-value" aria-labelledby="fechaPagoUltimo-label"><g:formatDate date="${tablaAmortizacionRegistroInstance?.fechaPagoUltimo}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.fechaValorCalculado}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.fechaValorCalculado}">
 				<li class="fieldcontain">
-					<span id="fechaValorCalculado-label" class="property-label"><g:message code="tablaAmortizacion.fechaValorCalculado.label" default="Fecha Valor Calculado" /></span>
+					<span id="fechaValorCalculado-label" class="property-label"><g:message code="tablaAmortizacionRegistro.fechaValorCalculado.label" default="Fecha Valor Calculado" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaValorCalculado-label"><g:formatDate date="${tablaAmortizacionInstance?.fechaValorCalculado}" /></span>
+						<span class="property-value" aria-labelledby="fechaValorCalculado-label"><g:formatDate date="${tablaAmortizacionRegistroInstance?.fechaValorCalculado}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.prestamo}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.listaCobro}">
 				<li class="fieldcontain">
-					<span id="prestamo-label" class="property-label"><g:message code="tablaAmortizacion.prestamo.label" default="Prestamo" /></span>
+					<span id="listaCobro-label" class="property-label"><g:message code="tablaAmortizacionRegistro.listaCobro.label" default="Lista Cobro" /></span>
 					
-						<span class="property-value" aria-labelledby="prestamo-label"><g:link controller="prestamo" action="show" id="${tablaAmortizacionInstance?.prestamo?.id}">${tablaAmortizacionInstance?.prestamo?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="listaCobro-label"><g:link controller="listaCobro" action="show" id="${tablaAmortizacionRegistroInstance?.listaCobro?.id}">${tablaAmortizacionRegistroInstance?.listaCobro?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionInstance?.tablaAmortizacionAccesorio}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.prestamo}">
 				<li class="fieldcontain">
-					<span id="tablaAmortizacionAccesorio-label" class="property-label"><g:message code="tablaAmortizacion.tablaAmortizacionAccesorio.label" default="Tabla Amortizacion Accesorio" /></span>
+					<span id="prestamo-label" class="property-label"><g:message code="tablaAmortizacionRegistro.prestamo.label" default="Prestamo" /></span>
 					
-						<g:each in="${tablaAmortizacionInstance.tablaAmortizacionAccesorio}" var="t">
+						<span class="property-value" aria-labelledby="prestamo-label"><g:link controller="prestamo" action="show" id="${tablaAmortizacionRegistroInstance?.prestamo?.id}">${tablaAmortizacionRegistroInstance?.prestamo?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${tablaAmortizacionRegistroInstance?.tablaAmortizacionAccesorio}">
+				<li class="fieldcontain">
+					<span id="tablaAmortizacionAccesorio-label" class="property-label"><g:message code="tablaAmortizacionRegistro.tablaAmortizacionAccesorio.label" default="Tabla Amortizacion Accesorio" /></span>
+					
+						<g:each in="${tablaAmortizacionRegistroInstance.tablaAmortizacionAccesorio}" var="t">
 						<span class="property-value" aria-labelledby="tablaAmortizacionAccesorio-label"><g:link controller="tablaAmortizacionAccesorio" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
@@ -199,8 +208,8 @@
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${tablaAmortizacionInstance?.id}" />
-					<g:link class="edit" action="edit" id="${tablaAmortizacionInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:hiddenField name="id" value="${tablaAmortizacionRegistroInstance?.id}" />
+					<g:link class="edit" action="edit" id="${tablaAmortizacionRegistroInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

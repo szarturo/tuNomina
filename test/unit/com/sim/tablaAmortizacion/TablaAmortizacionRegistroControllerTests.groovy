@@ -17,35 +17,35 @@ class TablaAmortizacionRegistroControllerTests {
 
     void testIndex() {
         controller.index()
-        assert "/tablaAmortizacion/list" == response.redirectedUrl
+        assert "/tablaAmortizacionRegistro/list" == response.redirectedUrl
     }
 
     void testList() {
 
         def model = controller.list()
 
-        assert model.tablaAmortizacionInstanceList.size() == 0
-        assert model.tablaAmortizacionInstanceTotal == 0
+        assert model.tablaAmortizacionRegistroInstanceList.size() == 0
+        assert model.tablaAmortizacionRegistroInstanceTotal == 0
     }
 
     void testCreate() {
         def model = controller.create()
 
-        assert model.tablaAmortizacionInstance != null
+        assert model.tablaAmortizacionRegistroInstance != null
     }
 
     void testSave() {
         controller.save()
 
-        assert model.tablaAmortizacionInstance != null
-        assert view == '/tablaAmortizacion/create'
+        assert model.tablaAmortizacionRegistroInstance != null
+        assert view == '/tablaAmortizacionRegistro/create'
 
         response.reset()
 
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/tablaAmortizacion/show/1'
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/show/1'
         assert controller.flash.message != null
         assert TablaAmortizacionRegistro.count() == 1
     }
@@ -54,102 +54,102 @@ class TablaAmortizacionRegistroControllerTests {
         controller.show()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/tablaAmortizacion/list'
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/list'
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
+        def tablaAmortizacionRegistro = new TablaAmortizacionRegistro(params)
 
-        assert tablaAmortizacion.save() != null
+        assert tablaAmortizacionRegistro.save() != null
 
-        params.id = tablaAmortizacion.id
+        params.id = tablaAmortizacionRegistro.id
 
         def model = controller.show()
 
-        assert model.tablaAmortizacionInstance == tablaAmortizacion
+        assert model.tablaAmortizacionRegistroInstance == tablaAmortizacionRegistro
     }
 
     void testEdit() {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/tablaAmortizacion/list'
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/list'
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
+        def tablaAmortizacionRegistro = new TablaAmortizacionRegistro(params)
 
-        assert tablaAmortizacion.save() != null
+        assert tablaAmortizacionRegistro.save() != null
 
-        params.id = tablaAmortizacion.id
+        params.id = tablaAmortizacionRegistro.id
 
         def model = controller.edit()
 
-        assert model.tablaAmortizacionInstance == tablaAmortizacion
+        assert model.tablaAmortizacionRegistroInstance == tablaAmortizacionRegistro
     }
 
     void testUpdate() {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/tablaAmortizacion/list'
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/list'
 
         response.reset()
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
+        def tablaAmortizacionRegistro = new TablaAmortizacionRegistro(params)
 
-        assert tablaAmortizacion.save() != null
+        assert tablaAmortizacionRegistro.save() != null
 
         // test invalid parameters in update
-        params.id = tablaAmortizacion.id
+        params.id = tablaAmortizacionRegistro.id
         //TODO: add invalid values to params object
 
         controller.update()
 
-        assert view == "/tablaAmortizacion/edit"
-        assert model.tablaAmortizacionInstance != null
+        assert view == "/tablaAmortizacionRegistro/edit"
+        assert model.tablaAmortizacionRegistroInstance != null
 
-        tablaAmortizacion.clearErrors()
+        tablaAmortizacionRegistro.clearErrors()
 
         populateValidParams(params)
         controller.update()
 
-        assert response.redirectedUrl == "/tablaAmortizacion/show/$tablaAmortizacion.id"
+        assert response.redirectedUrl == "/tablaAmortizacionRegistro/show/$tablaAmortizacionRegistro.id"
         assert flash.message != null
 
         //test outdated version number
         response.reset()
-        tablaAmortizacion.clearErrors()
+        tablaAmortizacionRegistro.clearErrors()
 
         populateValidParams(params)
-        params.id = tablaAmortizacion.id
+        params.id = tablaAmortizacionRegistro.id
         params.version = -1
         controller.update()
 
-        assert view == "/tablaAmortizacion/edit"
-        assert model.tablaAmortizacionInstance != null
-        assert model.tablaAmortizacionInstance.errors.getFieldError('version')
+        assert view == "/tablaAmortizacionRegistro/edit"
+        assert model.tablaAmortizacionRegistroInstance != null
+        assert model.tablaAmortizacionRegistroInstance.errors.getFieldError('version')
         assert flash.message != null
     }
 
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/tablaAmortizacion/list'
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/list'
 
         response.reset()
 
         populateValidParams(params)
-        def tablaAmortizacion = new TablaAmortizacionRegistro(params)
+        def tablaAmortizacionRegistro = new TablaAmortizacionRegistro(params)
 
-        assert tablaAmortizacion.save() != null
+        assert tablaAmortizacionRegistro.save() != null
         assert TablaAmortizacionRegistro.count() == 1
 
-        params.id = tablaAmortizacion.id
+        params.id = tablaAmortizacionRegistro.id
 
         controller.delete()
 
         assert TablaAmortizacionRegistro.count() == 0
-        assert TablaAmortizacionRegistro.get(tablaAmortizacion.id) == null
-        assert response.redirectedUrl == '/tablaAmortizacion/list'
+        assert TablaAmortizacionRegistro.get(tablaAmortizacionRegistro.id) == null
+        assert response.redirectedUrl == '/tablaAmortizacionRegistro/list'
     }
 }
