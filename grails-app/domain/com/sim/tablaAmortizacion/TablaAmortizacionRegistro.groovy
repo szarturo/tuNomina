@@ -5,16 +5,15 @@ import com.sim.listacobro.ListaCobro
 
 class TablaAmortizacionRegistro {
 	
-	//LOS NOMBRE QUE APARECEN EN COMENTARIO HACEN REFERENCIA AL SERVICIO DE TABLA AMORTIZACION ORIGINADO POR MIKE
-	Integer     numeroPago //numeroDePago
+	Integer     numeroPago 
 	Date		fecha
 	BigDecimal	impSaldoInicial
 	BigDecimal  tasaInteres
-	BigDecimal  impInteres //interes
+	BigDecimal  impInteres 
 	BigDecimal  impIvaInteres
-	BigDecimal  impCapital //amortizacionCapital
-	BigDecimal  impPago //pagoTotal
-	BigDecimal  impSaldoFinal //saldoInsoluto
+	BigDecimal  impCapital 
+	BigDecimal  impPago 
+	BigDecimal  impSaldoFinal 
 	Boolean     pagoPuntual = false
 	BigDecimal  impInteresPagado
 	BigDecimal  impIvaInteresPagado
