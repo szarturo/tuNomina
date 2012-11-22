@@ -806,10 +806,12 @@ class BootStrap {
 
         new EntDependencia(claveDependencia: 'IMSS',
                 nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
+                periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(flush: true,failOnError: true)
 
         new EntDependencia(claveDependencia: 'CFE',
                 nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
+                periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(flush: true,failOnError: true)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE

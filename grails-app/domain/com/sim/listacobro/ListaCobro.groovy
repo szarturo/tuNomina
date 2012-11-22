@@ -3,7 +3,7 @@ package com.sim.listacobro
 import com.sim.entidad.EntDependencia
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 
-class ListaCobro {
+class ListaCobro implements Comparable {
 
     Integer anio
     Integer numeroPago
@@ -20,6 +20,14 @@ class ListaCobro {
         numeroPago range: 1..56
         fechaInicio nullable: true
         fechaFin nullable: true
-
     }
+
+   String toString() {
+        "Lista de Cobro: ${numeroPago}"
+    }    
+
+    int compareTo(obj) {
+        numeroPago.compareTo(obj.numeroPago)
+    }
+
 }
