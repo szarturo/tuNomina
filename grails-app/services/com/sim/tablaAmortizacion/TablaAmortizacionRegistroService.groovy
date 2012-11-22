@@ -4,6 +4,7 @@ import java.util.Date
 
 import com.sim.credito.Prestamo
 import com.sim.producto.ProPromocion
+import com.sim.listacobro.ListaCobro
 
 import com.sim.pfin.PfinMovimiento
 import com.sim.pfin.PfinCatOperacion
@@ -31,6 +32,14 @@ class TablaAmortizacionRegistroService {
 
 		//VARIABLE PARA SABER CUANTOS PAGOS TIENE EL CREDITO
 		Integer pagoCredito = 0
+
+		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
+		ListaCobro primerPago = prestamoInstance.primerPagoDependcia
+
+		if (!primerPago){
+			log.info("No se especifico la lista de cobro para la amortizacion uno")
+			throw new TablaAmortizacionServiceException(mensaje: "No se especifico el primer pago de la Dependencia")
+		}
 
 		//OBTIENE TODOS LOS MOVIMIENTOS DEL PRESTAMO
 		ArrayList listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
@@ -129,7 +138,7 @@ class TablaAmortizacionRegistroService {
 			BigDecimal tasa = (promocion.tasaDeInteres / 100) * (diasPeriodicidadPago / diasPeriodicidadTasa)
 			
 			(1..promocion.numeroDePagos).each{
-				
+
 				//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
 				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))) {
 					
@@ -166,7 +175,9 @@ class TablaAmortizacionRegistroService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						prestamo:               prestamoInstance).save()
+						listaCobro:    			primerPago,
+						prestamo:               prestamoInstance
+						).save(flush: true,failOnError: true)
 
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
 				saldoInicial  = saldoInicial  - amortizacion
