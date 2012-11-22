@@ -13,7 +13,7 @@ http://localhost:8080/tuNomina-0.1/viewImageCompare/index?imagen=<IMAGEN>&info=<
 Ejemplo: 
 http://localhost:8080/tuNomina-0.1/viewImageCompare/index?imagen=workspace://SpacesStore/385d2641-953c-46e2-9e5b-99ad7cd55075&info=fechaEvento
 
-En el contralor de versiones antes del dia 12 de Noviembre se puede consultar la primera version de la generación de la tabla de amortización
+En el contralor de versiones el dia 6 de Noviembre se puede consultar la primera version de la generación de la tabla de amortización
 domain/com/sim/tablaAmortizacion/TablaAmortizacion.groovy
 controllers/com/sim/tablaAmortizacion/TablaAmortizacionController.groovy
 /views/tablaAmortizacion/list.gsp
