@@ -18,8 +18,8 @@ domain/com/sim/tablaAmortizacion/TablaAmortizacion.groovy
 controllers/com/sim/tablaAmortizacion/TablaAmortizacionController.groovy
 /views/tablaAmortizacion/list.gsp
 
-Ejemplo para cambiar el estatus a un prestamo
-http://localhost:8088/tuNomina/prestamo/cambiaEstatusPrestamo?id=189&etapa=COMPRADA
+Ejemplo para generar las listas de cobro de una Dependencia
+entDependencia/generarListasCobro?claveDependencia=IMSS&anio=2012
  
 
 
