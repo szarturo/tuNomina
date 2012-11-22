@@ -1,6 +1,7 @@
 package com.sim.tablaAmortizacion
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.sim.credito.Prestamo
 
 class TablaAmortizacionRegistroController {
 
@@ -11,9 +12,14 @@ class TablaAmortizacionRegistroController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [tablaAmortizacionInstanceList: TablaAmortizacionRegistro.list(params), tablaAmortizacionInstanceTotal: TablaAmortizacionRegistro.count()]
-    }
+        Prestamo prestamo = Prestamo.get(params.idPrestamo)
+
+        def listaTablaAmortizacion = TablaAmortizacionRegistro.findAllByPrestamo(prestamo)
+
+        listaTablaAmortizacion.sort{ it.numeroPago } 
+
+        [tablaAmortizacionInstanceList: listaTablaAmortizacion, tablaAmortizacionInstanceTotal: listaTablaAmortizacion.size() ]
+    }    
 
     def create() {
         [tablaAmortizacionInstance: new TablaAmortizacionRegistro(params)]
