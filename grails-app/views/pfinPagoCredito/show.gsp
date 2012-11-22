@@ -50,6 +50,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${pfinPagoCreditoInstance?.primerPago}">
+				<li class="fieldcontain">
+					<span id="primerPago-label" class="property-label"><g:message code="pfinPagoCredito.primerPago.label" default="Primer Pago" /></span>
+					
+						<span class="property-value" aria-labelledby="primerPago-label"><g:link controller="listaCobro" action="show" id="${pfinPagoCreditoInstance?.primerPago?.id}">${pfinPagoCreditoInstance?.primerPago?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

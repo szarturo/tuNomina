@@ -30,6 +30,8 @@
 					
 						<th><g:message code="pfinPagoCredito.prestamo.label" default="Prestamo" /></th>
 					
+						<th><g:message code="pfinPagoCredito.primerPago.label" default="Primer Pago" /></th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -41,6 +43,8 @@
 						<td>${fieldValue(bean: pfinPagoCreditoInstance, field: "importePago")}</td>
 					
 						<td>${fieldValue(bean: pfinPagoCreditoInstance, field: "prestamo")}</td>
+					
+						<td>${fieldValue(bean: pfinPagoCreditoInstance, field: "primerPago")}</td>
 					
 					</tr>
 				</g:each>

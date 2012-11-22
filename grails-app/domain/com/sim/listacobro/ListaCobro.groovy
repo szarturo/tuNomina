@@ -23,7 +23,7 @@ class ListaCobro implements Comparable {
     }
 
    String toString() {
-        "Lista de Cobro: ${numeroPago}"
+        "Lista de Cobro: ${numeroPago} - ${anio}"
     }    
 
     int compareTo(obj) {
