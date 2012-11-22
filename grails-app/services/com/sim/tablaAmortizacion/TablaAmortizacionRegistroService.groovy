@@ -41,6 +41,13 @@ class TablaAmortizacionRegistroService {
 			throw new TablaAmortizacionServiceException(mensaje: "No se especifico el primer pago de la Dependencia")
 		}
 
+		//SE OBTIENTEN LAS LISTAS DE COBRO QUE PERTENECEN A LA DEPENDENCIA
+		def listasDeCobro = ListaCobro.findAllByDependencia(prestamoInstance.dependencia,
+                  [sort: "id", order: "asc"])
+
+		//SE CREA OBJETO ITERATOR PARA MANEJAR LAS LISTAS DE COBRO
+ 		Iterator iteratorListasCobro = listasDeCobro.iterator();
+
 		//OBTIENE TODOS LOS MOVIMIENTOS DEL PRESTAMO
 		ArrayList listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
 		
@@ -139,6 +146,9 @@ class TablaAmortizacionRegistroService {
 			
 			(1..promocion.numeroDePagos).each{
 
+				//SE OBTIENE LA LISTA DE COBRO QUE LE CORRESPONDE A LA AMORTIZACION
+				ListaCobro listaCobroConsecutivo = (ListaCobro)iteratorListasCobro.next();
+
 				//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
 				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))) {
 					
@@ -175,7 +185,7 @@ class TablaAmortizacionRegistroService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						listaCobro:    			primerPago,
+						listaCobro:    			listaCobroConsecutivo,
 						prestamo:               prestamoInstance
 						).save(flush: true,failOnError: true)
 
