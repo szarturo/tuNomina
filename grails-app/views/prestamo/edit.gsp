@@ -100,7 +100,7 @@
                                   <label for="primerPagoDependcia"><g:message code="prestamo.primerPagoDependcia.label" default="Primer pago de la Dependencia" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'primerPagoDependcia', 'errors')}">
-                                    <g:select name="primerPagoDependcia.id" from="${com.sim.listacobro.ListaCobro.list()}" optionKey="id" value="${prestamoInstance?.primerPagoDependcia?.id}"  />
+                                    <g:select name="primerPagoDependcia.id" from="${com.sim.listacobro.ListaCobro.findAllByDependencia(com.sim.entidad.EntDependencia.get(prestamoInstance?.dependencia?.id))}" optionKey="id" value="${prestamoInstance?.primerPagoDependcia?.id}"  />
                                 </td>
                             </tr>                                 
                         
