@@ -26,11 +26,3 @@
 	<g:select id="prestamo" name="prestamo.id" from="${com.sim.credito.Prestamo.list()}" optionKey="id" required="" value="${pfinPagoCreditoInstance?.prestamo?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pfinPagoCreditoInstance, field: 'primerPago', 'error')} required">
-	<label for="primerPago">
-		<g:message code="pfinPagoCredito.primerPago.label" default="Primer Pago" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="primerPago" name="primerPago.id" from="${com.sim.listacobro.ListaCobro.list()}" optionKey="id" required="" value="${pfinPagoCreditoInstance?.primerPago?.id}" class="many-to-one"/>
-</div>
-
