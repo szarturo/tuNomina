@@ -216,29 +216,24 @@ class BootStrap {
 				nombreDocumento: 'COMPROBANTE DE LUZ',
 				descripcion: 'COMPROBANTE DE LUZ',
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('DOMICILIO'),
-				esReporte : 'false',
 				).save(flush: true,failOnError: true)
 
 		new SimCatDocumento(claveDocumento:  'ACTA_NACIMIENTO',
 				nombreDocumento: 'ACTA DE NACIMIENTO',
 				descripcion: 'ACTA DE NACIMIENTO',
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('LEGAL'),
-				//simCatReporte : SimCatReporte.findByClaveReporte('CLAVE_1'),
-				esReporte : 'true',
 				).save(flush: true,failOnError: true)
 
 		new SimCatDocumento(claveDocumento:  'IFE',
 				nombreDocumento: 'CREDENCIAL IFE',
 				descripcion: 'CREDENCIAL IFE',
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('IDENTIFICACION'),
-				esReporte : 'false',
 				).save(flush: true,failOnError: true)
 
 		new SimCatDocumento(claveDocumento:  'LICENCIA_CONDUCIR',
 				nombreDocumento: 'LICENCIA DE CONDUCIR',
 				descripcion: 'LICENCIA DE CONDUCIR',
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('IDENTIFICACION'),
-				esReporte : 'false',
 				).save(flush: true,failOnError: true)
 
 		new SimCatEscolaridad(claveEscolaridad:  'PRIMARIA',
