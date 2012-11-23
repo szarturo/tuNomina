@@ -21,5 +21,11 @@ controllers/com/sim/tablaAmortizacion/TablaAmortizacionController.groovy
 Ejemplo para generar las listas de cobro de una Dependencia
 entDependencia/generarListasCobro?claveDependencia=IMSS&anio=2012
  
+Notas de Fechas
 
+Fecha del Medio = Fecha Parametros = Fecha Sistema MTN = Fecha liquidacion = Fecha Operacion
+
+Fecha Aplicación = Fecha que indica el usuario en la pantalla = Fecha Valor
+
+Fecha del Servidor (Computadora) = Fecha Registro (Trigger en Oracle)
 
