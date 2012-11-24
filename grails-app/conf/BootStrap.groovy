@@ -1368,7 +1368,6 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
 				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
@@ -1408,6 +1407,7 @@ class BootStrap {
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('CAPITAL')),
                 orden :       1,
                 proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
         ).save(flush: true,failOnError: true)
 
 
