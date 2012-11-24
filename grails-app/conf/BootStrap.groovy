@@ -8,12 +8,14 @@ import com.sim.empresa.*
 import com.sim.producto.*
 import com.sim.calendario.*
 import com.sim.pfin.*
+import com.sim.listacobro.*
 
 import test.*
 import abltutorial.*
 
 class BootStrap {
 
+    def listaCobroService
 	def init = { servletContext ->
 
 		new SimCatTipoPersona(claveTipoPersona:  'AVAL',
@@ -799,7 +801,7 @@ class BootStrap {
                 sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(flush: true,failOnError: true)
 
-        new EntDependencia(claveDependencia: 'IMSS',
+        def dependenciaImss = new EntDependencia(claveDependencia: 'IMSS',
                 nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
                 periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(flush: true,failOnError: true)
@@ -808,6 +810,9 @@ class BootStrap {
                 nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
                 periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(flush: true,failOnError: true)
+
+        //GENERA LAS LISTAS DE COBRO
+        listaCobroService.generarListasCobro(dependenciaImss,2012)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
         def robertoPerez = new RsPersona(
@@ -1025,7 +1030,8 @@ class BootStrap {
                 cliente : clienteArturo,
 				correoSolicitante: "arturo.salazar@rapidsist.com",
                 folioSolicitud : 34534,
-                dependencia : EntDependencia.findByClaveDependencia('CFE'),
+                dependencia : EntDependencia.findByClaveDependencia('IMSS'),
+                primerPagoDependcia : ListaCobro.findByNumeroPago(5),
                 promocion: promocionUno,
                 sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
                 delegacion: EntDelegacion.findByClaveDelegacion('ZACATECAS'),
@@ -1107,8 +1113,8 @@ class BootStrap {
         ).save(flush: true,failOnError: true)
 
         new PfinCatConcepto(claveConcepto:  'SEGUNICO',
-                descripcionCorta: 'SEGURO A',
-                descripcionLarga: 'SEGURO A',
+                descripcionCorta: 'SEGURO UNICO',
+                descripcionLarga: 'SEGURO UNICO',
                 situacion: 'ACTIVO'
         ).save(flush: true,failOnError: true)
 
@@ -1320,11 +1326,6 @@ class BootStrap {
 
         new SimCatAccesorio(
                 tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'),
-                concepto :      PfinCatConcepto.findByClaveConcepto('CAPITAL')
-        ).save(flush: true,failOnError: true)
-
-        new SimCatAccesorio(
-                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'),
                 concepto :      PfinCatConcepto.findByClaveConcepto('IVAINT')
         ).save(flush: true,failOnError: true)
 
@@ -1367,47 +1368,77 @@ class BootStrap {
 				).save(flush: true,failOnError: true)
 
 		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+				valor			:	'100',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				).save(flush: true,failOnError: true)
+        
+		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
 				valor			:	'100',
-				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
-				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
-				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
-				).save(flush: true,failOnError: true)
-        /*
-
-		new PrestamoAccesorio(
-				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOA'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
-				valor			:	'100',
-				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
-				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
 				).save(flush: true,failOnError: true)
 
 		new PrestamoAccesorio(
-				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOB'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
 				valor			:	'100',
-				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
-				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
 				).save(flush: true,failOnError: true)
 
 		new PrestamoAccesorio(
-				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOC'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
 				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
-				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
 				).save(flush: true,failOnError: true)
-		*/
 
         new ProPromocionAccesorio (
-                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('CAPITAL')),
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')),
                 orden :       1,
                 proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(flush: true,failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('IVAINT')),
+                orden :       2,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(flush: true,failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+                orden :       3,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(flush: true,failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+                orden :       4,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'),
+        ).save(flush: true,failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+                orden :       5,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
+        ).save(flush: true,failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+                orden :       6,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
         ).save(flush: true,failOnError: true)
 
 
