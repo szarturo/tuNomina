@@ -4,6 +4,7 @@ import java.util.Date
 
 import com.sim.credito.Prestamo
 import com.sim.producto.ProPromocion
+import com.sim.producto.ProPromocionAccesorio
 import com.sim.listacobro.ListaCobro
 
 import com.sim.pfin.PfinMovimiento
@@ -129,13 +130,17 @@ class TablaAmortizacionRegistroService {
 			//IMPLEMENTACION TEMPORAL PARA ASIGNAR LAS FECHAS DE AMORTIZACION
 			fechaPago = fechaMedio + 60
 			
+			//SE VA A OBTENER LOS ACCESORIOS QUE APLIQUEN COMO CARGO INICIAL
 			//RECUPERA LOS ACCESORIOS DEL PRESTAMO
 			ArrayList listaAccesorios	= prestamoInstance.prestamoAccesorio
 			
 			//VERFICA SI EXISTEN ACCESORIOS QUE DEBEN SER CARGOS INICIALES
 			listaAccesorios.each() {
-				SimCatFormaAplicacion formaAplicacion    = it.formaAplicacion
-				BigDecimal valorAccesorio  				 = it.valor
+
+				ProPromocionAccesorio promocionAccesorio = ProPromocionAccesorio.findByAccesorioAndProPromocion(it.accesorio,promocion)
+				SimCatFormaAplicacion formaAplicacion = promocionAccesorio.formaAplicacion
+				BigDecimal valorAccesorio  = it.valor
+
 				if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))) {
 					cargoInicial = cargoInicial + valorAccesorio
 				}
@@ -212,7 +217,9 @@ class TablaAmortizacionRegistroService {
 					
 					//RECUPERA LOS DATOS DEL ACCESORIO 
 					SimCatPeriodicidad periodicidadAccesorio = it.periodicidad
-					SimCatFormaAplicacion formaAplicacion    = it.formaAplicacion
+					ProPromocionAccesorio promocionAccesorio = ProPromocionAccesorio.findByAccesorioAndProPromocion(it.accesorio,promocion)
+					SimCatFormaAplicacion formaAplicacion = promocionAccesorio.formaAplicacion
+
 					SimCatAccesorio accesorio = it.accesorio
 					SimCatUnidad    unidad    = it.unidad
 					
