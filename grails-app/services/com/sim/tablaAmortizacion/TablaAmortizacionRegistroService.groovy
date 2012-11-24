@@ -11,12 +11,15 @@ import com.sim.pfin.PfinMovimiento
 import com.sim.pfin.PfinCatOperacion
 import com.sim.pfin.SituacionPremovimiento
 import com.sim.pfin.PfinCatParametro
+import com.sim.pfin.PfinCatConcepto
+import com.sim.pfin.PrelacionPagoConcepto
 
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
 import com.sim.catalogo.SimCatMetodoCalculo
 import com.sim.catalogo.SimCatPeriodicidad
 import com.sim.catalogo.SimCatUnidad
+import com.sim.catalogo.SimCatTipoAccesorio
 
 class TablaAmortizacionServiceException extends RuntimeException {
 	String	mensaje
@@ -283,6 +286,49 @@ class TablaAmortizacionRegistroService {
 			log.info("No se genera la tabla ya que existen pagos al credito.")
 			throw new TablaAmortizacionServiceException(mensaje: "No se genero la Tabla de Amortizacion ya que existen pagos al credito")
 		}
+
+		//IMPLEMENTACION TEMPORAL PARA LA VISTA DE PRELACION DE PAGOS
+
+		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocion(prestamoInstance.promocion)
+		TablaAmortizacionRegistro amortizacionUno = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(prestamoInstance,1)
+		ArrayList listaPrelacionPagoConcepto = []
+
+		listaAccesoriosPromocion.each(){
+
+			PrelacionPagoConcepto prelacionPago = new PrelacionPagoConcepto()
+			prelacionPago.numeroAmortizacion = amortizacionUno.numeroPago
+			prelacionPago.ordenPago = it.orden
+			prelacionPago.concepto = it.accesorio.concepto
+
+			SimCatTipoAccesorio tipoAccesorio = it.accesorio.tipoAccesorio
+			PfinCatConcepto     conceptoPrestamo = it.accesorio.concepto
+
+			if (tipoAccesorio.equals(SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'))){
+				switch ( conceptoPrestamo ) {
+				    case PfinCatConcepto.findByClaveConcepto('INTERES'):
+				        BigDecimal importeInteres = amortizacionUno.impInteres - amortizacionUno.impInteresPagado
+				        prelacionPago.cantidadPagar = importeInteres
+				        break
+				    default:
+				        BigDecimal importeIvaInteres = amortizacionUno.impIvaInteres - amortizacionUno.impIvaInteresPagado
+				        prelacionPago.cantidadPagar = importeIvaInteres
+				}
+			}else{
+				log.info "Obtenter importe de TablaAmortizacionRegistroAccesorio"
+			}
+
+			listaPrelacionPagoConcepto.add(prelacionPago)
+
+		}
+
+		listaPrelacionPagoConcepto.each(){
+			log.info "Numero Amortizacion: "+it.numeroAmortizacion
+			log.info "Orden Pago: "+it.ordenPago
+			log.info "Concepto: " +it.concepto
+			log.info "Cantidad:"+it.cantidadPagar
+			
+		}
+
 
 		return true
 	}
