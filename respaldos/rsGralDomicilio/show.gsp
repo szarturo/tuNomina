@@ -50,6 +50,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${rsGralDomicilioInstance?.rsGralAsentamiento}">
+				<li class="fieldcontain">
+					<span id="rsGralAsentamiento-label" class="property-label"><g:message code="rsGralDomicilio.rsGralAsentamiento.label" default="Rs Gral Asentamiento" /></span>
+					
+						<span class="property-value" aria-labelledby="rsGralAsentamiento-label"><g:link controller="rsGralAsentamiento" action="show" id="${rsGralDomicilioInstance?.rsGralAsentamiento?.id}">${rsGralDomicilioInstance?.rsGralAsentamiento?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${rsGralDomicilioInstance?.esFiscal}">
 				<li class="fieldcontain">
 					<span id="esFiscal-label" class="property-label"><g:message code="rsGralDomicilio.esFiscal.label" default="Es Fiscal" /></span>
@@ -61,7 +70,7 @@
 			
 				<g:if test="${rsGralDomicilioInstance?.comentarios}">
 				<li class="fieldcontain">
-					<span id="comentarios-label" class="property-label"><g:message code="rsGralDomicilio.comentarios.label" default="Domicilio" /></span>
+					<span id="comentarios-label" class="property-label"><g:message code="rsGralDomicilio.comentarios.label" default="Comentarios" /></span>
 					
 						<span class="property-value" aria-labelledby="comentarios-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="comentarios"/></span>
 					

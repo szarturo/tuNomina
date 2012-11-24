@@ -30,6 +30,8 @@
 					
 						<g:sortableColumn property="numeroExterior" title="${message(code: 'rsGralDomicilio.numeroExterior.label', default: 'Numero Exterior')}" />
 					
+						<th><g:message code="rsGralDomicilio.rsGralAsentamiento.label" default="Rs Gral Asentamiento" /></th>
+					
 						<g:sortableColumn property="esFiscal" title="${message(code: 'rsGralDomicilio.esFiscal.label', default: 'Es Fiscal')}" />
 					
 						<g:sortableColumn property="comentarios" title="${message(code: 'rsGralDomicilio.comentarios.label', default: 'Comentarios')}" />
@@ -45,7 +47,9 @@
 						<td>${fieldValue(bean: rsGralDomicilioInstance, field: "numeroInterior")}</td>
 					
 						<td>${fieldValue(bean: rsGralDomicilioInstance, field: "numeroExterior")}</td>
-									
+					
+						<td>${fieldValue(bean: rsGralDomicilioInstance, field: "rsGralAsentamiento")}</td>
+					
 						<td><g:formatBoolean boolean="${rsGralDomicilioInstance.esFiscal}" /></td>
 					
 						<td>${fieldValue(bean: rsGralDomicilioInstance, field: "comentarios")}</td>

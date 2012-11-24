@@ -12,7 +12,7 @@ class RsGralDomicilio {
 	Boolean esFiscal = false
 	String  comentarios
 	
-	//RsGralAsentamiento rsGralAsentamiento
+	RsGralAsentamiento rsGralAsentamiento
 	
 	/*
 	static belongsTo = [ regional : SimRegional, sucursal : SimSucursal, persona : RsPersona,
@@ -26,7 +26,7 @@ class RsGralDomicilio {
 		calle(size:5..100, nullable: false, blank: false)
 		numeroInterior()
 		numeroExterior()
-		//rsGralAsentamiento(nullable: false)
+		rsGralAsentamiento(nullable: false)
 		esFiscal()
 		comentarios(size:0..300)
 		//regional(nullable: true)
@@ -36,7 +36,6 @@ class RsGralDomicilio {
     }
 	
 	String toString() {
-		//"${calle} ${numeroInterior} ${numeroExterior} - CP:${rsGralAsentamiento.codigoPostal}"
-		"${calle} ${numeroInterior} ${numeroExterior}"
+		"${calle} ${numeroInterior} ${numeroExterior} - CP:${rsGralAsentamiento.codigoPostal}"
 	}
 }

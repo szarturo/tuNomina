@@ -705,7 +705,7 @@ class BootStrap {
 				numeroExterior: 'EDIF 8',
 				esFiscal: 'true',
 				comentarios : 'UNIDAD ALBARRADA',
-				rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('06862'),
+				//rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('06862'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(flush: true,failOnError: true)
 		new RsGralDomicilio(calle: 'PROGRESISTA',
@@ -713,7 +713,7 @@ class BootStrap {
 				numeroExterior: 'EDIF 6',
 				esFiscal: 'false',
 				comentarios : 'UNIDAD VICENTE',
-				rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01600'),
+				//rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01600'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(flush: true,failOnError: true)
 
