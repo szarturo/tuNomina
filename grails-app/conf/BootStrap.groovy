@@ -1082,33 +1082,54 @@ class BootStrap {
 		
 		new DummyPersona(nombre: "Miguel",apellido: "Mendoza", calle: "Melchor Ocampo", numero: "Mz 10 Lt 4", codigoPostal: "54870").save(flush:true, failOnError:true)
 
-		//ARTURO Y JOSE DAN DE ALTA LOS CONCEPTOS QUE INDIQUE MINE
-		//DATOS PARA EL CORE FINANCIERO
-		
-		new PfinCatConcepto(claveConcepto:  'INTERES',
-			descripcionCorta: 'INTERES',
-			descripcionLarga: 'INTERES',
-			situacion: 'ACTIVO'
-		).save(flush: true,failOnError: true)
-		
-		new PfinCatConcepto(claveConcepto:  'CAPITAL',
-			descripcionCorta: 'CAPITAL',
-			descripcionLarga: 'CAPITAL',
-			situacion: 'ACTIVO'
-		).save(flush: true,failOnError: true)
+        new PfinCatConcepto(claveConcepto:  'INTERES',
+                descripcionCorta: 'INTERES',
+                descripcionLarga: 'INTERES',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
 
-		new PfinCatConcepto(claveConcepto:  'IVAINT',
-			descripcionCorta: 'IVA INTERES',
-			descripcionLarga: 'IVA DE INTERES',
-			situacion: 'ACTIVO'
-		).save(flush: true,failOnError: true)
-		
-		new PfinCatConcepto(claveConcepto:  'IMPBRU',
-			descripcionCorta: 'IMPORTE BRUTO',
-			descripcionLarga: 'IMPORTE BRUTO',
-			situacion: 'ACTIVO'
-		).save(flush: true,failOnError: true)
-		
+        new PfinCatConcepto(claveConcepto:  'CAPITAL',
+                descripcionCorta: 'CAPITAL',
+                descripcionLarga: 'CAPITAL',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'IVAINT',
+                descripcionCorta: 'IVA INTERES',
+                descripcionLarga: 'IVA DE INTERES',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'IMPBRU',
+                descripcionCorta: 'IMPORTE BRUTO',
+                descripcionLarga: 'IMPORTE BRUTO',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'SEGUNICO',
+                descripcionCorta: 'SEGURO A',
+                descripcionLarga: 'SEGURO A',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'SEGUNICOA',
+                descripcionCorta: 'SEGURO A',
+                descripcionLarga: 'SEGURO A',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'SEGUNICOB',
+                descripcionCorta: 'SEGURO B',
+                descripcionLarga: 'SEGURO B',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
+        new PfinCatConcepto(claveConcepto:  'SEGUNICOC',
+                descripcionCorta: 'SEGURO C',
+                descripcionLarga: 'SEGURO C',
+                situacion: 'ACTIVO'
+        ).save(flush: true,failOnError: true)
+
 		new PfinCatAfectaOperacion(claveAfecta:  'CREDITO',
 			descripcionAfecta: 'AFECTA AL CREDITO'
 		).save(flush: true,failOnError: true)
@@ -1278,43 +1299,54 @@ class BootStrap {
 		).save(flush: true,failOnError: true)
 		
 		new SimCatTipoAccesorio(
-			claveTipoAccesorio : 'CARGO_COMISION',
-			nombreTipoAccesorio : 'Cargo y Comisiones del Prestamo'
+			claveTipoAccesorio : 'COMISION',
+			nombreTipoAccesorio : 'Comisiones del Prestamo'
 			).save(flush: true,failOnError: true)
 
 		new SimCatTipoAccesorio(
-			claveTipoAccesorio : 'INTERES',
-			nombreTipoAccesorio : 'Interes'
+			claveTipoAccesorio : 'FIJO',
+			nombreTipoAccesorio : 'Fijo'
 			).save(flush: true,failOnError: true)
 	
 		new SimCatTipoAccesorio(
-			claveTipoAccesorio : 'IVA',
-			nombreTipoAccesorio : 'IVA'
+			claveTipoAccesorio : 'RECARGO',
+			nombreTipoAccesorio : 'Recargo'
 			).save(flush: true,failOnError: true)
-	
-		new SimCatAccesorio(
-				claveAccesorio : 'SEGUNICO',
-				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
-				nombreAccesorio : 'Seguro Unico'
-				).save(flush: true,failOnError: true)
-	
-		new SimCatAccesorio(
-				claveAccesorio : 'SEGUNICOA',
-				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
-				nombreAccesorio : 'Seguro A'
-				).save(flush: true,failOnError: true)
-	
-		new SimCatAccesorio(
-				claveAccesorio : 'SEGUNICOB',
-				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
-				nombreAccesorio : 'Seguro B'
-				).save(flush: true,failOnError: true)
-	
-		new SimCatAccesorio(
-				claveAccesorio : 'SEGUNICOC',
-				tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('CARGO_COMISION'),
-				nombreAccesorio : 'Seguro C'
-				).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('INTERES')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('CAPITAL')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('IVAINT')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('COMISION'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('SEGUNICO')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('COMISION'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('SEGUNICOA')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('COMISION'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('SEGUNICOB')
+        ).save(flush: true,failOnError: true)
+
+        new SimCatAccesorio(
+                tipoAccesorio : SimCatTipoAccesorio.findByClaveTipoAccesorio('COMISION'),
+                concepto :      PfinCatConcepto.findByClaveConcepto('SEGUNICOC')
+        ).save(flush: true,failOnError: true)
 
 		new SimCatUnidad(
 				claveUnidad  : 'UNIDAD',
@@ -1335,13 +1367,14 @@ class BootStrap {
 				).save(flush: true,failOnError: true)
 
 		new PrestamoAccesorio(
-				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICO'),
-				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'),
-				valor			:	'500',
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+				formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
+				valor			:	'100',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
 				).save(flush: true,failOnError: true)
+        /*
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByClaveAccesorio('SEGUNICOA'),
@@ -1369,6 +1402,15 @@ class BootStrap {
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
 				).save(flush: true,failOnError: true)
+		*/
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('CAPITAL')),
+                orden :       1,
+                proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
+        ).save(flush: true,failOnError: true)
+
+
     }
 
 	def destroy = {

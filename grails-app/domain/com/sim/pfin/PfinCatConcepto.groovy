@@ -1,11 +1,15 @@
 package com.sim.pfin
 
+import com.sim.catalogo.SimCatAccesorio
+
 class PfinCatConcepto {
 	
 	String claveConcepto
 	String descripcionCorta
 	String descripcionLarga
 	String situacion
+
+    static hasOne= {accesorio : SimCatAccesorio}
 
     static constraints = {
 		claveConcepto(size:3..20, unique: true, nullable: false, blank: false)

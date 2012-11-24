@@ -1,18 +1,18 @@
 package com.sim.catalogo
 
+import com.sim.pfin.PfinCatConcepto
+
 class SimCatAccesorio {
-	String  claveAccesorio
-	String  nombreAccesorio
+
 	SimCatTipoAccesorio  tipoAccesorio
 	
+    static belongsTo = [concepto: PfinCatConcepto]
 
     static constraints = {
-		claveAccesorio  (size:3..80, unique: true, nullable: false, blank: false)
-		nombreAccesorio (size:3..80, unique: true, nullable: false, blank: false)
 		tipoAccesorio   (nullable: false, blank: false)
 		
     }
 	String toString() {
-		"${nombreAccesorio}"
+		"${concepto.descripcionCorta}"
 	}
 }
