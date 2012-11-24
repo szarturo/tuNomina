@@ -42,8 +42,23 @@ class TablaAmortizacionRegistroService {
 		}
 
 		//SE OBTIENTEN LAS LISTAS DE COBRO QUE PERTENECEN A LA DEPENDENCIA
-		def listasDeCobro = ListaCobro.findAllByDependencia(prestamoInstance.dependencia,
+		ArrayList listasDeCobro = ListaCobro.findAllByDependencia(prestamoInstance.dependencia,
                   [sort: "id", order: "asc"])
+
+		//ARRAY PARA ALMACENAR LAS LISTAS DE COBRA QUE SE ELIMINARAN
+		ArrayList periodicidadPagos = []
+
+		//VALIDA QUE LISTAS DE COBRO VAN A SER ELIMINADAS
+		listasDeCobro.each(){
+			if (primerPago>it){
+				periodicidadPagos.add(it)
+			}
+		}
+
+		//REMUEVE LAS LISTAS DE COBRO QUE NO SE UTILIZAN
+		periodicidadPagos.each(){
+			listasDeCobro.remove(it)
+		}
 
 		//SE CREA OBJETO ITERATOR PARA MANEJAR LAS LISTAS DE COBRO
  		Iterator iteratorListasCobro = listasDeCobro.iterator();
