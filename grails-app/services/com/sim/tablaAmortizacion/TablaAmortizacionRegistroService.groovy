@@ -290,10 +290,16 @@ class TablaAmortizacionRegistroService {
 		//IMPLEMENTACION TEMPORAL PARA LA VISTA DE PRELACION DE PAGOS
 
 		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocion(prestamoInstance.promocion)
+
+		//INICIO EACH NUMERO DE PAGOS
 		TablaAmortizacionRegistro amortizacionUno = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(prestamoInstance,1)
 		ArrayList listaPrelacionPagoConcepto = []
 
-		listaAccesoriosPromocion.each(){
+		//SE OBTIENEN LOS ACCESORIOS DE LA AMORTIZACION CORRESPONDIENTE
+
+		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(amortizacionUno)
+
+		listaAccesoriosPromocion.each(){ 
 
 			PrelacionPagoConcepto prelacionPago = new PrelacionPagoConcepto()
 			prelacionPago.numeroAmortizacion = amortizacionUno.numeroPago
@@ -302,6 +308,7 @@ class TablaAmortizacionRegistroService {
 
 			SimCatTipoAccesorio tipoAccesorio = it.accesorio.tipoAccesorio
 			PfinCatConcepto     conceptoPrestamo = it.accesorio.concepto
+			SimCatAccesorio     accesorio = it.accesorio
 
 			if (tipoAccesorio.equals(SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'))){
 				switch ( conceptoPrestamo ) {
@@ -314,13 +321,33 @@ class TablaAmortizacionRegistroService {
 				        prelacionPago.cantidadPagar = importeIvaInteres
 				}
 			}else{
-				log.info "Obtenter importe de TablaAmortizacionRegistroAccesorio"
+
+				listaAccesoriosAmortizacion.each(){ tablaAmortizacionAccesorio ->
+					if (tablaAmortizacionAccesorio.accesorio.equals(accesorio)){
+						BigDecimal importeAccesorio = tablaAmortizacionAccesorio.importeAccesorio - tablaAmortizacionAccesorio.importeAccesorioPagado
+						prelacionPago.cantidadPagar = importeAccesorio
+						log.info "Importe del accesorio ${conceptoPrestamo} : ${importeAccesorio}"
+					}
+				}
+
+
 			}
-
 			listaPrelacionPagoConcepto.add(prelacionPago)
-
 		}
 
+
+		//SE INSERTA EL CAPITAL
+		PrelacionPagoConcepto prelacionPagoCapital = new PrelacionPagoConcepto(
+			amortizacionUno.numeroPago,
+			99,
+			amortizacionUno.impCapital - amortizacionUno.impCapitalPagado,
+			PfinCatConcepto.findByClaveConcepto('CAPITAL'))
+
+		listaPrelacionPagoConcepto.add(prelacionPagoCapital)
+
+		//END EACH NUMERO DE PAGOS
+
+		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
 		listaPrelacionPagoConcepto.each(){
 			log.info "Numero Amortizacion: "+it.numeroAmortizacion
 			log.info "Orden Pago: "+it.ordenPago
