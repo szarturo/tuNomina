@@ -7,6 +7,8 @@ JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=256M"
 
 Visor de imagenes
 http://localhost:8080/tuNomina-0.1/viewImageCompare/loadImagen?imagen=
+Ejemplo
+http://localhost:8080/tuNomina-0.1/viewImageCompare/loadImagen?imagen=workspace://SpacesStore/3f8af51b-f121-414d-885d-0ec6c4ea06b8
 
 Uso del comparador de imagenes
 http://localhost:8080/tuNomina-0.1/viewImageCompare/index?imagen=<IMAGEN>&info=<ACTION>
@@ -22,10 +24,16 @@ Ejemplo para generar las listas de cobro de una Dependencia
 entDependencia/generarListasCobro?claveDependencia=IMSS&anio=2012
  
 Notas de Fechas
+-FechaDelMedio = FechaParametros = FechaSistemaMTN = Fechaliquidacion = FechaOperacion
+-Fecha Aplicación = Fecha que indica el usuario en la pantalla = Fecha Valor
+-Fecha del Servidor (Computadora) = Fecha Registro (Trigger en Oracle)
 
-Fecha del Medio = Fecha Parametros = Fecha Sistema MTN = Fecha liquidacion = Fecha Operacion
+Filtrar combo en una jsp
+<g:select name="asesorVerifico.id" from="${com.sim.empresa.RsEmpleado.findAllByPuesto(com.sim.catalogo.SimCatPuesto.findByClavePuesto('ASESORSUC'))}"
 
-Fecha Aplicación = Fecha que indica el usuario en la pantalla = Fecha Valor
-
-Fecha del Servidor (Computadora) = Fecha Registro (Trigger en Oracle)
-
+Ejemplo para que un campo sea igual a un dato, código debe ser colocado en la clase dominio
+SimCatTipoIdentificador claveIdentificador
+static constraints = {
+    claveIdentificador(validator: { cveIdentificador ->
+        cveIdentificador.claveTipoIdentificador.equals "REGIONAL" })
+}
