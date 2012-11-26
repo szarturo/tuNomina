@@ -6,6 +6,8 @@ stacktrace.log
 caldecott.log
 TuNomina-grailsPlugins.iml
 TuNomina.iml
+tuNomina.sublime-project
+tuNomina.sublime-workspace
 target/
 web-app/WEB-INF/classes
 target-eclipse/classes
