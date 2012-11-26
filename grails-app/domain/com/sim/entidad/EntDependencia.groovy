@@ -18,8 +18,8 @@ class EntDependencia {
         claveDependencia(size:3..15, unique: true, nullable: false, blank: false)
         nombreDependencia(size:3..50, unique: true, nullable: false, blank: false)
         descripcionDependencia(size:5..150, nullable: true)
+        periodicidadPagoNomina()        
         listaCobro(nullable: true)
-        periodicidadPagoNomina()
     }
 
     String toString() {
