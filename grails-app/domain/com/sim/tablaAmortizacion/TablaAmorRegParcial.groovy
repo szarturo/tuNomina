@@ -13,6 +13,8 @@ class TablaAmorRegParcial {
     static belongsTo = [listaCobroParcial: ListaCobroParcial,
                         tablaAmortizacionRegistro: TablaAmortizacionRegistro]
 
+    static hasMany = [tablaAmorAccParcial : TablaAmorAccParcial]
+
     static constraints = {
     	numeroPagoParcial()
     	tablaAmortizacionRegistro()
@@ -21,6 +23,7 @@ class TablaAmorRegParcial {
 		impIvaInteresPagado()
 		impCapitalPagado()
 		impPagoPagado()
+        tablaAmorAccParcial()
     }
 
 	String toString() {
