@@ -73,7 +73,7 @@ class Prestamo {
 		comentarios nullable:true, size:5..255
 		explicacionDevolucion blank:true, nullable:true, size:5..255
 		approvalStatus nullable:false
-		dateCreated blank:false
+		dateCreated ()
 		lastUpdated nullable:true
 		primerPagoDependcia nullable : true
     }

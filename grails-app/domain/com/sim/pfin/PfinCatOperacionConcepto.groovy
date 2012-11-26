@@ -8,8 +8,8 @@ class PfinCatOperacionConcepto {
 	String situacion
 
     static constraints = {
-		operacion(nullable: false, blank: false)
-		concepto(nullable: false, blank: false)
+		operacion(nullable: false)
+		concepto(nullable: false)
 		claveAfecta(nullable: false, inList:["INCREMENTA", "DECREMENTA"])
 		situacion(nullable: false, inList:["ACTIVO", "INACTIVO"]) 
     }

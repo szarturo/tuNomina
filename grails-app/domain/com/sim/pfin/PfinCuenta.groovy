@@ -16,7 +16,7 @@ class PfinCuenta {
 		tipoCuenta(nullable: false, inList:["EJE", "CREDITO"])
 		situacion(nullable: false, inList:["ACTIVO", "INACTIVO"]) 
 		comentario(nullable: true, blank: true)
-		cliente(nullable: false, blank: false)
+		cliente(nullable: false)
 		saldos(nullable:true)
     }
 	

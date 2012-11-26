@@ -22,7 +22,7 @@ class SolicitudCredito {
 		approvalStatus nullable:false
 		approvalRemark nullable:true
 		reenviarSolicitud nullable:true
-		dateCreated blank:false
+		dateCreated ()
 		lastUpdated nullable:true
 	}
 

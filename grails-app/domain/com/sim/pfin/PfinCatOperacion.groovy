@@ -16,7 +16,7 @@ class PfinCatOperacion {
 		descripcionCorta(size:1..50, nullable: false, blank: false)
 		descripcionLarga(size:1..150, nullable: false, blank: false)
 		situacion(nullable: false, inList:["ACTIVO", "INACTIVO"]) 
-		afecta(nullable: true, blank: true)
+		afecta(nullable: true)
     }
 	
 	String toString() {

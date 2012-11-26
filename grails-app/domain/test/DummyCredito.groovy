@@ -15,8 +15,8 @@ class DummyCredito implements Serializable{
 	
     static constraints = {
 		nombre(nullable: false)
-		ingresos(nullable: false)
-		montoPrestamo(nullable: false)
+		ingresos()
+		montoPrestamo()
 		status(nullable: false)
     }
 }

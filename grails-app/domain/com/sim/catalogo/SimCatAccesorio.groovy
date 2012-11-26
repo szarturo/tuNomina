@@ -6,10 +6,10 @@ class SimCatAccesorio {
 
 	SimCatTipoAccesorio  tipoAccesorio
 	
-    static belongsTo = [concepto: PfinCatConcepto]
+    static belongsTo = [concepto : PfinCatConcepto]
 
     static constraints = {
-		tipoAccesorio   (nullable: false, blank: false)
+		tipoAccesorio   (nullable: false)
 		
     }
 	String toString() {

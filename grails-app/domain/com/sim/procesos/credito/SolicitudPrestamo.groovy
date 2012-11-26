@@ -28,7 +28,7 @@ class SolicitudPrestamo {
 		explicacionSolicitud blank:false, size:5..255
 		explicacionCredito nullable:true, size:5..255
 		approvalStatus nullable:false
-		dateCreated blank:false
+		dateCreated ()
 		lastUpdated nullable:true
 	}
 }

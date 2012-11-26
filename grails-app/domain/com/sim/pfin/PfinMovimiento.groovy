@@ -41,7 +41,7 @@ class PfinMovimiento {
 		fechaOperacion()
 		fechaLiquidacion()
 		importeNeto()
-		referencia(nullable:true, blank:true)
+		referencia(nullable:true)
 		prestamo()
 		nota()
 		listaCobro(nullable:true)
