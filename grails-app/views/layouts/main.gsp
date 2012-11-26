@@ -115,6 +115,9 @@
 									<li><g:link controller="simCatDescTelefono">
 											<span>Tipo Tel&eacute;fono</span>
 										</g:link></li>
+									<li><g:link controller="simCatListaCobroEstatus">
+											<span>Estatus Lista Cobro</span>
+										</g:link></li>										
 						</ul>
 							</div></li>
 							

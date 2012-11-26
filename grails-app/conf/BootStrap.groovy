@@ -1441,6 +1441,30 @@ class BootStrap {
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
         ).save(flush: true,failOnError: true)
 
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "PARAPLICADA",
+			    nombreListaEstatus : "Aplicar Lista Cobro Parcial",
+			    aplicaParcial : 'true',
+       	).save(flush: true,failOnError: true)
+
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "PARGUARDADA",
+			    nombreListaEstatus : "Guarda Lista Cobro Parcial",
+			    aplicaParcial : 'true',
+       	).save(flush: true,failOnError: true)
+
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "PARCANAPLICADA",
+			    nombreListaEstatus : "Cancela Lista Cobro Parcial Aplicada",
+			    aplicaParcial : 'true',
+       	).save(flush: true,failOnError: true)
+
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "PARCANGUARDADA",
+			    nombreListaEstatus : "Cancela Lista Cobro Parcial Guardada",
+			    aplicaParcial : 'true',
+       	).save(flush: true,failOnError: true)
+
 
     }
 

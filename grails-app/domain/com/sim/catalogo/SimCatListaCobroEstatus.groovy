@@ -10,7 +10,7 @@ class SimCatListaCobroEstatus {
     static constraints = {
         claveListaEstatus(size:3..15, unique: true, nullable: false, blank: false)
         nombreListaEstatus(size:5..50, unique: true, nullable: false, blank: false)
-        descripcionListaEstatus(size:5..150)
+        descripcionListaEstatus(nullable: true, size:5..150)
         aplicaParcial()
     }
 
