@@ -25,6 +25,6 @@ class TablaAmorRegParcial {
     }
 
 	String toString() {
-		"${ListaCobroParcial}, ${TablaAmortizacionRegistro}"
+		"${listaCobroParcial}, ${tablaAmortizacionRegistro}"
 	}    
 }
