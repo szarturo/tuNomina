@@ -1,6 +1,7 @@
 package test
 
 import java.text.SimpleDateFormat;
+import com.sim.entidad.EntDependencia
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -242,7 +243,7 @@ class DummyCobranzaController {
         params.max = Math.min(max ?: 10, 100)
 		
 		try{
-		request.putAt("dependencias", Dependencia.list());
+		request.putAt("dependencias", EntDependencia.list());
 		System.out.println("d: "+ request.getAt("dependencias").size());
 		}catch(Exception e){
 			e.printStackTrace();
