@@ -25,7 +25,8 @@ class TablaAmortizacionRegistro {
 
 	static belongsTo = [prestamo:Prestamo, listaCobro:ListaCobro]
 	
-	static hasMany =   [tablaAmortizacionAccesorio : TablaAmortizacionAccesorio]
+	static hasMany =   [tablaAmortizacionAccesorio : TablaAmortizacionAccesorio,
+                        tablaAmorRegParcial: TablaAmorRegParcial]
 	
 	static constraints = {
 		numeroPago()

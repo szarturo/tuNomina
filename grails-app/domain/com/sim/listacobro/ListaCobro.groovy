@@ -11,7 +11,9 @@ class ListaCobro implements Comparable {
     Date    fechaFin
     Boolean parcialidades = false
 
-    static hasMany = [registroTablaAmor:TablaAmortizacionRegistro]
+    static hasMany = [registroTablaAmor:TablaAmortizacionRegistro,
+                      listaCobroParcial:ListaCobroParcial]
+
     static belongsTo = [dependencia:EntDependencia]
 
     static constraints = {
