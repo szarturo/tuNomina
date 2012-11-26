@@ -13,8 +13,8 @@ class ListaCobroFechaEst {
     static constraints = {
     	fecha()
     	estatusListaCobro()
-        listaCobro()
-    	listaCobroParcial()
+        listaCobro(nullable : true)
+    	listaCobroParcial(nullable : true)
     }
 
    	String toString() {
