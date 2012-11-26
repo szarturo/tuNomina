@@ -5,17 +5,17 @@ class TablaAmorAccParcial {
 	BigDecimal  	importeAccesorioPagado
 	BigDecimal  	importeIvaAccesorioPagado
 
-	static belongsTo = [tablaAmortizacionAccesorio: TablaAmortizacionAccesorio,
+	static belongsTo = [tablaAmorAccesorio: TablaAmortizacionAccesorio,
 						tablaAmorRegParcial: TablaAmorRegParcial]
 
     static constraints = {
     	importeAccesorioPagado()
     	importeIvaAccesorioPagado()
     	tablaAmorRegParcial()
-    	tablaAmortizacionAccesorio()
+    	tablaAmorAccesorio()
     }
 
 	String toString() {
-		"${tablaAmorRegParcial} - ${tablaAmortizacionAccesorio}"
+		"${tablaAmorRegParcial} - ${tablaAmorAccesorio}"
 	}    
 }
