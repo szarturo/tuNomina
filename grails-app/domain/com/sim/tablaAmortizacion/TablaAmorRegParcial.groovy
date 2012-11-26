@@ -4,7 +4,6 @@ import com.sim.listacobro.ListaCobroParcial
 
 class TablaAmorRegParcial {
 
-    Integer 	numeroPagoParcial
 	BigDecimal  impInteresPagado
 	BigDecimal  impIvaInteresPagado
 	BigDecimal  impCapitalPagado
@@ -16,7 +15,6 @@ class TablaAmorRegParcial {
     static hasMany = [tablaAmorAccParcial : TablaAmorAccParcial]
 
     static constraints = {
-    	numeroPagoParcial()
     	tablaAmortizacionRegistro()
     	listaCobroParcial()
 		impInteresPagado()
@@ -27,6 +25,6 @@ class TablaAmorRegParcial {
     }
 
 	String toString() {
-		"${tablaAmortizacionRegistro}. Pago Parcial: ${numeroPagoParcial}"
+		"${ListaCobroParcial}, ${TablaAmortizacionRegistro}"
 	}    
 }
