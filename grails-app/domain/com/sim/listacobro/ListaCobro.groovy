@@ -12,7 +12,8 @@ class ListaCobro implements Comparable {
     Boolean parcialidades = false
 
     static hasMany = [registroTablaAmor:TablaAmortizacionRegistro,
-                      listaCobroParcial:ListaCobroParcial]
+                      listaCobroParcial:ListaCobroParcial,
+                      fechaEstatus:ListaCobroFechaEst]
 
     static belongsTo = [dependencia:EntDependencia]
 
@@ -22,6 +23,9 @@ class ListaCobro implements Comparable {
         numeroPago range: 1..56
         fechaInicio nullable: true
         fechaFin nullable: true
+        fechaEstatus()
+        registroTablaAmor()
+        listaCobroParcial()
     }
 
    String toString() {

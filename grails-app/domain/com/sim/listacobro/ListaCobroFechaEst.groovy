@@ -7,15 +7,17 @@ class ListaCobroFechaEst {
 	Date fecha
 	SimCatListaCobroEstatus estatusListaCobro
 
-	static belongsTo = [listaCobroParcial: ListaCobroParcial]
+	static belongsTo = [listaCobro :ListaCobro,
+                        listaCobroParcial: ListaCobroParcial]
 
     static constraints = {
     	fecha()
     	estatusListaCobro()
+        listaCobro()
     	listaCobroParcial()
     }
 
    	String toString() {
-        "${fecha} ${estatusListaCobro}"
+        "${fecha}  ${listaCobro ?: listaCobroParcial}"
     }    
 }
