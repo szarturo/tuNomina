@@ -1,4 +1,4 @@
-package com.sim.listacobro
+package com.sim.catalogo
 
 class SimCatListaCobroEstatusController {
 
