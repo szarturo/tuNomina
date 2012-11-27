@@ -20,7 +20,7 @@ class ListaCobro implements Comparable {
     static constraints = {
         dependencia()
         anio range: 2012..2020
-        numeroPago range: 1..56
+        numeroPago ()
         fechaInicio nullable: true
         fechaFin nullable: true
         fechaEstatus()
