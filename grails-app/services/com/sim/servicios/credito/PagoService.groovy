@@ -24,6 +24,60 @@ class PagoService {
 
         if (!pagoCreditoInstance.save(flush: true)) {
             throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", pagoCreditoInstance:pagoCreditoInstance )
+        } else {
+
+			//Se obtiene el usuario actual
+			Usuario usuario = springSecurityService.getCurrentUser()
+			log.info ("Usuario Service Pago: ${usuario}")
+
+			//SE OBTIENE LA FECHA DEL MEDIO
+			//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
+			PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+			Date fechaMedio = parametros?.fechaMedio
+			if (!fechaMedio){
+				throw new PagoServiceException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
+			}
+
+			//FECHA DE APLICACION
+			Date fechaAplicacion = pagoCreditoInstance.fechaPago
+
+			//OBTIENE LA CUENTA DEL CLIENTE
+			PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",pagoCreditoInstance.prestamo.cliente)
+			log.info("Cuenta Cliente: ${cuentaCliente}")
+			//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
+			if (!cuentaCliente){
+				throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
+			}
+
+			//ASIGNA VALORES AL PREMOVIMIENTO
+			PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(
+					cuenta:  					cuentaCliente,
+					divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
+					fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
+					fechaLiquidacion: 			fechaMedio, //FECHA DEL MEDIO
+					importeNeto: 				pagoCreditoInstance.importePago,
+					//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
+					prestamo : 					pagoCreditoInstance.prestamo,
+					nota : 						"Deposito de efectivo",
+					listaCobro : 				1,
+					//pfinMovimiento()
+					situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
+					fechaRegistro: 				new Date(),
+					logIpDireccion: 			'127.0.0.1',
+					logUsuario: 				'127.0.0.1',
+					logHost: 					'127.0.0.1',
+					usuario : 					usuario,
+					fechaAplicacion: 			pagoCreditoInstance.fechaPago,
+					numeroPagoAmortizacion:  	0,
+					operacion: 					PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+					//TEDEPEFE: DEPOSITO DE EFECTIVO A LA CUENTA DEL CLIENTE
+			try{
+				// GENERA EL PREMOVIMIENTO
+				preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
+
+			}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+				throw errorProcesadorFinanciero
+			}
         }
 
 
@@ -35,6 +89,7 @@ class PagoService {
 
 		//String username = springSecurityService.getCurrentUser().username;
 
+		//Se obtiene el usuario actual
 		Usuario usuario = springSecurityService.getCurrentUser()
 		log.info ("Usuario Service Pago: ${usuario}")
 
