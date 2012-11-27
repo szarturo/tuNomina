@@ -3,11 +3,11 @@ package com.sim.servicios.credito
 import com.sim.usuario.Usuario
 
 import com.sim.pfin.*
-import com.sim.credito.PrestamoPago
+import com.sim.credito.*
 
 class PagoServiceException extends RuntimeException {
 	String mensaje
-	PrestamoPago pagoCreditoInstance
+	PrestamoPago prestamoPagoInstance
 }
 
 class PagoService {
@@ -19,34 +19,45 @@ class PagoService {
 	//SERVICIO DEL CORE FINANCIERO
 	def procesadorFinancieroService
 
-	Boolean guardarPago (PrestamoPago pagoCreditoInstance){
+	Boolean guardarPago (PrestamoPago prestamoPagoInstance){
 		log.info "Servicio Guarda Pago"
 
-        if (!pagoCreditoInstance.save(flush: true)) {
-            throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", pagoCreditoInstance:pagoCreditoInstance )
+		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
+		Integer numeroPreMovimientos = PfinPreMovimiento.countByPrestamoAndSituacionPreMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.NO_PROCESADO)
+		log.info ("Numero de Premovimientos: ${numeroPreMovimientos}")
+		if (numeroPreMovimientos>0){
+			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
+		}
+
+		//ALMACENA EL REGISTRO DE PAGO
+        if (!prestamoPagoInstance.save(flush: true)) {
+            throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", prestamoPagoInstance:prestamoPagoInstance )
         } else {
 
-			//Se obtiene el usuario actual
+			//OBTIENE EL REGISTRO ACTUAL
 			Usuario usuario = springSecurityService.getCurrentUser()
 			log.info ("Usuario Service Pago: ${usuario}")
+			if (!usuario){
+				throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPagoInstance )
+			}
 
 			//SE OBTIENE LA FECHA DEL MEDIO
 			//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
 			PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
 			Date fechaMedio = parametros?.fechaMedio
 			if (!fechaMedio){
-				throw new PagoServiceException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
+				throw new PagoServiceException(mensaje: "No existe la fecha del medio", prestamoPagoInstance:prestamoPagoInstance )
 			}
 
 			//FECHA DE APLICACION
-			Date fechaAplicacion = pagoCreditoInstance.fechaPago
+			Date fechaAplicacion = prestamoPagoInstance.fechaPago
 
 			//OBTIENE LA CUENTA DEL CLIENTE
-			PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",pagoCreditoInstance.prestamo.cliente)
+			PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
 			log.info("Cuenta Cliente: ${cuentaCliente}")
 			//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
 			if (!cuentaCliente){
-				throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
+				throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 			}
 
 			//ASIGNA VALORES AL PREMOVIMIENTO
@@ -55,9 +66,9 @@ class PagoService {
 					divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
 					fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
 					fechaLiquidacion: 			fechaMedio, //FECHA DEL MEDIO
-					importeNeto: 				pagoCreditoInstance.importePago,
+					importeNeto: 				prestamoPagoInstance.importePago,
 					//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
-					prestamo : 					pagoCreditoInstance.prestamo,
+					prestamo : 					prestamoPagoInstance.prestamo,
 					nota : 						"Deposito de efectivo",
 					listaCobro : 				1,
 					//pfinMovimiento()
@@ -67,7 +78,7 @@ class PagoService {
 					logUsuario: 				'127.0.0.1',
 					logHost: 					'127.0.0.1',
 					usuario : 					usuario,
-					fechaAplicacion: 			pagoCreditoInstance.fechaPago,
+					fechaAplicacion: 			prestamoPagoInstance.fechaPago,
 					numeroPagoAmortizacion:  	0,
 					operacion: 					PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
 					//TEDEPEFE: DEPOSITO DE EFECTIVO A LA CUENTA DEL CLIENTE
@@ -85,7 +96,7 @@ class PagoService {
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
-	Boolean aplicaPagoIndividual(PrestamoPago pagoCreditoInstance) {
+	Boolean aplicaPagoIndividual(PrestamoPago prestamoPagoInstance) {
 
 		//String username = springSecurityService.getCurrentUser().username;
 
@@ -98,18 +109,18 @@ class PagoService {
 		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
 		Date fechaMedio = parametros?.fechaMedio
 		if (!fechaMedio){
-			throw new PagoServiceException(mensaje: "No existe la fecha del medio", pagoCreditoInstance:pagoCreditoInstance )
+			throw new PagoServiceException(mensaje: "No existe la fecha del medio", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
 		//FECHA DE APLICACION
-		Date fechaAplicacion = pagoCreditoInstance.fechaPago
+		Date fechaAplicacion = prestamoPagoInstance.fechaPago
 
 		//OBTIENE LA CUENTA DEL CLIENTE
-		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",pagoCreditoInstance.prestamo.cliente)
+		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
 		log.info("Cuenta Cliente: ${cuentaCliente}")
 		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
 		if (!cuentaCliente){
-			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", pagoCreditoInstance:pagoCreditoInstance )
+			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
 		//ASIGNA VALORES AL PREMOVIMIENTO
@@ -117,9 +128,9 @@ class PagoService {
 				divisa: PfinDivisa.findByClaveDivisa('MXP'),
 				fechaOperacion:fechaMedio, //FECHA DEL MEDIO
 				fechaLiquidacion:fechaMedio, //FECHA DEL MEDIO
-				importeNeto: pagoCreditoInstance.importePago,
+				importeNeto: prestamoPagoInstance.importePago,
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
-				prestamo : pagoCreditoInstance.prestamo,
+				prestamo : prestamoPagoInstance.prestamo,
 				nota : "Deposito de efectivo",
 				listaCobro : 1,
 				//pfinMovimiento()
@@ -129,7 +140,7 @@ class PagoService {
 				logUsuario:'xxxxxxxxxx',
 				logHost:'xxxxxxxxxx',
 				usuario : usuario,
-				fechaAplicacion:pagoCreditoInstance.fechaPago,
+				fechaAplicacion:prestamoPagoInstance.fechaPago,
 				numeroPagoAmortizacion: 0,
 				operacion: PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
 		try{
@@ -163,7 +174,7 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}catch(Exception errorGenerarMovimiento){
 			log.error(errorGenerarMovimiento)
-			throw new PagoServiceException(mensaje: "No se genero el movimiento", pagoCreditoInstance:pagoCreditoInstance )
+			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 		}
 		return true
 	}
