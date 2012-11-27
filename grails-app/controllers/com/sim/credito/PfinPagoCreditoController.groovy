@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import com.sim.servicios.credito.PagoServiceException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
-class prestamoPagoController {
+class PrestamoPagoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
