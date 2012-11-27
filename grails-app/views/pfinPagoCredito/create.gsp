@@ -32,6 +32,8 @@
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <g:actionSubmit class="save" action="guardarPago" value="${message(code: 'generaPago.guardaPago', default: 'Guarda Pago')}" />
+                    <g:actionSubmit class="save" action="aplicaPago" value="${message(code: 'generaPago.aplicaPago', default: 'Aplica Pago')}" />
 				</fieldset>
 			</g:form>
 		</div>

@@ -19,6 +19,18 @@ class PagoService {
 	//SERVICIO DEL CORE FINANCIERO
 	def procesadorFinancieroService
 
+	Boolean guardarPago (PfinPagoCredito pagoCreditoInstance){
+		log.info "Servicio Guarda Pago"
+
+        if (!pagoCreditoInstance.save(flush: true)) {
+            throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", pagoCreditoInstance:pagoCreditoInstance )
+        }
+
+
+	}
+
+	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
+	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
 	Boolean aplicaPagoIndividual(PfinPagoCredito pagoCreditoInstance) {
 
 		//String username = springSecurityService.getCurrentUser().username;
@@ -98,8 +110,6 @@ class PagoService {
 			log.error(errorGenerarMovimiento)
 			throw new PagoServiceException(mensaje: "No se genero el movimiento", pagoCreditoInstance:pagoCreditoInstance )
 		}
-
-
 		return true
 	}
 

@@ -30,6 +30,8 @@ class PfinPagoCreditoController {
             return
         }
 		
+        /*
+        //EJEMPLO DE COMO GENERAR EL PREMOVIMIENTO Y EL MOVIMIENTO
 		try{
 			pagoService.aplicaPagoIndividual(pfinPagoCreditoInstance)
 		//VERIFICAR SI SE GENERO ALGUN ERROR
@@ -45,7 +47,7 @@ class PfinPagoCreditoController {
 			log.error "Failed:", errorProcesadorFinanciero
 			render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
 			return
-		}
+		}*/
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'pfinPagoCredito.label', default: 'PfinPagoCredito'), pfinPagoCreditoInstance.id])
         redirect(action: "show", id: pfinPagoCreditoInstance.id)
@@ -120,4 +122,56 @@ class PfinPagoCreditoController {
             redirect(action: "show", id: id)
         }
     }
+
+    def guardarPago(){
+        log.info("Guarda Pago")
+        def pfinPagoCreditoInstance = new PfinPagoCredito(params)
+
+        if (!pfinPagoCreditoInstance.validate()) {
+            render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+            return
+        }
+
+        try{
+            pagoService.guardarPago(pfinPagoCreditoInstance)
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            pfinPagoCreditoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
+            log.error "Failed:", errorPago
+            render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+            return
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            pfinPagoCreditoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
+            log.error "Failed:", errorProcesadorFinanciero
+            render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+            return
+        }catch(Exception errorGuardaPago){
+            pfinPagoCreditoInstance.errors.reject("ErrorGuardaPago","No se guardo el Pago")
+            log.error "Failed:", errorGuardaPago
+            render(view: "create", model: [pfinPagoCreditoInstance: pfinPagoCreditoInstance])
+            return
+        }
+
+        redirect(action: "list")
+
+    }
+
+    def aplicaPago(){
+        log.info("Aplica Pago")
+        redirect(action: "list")
+    }
+
+    def cancelaPagoGuardado(){
+        log.info("Cancela Pago Guardado")
+        redirect(action: "list")
+    }
+    def cancelaPagoAplicado(){
+        log.info("Cancela Pago Aplicado")
+        redirect(action: "list")
+    }
+
+
+
 }
