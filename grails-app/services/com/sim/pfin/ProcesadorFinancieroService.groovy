@@ -1,6 +1,5 @@
 package com.sim.pfin
 
-import com.sim.pfin.pruebas.PfinPagoCredito
 import com.sim.usuario.Usuario
 
 class ProcesadorFinancieroServiceException extends RuntimeException {

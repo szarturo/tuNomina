@@ -234,7 +234,7 @@
 						<li><a href="#" class="parent"><span>Pruebas CR</span></a>
 							<div>
 								<ul>
-									<li><g:link controller="pfinPagoCredito" action="create">
+									<li><g:link controller="prestamoPago" action="create">
 											<span>Pago Credito</span>
 										</g:link></li>
 								</ul>

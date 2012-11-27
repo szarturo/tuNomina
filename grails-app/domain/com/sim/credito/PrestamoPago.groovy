@@ -1,8 +1,8 @@
-package com.sim.pfin.pruebas
+package com.sim.credito
 
 import com.sim.credito.Prestamo
 
-class PfinPagoCredito {
+class PrestamoPago {
 
 	BigDecimal importePago
 	Prestamo   prestamo

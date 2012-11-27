@@ -1,13 +1,13 @@
 package com.sim.servicios.credito
 
-import com.sim.credito.Prestamo;
 import com.sim.usuario.Usuario
-import com.sim.pfin.pruebas.PfinPagoCredito
+
 import com.sim.pfin.*
+import com.sim.credito.PrestamoPago
 
 class PagoServiceException extends RuntimeException {
 	String mensaje
-	PfinPagoCredito pagoCreditoInstance
+	PrestamoPago pagoCreditoInstance
 }
 
 class PagoService {
@@ -19,7 +19,7 @@ class PagoService {
 	//SERVICIO DEL CORE FINANCIERO
 	def procesadorFinancieroService
 
-	Boolean guardarPago (PfinPagoCredito pagoCreditoInstance){
+	Boolean guardarPago (PrestamoPago pagoCreditoInstance){
 		log.info "Servicio Guarda Pago"
 
         if (!pagoCreditoInstance.save(flush: true)) {
@@ -85,7 +85,7 @@ class PagoService {
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
-	Boolean aplicaPagoIndividual(PfinPagoCredito pagoCreditoInstance) {
+	Boolean aplicaPagoIndividual(PrestamoPago pagoCreditoInstance) {
 
 		//String username = springSecurityService.getCurrentUser().username;
 
