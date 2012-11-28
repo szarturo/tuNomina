@@ -159,8 +159,10 @@ class ProcesadorFinancieroService {
 				afectaSaldo = comoAfectaSaldo == 'INCREMENTA' ? -1 : 1
 			}
 			
-			PfinSaldo saldoCliente = PfinSaldo.findWhere(fechaFoto: fechaAplicacion, cuenta: pfinPreMovimiento.cuenta,
-															   divisa: pfinPreMovimiento.divisa)
+			PfinSaldo saldoCliente = PfinSaldo.findWhere(
+				fechaFoto: obtenerFechaMedio(), 
+				cuenta: pfinPreMovimiento.cuenta,
+				divisa: pfinPreMovimiento.divisa)
 			log.info("Saldo Cliente: ${saldoCliente}")
 			
 			if (saldoCliente){
@@ -180,7 +182,7 @@ class ProcesadorFinancieroService {
 				log.info("Inserta el saldo de la cuenta")
 				try{
 					new PfinSaldo(
-						fechaFoto: fechaAplicacion,
+						fechaFoto: obtenerFechaMedio(),
 						   divisa: pfinPreMovimiento.divisa,
 						    saldo: pfinPreMovimiento.importeNeto * afectaSaldo,  
 						   cuenta: pfinPreMovimiento.cuenta,
