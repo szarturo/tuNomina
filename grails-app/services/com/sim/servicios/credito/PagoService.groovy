@@ -132,11 +132,13 @@ class PagoService {
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
 		log.info "Aplicar Pago Service"
 
+		//Valida que la fecha valor no sea menor a un pago previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
 		ArrayList listaMovimientos = criteriaPfinMovimiento.list(){
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
+		        eq("cancelaTransaccion",0)
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
