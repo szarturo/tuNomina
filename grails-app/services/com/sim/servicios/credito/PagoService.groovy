@@ -132,6 +132,20 @@ class PagoService {
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
 		log.info "Aplicar Pago Service"
 
+		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
+		ArrayList listaMovimientos = criteriaPfinMovimiento.list(){
+			and {
+				prestamo{
+					eq("clavePrestamo", "${prestamoPagoInstance.prestamo.clavePrestamo}")
+				}				
+		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
+		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
+		    }
+			
+		}		
+		log.info "Resultado: ${listaMovimientos}"
+		
+
 	}
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
