@@ -101,7 +101,6 @@ class PagoService {
 			log.error(errorGenerarMovimiento)
 			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 		}
-
 	}
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
@@ -129,6 +128,11 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}		
 	}	
+
+	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
+		log.info "Aplicar Pago Service"
+
+	}
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO

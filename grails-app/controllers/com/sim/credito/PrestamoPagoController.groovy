@@ -158,6 +158,34 @@ class PrestamoPagoController {
 
     def aplicaPago(){
         log.info("Aplica Pago")
+        def prestamoPagoInstance = new PrestamoPago(params)
+
+        if (!prestamoPagoInstance.validate()) {
+            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }
+
+        try{
+            pagoService.aplicarPago(prestamoPagoInstance)
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
+            log.error "Failed:", errorPago
+            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
+            log.error "Failed:", errorProcesadorFinanciero
+            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }catch(Exception errorAplicaPago){
+            prestamoPagoInstance.errors.reject("errorAplicaPago","No se aplico el Pago. Contacte al Administrador")
+            log.error "Failed:", errorAplicaPago
+            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }
         redirect(action: "list")
     }
 
