@@ -148,14 +148,12 @@ class PrestamoPagoController {
             render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
             return
         }catch(Exception errorGuardaPago){
-            prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se guardo el Pago")
+            prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se guardo el Pago. Contacte al Administrador")
             log.error "Failed:", errorGuardaPago
             render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
             return
         }
-
         redirect(action: "list")
-
     }
 
     def aplicaPago(){
@@ -163,10 +161,52 @@ class PrestamoPagoController {
         redirect(action: "list")
     }
 
-    def cancelaPagoGuardado(){
+    def cancelaPagoGuardado(Long id, Long version) {
         log.info("Cancela Pago Guardado")
+        
+        def prestamoPagoInstance = PrestamoPago.get(id)
+        if (!prestamoPagoInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), id])
+            redirect(action: "list")
+            return
+        }
+
+        if (version != null) {
+            if (prestamoPagoInstance.version > version) {
+                prestamoPagoInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'prestamoPago.label', default: 'PrestamoPago')] as Object[],
+                          "Another user has updated this PrestamoPago while you were editing")
+                render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
+                return
+            }
+        }
+
+        prestamoPagoInstance.properties = params
+
+        try{
+            pagoService.cancelaPagoGuardado(prestamoPagoInstance)
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
+            log.error "Failed:", errorPago
+            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
+            log.error "Failed:", errorProcesadorFinanciero
+            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }catch(Exception errorGuardaPago){
+            prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se cancelo el Pago Guardado. Contacte al Administrador")
+            log.error "Failed:", errorGuardaPago
+            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
+            return
+        }
         redirect(action: "list")
     }
+
     def cancelaPagoAplicado(){
         log.info("Cancela Pago Aplicado")
         redirect(action: "list")
