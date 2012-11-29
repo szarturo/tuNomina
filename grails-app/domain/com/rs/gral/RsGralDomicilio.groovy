@@ -35,7 +35,7 @@ class RsGralDomicilio {
 		//regional(nullable: true)
 		//sucursal(nullable: true)
 		persona(nullable: true)
-		aniosResidencia blank: true, nullable: true
+		aniosResidencia nullable: true
 		//negocio(nullable: true)
     }
 	
