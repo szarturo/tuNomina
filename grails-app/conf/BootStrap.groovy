@@ -280,19 +280,19 @@ class BootStrap {
 				aliasEstado : 'AGS',
 				region: EntRegion.findByClaveRegion('CENTRO'),
 				).save(flush: true,failOnError: true)
-				sucursal: EntSucursal.findByClaveSucursal('AGUASCALIENTES')
+
 		new RsGralEstado(cveEstado: 'DF',
 				nombreEstado: 'DISTRITO FEDERAL',
 				aliasEstado : 'DF',
 				region: EntRegion.findByClaveRegion('CENTRO'),
 				).save(flush: true,failOnError: true)
-				sucursal: EntSucursal.findByClaveSucursal('D.F.')
+
 		new RsGralEstado(cveEstado: 'EDOMEX',
 				nombreEstado: 'ESTADO DE MEXICO',
 				aliasEstado : 'EDOMEX',
 				region: EntRegion.findByClaveRegion('CENTRO'),
 				).save(flush: true,failOnError: true)
-				sucursal: EntSucursal.findByClaveSucursal('EDOMEX')
+
 		new RsGralCiudad(nombreCiudad: 'EL COLORADO',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(flush: true,failOnError: true)
 
@@ -780,25 +780,25 @@ class BootStrap {
 
         new EntSucursal(claveSucursal: 'EDOMEX',
                 nombreSucursal: 'ESTADO DE MEXICO',
-                tipoSucursal: "Sucursal Fisica",
+                tipoSucursal: "SUCURSAL FISICA",
                 estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
         new EntSucursal(claveSucursal: 'ZACATECAS',
                 nombreSucursal: 'ZACATECAS',
-         		tipoSucursal: "Sucursal Fisica",
+         		tipoSucursal: "SUCURSAL FISICA",
          		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
         new EntSucursal(claveSucursal: 'AGUASCALIENTES',
                 nombreSucursal: 'AGUASCALIENTES',
-         		tipoSucursal: "Sucursal Fisica",
+         		tipoSucursal: "SUCURSAL FISICA",
          		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
         new EntSucursal(claveSucursal: 'D.F.',
                 nombreSucursal: 'DISTRITO FEDERAL',
-         		tipoSucursal: "Sucursal Fisica",
+         		tipoSucursal: "SUCURSAL FISICA",
          		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
