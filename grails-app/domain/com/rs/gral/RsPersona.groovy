@@ -23,6 +23,8 @@ class RsPersona {
 	String numeroIdentificacionOficial
 	String rfc
 	String curp
+	String numeroImss
+	RsGralEstado entidadNacimiento
 
 	SimCatDocumento   identificacionOficial
 	SimCatEscolaridad escolaridad
@@ -58,6 +60,8 @@ class RsPersona {
 		rfc nullable: true
 		curp nullable: true
 		escolaridad  nullable: true
+		numeroImss nullable:true, size:3..50
+		entidadNacimiento nullable: true
 		//AL MODIFICAR UNA PERSONA SE VALIDA QUE SI TIENE ASIGNADO UN USUARIO LA PERSONA DEBE TENER TIPO DE USUARIO IGUAL A USUARIO
 		//EN LA ALTA DE USUARIO SE ASIGNA EN LA CLASE CONTROLADORA UserController
 		tiposPersona nullable: true, validator: { tipoPersona, rsPersona ->
