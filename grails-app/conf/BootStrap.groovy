@@ -267,18 +267,32 @@ class BootStrap {
 				nombreDescripcionTelefono: 'FAX',
 				).save(flush: true,failOnError: true)
 
+        new EntRegion(claveRegion: 'CENTRO',
+                nombreRegion: 'CENTRO MEXICO',
+        ).save(flush: true,failOnError: true)
+
+        new EntRegion(claveRegion: 'NORTE',
+                nombreRegion: 'NORTE MEXICO',
+        ).save(flush: true,failOnError: true)
+
 		new RsGralEstado(cveEstado: 'AGS',
 				nombreEstado: 'AGUASCALIENTES',
-				aliasEstado : 'AGS').save(flush: true,failOnError: true)
-
+				aliasEstado : 'AGS',
+				region: EntRegion.findByClaveRegion('CENTRO'),
+				).save(flush: true,failOnError: true)
+				sucursal: EntSucursal.findByClaveSucursal('AGUASCALIENTES')
 		new RsGralEstado(cveEstado: 'DF',
 				nombreEstado: 'DISTRITO FEDERAL',
-				aliasEstado : 'DF').save(flush: true,failOnError: true)
-
+				aliasEstado : 'DF',
+				region: EntRegion.findByClaveRegion('CENTRO'),
+				).save(flush: true,failOnError: true)
+				sucursal: EntSucursal.findByClaveSucursal('D.F.')
 		new RsGralEstado(cveEstado: 'EDOMEX',
 				nombreEstado: 'ESTADO DE MEXICO',
-				aliasEstado : 'EDOMEX').save(flush: true,failOnError: true)
-
+				aliasEstado : 'EDOMEX',
+				region: EntRegion.findByClaveRegion('CENTRO'),
+				).save(flush: true,failOnError: true)
+				sucursal: EntSucursal.findByClaveSucursal('EDOMEX')
 		new RsGralCiudad(nombreCiudad: 'EL COLORADO',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(flush: true,failOnError: true)
 
@@ -763,32 +777,29 @@ class BootStrap {
 		]
 		personaAdmin.save(flush: true,failOnError: true)
 
-        new EntRegion(claveRegion: 'CENTRO',
-                nombreRegion: 'CENTRO MEXICO',
-        ).save(flush: true,failOnError: true)
-
-        new EntRegion(claveRegion: 'NORTE',
-                nombreRegion: 'NORTE MEXICO',
-        ).save(flush: true,failOnError: true)
 
         new EntSucursal(claveSucursal: 'EDOMEX',
                 nombreSucursal: 'ESTADO DE MEXICO',
-                regional: EntRegion.findByClaveRegion('CENTRO'),
+                tipoSucursal: "Sucursal Fisica",
+                estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
         new EntSucursal(claveSucursal: 'ZACATECAS',
                 nombreSucursal: 'ZACATECAS',
-                regional: EntRegion.findByClaveRegion('CENTRO'),
+         		tipoSucursal: "Sucursal Fisica",
+         		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
-        new EntOficina(claveOficina: 'IXT',
-                nombreOficina: 'IXTAPALUCA',
-                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
+        new EntSucursal(claveSucursal: 'AGUASCALIENTES',
+                nombreSucursal: 'AGUASCALIENTES',
+         		tipoSucursal: "Sucursal Fisica",
+         		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
-        new EntOficina(claveOficina: 'TOL',
-                nombreOficina: 'TOLUCA',
-                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
+        new EntSucursal(claveSucursal: 'D.F.',
+                nombreSucursal: 'DISTRITO FEDERAL',
+         		tipoSucursal: "Sucursal Fisica",
+         		estado : RsGralEstado.findByCveEstado('AGS'),
         ).save(flush: true,failOnError: true)
 
         new EntDelegacion(claveDelegacion: 'EDOMEX',
@@ -936,7 +947,7 @@ class BootStrap {
                 fechaIngreso  : new Date('08/20/1999'),
                 numeroNomina : "001",
                 esVigente: 'true',
-                oficina: EntOficina.findByClaveOficina('TOL'),
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(flush: true,failOnError: true)
 
         //DA DE ALTA UNA PROMOCION

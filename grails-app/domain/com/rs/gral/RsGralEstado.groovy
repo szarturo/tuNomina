@@ -1,5 +1,8 @@
 package com.rs.gral
 
+import com.sim.entidad.EntSucursal
+import com.sim.entidad.EntRegion
+
 class RsGralEstado {
 
 	String  cveEstado
@@ -7,8 +10,9 @@ class RsGralEstado {
 	String  aliasEstado
 	
 	SortedSet ciudad
-	static hasMany = [ ciudad : RsGralCiudad ]
-	
+	static hasMany = [ ciudad : RsGralCiudad, sucursal: EntSucursal ]
+	static belongsTo = [region: EntRegion]
+
 	static constraints = {
 		cveEstado(size:2..8, unique: true,nullable: false, blank: false)
 		nombreEstado(size:3..50, unique: true,nullable: false, blank: false)
