@@ -16,7 +16,7 @@ class EntSucursal {
         nombreSucursal(size:3..50, unique: true, nullable: false, blank: false)
         descripcionSucursal(size:5..150, nullable: true)
         delegaciones nullable : true
-        tipoSucursal inList:["Corporativa","Sucursal Fisica","Home Office"]
+        tipoSucursal inList:["CORPORATIVA","SUCURSAL FISICA","HOME OFFICE"], nullable :false, blank :false
     }
 
     String toString() {
