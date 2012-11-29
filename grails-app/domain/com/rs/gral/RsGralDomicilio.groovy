@@ -10,6 +10,8 @@ class RsGralDomicilio {
 	String  numeroInterior
 	String  numeroExterior
 	Boolean esFiscal = false
+	String  entreCalles
+	Integer aniosResidencia
 	String  comentarios
 	
 	//RsGralAsentamiento rsGralAsentamiento
@@ -29,9 +31,11 @@ class RsGralDomicilio {
 		//rsGralAsentamiento(nullable: false)
 		esFiscal()
 		comentarios(size:0..300)
+		entreCalles size:0..300, nullable:true
 		//regional(nullable: true)
 		//sucursal(nullable: true)
 		persona(nullable: true)
+		aniosResidencia blank: true, nullable: true
 		//negocio(nullable: true)
     }
 	

@@ -263,8 +263,8 @@ class BootStrap {
 				nombreDescripcionTelefono: 'OFICINA',
 				).save(flush: true,failOnError: true)
 
-		new SimCatDescTelefono(claveDescripcionTelefono: 'FAX',
-				nombreDescripcionTelefono: 'FAX',
+		new SimCatDescTelefono(claveDescripcionTelefono: 'MOVIL',
+				nombreDescripcionTelefono: 'MOVIL',
 				).save(flush: true,failOnError: true)
 
         new EntRegion(claveRegion: 'CENTRO',
@@ -740,7 +740,7 @@ class BootStrap {
 				).save(flush: true,failOnError: true)
 
 		new RsGralTelefono(telefono:  '55997876',
-				descripcionTelefono : SimCatDescTelefono.findByClaveDescripcionTelefono('FAX'),
+				descripcionTelefono : SimCatDescTelefono.findByClaveDescripcionTelefono('MOVIL'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(flush: true,failOnError: true)
 

@@ -55,6 +55,27 @@
 </div>
 
 <div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'entreCalles', 'error')} ">
+	<label for="entreCalles"> <g:message
+			code="rsGralDomicilio.entreCalles.label" default="Entre que calles" />
+
+	</label>
+	<g:textArea name="entreCalles" cols="40" rows="5" maxlength="300"
+		value="${rsGralDomicilioInstance?.entreCalles}" />
+</div>
+
+<div
+	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'aniosResidencia', 'error')} ">
+	<label for="aniosResidencia"> <g:message
+			code="rsGralDomicilio.aniosResidencia.label" default="A&ntilde;os de Residencia" />
+
+	</label>
+	<g:textField name="aniosResidencia"
+		value="${rsGralDomicilioInstance?.aniosResidencia}" />
+</div>
+
+
+<div
 	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'esFiscal', 'error')} ">
 	<label for="esFiscal"> <g:message
 			code="rsGralDomicilio.esFiscal.label" default="Es Fiscal" />

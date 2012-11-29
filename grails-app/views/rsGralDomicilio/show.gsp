@@ -58,6 +58,16 @@
 					
 				</li>
 				</g:if>
+
+				<g:if test="${rsGralDomicilioInstance?.entreCalles}">
+				<li class="fieldcontain">
+					<span id="entreCalles-label" class="property-label"><g:message code="rsGralDomicilio.entreCalles.label" default="Entre las calles" /></span>
+					
+						<span class="property-value" aria-labelledby="entreCalles-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="entreCalles"/></span>
+					
+				</li>
+				</g:if>
+
 			
 				<g:if test="${rsGralDomicilioInstance?.comentarios}">
 				<li class="fieldcontain">
@@ -65,6 +75,14 @@
 					
 						<span class="property-value" aria-labelledby="comentarios-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="comentarios"/></span>
 					
+				</li>
+				</g:if>
+
+				<g:if test="${rsGralDomicilioInstance?.aniosResidencia}">
+				<li class="fieldcontain">
+					<span id="aniosResidencia-label" class="property-label"><g:message code="rsGralDomicilio.aniosResidencia.label" default="A&ntilde;os de Residencia" /></span>
+					
+						<span class="property-value" aria-labelledby="aniosResidencia-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="aniosResidencia"/></span>
 				</li>
 				</g:if>
 			
