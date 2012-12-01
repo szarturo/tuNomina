@@ -4,7 +4,11 @@ import com.sim.usuario.Usuario
 
 import com.sim.pfin.*
 import com.sim.credito.*
-import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
+import com.sim.tablaAmortizacion.*
+import com.sim.catalogo.SimCatTipoAccesorio
+import com.sim.catalogo.SimCatAccesorio
+import com.sim.producto.ProPromocionAccesorio
+
 
 class PagoServiceException extends RuntimeException {
 	String mensaje
@@ -204,35 +208,153 @@ class PagoService {
 			log.info "El saldo del cliente es: ${importeSaldo}."
 			if (importeSaldo > 0){
 				log.info "Empieza la funcion: AplicaPagoCreditoPorAmort"
-				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje)
-
-			}else{
-
+				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje,fechaSistema)
 			}
+
 		}
-
-
-
-
-
 
 	}
 
 	Boolean AplicaPagoCreditoPorAmort (PrestamoPago prestamoPago,
 		TablaAmortizacionRegistro tablaAmortizacionRegistro,
 		BigDecimal importeSaldo,
-		PfinCuenta) {
-
-		//Se inician las variables de los importes
-		//BigDecimal importePago = prestamo.importePago
-		//BigDecimal importeNeto = 0
-
+		PfinCuenta cuentaCliente,
+		Date fechaMedio) {
 
 		log.info ("Inicio AplicaPagoCreditoPorAmort")
 
+		Prestamo prestamoInstance = prestamoPago.prestamo
+		Integer amortizacionPago = tablaAmortizacionRegistro.numeroPago
+		
+		//IMPLEMENTACION VISTA DE PRELACION DE PAGOS
+
+		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocion(prestamoInstance.promocion)
+
+		//INICIO EACH NUMERO DE PAGOS
+		TablaAmortizacionRegistro amortizacionNumero = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(prestamoInstance,amortizacionPago)
+		ArrayList listaPrelacionPagoConcepto = []
+
+		//SE OBTIENEN LOS ACCESORIOS DE LA AMORTIZACION CORRESPONDIENTE
+
+		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(amortizacionNumero)
+
+		listaAccesoriosPromocion.each(){ 
+
+			PrelacionPagoConcepto prelacionPago = new PrelacionPagoConcepto()
+			prelacionPago.numeroAmortizacion = amortizacionNumero.numeroPago
+			prelacionPago.ordenPago = it.orden
+			prelacionPago.concepto = it.accesorio.concepto
+
+			SimCatTipoAccesorio tipoAccesorio = it.accesorio.tipoAccesorio
+			PfinCatConcepto     conceptoPrestamo = it.accesorio.concepto
+			SimCatAccesorio     accesorio = it.accesorio
+
+			if (tipoAccesorio.equals(SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'))){
+				switch ( conceptoPrestamo ) {
+				    case PfinCatConcepto.findByClaveConcepto('INTERES'):
+				        BigDecimal importeInteres = amortizacionNumero.impInteres - amortizacionNumero.impInteresPagado
+				        prelacionPago.cantidadPagar = importeInteres
+				        break
+				    default:
+				        BigDecimal importeIvaInteres = amortizacionNumero.impIvaInteres - amortizacionNumero.impIvaInteresPagado
+				        prelacionPago.cantidadPagar = importeIvaInteres
+				}
+			}else{
+				listaAccesoriosAmortizacion.each(){ tablaAmortizacionAccesorio ->
+					if (tablaAmortizacionAccesorio.accesorio.equals(accesorio)){
+						BigDecimal importeAccesorio = tablaAmortizacionAccesorio.importeAccesorio - tablaAmortizacionAccesorio.importeAccesorioPagado
+						prelacionPago.cantidadPagar = importeAccesorio
+						log.info "Importe del accesorio ${conceptoPrestamo} : ${importeAccesorio}"
+					}
+				}
+			}
+			listaPrelacionPagoConcepto.add(prelacionPago)
+		}
+
+		//SE INSERTA EL CAPITAL
+		PrelacionPagoConcepto prelacionPagoCapital = new PrelacionPagoConcepto(
+			amortizacionNumero.numeroPago,
+			99,
+			amortizacionNumero.impCapital - amortizacionNumero.impCapitalPagado,
+			PfinCatConcepto.findByClaveConcepto('CAPITAL'))
+
+		listaPrelacionPagoConcepto.add(prelacionPagoCapital)
+		//END EACH NUMERO DE PAGOS
+
+		//OBTIENE EL REGISTRO ACTUAL
+		Usuario usuario = springSecurityService.getCurrentUser()
+		log.info ("Usuario Service Pago: ${usuario}")
+		if (!usuario){
+			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPago)
+		}
+
+		//SE GENERAL EL PREMOVIMIENTO
+		PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(
+				cuenta:  					cuentaCliente,
+				divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
+				fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
+				fechaLiquidacion: 			fechaMedio, //FECHA DEL MEDIO
+				importeNeto: 				0,
+				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
+				prestamo : 					prestamoInstance,
+				nota : 						"PagoDePrestamo",
+				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
+				fechaRegistro: 				new Date(),
+				logIpDireccion: 			'127.0.0.1',
+				logUsuario: 				'127.0.0.1',
+				logHost: 					'127.0.0.1',
+				usuario : 					usuario,
+				fechaAplicacion: 			prestamoPago.fechaPago,
+				numeroPagoAmortizacion:  	amortizacionPago,
+				operacion: 					PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'))
+				//CRPAGOPRES: PAGO DE PRESTAMO
+		try{
+			// GENERA EL PREMOVIMIENTO
+			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
+
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			throw errorProcesadorFinanciero
+		}
+
+		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
+		listaPrelacionPagoConcepto.each(){
+			log.info "Numero Amortizacion: "+it.numeroAmortizacion
+			log.info "Orden Pago: "+it.ordenPago
+			log.info "Concepto: " +it.concepto
+			log.info "Cantidad:"+it.cantidadPagar
+
+			BigDecimal importeConcepto
+
+			//VERIFICA SI EXISTE SALDO PARA PAGAR EL CONCEPTO CORRESPONDIENTE
+			if (importeSaldo>0){
+				//Si el saldo es mayor al importe del concepto, cubre todo el concepto, de lo contrario solo lo que le alcanza
+				if (it.cantidadPagar > importeSaldo){
+					//Si ya no tiene saldo para el pago del concepto no paga completo
+					importeConcepto = importeSaldo
+				}else{
+					importeConcepto = it.cantidadPagar
+				}
+
+				//SE DEFINE EL PREMOVIMIENTO
+				PfinPreMovimientoDet preMovimientoDetInsertado
+				try{
+					// GENERA EL PREMOVIMIENTO DETALLE
+					preMovimientoDetInsertado = procesadorFinancieroService.generaPreMovimientoDet(
+						preMovimientoInsertado,
+						it.concepto,
+						importeConcepto,
+						it.concepto.descripcionCorta)
+				}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+					throw errorProcesadorFinanciero
+				}
+
+
+			}
+
+
+
+		}
 	}
-
-
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
