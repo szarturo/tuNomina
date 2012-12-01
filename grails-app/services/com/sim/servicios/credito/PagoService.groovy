@@ -7,6 +7,7 @@ import com.sim.credito.*
 import com.sim.tablaAmortizacion.*
 import com.sim.catalogo.SimCatTipoAccesorio
 import com.sim.catalogo.SimCatAccesorio
+import com.sim.catalogo.SimCatFormaAplicacion
 import com.sim.producto.ProPromocionAccesorio
 
 
@@ -186,7 +187,6 @@ class PagoService {
 			movimientoGuardado = guardarPago(prestamoPagoInstance)
 		}		
 
-
 		//Se obtienen las amortizaciones pendientes de pago
 		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
 		ArrayList listaAmortizacionPendiente  = criteriaTablaAmortizacionRegistro.list() {
@@ -225,17 +225,18 @@ class PagoService {
 
 		Prestamo prestamoInstance = prestamoPago.prestamo
 		Integer amortizacionPago = tablaAmortizacionRegistro.numeroPago
+		BigDecimal importeNeto = 0
 		
 		//IMPLEMENTACION VISTA DE PRELACION DE PAGOS
 
-		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocion(prestamoInstance.promocion)
+		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocionAndFormaAplicacionNotEqual(prestamoInstance.promocion,
+		 SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))
 
 		//INICIO EACH NUMERO DE PAGOS
 		TablaAmortizacionRegistro amortizacionNumero = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(prestamoInstance,amortizacionPago)
 		ArrayList listaPrelacionPagoConcepto = []
 
 		//SE OBTIENEN LOS ACCESORIOS DE LA AMORTIZACION CORRESPONDIENTE
-
 		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(amortizacionNumero)
 
 		listaAccesoriosPromocion.each(){ 
@@ -348,12 +349,34 @@ class PagoService {
 					throw errorProcesadorFinanciero
 				}
 
-
+              	//Se actualiza el importe neto y el saldo del cliente
+               importeNeto = importeNeto  + importeConcepto
+               importeSaldo = importeSaldo - importeConcepto
 			}
-
-
-
 		}
+
+		preMovimientoInsertado.importeNeto = importeNeto
+		preMovimientoInsertado.save(flush:true)	
+
+		PfinMovimiento movimiento
+		try{
+			// GENERA EL MOVIMIENTO
+			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
+					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, prestamoPago.fechaPago)
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			throw errorProcesadorFinanciero
+		}catch(Exception errorGenerarMovimiento){
+			log.error(errorGenerarMovimiento)
+			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
+		}
+
+		//Se actualiza el identificador del movimiento en el dominio preMovimiento
+		preMovimientoInsertado.pfinMovimiento = movimiento
+		preMovimientoInsertado.save(flush:true)	
+
+
+
+
 	}
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
