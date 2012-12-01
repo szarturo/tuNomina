@@ -4,6 +4,7 @@ import com.sim.usuario.Usuario
 
 import com.sim.pfin.*
 import com.sim.credito.*
+import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 
 class PagoServiceException extends RuntimeException {
 	String mensaje
@@ -134,7 +135,7 @@ class PagoService {
 
 		//Valida que la fecha valor no sea menor a un pago previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
-		ArrayList listaMovimientos = criteriaPfinMovimiento.list(){
+		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
@@ -142,10 +143,80 @@ class PagoService {
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
-		log.info "Resultado: ${listaMovimientos}"
+		log.info "Resultado: ${cuentaMovimientos}"
+
+		if (cuentaMovimientos > 0){
+			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento", prestamoPagoInstance:prestamoPagoInstance )		
+		}
+
+		//Se obtiene la Fecha Valor
+		Date fechaValor = prestamoPagoInstance.fechaPago
+		log.info ("Fecha Valor: ${fechaValor}")
+
+		//Se obtiene la Fecha del Medio
+		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+		Date fechaSistema = parametros?.fechaMedio
+		if (!fechaSistema){
+			throw new PagoServiceException(mensaje: "No se encuentra la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
+		}
+		log.info "Fecha Medio: ${fechaSistema}"
+
+		//Valida que la fecha valor no sea mayor a la fecha del Medio
+		if (fechaValor > fechaSistema) {
+			throw new PagoServiceException(mensaje: "Operación no realizada, la fecha de Aplicación es mayor a la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
+		}
+
+		//Se obtiene la cuenta Eje del Cliente
+		PfinCuenta cuentaEje = PfinCuenta.findWhere(tipoCuenta: "EJE", cliente: prestamoPagoInstance.prestamo.cliente)
+		log.info("La cuenta es: ${cuentaEje}.")
+		if (!cuentaEje){
+			throw new PagoServiceException(mensaje: "No se encontro la cuenta eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
+		}
+
+		//Se obtienen las amortizaciones pendientes de pago
+		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
+		ArrayList listaAmortizacionPendiente  = criteriaTablaAmortizacionRegistro.list() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("pagado", false)
+				order("numeroPago")
+			}
+		}
+		log.info("Las amortizaciones pendientes son: ${listaAmortizacionPendiente}")
+
+		//Ejecuta el pago de cada amortizacion pendiente siempre y cuando el cliente tenga saldo en su cuenta
+		listaAmortizacionPendiente.each(){
+			log.info "Existen amortizacion pendiente"
+
+			//Obtiene el importe de la cuenta eje del cliente
+			PfinSaldo obtieneSaldo = PfinSaldo.findWhere(fechaFoto: fechaSistema, cuenta: cuentaEje)
+			BigDecimal importeSaldo  = obtieneSaldo.saldo
+			log.info "El saldo del cliente es: ${importeSaldo}."
+			if (importeSaldo > 0){
+				log.info "Empieza la funcion: AplicaPagoCreditoPorAmort"
+
+			}
+		}
+
+
+
+
+		PfinPreMovimiento preMovimientoGuardado = PfinPreMovimiento.findByPrestamoAndSituacionPreMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
+		Boolean existePreMovimiento = false
+
+		if(preMovimientoGuardado){
+			existePreMovimiento = true
+			log.info ("Existe el premoviento")
+		}
+
+
+
+
 		
 
 	}
+
+	
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
