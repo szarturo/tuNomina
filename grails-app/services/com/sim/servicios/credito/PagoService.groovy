@@ -317,6 +317,7 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}
 
+		ArrayList listaMovimientoDet
 		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
 		listaPrelacionPagoConcepto.each(){
 			log.info "Numero Amortizacion: "+it.numeroAmortizacion
@@ -349,9 +350,10 @@ class PagoService {
 					throw errorProcesadorFinanciero
 				}
 
+				listaMovimientoDet.add(preMovimientoDetInsertado)
               	//Se actualiza el importe neto y el saldo del cliente
-               importeNeto = importeNeto  + importeConcepto
-               importeSaldo = importeSaldo - importeConcepto
+               	importeNeto = importeNeto  + importeConcepto
+               	importeSaldo = importeSaldo - importeConcepto
 			}
 		}
 
@@ -374,7 +376,38 @@ class PagoService {
 		preMovimientoInsertado.pfinMovimiento = movimiento
 		preMovimientoInsertado.save(flush:true)	
 
+		actualizaTablaAmortizacion(movimiento)
 
+	}
+
+	Boolean actualizaTablaAmortizacion (PfinMovimiento movimiento, ArrayList listaMovimientoDet ){
+
+		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findAllByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
+
+		listaMovimientoDet.each(){
+
+			switch ( it.concepto ) {
+			    case PfinCatConcepto.findByClaveConcepto('CAPITAL'):
+			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado
+			        							 + it.importeConcepto
+			        break
+			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
+			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado
+			        							 + it.importeConcepto
+			        break
+			    case PfinCatConcepto.findByClaveConcepto('IVAINT'):
+			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado
+			        							 + it.importeConcepto
+			        break
+			    default:
+			    	log.info ("No hace nada")
+			}
+
+
+
+		}
+
+		tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado + listaMovimientoDet.importeConcepto
 
 
 	}
@@ -463,5 +496,4 @@ class PagoService {
 		}
 		return true
 	}
-
 }

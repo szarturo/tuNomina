@@ -1241,7 +1241,7 @@ class BootStrap {
 			descripcionDivisa:'Peso Mexicano'
 		).save(flush: true,failOnError: true)
 	
-		new PfinSaldo(fechaFoto:  new Date('09/30/2012'),
+		/*new PfinSaldo(fechaFoto:  new Date('09/30/2012'),
 			divisa:  PfinDivisa.findByClaveDivisa('MXP'),
 			saldo: 100, 
 			cuenta: cuenta1,
@@ -1284,7 +1284,7 @@ class BootStrap {
 			importeConcepto: 88888.88,
 			nota : 'Capital',
 			preMovimiento : preMovimientoUno,
-		).save(flush: true,failOnError: true)
+		).save(flush: true,failOnError: true)*/
 		
 		new PfinCatParametro(
 			claveMedio : 'SistemaMtn',
@@ -1380,7 +1380,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
-				valor			:	'100',
+				valor			:	'1',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
@@ -1388,7 +1388,7 @@ class BootStrap {
         
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
-				valor			:	'100',
+				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
@@ -1396,7 +1396,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
-				valor			:	'100',
+				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
@@ -1404,7 +1404,7 @@ class BootStrap {
 
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
-				valor			:	'100',
+				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
 				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
