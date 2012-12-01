@@ -163,7 +163,7 @@
 									Organizacional</span></a>
 							<div>
 								<ul>
-									<li><g:link controller="simCatPuesto">
+									<li><g:link controller="empPuesto">
 											<span>Puesto</span>
 										</g:link></li>
 									<li><g:link controller="entRegion">

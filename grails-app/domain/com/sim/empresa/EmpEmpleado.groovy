@@ -1,5 +1,5 @@
 package com.sim.empresa
-import com.sim.catalogo.SimCatPuesto
+
 import com.rs.gral.RsPersona
 import com.sim.entidad.EntSucursal
 
@@ -10,7 +10,7 @@ class EmpEmpleado {
     String  numeroNomina
     Boolean esVigente = false
     String  tipoEmpleado
-    SimCatPuesto puesto
+    EmpPuesto puesto
     RsPersona    persona
     EntSucursal  sucursal
 

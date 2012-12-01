@@ -1,6 +1,6 @@
-package com.sim.catalogo
+package com.sim.empresa
 
-class SimCatPuesto {
+class EmpPuesto {
 
     String  clavePuesto
     String  nombrePuesto
@@ -13,8 +13,8 @@ class SimCatPuesto {
         dependeDe(nullable: true)
     }
 
-    static belongsTo = [dependeDe: SimCatPuesto]
-    static hasMany   = [puestosDependientes: SimCatPuesto ]
+    static belongsTo = [dependeDe: EmpPuesto]
+    static hasMany   = [puestosDependientes: EmpPuesto ]
 
     String toString() {
         "${nombrePuesto}"
