@@ -20,7 +20,7 @@ class PagoService {
 	//SERVICIO DEL CORE FINANCIERO
 	def procesadorFinancieroService
 
-	Boolean guardarPago (PrestamoPago prestamoPagoInstance){
+	PfinMovimiento guardarPago (PrestamoPago prestamoPagoInstance){
 		log.info "Servicio Guarda Pago"
 
 		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
@@ -102,6 +102,7 @@ class PagoService {
 			log.error(errorGenerarMovimiento)
 			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 		}
+
 	}
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
@@ -173,6 +174,15 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "No se encontro la cuenta eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
+		//Guardar o recuperar el pago Guardado
+		PfinMovimiento movimientoGuardado = PfinMovimiento.findByPrestamoAndSituacionMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
+
+		if(!movimientoGuardado){
+			log.info ("No Existe el premoviento y movimiento PROCESADO_VIRTUAL")
+			movimientoGuardado = guardarPago(prestamoPagoInstance)
+		}		
+
+
 		//Se obtienen las amortizaciones pendientes de pago
 		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
 		ArrayList listaAmortizacionPendiente  = criteriaTablaAmortizacionRegistro.list() {
@@ -194,6 +204,9 @@ class PagoService {
 			log.info "El saldo del cliente es: ${importeSaldo}."
 			if (importeSaldo > 0){
 				log.info "Empieza la funcion: AplicaPagoCreditoPorAmort"
+				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje)
+
+			}else{
 
 			}
 		}
@@ -201,22 +214,25 @@ class PagoService {
 
 
 
-		PfinPreMovimiento preMovimientoGuardado = PfinPreMovimiento.findByPrestamoAndSituacionPreMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
-		Boolean existePreMovimiento = false
 
-		if(preMovimientoGuardado){
-			existePreMovimiento = true
-			log.info ("Existe el premoviento")
-		}
-
-
-
-
-		
 
 	}
 
-	
+	Boolean AplicaPagoCreditoPorAmort (PrestamoPago prestamoPago,
+		TablaAmortizacionRegistro tablaAmortizacionRegistro,
+		BigDecimal importeSaldo,
+		PfinCuenta) {
+
+		//Se inician las variables de los importes
+		//BigDecimal importePago = prestamo.importePago
+		//BigDecimal importeNeto = 0
+
+
+		log.info ("Inicio AplicaPagoCreditoPorAmort")
+
+	}
+
+
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
