@@ -317,7 +317,7 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}
 
-		ArrayList listaMovimientoDet
+		ArrayList listaMovimientoDet = []
 		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
 		listaPrelacionPagoConcepto.each(){
 			log.info "Numero Amortizacion: "+it.numeroAmortizacion
@@ -376,38 +376,35 @@ class PagoService {
 		preMovimientoInsertado.pfinMovimiento = movimiento
 		preMovimientoInsertado.save(flush:true)	
 
-		actualizaTablaAmortizacion(movimiento)
+		actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 
 	}
 
 	Boolean actualizaTablaAmortizacion (PfinMovimiento movimiento, ArrayList listaMovimientoDet ){
 
-		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findAllByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
+		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
 
 		listaMovimientoDet.each(){
 
 			switch ( it.concepto ) {
 			    case PfinCatConcepto.findByClaveConcepto('CAPITAL'):
-			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado
-			        							 + it.importeConcepto
+			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ it.importeConcepto
+			        log.info("PAGO CAPITAL")
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
-			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado
-			        							 + it.importeConcepto
+			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + it.importeConcepto
+			        log.info("PAGO INTERES")
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('IVAINT'):
-			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado
-			        							 + it.importeConcepto
-			        break
+			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + it.importeConcepto
+			        log.info("IVAINT")
 			    default:
 			    	log.info ("No hace nada")
 			}
 
-
+			tablaAmortizacionActual.save(flush:true)
 
 		}
-
-		tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado + listaMovimientoDet.importeConcepto
 
 
 	}
