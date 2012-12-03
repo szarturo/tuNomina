@@ -384,29 +384,34 @@ class PagoService {
 
 		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
 
-		listaMovimientoDet.each(){
+		listaMovimientoDet.each(){ listMovDet ->
 
-			switch ( it.concepto ) {
+			switch ( listMovDet.concepto ) {
 			    case PfinCatConcepto.findByClaveConcepto('CAPITAL'):
-			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ it.importeConcepto
+			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ listMovDet.importeConcepto
 			        log.info("PAGO CAPITAL")
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
-			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + it.importeConcepto
+			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + listMovDet.importeConcepto
 			        log.info("PAGO INTERES")
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('IVAINT'):
-			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + it.importeConcepto
+			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + listMovDet.importeConcepto
 			        log.info("IVAINT")
+			        break
 			    default:
-			    	log.info ("No hace nada")
+			    	//SE TIENE QUE BUSCAR POR CADA MOVIMIENTO DETALLE LA TABLA
+			    	//AMORTIZACION ACCESORIO QUE PAGO
+			    	tablaAmortizacionActual.tablaAmortizacionAccesorio.each{ tabAmorAcc ->
+			    		if (listMovDet.concepto.equals(tabAmorAcc.accesorio.concepto)){
+			    			log.info "MovimientoDetalle:${listMovDet.concepto} es igual a TablaAmorAccesorio:${tabAmorAcc.accesorio.concepto}"
+			    			tabAmorAcc.importeAccesorioPagado = tabAmorAcc.importeAccesorioPagado + listMovDet.importeConcepto
+			    			tabAmorAcc.save(flush:true)
+			    		}
+			    	}
 			}
-
 			tablaAmortizacionActual.save(flush:true)
-
 		}
-
-
 	}
 
 	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
