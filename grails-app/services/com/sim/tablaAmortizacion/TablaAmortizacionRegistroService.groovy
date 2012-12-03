@@ -259,7 +259,7 @@ class TablaAmortizacionRegistroService {
 								formaAplicacion : 			 formaAplicacion,
 								numPago:					 numeroPago,
 								importeAccesorio :			 importeAccesorio,
-								importeIvaAccesorio : 		 importeIvaAccesorio,
+								importeIvaAccesorio : 		 0,//importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
@@ -274,12 +274,16 @@ class TablaAmortizacionRegistroService {
 								formaAplicacion : 			 formaAplicacion,
 								numPago:					 numeroPago,
 								importeAccesorio :			 importeAccesorio,
-								importeIvaAccesorio : 		 importeIvaAccesorio,
+								importeIvaAccesorio : 		 0,//importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
 								).save(flush: true,failOnError: true)
 					}
+					//POR CADA ACCESORIO SE MODIFICA EL TOTAL DE LO QUE HAY QUE PAGAR
+					//POR AMORTIZACION
+					tablaAmortizacionInsertada.impPago =  tablaAmortizacionInsertada.impPago + (importeAccesorio ?: 0)
+					tablaAmortizacionInsertada.save(flush:true,failOnError: true)
 				}
 				numeroPago++
 			}

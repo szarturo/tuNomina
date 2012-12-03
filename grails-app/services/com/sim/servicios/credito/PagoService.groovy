@@ -389,7 +389,12 @@ class PagoService {
 			switch ( listMovDet.concepto ) {
 			    case PfinCatConcepto.findByClaveConcepto('CAPITAL'):
 			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ listMovDet.importeConcepto
-			        log.info("PAGO CAPITAL")
+			        //EL CAPITAL ES EL ULTIMO CONCEPTO A PAGAR
+			        //VALIDA SI PAGO TODO EL CAPITAL
+			        if (tablaAmortizacionActual.impCapitalPagado>=tablaAmortizacionActual.impCapital){
+			        	//SE CUBRIO TODA LA AMORTIZACION
+			        	tablaAmortizacionActual.pagado = true
+			        }
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
 			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + listMovDet.importeConcepto
@@ -410,6 +415,8 @@ class PagoService {
 			    		}
 			    	}
 			}
+			//INCREMETA LO PAGADO EN LA AMORTIZACION
+			tablaAmortizacionActual.impPagoPagado = tablaAmortizacionActual.impPagoPagado + listMovDet.importeConcepto
 			tablaAmortizacionActual.save(flush:true)
 		}
 	}
