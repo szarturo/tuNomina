@@ -243,7 +243,8 @@ class TablaAmortizacionRegistroService {
 								formaAplicacion : 			 formaAplicacion,
 								numPago:					 numeroPago,
 								importeAccesorio :			 importeAccesorio,
-								importeIvaAccesorio : 		 importeIvaAccesorio,
+								//ACTUALMENTE NO SE CALCULA EL IVA DEL ACCESORIO EN EL NEGOCIO DEL SIM
+								importeIvaAccesorio : 		 0,//importeIvaAccesorio,
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
