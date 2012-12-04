@@ -26,12 +26,18 @@ class PagoService {
 	def procesadorFinancieroService
 
 	PfinMovimiento guardarPago (PrestamoPago prestamoPagoInstance){
-		log.info "Servicio Guarda Pago"
-
 		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
-		Integer numeroPreMovimientos = PfinPreMovimiento.countByPrestamoAndSituacionPreMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
-		log.info ("Numero de Premovimientos: ${numeroPreMovimientos}")
+		def criteriaNumeroPreMovimientos = PfinMovimiento.createCriteria()
+		Integer numeroPreMovimientos = criteriaNumeroPreMovimientos.count() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+			}
+		}
+
 		if (numeroPreMovimientos>0){
+			//EXISTEN PAGOS GUARDADOS
 			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
@@ -42,7 +48,6 @@ class PagoService {
 
 		//OBTIENE EL REGISTRO ACTUAL
 		Usuario usuario = springSecurityService.getCurrentUser()
-		log.info ("Usuario Service Pago: ${usuario}")
 		if (!usuario){
 			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPagoInstance )
 		}
@@ -58,9 +63,9 @@ class PagoService {
 		//FECHA DE APLICACION
 		Date fechaAplicacion = prestamoPagoInstance.fechaPago
 
-		//OBTIENE LA CUENTA DEL CLIENTE
+		//OBTIENE LA CUENTA EJE DEL CLIENTE
 		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
-		log.info("Cuenta Cliente: ${cuentaCliente}")
+
 		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
 		if (!cuentaCliente){
 			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
@@ -107,7 +112,6 @@ class PagoService {
 			log.error(errorGenerarMovimiento)
 			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 		}
-
 	}
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
@@ -179,13 +183,26 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "No se encontro la cuenta eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
-		//Guardar o recuperar el pago Guardado
-		PfinMovimiento movimientoGuardado = PfinMovimiento.findByPrestamoAndSituacionMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
+		//Recuperar o almacenar el pago Guardado
+		//PfinMovimiento movimientoGuardado = PfinMovimiento.findByPrestamoAndSituacionMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
+		def criteriaMovimientoGuardado = PfinMovimiento.createCriteria()
+		PfinMovimiento movimientoGuardado  = criteriaMovimientoGuardado.get() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+				//TEDEPEFE = DEPOSITO DE EFECTIVO
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+			}
+		}
 
 		if(!movimientoGuardado){
 			log.info ("No Existe el premoviento y movimiento PROCESADO_VIRTUAL")
 			movimientoGuardado = guardarPago(prestamoPagoInstance)
 		}		
+		//EL MOVIMIENTO CAMBIARA A PROCESADO REAL PARA INDICAR QUE YA NO ES UN PAGO GUARDADO
+		//Y QUE HA SIDO APLICADO 
+		movimientoGuardado.situacionMovimiento = SituacionPremovimiento.PROCESADO_REAL
+		movimientoGuardado.save(flush:true)
 
 		//Se obtienen las amortizaciones pendientes de pago
 		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
