@@ -205,6 +205,7 @@ class PagoService {
 		movimientoGuardado.save(flush:true)
 
 		//Se obtienen las amortizaciones pendientes de pago
+		//Y ORDENADAS POR NUMERO DE PAGO
 		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
 		ArrayList listaAmortizacionPendiente  = criteriaTablaAmortizacionRegistro.list() {
 			and {
@@ -296,7 +297,7 @@ class PagoService {
 
 		listaPrelacionPagoConcepto.add(prelacionPagoCapital)
 
-		//OBTIENE EL REGISTRO ACTUAL
+		//OBTIENE EL USUARIO ACTUAL
 		Usuario usuario = springSecurityService.getCurrentUser()
 		if (!usuario){
 			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPago)
