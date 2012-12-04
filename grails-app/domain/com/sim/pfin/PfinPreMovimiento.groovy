@@ -14,9 +14,6 @@ class PfinPreMovimiento {
 	Integer    referencia
 	Prestamo   prestamo
 	String     nota
-	//IMPLEMENTACION TEMPORAL QUE HAY QUE CAMBIAR AL DEFINIR EL DOMINIO DE LISTAS DE COBRO
-	//ListaCobro listaCobro
-	Integer    listaCobro
 	Date       fechaRegistro
 	String     logIpDireccion
 	String     logUsuario
@@ -39,7 +36,6 @@ class PfinPreMovimiento {
 		referencia(nullable:true)
 		prestamo()
 		nota()
-		listaCobro(nullable:true)
 		//pfinMovimiento()
 		situacionPreMovimiento()
 		fechaRegistro()

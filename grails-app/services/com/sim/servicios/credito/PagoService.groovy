@@ -224,9 +224,7 @@ class PagoService {
 			if (importeSaldo > 0){
 				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje,fechaSistema)
 			}
-
 		}
-
 	}
 
 	Boolean AplicaPagoCreditoPorAmort (PrestamoPago prestamoPago,
@@ -394,7 +392,6 @@ class PagoService {
 		preMovimientoInsertado.save(flush:true)	
 
 		actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
-
 	}
 
 	Boolean actualizaTablaAmortizacion (PfinMovimiento movimiento, ArrayList listaMovimientoDet ){
@@ -470,7 +467,6 @@ class PagoService {
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : prestamoPagoInstance.prestamo,
 				nota : "Deposito de efectivo",
-				listaCobro : 0,
 				//pfinMovimiento()
 				situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro:new Date(),

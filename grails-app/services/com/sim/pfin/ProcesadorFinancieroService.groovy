@@ -85,7 +85,6 @@ class ProcesadorFinancieroService {
 			movimiento.referencia = pfinPreMovimiento.referencia
 			movimiento.prestamo = pfinPreMovimiento.prestamo
 			movimiento.nota = pfinPreMovimiento.nota
-			movimiento.listaCobro = pfinPreMovimiento.listaCobro
 			movimiento.fechaRegistro = new Date()
 			movimiento.logIpDireccion = pfinPreMovimiento.logIpDireccion
 			movimiento.logUsuario = pfinPreMovimiento.logUsuario
