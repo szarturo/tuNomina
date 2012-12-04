@@ -48,7 +48,6 @@ class ProcesadorFinancieroService {
 	PfinMovimiento procesaMovimiento(PfinPreMovimiento pfinPreMovimiento,
 		SituacionPremovimiento situacionMovimiento, Usuario usuario, Date fechaAplicacion) {
 		
-		log.info("Tipo de actualización de ${pfinPreMovimiento.situacionPreMovimiento} a ${situacionMovimiento}")
 		//SE VALIDA QUE LA ACTUALIZACION SEA CORRECTA
 		if  (!(
 				(pfinPreMovimiento.situacionPreMovimiento == SituacionPremovimiento.NO_PROCESADO &&
@@ -109,7 +108,6 @@ class ProcesadorFinancieroService {
 			//CREA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO
 			PfinMovimientoDet movimientoDetalle
 			listaPreMovimientosDetalle.each() {
-				log.info("PreMovimientosDetalle Service PF: ${it.id}")
 				movimientoDetalle = new PfinMovimientoDet()
 				//ASIGNA VALORES AL MOVIMIENTO DETALLE
 				movimientoDetalle.movimiento = movimiento
@@ -147,7 +145,6 @@ class ProcesadorFinancieroService {
 		
 		//VERIFICA DE QUE FORMA VA A AFECTAR EL SALDO DEL CLIENTE
 		String comoAfectaSaldo = pfinPreMovimiento.operacion.claveAfectaSaldo
-		log.info("Afecta Saldo: ${comoAfectaSaldo}")
 		
 		if (comoAfectaSaldo =='INCREMENTA' || comoAfectaSaldo=='DECREMENTA'){
 			
@@ -163,12 +160,10 @@ class ProcesadorFinancieroService {
 				fechaFoto: obtenerFechaMedio(), 
 				cuenta: pfinPreMovimiento.cuenta,
 				divisa: pfinPreMovimiento.divisa)
-			log.info("Saldo Cliente: ${saldoCliente}")
 			
 			if (saldoCliente){
 				//YA EXISTE LA CUENTA
 				//ACTUALIZA EL SALDO DE LA CUENTA CON LA FECHA FOTO
-				log.info("Actualiza el saldo de la cuenta")
 				saldoCliente.saldo = saldoCliente.saldo + (pfinPreMovimiento.importeNeto * afectaSaldo)
 				try{
 					saldoCliente.save(flush:true)
@@ -179,7 +174,6 @@ class ProcesadorFinancieroService {
 			}else{
 				//NO EXISTE EL SALDO PARA LA CUENTA
 				//INSERTA EL SALDO DE LA CUENTA CON LA FOTO
-				log.info("Inserta el saldo de la cuenta")
 				try{
 					new PfinSaldo(
 						fechaFoto: obtenerFechaMedio(),
