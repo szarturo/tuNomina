@@ -66,7 +66,7 @@ class PagoService {
 		//OBTIENE LA CUENTA EJE DEL CLIENTE
 		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
 
-		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
+		//VERIFICA SI EXISTE LA CUENTA EJE DEL CLIENTE
 		if (!cuentaCliente){
 			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
@@ -81,8 +81,6 @@ class PagoService {
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : 					prestamoPagoInstance.prestamo,
 				nota : 						"Deposito de efectivo",
-				listaCobro : 				1,
-				//pfinMovimiento()
 				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro: 				new Date(),
 				logIpDireccion: 			'127.0.0.1',
@@ -115,8 +113,17 @@ class PagoService {
 	}
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
-		log.info "Servicio Cancela Pago Guardado"
-		PfinPreMovimiento preMovimientoGuardado = PfinPreMovimiento.findByPrestamoAndSituacionPreMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
+
+		def criteriaPreMovimientoGuardado = PfinPreMovimiento.createCriteria()
+		PfinPreMovimiento preMovimientoGuardado  = criteriaPreMovimientoGuardado.get() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionPreMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+				//TEDEPEFE = DEPOSITO DE EFECTIVO
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+			}
+		}
+
 		if(!preMovimientoGuardado){
 			throw new PagoServiceException(mensaje: "No existe el Premovimiento a Cancelar", prestamoPagoInstance:prestamoPagoInstance )
 		}
@@ -141,9 +148,8 @@ class PagoService {
 	}	
 
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
-		log.info "Aplicar Pago Service"
 
-		//Valida que la fecha valor no sea menor a un pago previo
+		//Valida que la fecha valor del pago no sea menor a un pago previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
 		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
 			and {
@@ -153,8 +159,6 @@ class PagoService {
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
-		log.info "Resultado: ${cuentaMovimientos}"
-
 		if (cuentaMovimientos > 0){
 			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento", prestamoPagoInstance:prestamoPagoInstance )		
 		}
@@ -169,7 +173,6 @@ class PagoService {
 		if (!fechaSistema){
 			throw new PagoServiceException(mensaje: "No se encuentra la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
 		}
-		log.info "Fecha Medio: ${fechaSistema}"
 
 		//Valida que la fecha valor no sea mayor a la fecha del Medio
 		if (fechaValor > fechaSistema) {
@@ -184,7 +187,6 @@ class PagoService {
 		}
 
 		//Recuperar o almacenar el pago Guardado
-		//PfinMovimiento movimientoGuardado = PfinMovimiento.findByPrestamoAndSituacionMovimiento(prestamoPagoInstance.prestamo,SituacionPremovimiento.PROCESADO_VIRTUAL)
 		def criteriaMovimientoGuardado = PfinMovimiento.createCriteria()
 		PfinMovimiento movimientoGuardado  = criteriaMovimientoGuardado.get() {
 			and {
@@ -196,7 +198,7 @@ class PagoService {
 		}
 
 		if(!movimientoGuardado){
-			log.info ("No Existe el premoviento y movimiento PROCESADO_VIRTUAL")
+			log.info ("No Existe el movimiento PROCESADO_VIRTUAL")
 			movimientoGuardado = guardarPago(prestamoPagoInstance)
 		}		
 		//EL MOVIMIENTO CAMBIARA A PROCESADO REAL PARA INDICAR QUE YA NO ES UN PAGO GUARDADO
@@ -213,18 +215,15 @@ class PagoService {
 				order("numeroPago")
 			}
 		}
-		log.info("Las amortizaciones pendientes son: ${listaAmortizacionPendiente}")
 
-		//Ejecuta el pago de cada amortizacion pendiente siempre y cuando el cliente tenga saldo en su cuenta
+		//Ejecuta el pago de cada amortizacion pendiente siempre y 
+		//cuando el cliente tenga saldo en su cuenta
 		listaAmortizacionPendiente.each(){
-			log.info "Existen amortizacion pendiente"
-
 			//Obtiene el importe de la cuenta eje del cliente
 			PfinSaldo obtieneSaldo = PfinSaldo.findWhere(fechaFoto: fechaSistema, cuenta: cuentaEje)
 			BigDecimal importeSaldo  = obtieneSaldo.saldo
-			log.info "El saldo del cliente es: ${importeSaldo}."
+			//SI EL CLIENTE TIENE SALDO EN SU CUENTA EJE APLICA PAGOS POR AMORTIZACION.
 			if (importeSaldo > 0){
-				log.info "Empieza la funcion: AplicaPagoCreditoPorAmort"
 				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje,fechaSistema)
 			}
 
@@ -238,28 +237,23 @@ class PagoService {
 		PfinCuenta cuentaCliente,
 		Date fechaMedio) {
 
-		log.info ("Inicio AplicaPagoCreditoPorAmort")
-
 		Prestamo prestamoInstance = prestamoPago.prestamo
 		Integer amortizacionPago = tablaAmortizacionRegistro.numeroPago
 		BigDecimal importeNeto = 0
 		
 		//IMPLEMENTACION VISTA DE PRELACION DE PAGOS
-
 		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocionAndFormaAplicacionNotEqual(prestamoInstance.promocion,
 		 SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))
 
-		//INICIO EACH NUMERO DE PAGOS
-		TablaAmortizacionRegistro amortizacionNumero = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(prestamoInstance,amortizacionPago)
 		ArrayList listaPrelacionPagoConcepto = []
 
 		//SE OBTIENEN LOS ACCESORIOS DE LA AMORTIZACION CORRESPONDIENTE
-		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(amortizacionNumero)
+		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(tablaAmortizacionRegistro)
 
 		listaAccesoriosPromocion.each(){ 
 
 			PrelacionPagoConcepto prelacionPago = new PrelacionPagoConcepto()
-			prelacionPago.numeroAmortizacion = amortizacionNumero.numeroPago
+			prelacionPago.numeroAmortizacion = tablaAmortizacionRegistro.numeroPago
 			prelacionPago.ordenPago = it.orden
 			prelacionPago.concepto = it.accesorio.concepto
 
@@ -270,11 +264,11 @@ class PagoService {
 			if (tipoAccesorio.equals(SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'))){
 				switch ( conceptoPrestamo ) {
 				    case PfinCatConcepto.findByClaveConcepto('INTERES'):
-				        BigDecimal importeInteres = amortizacionNumero.impInteres - amortizacionNumero.impInteresPagado
+				        BigDecimal importeInteres = tablaAmortizacionRegistro.impInteres - tablaAmortizacionRegistro.impInteresPagado
 				        prelacionPago.cantidadPagar = importeInteres
 				        break
 				    default:
-				        BigDecimal importeIvaInteres = amortizacionNumero.impIvaInteres - amortizacionNumero.impIvaInteresPagado
+				        BigDecimal importeIvaInteres = tablaAmortizacionRegistro.impIvaInteres - tablaAmortizacionRegistro.impIvaInteresPagado
 				        prelacionPago.cantidadPagar = importeIvaInteres
 				}
 			}else{
@@ -291,9 +285,9 @@ class PagoService {
 
 		//SE INSERTA EL CAPITAL
 		PrelacionPagoConcepto prelacionPagoCapital = new PrelacionPagoConcepto(
-			amortizacionNumero.numeroPago,
+			tablaAmortizacionRegistro.numeroPago,
 			99,
-			amortizacionNumero.impCapital - amortizacionNumero.impCapitalPagado,
+			tablaAmortizacionRegistro.impCapital - tablaAmortizacionRegistro.impCapitalPagado,
 			PfinCatConcepto.findByClaveConcepto('CAPITAL'))
 
 		listaPrelacionPagoConcepto.add(prelacionPagoCapital)
