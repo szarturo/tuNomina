@@ -103,8 +103,8 @@ class ProcesadorFinancieroService {
 			}
 			
 			//CORRECTA LA SIGUIENTE LINEA PERO SE AFECTA EL PERFORMACE DE LA BASE DE DATOS
-			//def listapreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
-			def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
+			def listaPreMovimientosDetalle = PfinPreMovimientoDet.findAllByPreMovimiento(pfinPreMovimiento)
+			//def listaPreMovimientosDetalle = pfinPreMovimiento.pfinPreMovimientoDet
 			
 			//CREA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO
 			PfinMovimientoDet movimientoDetalle
