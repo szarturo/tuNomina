@@ -1183,6 +1183,8 @@ class BootStrap {
 			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
 		).save(flush: true,failOnError: true)
 
+		//NO ENCUENTRO DONDE EL CORE UTILIZA LA RELACION OPERACION-CONCEPTO
+		/*
 		new PfinCatOperacionConcepto(operacion:  PfinCatOperacion.findByClaveOperacion('TEDEPEFE'),
 			concepto:  PfinCatConcepto.findByClaveConcepto('IMPBRU'),
 			claveAfecta: 'INCREMENTA',
@@ -1225,17 +1227,20 @@ class BootStrap {
 			claveAfecta: 'INCREMENTA',
 			situacion: 'ACTIVO',
 		).save(flush: true,failOnError: true)
+		*/
 
 		def cuenta1 = new PfinCuenta(tipoCuenta:  'EJE',
 			situacion: 'ACTIVO',
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
 
+		//NO ENCUENTRO DONDE SE UTILIZA LA CUENTA TIPO CREDITO
+		/*
 		new PfinCuenta(tipoCuenta:  'CREDITO',
 			situacion: 'ACTIVO',
 			cliente: clienteArturo,
 		).save(flush: true,failOnError: true)
-
+		*/
 		
 		new PfinDivisa(claveDivisa:'MXP',
 			descripcionDivisa:'Peso Mexicano'

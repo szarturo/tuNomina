@@ -7,7 +7,7 @@ class PfinCatOperacion {
 	String descripcionCorta
 	String descripcionLarga
 	String situacion
-    PfinCatAfectaOperacion afecta
+    PfinCatAfectaOperacion afecta //NO UTILIZADO POR EL CORE, SOLO COMO FILTRO EN PANTALLAS
 	
 
     static constraints = {
