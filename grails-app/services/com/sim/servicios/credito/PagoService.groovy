@@ -1,7 +1,5 @@
 package com.sim.servicios.credito
 
-import com.sim.usuario.Usuario
-
 import com.sim.pfin.*
 import com.sim.credito.*
 import com.sim.tablaAmortizacion.*
@@ -9,7 +7,9 @@ import com.sim.catalogo.SimCatTipoAccesorio
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
 import com.sim.producto.ProPromocionAccesorio
+import com.sim.usuario.Usuario
 
+import org.hibernate.collection.PersistentSet
 
 class PagoServiceException extends RuntimeException {
 	String mensaje
@@ -165,7 +165,6 @@ class PagoService {
 
 		//Se obtiene la Fecha Valor
 		Date fechaValor = prestamoPagoInstance.fechaPago
-		log.info ("Fecha Valor: ${fechaValor}")
 
 		//Se obtiene la Fecha del Medio
 		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
@@ -181,7 +180,6 @@ class PagoService {
 
 		//Se obtiene la cuenta Eje del Cliente
 		PfinCuenta cuentaEje = PfinCuenta.findWhere(tipoCuenta: "EJE", cliente: prestamoPagoInstance.prestamo.cliente)
-		log.info("La cuenta es: ${cuentaEje}.")
 		if (!cuentaEje){
 			throw new PagoServiceException(mensaje: "No se encontro la cuenta eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
@@ -242,16 +240,23 @@ class PagoService {
 		BigDecimal importeNeto = 0
 		
 		//IMPLEMENTACION VISTA DE PRELACION DE PAGOS
-		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocionAndFormaAplicacionNotEqual(prestamoInstance.promocion,
+
+		//SE OBTIENEN TODOS LOS ACCESORIOS DE LA PROMOCION 
+		//QUE NO SEAN CARGOS INICIALES
+		ArrayList listaAccesoriosPromocion = ProPromocionAccesorio.findAllByProPromocionAndFormaAplicacionNotEqual(
+		 prestamoInstance.promocion,
 		 SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))
 
+		//ARREGLO PARA GUARDAR LOS OBJETOS PrelacionPagoConcepto
+		//PrelacionPagoConcepto ES UNA CLASE GROOVY CREADA EN EL PROYECTO
 		ArrayList listaPrelacionPagoConcepto = []
 
 		//SE OBTIENEN LOS ACCESORIOS DE LA AMORTIZACION CORRESPONDIENTE
-		ArrayList listaAccesoriosAmortizacion = TablaAmortizacionAccesorio.findAllByTablaAmortizacion(tablaAmortizacionRegistro)
+		PersistentSet listaAccesoriosAmortizacion = tablaAmortizacionRegistro.tablaAmortizacionAccesorio
 
 		listaAccesoriosPromocion.each(){ 
-
+			//SE ITERAN LOS ACCESORIOS DE LA PROMOCION
+			//SE INSTANCEA LA CLASE prelacionPago
 			PrelacionPagoConcepto prelacionPago = new PrelacionPagoConcepto()
 			prelacionPago.numeroAmortizacion = tablaAmortizacionRegistro.numeroPago
 			prelacionPago.ordenPago = it.orden
@@ -261,22 +266,23 @@ class PagoService {
 			PfinCatConcepto     conceptoPrestamo = it.accesorio.concepto
 			SimCatAccesorio     accesorio = it.accesorio
 
+			//SE VALIDA SI EL TIPO DE ACCESORIO ES FIJO
 			if (tipoAccesorio.equals(SimCatTipoAccesorio.findByClaveTipoAccesorio('FIJO'))){
-				switch ( conceptoPrestamo ) {
-				    case PfinCatConcepto.findByClaveConcepto('INTERES'):
-				        BigDecimal importeInteres = tablaAmortizacionRegistro.impInteres - tablaAmortizacionRegistro.impInteresPagado
-				        prelacionPago.cantidadPagar = importeInteres
-				        break
-				    default:
-				        BigDecimal importeIvaInteres = tablaAmortizacionRegistro.impIvaInteres - tablaAmortizacionRegistro.impIvaInteresPagado
-				        prelacionPago.cantidadPagar = importeIvaInteres
+				if (conceptoPrestamo.equals(PfinCatConcepto.findByClaveConcepto('INTERES'))) {
+					//CONCEPTO ES IGUAL A INTERES
+			        BigDecimal importeInteres = tablaAmortizacionRegistro.impInteres - tablaAmortizacionRegistro.impInteresPagado
+			        prelacionPago.cantidadPagar = importeInteres
+				}else{
+					//CONCEPTO ES IGUAL A IVA DE INTERES
+			        BigDecimal importeIvaInteres = tablaAmortizacionRegistro.impIvaInteres - tablaAmortizacionRegistro.impIvaInteresPagado
+			        prelacionPago.cantidadPagar = importeIvaInteres
 				}
 			}else{
+				//EL TIPO DE ACCESORIO NO ES FIJO
 				listaAccesoriosAmortizacion.each(){ tablaAmortizacionAccesorio ->
 					if (tablaAmortizacionAccesorio.accesorio.equals(accesorio)){
 						BigDecimal importeAccesorio = tablaAmortizacionAccesorio.importeAccesorio - tablaAmortizacionAccesorio.importeAccesorioPagado
 						prelacionPago.cantidadPagar = importeAccesorio
-						log.info "Importe del accesorio ${conceptoPrestamo} : ${importeAccesorio}"
 					}
 				}
 			}
@@ -291,11 +297,9 @@ class PagoService {
 			PfinCatConcepto.findByClaveConcepto('CAPITAL'))
 
 		listaPrelacionPagoConcepto.add(prelacionPagoCapital)
-		//END EACH NUMERO DE PAGOS
 
 		//OBTIENE EL REGISTRO ACTUAL
 		Usuario usuario = springSecurityService.getCurrentUser()
-		log.info ("Usuario Service Pago: ${usuario}")
 		if (!usuario){
 			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPago)
 		}
@@ -328,9 +332,11 @@ class PagoService {
 			throw errorProcesadorFinanciero
 		}
 
+		//ARREGLO PARA ALMACENAR LOS MOVIMIENTOS DETALLE
 		ArrayList listaMovimientoDet = []
 		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
 		listaPrelacionPagoConcepto.each(){
+			log.info "******************"
 			log.info "Numero Amortizacion: "+it.numeroAmortizacion
 			log.info "Orden Pago: "+it.ordenPago
 			log.info "Concepto: " +it.concepto
@@ -348,7 +354,7 @@ class PagoService {
 					importeConcepto = it.cantidadPagar
 				}
 
-				//SE DEFINE EL PREMOVIMIENTO
+				//SE DEFINE EL PREMOVIMIENTO DETALLE
 				PfinPreMovimientoDet preMovimientoDetInsertado
 				try{
 					// GENERA EL PREMOVIMIENTO DETALLE
@@ -409,18 +415,15 @@ class PagoService {
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
 			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + listMovDet.importeConcepto
-			        log.info("PAGO INTERES")
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('IVAINT'):
 			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + listMovDet.importeConcepto
-			        log.info("IVAINT")
 			        break
 			    default:
 			    	//SE TIENE QUE BUSCAR POR CADA MOVIMIENTO DETALLE LA TABLA
 			    	//AMORTIZACION ACCESORIO QUE PAGO
 			    	tablaAmortizacionActual.tablaAmortizacionAccesorio.each{ tabAmorAcc ->
 			    		if (listMovDet.concepto.equals(tabAmorAcc.accesorio.concepto)){
-			    			log.info "MovimientoDetalle:${listMovDet.concepto} es igual a TablaAmorAccesorio:${tabAmorAcc.accesorio.concepto}"
 			    			tabAmorAcc.importeAccesorioPagado = tabAmorAcc.importeAccesorioPagado + listMovDet.importeConcepto
 			    			tabAmorAcc.save(flush:true)
 			    		}
@@ -436,11 +439,8 @@ class PagoService {
 	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
 	Boolean aplicaPagoIndividual(PrestamoPago prestamoPagoInstance) {
 
-		//String username = springSecurityService.getCurrentUser().username;
-
 		//Se obtiene el usuario actual
 		Usuario usuario = springSecurityService.getCurrentUser()
-		log.info ("Usuario Service Pago: ${usuario}")
 
 		//SE OBTIENE LA FECHA DEL MEDIO
 		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
@@ -455,7 +455,7 @@ class PagoService {
 
 		//OBTIENE LA CUENTA DEL CLIENTE
 		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
-		log.info("Cuenta Cliente: ${cuentaCliente}")
+
 		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
 		if (!cuentaCliente){
 			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
@@ -470,7 +470,7 @@ class PagoService {
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : prestamoPagoInstance.prestamo,
 				nota : "Deposito de efectivo",
-				listaCobro : 1,
+				listaCobro : 0,
 				//pfinMovimiento()
 				situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro:new Date(),
@@ -487,18 +487,14 @@ class PagoService {
 
 			//GENERA LOS DETALLES DEL PREMOVIMIENTO
 			PfinCatOperacion operacion = preMovimientoInsertado.operacion
-			log.info("Operacion: ${operacion}")
 
 			def listaConceptos = PfinCatOperacionConcepto.findAllByOperacion(operacion)
-			log.info(listaConceptos)
 
 			listaConceptos.each() {
-				log.info("Conceptos: ${it.concepto}")
 				PfinPreMovimientoDet preMovimientoDet = procesadorFinancieroService.generaPreMovimientoDet(preMovimientoInsertado, it.concepto, 100, "Si pasa!")
 				preMovimientoInsertado.addToPfinPreMovimientoDet(preMovimientoDet)
 			}
 			
-			log.info"Detalles del PreMovimiento: ${preMovimientoInsertado.pfinPreMovimientoDet}"
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
