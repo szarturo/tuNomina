@@ -49,7 +49,16 @@
 					
 				</li>
 				</g:if>
-			
+
+				<g:if test="${rsGralDomicilioInstance?.tipoVivienda}">
+				<li class="fieldcontain">
+					<span id="tipoVivienda-label" class="property-label"><g:message code="rsGralDomicilio.tipoVivienda.label" default="Tipo Vivienda" /></span>
+					
+						<span class="property-value" aria-labelledby="tipoVivienda-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="tipoVivienda"/></span>
+					
+				</li>
+				</g:if>
+
 				<g:if test="${rsGralDomicilioInstance?.esFiscal}">
 				<li class="fieldcontain">
 					<span id="esFiscal-label" class="property-label"><g:message code="rsGralDomicilio.esFiscal.label" default="Es Fiscal" /></span>

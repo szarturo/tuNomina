@@ -9,10 +9,12 @@ class RsGralDomicilio {
 	String  calle
 	String  numeroInterior
 	String  numeroExterior
+	String  tipoVivienda
 	Boolean esFiscal = false
 	String  entreCalles
 	Integer aniosResidencia
 	String  comentarios
+	 
 	
 	//RsGralAsentamiento rsGralAsentamiento
 	
@@ -22,12 +24,12 @@ class RsGralDomicilio {
 	*/
 
 	static belongsTo = [persona : RsPersona]
-
 	
     static constraints = {
 		calle(size:5..100, nullable: false, blank: false)
 		numeroInterior()
 		numeroExterior()
+		tipoVivienda inList:["PROPIA","RENTADA","FAMILIARES","HIPOTECADA","OTRO"], nullable :true, blank :true
 		//rsGralAsentamiento(nullable: false)
 		esFiscal()
 		comentarios(size:0..300)

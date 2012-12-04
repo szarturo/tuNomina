@@ -44,6 +44,15 @@
 		value="${rsGralDomicilioInstance?.numeroExterior}" />
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'tipoVivienda', 'error')} required">
+	<label for="tipoVivienda">
+		<g:message code="rsGralDomicilio.tipoVivienda.label" default="Tipo Vivienda" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="tipoVivienda" from="${rsGralDomicilioInstance.constraints.tipoVivienda.inList}" required="" value="${rsGralDomicilioInstance?.tipoVivienda}" valueMessagePrefix="rsGralDomicilio.tipoVivienda"/>
+</div>
+
+
 <div
 	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'comentarios', 'error')} ">
 	<label for="comentarios"> <g:message

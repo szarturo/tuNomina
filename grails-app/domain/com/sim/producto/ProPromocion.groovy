@@ -21,7 +21,7 @@ class ProPromocion {
 
     static constraints = {
         clavePromocion(size:1..20, unique: true, nullable: false, blank: false)
-        nombrePromocion(size:5..50, unique: true, nullable: false, blank: false)
+        nombrePromocion(size:5..100, unique: false, nullable: false, blank: false)
         fechaInicioVigencia(nullable: false)
         fechaFinVigencia(nullable: false)
 		metodoCalculo()

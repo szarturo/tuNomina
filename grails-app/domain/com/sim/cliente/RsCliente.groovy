@@ -24,7 +24,11 @@ class RsCliente {
             negocios : SimClienteNegocio, integranteUef : SimClienteIntegranteUef, adeudos : SimClienteAdeudos, garantias : SimClienteGarantia ]
      */
 
-    static hasMany = [ creditos : Prestamo, cuentas : PfinCuenta, cuentaBancaria : RsClienteCtaBancaria]
+    static hasMany = [ creditos : Prestamo, 
+                       cuentas : PfinCuenta, 
+                       cuentaBancaria : RsClienteCtaBancaria,
+                       clienteEmpleo: RsClienteEmpleo,
+                       referenciasClientes : RsClienteReferencia]
 
     static constraints = {
         persona unique: true
@@ -33,6 +37,8 @@ class RsCliente {
         creditos nullable: true
 		cuentas nullable:true
         cuentaBancaria nullable: true
+        clienteEmpleo nullable: true
+        referenciasClientes nullable : true
 
         /*
         ingresoSemanal scale:2, nullable:true
