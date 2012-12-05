@@ -41,6 +41,17 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${prestamoPagoInstance?.pfinMovimiento}">
+				<li class="fieldcontain">
+					<span id="pfinMovimiento-label" class="property-label"><g:message code="prestamoPago.pfinMovimiento.label" default="Pfin Movimiento" /></span>
+					
+						<g:each in="${prestamoPagoInstance.pfinMovimiento}" var="p">
+						<span class="property-value" aria-labelledby="pfinMovimiento-label"><g:link controller="pfinMovimiento" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${prestamoPagoInstance?.prestamo}">
 				<li class="fieldcontain">
 					<span id="prestamo-label" class="property-label"><g:message code="prestamoPago.prestamo.label" default="Prestamo" /></span>

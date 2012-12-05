@@ -1,6 +1,7 @@
 package com.sim.pfin
 
 import com.sim.credito.Prestamo
+import com.sim.credito.PrestamoPago
 import com.sim.usuario.Usuario
 
 class PfinMovimiento {
@@ -23,10 +24,11 @@ class PfinMovimiento {
 	Integer        cancelaTransaccion
 	PfinCatOperacion       operacion
 	SituacionPremovimiento situacionMovimiento
+	PfinPreMovimiento      pfinPreMovimiento
 
 
 	static hasMany = [pfinMovimientoDet : PfinMovimientoDet]
-	static belongsTo = [pfinPreMovimiento : PfinPreMovimiento]
+	static belongsTo = [prestamoPago : PrestamoPago]
 
 	static mapping = {
 		pfinMovimientoDet joinTable: [name:'REL_MOVIMIENTOS', key:'ID_MOVIMIENTO', column:'ID_MOVIMIENTO_DET']
@@ -52,6 +54,7 @@ class PfinMovimiento {
 		operacion()
 		cancelaTransaccion(nullable:true)
 		pfinPreMovimiento()
+		prestamoPago nullable:true
 	}
 
 	String toString() {

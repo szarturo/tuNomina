@@ -104,6 +104,9 @@ class PagoService {
 			// GENERA EL MOVIMIENTO
 			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, fechaAplicacion)
+			// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
+			movimiento.prestamoPago = prestamoPagoInstance
+			movimiento.save(flush:true)			
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}catch(Exception errorGenerarMovimiento){
