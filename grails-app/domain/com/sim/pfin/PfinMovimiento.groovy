@@ -58,6 +58,6 @@ class PfinMovimiento {
 	}
 
 	String toString() {
-		"${nota} - ${importeNeto}"
+		"${nota} - ${importeNeto} - ${situacionMovimiento}"
 	}
 }
