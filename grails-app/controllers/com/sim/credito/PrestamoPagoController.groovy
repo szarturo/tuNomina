@@ -156,13 +156,21 @@ class PrestamoPagoController {
         redirect(action: "list")
     }
 
-    def aplicaPago(){
+    def aplicaPago(Long id){
         log.info("Aplica Pago")
-        def prestamoPagoInstance = new PrestamoPago(params)
 
-        if (!prestamoPagoInstance.validate()) {
-            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
+        def prestamoPagoInstance
+        //SI EL ID DEL PRESTAMO PAGO NO EXISTE CREA UN PRESTAMO PAGO
+        if (!id){
+            prestamoPagoInstance = new PrestamoPago(params)
+
+            if (!prestamoPagoInstance.validate()) {
+                render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+                return
+            }
+        }else{
+            //EN CASO DE EXISTIR RECUPERA EL REGISTRO
+            prestamoPagoInstance = PrestamoPago.get(id)    
         }
 
         try{
@@ -189,27 +197,10 @@ class PrestamoPagoController {
         redirect(action: "list")
     }
 
-    def cancelaPagoGuardado(Long id, Long version) {
+    def cancelaPagoGuardado(Long id) {
         log.info("Cancela Pago Guardado")
         
         def prestamoPagoInstance = PrestamoPago.get(id)
-        if (!prestamoPagoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (prestamoPagoInstance.version > version) {
-                prestamoPagoInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'prestamoPago.label', default: 'PrestamoPago')] as Object[],
-                          "Another user has updated this PrestamoPago while you were editing")
-                render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-                return
-            }
-        }
-
-        prestamoPagoInstance.properties = params
 
         try{
             pagoService.cancelaPagoGuardado(prestamoPagoInstance)
@@ -239,23 +230,6 @@ class PrestamoPagoController {
         log.info("Cancela Pago Aplicado")
         
         def prestamoPagoInstance = PrestamoPago.get(id)
-        if (!prestamoPagoInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (prestamoPagoInstance.version > version) {
-                prestamoPagoInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'prestamoPago.label', default: 'PrestamoPago')] as Object[],
-                          "Another user has updated this PrestamoPago while you were editing")
-                render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-                return
-            }
-        }
-
-        prestamoPagoInstance.properties = params
 
         try{
             pagoService.cancelaPagoAplicado(prestamoPagoInstance)

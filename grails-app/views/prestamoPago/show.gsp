@@ -54,8 +54,9 @@
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${prestamoPagoInstance?.id}" />
-					<g:link class="edit" action="edit" id="${prestamoPagoInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                    <g:actionSubmit class="save" action="aplicaPago" value="${message(code: 'generaPago.aplicaPago', default: 'Aplica Pago')}" />
+                    <g:actionSubmit class="save" action="cancelaPagoGuardado" value="${message(code: 'generaPago.cancelaPagoGuardado', default: 'Cancela Pago Guardado')}" />
+                    <g:actionSubmit class="save" action="cancelaPagoAplicado" value="${message(code: 'generaPago.cancelaPagoAplicado', default: 'Cancela Pago Aplicado')}" />										
 				</fieldset>
 			</g:form>
 		</div>
