@@ -117,6 +117,8 @@ class PagoService {
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
 
+		
+		//BUSCA EL PREMOVIMIENTO A CANCELAR EL PAGO GUARDADO
 		def criteriaPreMovimientoGuardado = PfinPreMovimiento.createCriteria()
 		PfinPreMovimiento preMovimientoGuardado  = criteriaPreMovimientoGuardado.get() {
 			and {
@@ -130,6 +132,7 @@ class PagoService {
 		if(!preMovimientoGuardado){
 			throw new PagoServiceException(mensaje: "No existe el Premovimiento a Cancelar", prestamoPagoInstance:prestamoPagoInstance )
 		}
+
 		//FECHA DE APLICACION
 		Date fechaAplicacion = prestamoPagoInstance.fechaPago
 		//SE OBTIENE EL USUARIO ACTUAL
@@ -389,6 +392,10 @@ class PagoService {
 			// GENERA EL MOVIMIENTO
 			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, prestamoPago.fechaPago)
+			// SE INDICA A QUE PAGO PRESTAMO PERTENECE EL MOVIMIENTO
+			movimiento.prestamoPago = prestamoPago
+			movimiento.save(flush:true)
+
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}catch(Exception errorGenerarMovimiento){
