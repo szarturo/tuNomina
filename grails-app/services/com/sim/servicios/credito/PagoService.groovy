@@ -202,6 +202,7 @@ class PagoService {
 		//EL MOVIMIENTO CAMBIARA A PROCESADO REAL PARA INDICAR QUE YA NO ES UN PAGO GUARDADO
 		//Y QUE HA SIDO APLICADO 
 		movimientoGuardado.situacionMovimiento = SituacionPremovimiento.PROCESADO_REAL
+		movimientoGuardado.cancelaTransaccion = 0
 		movimientoGuardado.save(flush:true)
 
 		//Se obtienen las amortizaciones pendientes de pago
@@ -513,4 +514,36 @@ class PagoService {
 		}
 		return true
 	}
+
+	Boolean cancelaPagoAplicado (PrestamoPago prestamoPagoInstance){
+		log.info("Cancela Pago Aplicado")
+
+        // Valida que exista la transaccion original
+        //  Debe existir
+        //  Debe ser un pago
+        //  No debe estar cancelada
+        //  LA SIGUIENTE CONDICION AUN NO ES APLICADA
+        //  Debe excluir a las transacciones canceladas por un ajuste
+
+		def criteriaMovimientoAplicado = PfinMovimiento.createCriteria()
+		PfinMovimiento movimientoAplicado  = criteriaMovimientoAplicado.get() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
+				eq("cancelaTransaccion", 0)
+				//TEDEPEFE = DEPOSITO DE EFECTIVO
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				max("fechaAplicacion")
+			}
+		}
+
+		if(!movimientoAplicado){
+			throw new PagoServiceException(mensaje: "No se encontro la transacción para cancelar el pago aplicado", prestamoPagoInstance:prestamoPagoInstance )			
+		}
+
+
+
+
+	}
+
 }
