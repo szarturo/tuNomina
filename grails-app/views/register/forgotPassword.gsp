@@ -31,7 +31,7 @@
 		</tr>
 	</table>
 
-	<s2ui:submitButton elementId='reset' form='forgotPasswordForm' messageCode='spring.security.ui.forgotPassword.submit'/>
+	<input type='submit' value='Enviar Contraseña' id='reset_submit' class='s2ui_hidden_button' />	
 
 	</g:else>
 

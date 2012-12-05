@@ -90,8 +90,7 @@
 					</tbody>
 				</table>
 
-				<s2ui:submitButton elementId='create' form='registerForm'
-					messageCode='spring.security.ui.register.submit' />
+				<input type='submit' value='Crear cuenta de Usuario' id='create_submit' class='s2ui_hidden_button' />
 
 			</g:else>
 
