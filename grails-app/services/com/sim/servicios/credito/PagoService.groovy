@@ -46,7 +46,7 @@ class PagoService {
             throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", prestamoPagoInstance:prestamoPagoInstance )
         }
 
-		//OBTIENE EL REGISTRO ACTUAL
+		//OBTIENE EL USUARIO ACTUAL
 		Usuario usuario = springSecurityService.getCurrentUser()
 		if (!usuario){
 			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPagoInstance )
@@ -68,7 +68,7 @@ class PagoService {
 
 		//VERIFICA SI EXISTE LA CUENTA EJE DEL CLIENTE
 		if (!cuentaCliente){
-			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
+			throw new PagoServiceException(mensaje: "No existe la cuenta Eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
 		//ASIGNA VALORES AL PREMOVIMIENTO
@@ -205,7 +205,7 @@ class PagoService {
 		movimientoGuardado.save(flush:true)
 
 		//Se obtienen las amortizaciones pendientes de pago
-		//Y ORDENADAS POR NUMERO DE PAGO
+		//ORDENADAS POR NUMERO DE PAGO
 		def criteriaTablaAmortizacionRegistro = TablaAmortizacionRegistro.createCriteria()
 		ArrayList listaAmortizacionPendiente  = criteriaTablaAmortizacionRegistro.list() {
 			and {
@@ -213,6 +213,10 @@ class PagoService {
 				eq("pagado", false)
 				order("numeroPago")
 			}
+		}
+
+		if (!listaAmortizacionPendiente){
+			throw new PagoServiceException(mensaje: "No se encontraron amortizaciones para aplicar el Pago", prestamoPagoInstance:prestamoPagoInstance )			
 		}
 
 		//Ejecuta el pago de cada amortizacion pendiente siempre y 
@@ -230,15 +234,15 @@ class PagoService {
 
 	Boolean AplicaPagoCreditoPorAmort (PrestamoPago prestamoPago,
 		TablaAmortizacionRegistro tablaAmortizacionRegistro,
-		BigDecimal importeSaldo,
-		PfinCuenta cuentaCliente,
+		BigDecimal importeSaldo, //IMPORTE QUE EL CLIENTE TIENE EN SU CUENTA
+		PfinCuenta cuentaCliente, //CUENTA EJE DEL CLIENTE
 		Date fechaMedio) {
 
 		Prestamo prestamoInstance = prestamoPago.prestamo
 		Integer amortizacionPago = tablaAmortizacionRegistro.numeroPago
-		BigDecimal importeNeto = 0
+		BigDecimal importeNeto = 0 //IMPORTE TOTAL QUE SE VA A REALIZAR A LA AMORTIZACION
 		
-		//IMPLEMENTACION VISTA DE PRELACION DE PAGOS
+		//IMPLEMENTACION QUE SUSTITUYE A LA VISTA DE PRELACION DE PAGOS 
 
 		//SE OBTIENEN TODOS LOS ACCESORIOS DE LA PROMOCION 
 		//QUE NO SEAN CARGOS INICIALES
