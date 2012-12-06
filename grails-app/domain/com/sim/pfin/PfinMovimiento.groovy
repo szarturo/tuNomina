@@ -21,7 +21,7 @@ class PfinMovimiento {
 	Usuario        usuario
 	Date           fechaAplicacion
 	Integer        numeroPagoAmortizacion
-	Integer        cancelaTransaccion
+	PfinMovimiento         cancelaTransaccion
 	PfinCatOperacion       operacion
 	SituacionPremovimiento situacionMovimiento
 	PfinPreMovimiento      pfinPreMovimiento

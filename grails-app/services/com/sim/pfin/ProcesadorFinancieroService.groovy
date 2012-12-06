@@ -90,7 +90,6 @@ class ProcesadorFinancieroService {
 			movimiento.logUsuario = pfinPreMovimiento.logUsuario
 			movimiento.logHost = pfinPreMovimiento.logHost
 			movimiento.numeroPagoAmortizacion = pfinPreMovimiento.numeroPagoAmortizacion
-			movimiento.cancelaTransaccion = 0
 		
 			try{
 				movimiento.save(flush: true,failOnError: true)

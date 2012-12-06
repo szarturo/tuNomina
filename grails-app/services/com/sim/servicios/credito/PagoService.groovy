@@ -80,7 +80,7 @@ class PagoService {
 				importeNeto: 				prestamoPagoInstance.importePago,
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : 					prestamoPagoInstance.prestamo,
-				nota : 						"Deposito de efectivo",
+				nota : 						"Deposito de efectivo a la Cuenta",
 				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro: 				new Date(),
 				logIpDireccion: 			'127.0.0.1',
@@ -168,19 +168,36 @@ class PagoService {
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
 
 		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
-		def criteriaNumeroPreMovimientos = PfinMovimiento.createCriteria()
-		Integer numeroPreMovimientos = criteriaNumeroPreMovimientos.count() {
+		def criteriaNumeroMovimientos = PfinMovimiento.createCriteria()
+		Integer numeroMovimientos = criteriaNumeroMovimientos.count() {
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
 				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				//ne("prestamoPago", prestamoPagoInstance)
 			}
+			ne("prestamoPago", prestamoPagoInstance)
 		}
 
-		if (numeroPreMovimientos>0){
+		if (numeroMovimientos>0){
 			//EXISTEN PAGOS GUARDADOS
 			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
 		}
+
+		//VALIDA SI EL PRESTAMO HA SIDO CANCELADO O APLICADO
+		PfinMovimiento movimiento
+		//ITERA LOS PfinMovimiento DEL PrestamoPago
+		prestamoPagoInstance.pfinMovimiento.each{
+			//VALIDA SI EXISTE UN PfinMovimiento APLICADO O CANCELADO
+			if (it.cancelaTransaccion || it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)){
+				movimiento =  it
+			}
+		}
+
+		if (movimiento){
+			throw new PagoServiceException(mensaje: "El pago no puede ser aplicado, ya esta aplicado o cancelado", prestamoPagoInstance:prestamoPagoInstance )	
+		}
+
 
 		//Valida que la fecha valor del pago no sea menor a un pago previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
@@ -188,7 +205,7 @@ class PagoService {
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
-		        eq("cancelaTransaccion",0)
+		        eq("cancelaTransaccion",null)
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
@@ -225,6 +242,7 @@ class PagoService {
 				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
 				//TEDEPEFE = DEPOSITO DE EFECTIVO
 				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				isNull("cancelaTransaccion")
 			}
 		}
 
@@ -235,7 +253,6 @@ class PagoService {
 		//EL MOVIMIENTO CAMBIARA A PROCESADO REAL PARA INDICAR QUE YA NO ES UN PAGO GUARDADO
 		//Y QUE HA SIDO APLICADO 
 		movimientoGuardado.situacionMovimiento = SituacionPremovimiento.PROCESADO_REAL
-		movimientoGuardado.cancelaTransaccion = 0
 		movimientoGuardado.save(flush:true)
 
 		//Se obtienen las amortizaciones pendientes de pago
@@ -350,7 +367,7 @@ class PagoService {
 				importeNeto: 				0,
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : 					prestamoInstance,
-				nota : 						"PagoDePrestamo",
+				nota : 						"Pago de Prestamo",
 				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro: 				new Date(),
 				logIpDireccion: 			'127.0.0.1',
@@ -509,7 +526,7 @@ class PagoService {
 				importeNeto: prestamoPagoInstance.importePago,
 				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
 				prestamo : prestamoPagoInstance.prestamo,
-				nota : "Deposito de efectivo",
+				nota : "Deposito de efectivo a la Cuenta",
 				//pfinMovimiento()
 				situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
 				fechaRegistro:new Date(),
@@ -555,17 +572,26 @@ class PagoService {
 	Boolean cancelaPagoAplicado (PrestamoPago prestamoPagoInstance){
 		log.info("Cancela Pago Aplicado")
 
+		//ARREGLO PARA ALMACENAR TODOS MOVIMIENTOS QUE SON PAGOS AL CREDITO
+		ArrayList listaMovimientosPagoPrestamo = []
+
 		//VALIDA SI EXISTE EL MOVIMIENTO APLICADO PARA CANCELAR DE prestamoPagoInstance
 		PfinMovimiento movimientoAplicado
 		//ITERA LOS PfinMovimiento DEL PrestamoPago
 		prestamoPagoInstance.pfinMovimiento.each{
-			//VALIDA SI EXISTE EL PfinMovimiento CON OPERACION DEPOSITO DE EFECTIVO
-			//Y PROCESADO REAL
+			//VALIDA SI EXISTE EL PfinMovimiento CON OPERACION DEPOSITO DE EFECTIVO,
+			//PROCESADO REAL Y QUE NO HAYA SIDO CANCELADO
 			if (it.operacion.equals(PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)){
+				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)
+				&& !it.cancelaTransaccion){
 					//SI ENCUENTRA EL PfinMovimiento 
 					movimientoAplicado =  it
 			}
+			if (it.operacion.equals(PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'))
+				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_VIRTUAL)){
+					//SI ENCUENTRA EL PfinMovimiento 
+					listaMovimientosPagoPrestamo.add(it)
+			}			
 		}
 
 		if(!movimientoAplicado){
@@ -578,7 +604,7 @@ class PagoService {
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
-		        eq("cancelaTransaccion",0)
+		        eq("cancelaTransaccion",null)
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
@@ -609,7 +635,7 @@ class PagoService {
 				divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
 				operacion: 					PfinCatOperacion.findByClaveOperacion('AJUSTE_CARGO'),
 				importeNeto: 				movimientoAplicado.importeNeto,
-				nota : 						"Ajuste Extraordinario",
+				nota : 						"Ajuste Extraordinario Cargo",
 				usuario : 					usuario,
 				fechaAplicacion: 			movimientoAplicado.fechaAplicacion,
 				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
@@ -639,6 +665,70 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 		}		
 
+		//AL MOVIMIENTO DE DEPOSITO DE EFECTIVO A LA CUENTA LE ASIGNA EL MOVIMIENTO QUE LO CANCELA
+		movimientoAplicado.cancelaTransaccion = movimiento
+
+		listaMovimientosPagoPrestamo.each{ movimientoPago ->
+			//PARA CADA MOVIMIENTO (No.AMORTIZACION) CREA UN AJUSTE EXTRAORDINARIO 
+			//POR CANCELACION DE PAGO
+			preMovimientoInsertado = new PfinPreMovimiento(
+					fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
+					fechaLiquidacion: 			fechaMedio, //FECHA DEL MEDIO
+					cuenta:  					movimientoPago.cuenta,
+					prestamo : 					movimientoPago.prestamo,
+					divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
+					operacion: 					PfinCatOperacion.findByClaveOperacion('CANCELA_PAGO'),
+					importeNeto: 				movimientoPago.importeNeto,
+					nota : 						"Cancela Pago",
+					usuario : 					usuario,
+					fechaAplicacion: 			movimientoPago.fechaAplicacion,
+					situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
+					fechaRegistro: 				new Date(),
+					numeroPagoAmortizacion:  	movimientoPago.numeroPagoAmortizacion)
+
+			try{
+				// GENERA EL PREMOVIMIENTO
+				preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
+
+			}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+				throw errorProcesadorFinanciero
+			}
+
+			//ITERA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO PARA CREAR EL DETALLE DEL AJUSTE
+			movimientoPago.pfinMovimientoDet.each{ movientoDetPago ->
+
+				//SE DEFINE EL PREMOVIMIENTO DETALLE
+				PfinPreMovimientoDet preMovimientoDetInsertado
+				try{
+					// GENERA EL PREMOVIMIENTO DETALLE
+					preMovimientoDetInsertado = procesadorFinancieroService.generaPreMovimientoDet(
+						preMovimientoInsertado,
+						movientoDetPago.concepto,
+						movientoDetPago.importeConcepto,
+						movientoDetPago.concepto.descripcionCorta)
+				}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+					throw errorProcesadorFinanciero
+				}
+
+			}	
+
+			//SE GENERA EL MOVIMIENTO
+			try{
+				movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
+						SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, movimientoPago.fechaAplicacion)
+				// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
+				movimiento.prestamoPago = prestamoPagoInstance
+				movimiento.save(flush:true)			
+			}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+				throw errorProcesadorFinanciero
+			}catch(Exception errorGenerarMovimiento){
+				log.error(errorGenerarMovimiento)
+				throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
+			}		
+
+			movimientoPago.cancelaTransaccion = movimiento
+			movimientoPago.save(flush:true)
+		}
 	}
 
 }
