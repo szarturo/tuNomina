@@ -459,37 +459,50 @@ class PagoService {
 
 		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
 
+		//SE OBTIENE COMO SE AFECTA EL SALDO DE LA OPERACION DEL MOVIMIENTO
+		String afectaSaldo = movimiento.operacion.claveAfectaSaldo
+		Integer afectaCredito = 1
+
+		if (afectaSaldo.equals("INCREMENTA")){
+			//SI EL SALDO DE LA CUENTA INCREMENTA ENTOCES EL CREDITO
+			//DEBE DECREMENTAR
+			//ESTE CASO SE PUEDE DAR EN CANCELA PAGO
+			afectaCredito = -1
+		}
+
 		listaMovimientoDet.each(){ listMovDet ->
 
 			switch ( listMovDet.concepto ) {
 			    case PfinCatConcepto.findByClaveConcepto('CAPITAL'):
-			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ listMovDet.importeConcepto
+			        tablaAmortizacionActual.impCapitalPagado = tablaAmortizacionActual.impCapitalPagado	+ (listMovDet.importeConcepto * afectaCredito)
 			        //EL CAPITAL ES EL ULTIMO CONCEPTO A PAGAR
 			        //VALIDA SI PAGO TODO EL CAPITAL
 			        if (tablaAmortizacionActual.impCapitalPagado>=tablaAmortizacionActual.impCapital){
 			        	//SE CUBRIO TODA LA AMORTIZACION
 			        	tablaAmortizacionActual.pagado = true
+			        }else{
+			        	tablaAmortizacionActual.pagado = false
 			        }
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('INTERES'):
-			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + listMovDet.importeConcepto
+			        tablaAmortizacionActual.impInteresPagado = tablaAmortizacionActual.impInteresPagado + (listMovDet.importeConcepto * afectaCredito)
 			        break
 			    case PfinCatConcepto.findByClaveConcepto('IVAINT'):
-			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + listMovDet.importeConcepto
+			        tablaAmortizacionActual.impIvaInteresPagado = tablaAmortizacionActual.impIvaInteresPagado + (listMovDet.importeConcepto * afectaCredito)
 			        break
 			    default:
 			    	//SE TIENE QUE BUSCAR POR CADA MOVIMIENTO DETALLE LA TABLA
 			    	//AMORTIZACION ACCESORIO QUE PAGO
 			    	tablaAmortizacionActual.tablaAmortizacionAccesorio.each{ tabAmorAcc ->
 			    		if (listMovDet.concepto.equals(tabAmorAcc.accesorio.concepto)){
-			    			tabAmorAcc.importeAccesorioPagado = tabAmorAcc.importeAccesorioPagado + listMovDet.importeConcepto
+			    			tabAmorAcc.importeAccesorioPagado = tabAmorAcc.importeAccesorioPagado + (listMovDet.importeConcepto * afectaCredito)
 			    			tabAmorAcc.save(flush:true)
 			    		}
 			    	}
 			}
-			//INCREMETA LO PAGADO EN LA AMORTIZACION
-			tablaAmortizacionActual.impPagoPagado = tablaAmortizacionActual.impPagoPagado + listMovDet.importeConcepto
-			tablaAmortizacionActual.save(flush:true)
+			//INCREMETA O DECREMENTA LO PAGADO EN LA AMORTIZACION
+			tablaAmortizacionActual.impPagoPagado = tablaAmortizacionActual.impPagoPagado + (listMovDet.importeConcepto * afectaCredito)
+ 			tablaAmortizacionActual.save(flush:true)
 		}
 	}
 
@@ -695,6 +708,9 @@ class PagoService {
 				throw errorProcesadorFinanciero
 			}
 
+			//ARREGLO PARA ALMACENAR LOS MOVIMIENTOS DETALLE
+			ArrayList listaMovimientoDet = []
+
 			//ITERA LOS MOVIMIENTOS DETALLE DEL MOVIMIENTO PARA CREAR EL DETALLE DEL AJUSTE
 			movimientoPago.pfinMovimientoDet.each{ movientoDetPago ->
 
@@ -710,6 +726,7 @@ class PagoService {
 				}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 					throw errorProcesadorFinanciero
 				}
+				listaMovimientoDet.add(preMovimientoDetInsertado)
 
 			}	
 
@@ -726,9 +743,10 @@ class PagoService {
 				log.error(errorGenerarMovimiento)
 				throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 			}		
-
 			movimientoPago.cancelaTransaccion = movimiento
 			movimientoPago.save(flush:true)
+
+			actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 		}
 	}
 
