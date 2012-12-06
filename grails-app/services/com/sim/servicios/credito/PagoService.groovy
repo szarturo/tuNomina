@@ -459,13 +459,14 @@ class PagoService {
 
 		TablaAmortizacionRegistro tablaAmortizacionActual = TablaAmortizacionRegistro.findByPrestamoAndNumeroPago(movimiento.prestamo, movimiento.numeroPagoAmortizacion) 
 
-		//SE OBTIENE COMO SE AFECTA EL SALDO DE LA OPERACION DEL MOVIMIENTO
+		//SE OBTIENE COMO SE AFECTA EL SALDO DE LA CUENTA EJE 
+		//DESDE LA OPERACION DEL MOVIMIENTO
 		String afectaSaldo = movimiento.operacion.claveAfectaSaldo
 		Integer afectaCredito = 1
 
 		if (afectaSaldo.equals("INCREMENTA")){
-			//SI EL SALDO DE LA CUENTA INCREMENTA ENTOCES EL CREDITO
-			//DEBE DECREMENTAR
+			//SI EL SALDO DE LA CUENTA EJE INCREMENTA ENTOCES 
+			//EL CREDITO DEBE DECREMENTAR
 			//ESTE CASO SE PUEDE DAR EN CANCELA PAGO
 			afectaCredito = -1
 		}
