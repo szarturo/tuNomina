@@ -1167,20 +1167,36 @@ class BootStrap {
 			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CUENTA')
 		).save(flush: true,failOnError: true)
 
-		new PfinCatOperacion(claveOperacion:  'CANPAG',
-			claveAfectaSaldo: 'INCREMENTA',
-			descripcionCorta: 'CANCELA PAGO',
-			descripcionLarga: 'CANCELACION DEL PAGO DEL CREDITO',
-			situacion: 'ACTIVO',
-			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
-		).save(flush: true,failOnError: true)
-		
 		new PfinCatOperacion(claveOperacion:  'CRPAGOPRES',
 			claveAfectaSaldo: 'DECREMENTA',
 			descripcionCorta: 'PAGO PRESTAMO',
 			descripcionLarga: 'PAGO DEL PRESTAMO',
 			situacion: 'ACTIVO',
 			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
+		).save(flush: true,failOnError: true)
+
+		new PfinCatOperacion(claveOperacion:  'CANCELA_PAGO',
+			claveAfectaSaldo: 'INCREMENTA',
+			descripcionCorta: 'CANCELA PAGO',
+			descripcionLarga: 'CANCELACION DEL PAGO DEL CREDITO',
+			situacion: 'ACTIVO',
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CREDITO')
+		).save(flush: true,failOnError: true)
+
+		new PfinCatOperacion(claveOperacion:  'AJUSTE_CARGO',
+			claveAfectaSaldo: 'DECREMENTA',
+			descripcionCorta: 'AJUSTE CARGO',
+			descripcionLarga: 'AJUSTE CARGO AL SALDO DEL CLIENTE',
+			situacion: 'ACTIVO',
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CUENTA')
+		).save(flush: true,failOnError: true)
+
+		new PfinCatOperacion(claveOperacion:  'AJUSTE_ABONO',
+			claveAfectaSaldo: 'INCREMENTA',
+			descripcionCorta: 'AJUSTE ABONO',
+			descripcionLarga: 'AJUSTE ABONO AL SALDO DEL CLIENTE',
+			situacion: 'ACTIVO',
+			afecta: PfinCatAfectaOperacion.findByClaveAfecta('CUENTA')
 		).save(flush: true,failOnError: true)
 
 		//NO ENCUENTRO DONDE EL CORE UTILIZA LA RELACION OPERACION-CONCEPTO

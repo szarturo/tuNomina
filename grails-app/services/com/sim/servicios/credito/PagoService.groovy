@@ -555,22 +555,16 @@ class PagoService {
 	Boolean cancelaPagoAplicado (PrestamoPago prestamoPagoInstance){
 		log.info("Cancela Pago Aplicado")
 
-        // Valida que exista la transaccion original
-        //  Debe existir
-        //  Debe ser un pago
-        //  No debe estar cancelada
-        //  LA SIGUIENTE CONDICION AUN NO ES APLICADA
-        //  Debe excluir a las transacciones canceladas por un ajuste
-
-		def criteriaMovimientoAplicado = PfinMovimiento.createCriteria()
-		PfinMovimiento movimientoAplicado  = criteriaMovimientoAplicado.get() {
-			and {
-				eq("prestamo",prestamoPagoInstance.prestamo)
-				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
-				eq("cancelaTransaccion", 0)
-				//TEDEPEFE = DEPOSITO DE EFECTIVO
-				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-				max("fechaAplicacion")
+		//VALIDA SI EXISTE EL MOVIMIENTO APLICADO PARA CANCELAR DE prestamoPagoInstance
+		PfinMovimiento movimientoAplicado
+		//ITERA LOS PfinMovimiento DEL PrestamoPago
+		prestamoPagoInstance.pfinMovimiento.each{
+			//VALIDA SI EXISTE EL PfinMovimiento CON OPERACION DEPOSITO DE EFECTIVO
+			//Y PROCESADO REAL
+			if (it.operacion.equals(PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)){
+					//SI ENCUENTRA EL PfinMovimiento 
+					movimientoAplicado =  it
 			}
 		}
 
@@ -578,8 +572,58 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "No se encontro la transacción para cancelar el pago aplicado", prestamoPagoInstance:prestamoPagoInstance )			
 		}
 
+		// Valida que la fecha valor no sea menor a un pago previo
+		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
+		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
+		        eq("cancelaTransaccion",0)
+		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
+		    }
+		}		
+		if (cuentaMovimientos > 0){
+			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento", prestamoPagoInstance:prestamoPagoInstance )		
+		}
+
+		//SE OBTIENE LA FECHA DEL MEDIO
+		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
+		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+		Date fechaMedio = parametros?.fechaMedio
+		if (!fechaMedio){
+			throw new PagoServiceException(mensaje: "No existe la fecha del medio", prestamoPagoInstance:prestamoPagoInstance )
+		}
+
+		//OBTIENE EL USUARIO ACTUAL
+		Usuario usuario = springSecurityService.getCurrentUser()
+		if (!usuario){
+			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPagoInstance )
+		}
 
 
+		//ASIGNA VALORES AL PREMOVIMIENTO
+		PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(
+				fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
+				fechaLiquidacion: 			fechaMedio, //FECHA DEL MEDIO
+				cuenta:  					movimientoAplicado.cuenta,
+				prestamo : 					movimientoAplicado.prestamo,
+				divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
+				operacion: 					PfinCatOperacion.findByClaveOperacion('CANCELA_PAGO'),
+				importeNeto: 				movimientoAplicado.importeNeto,
+				nota : 						"Ajuste Extraordinario",
+				usuario : 					usuario,
+				fechaAplicacion: 			movimientoAplicado.fechaAplicacion,
+				situacionPreMovimiento : 	SituacionPremovimiento.NO_PROCESADO,
+				fechaRegistro: 				new Date(),
+				numeroPagoAmortizacion:  	0)
+
+		try{
+			// GENERA EL PREMOVIMIENTO
+			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
+
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			throw errorProcesadorFinanciero
+		}
 
 	}
 
