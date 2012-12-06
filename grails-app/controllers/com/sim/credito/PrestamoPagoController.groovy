@@ -124,7 +124,6 @@ class PrestamoPagoController {
     }
 
     def guardarPago(){
-        log.info("Guarda Pago")
         def prestamoPagoInstance = new PrestamoPago(params)
 
         if (!prestamoPagoInstance.validate()) {
@@ -198,8 +197,8 @@ class PrestamoPagoController {
     }
 
     def cancelaPagoGuardado(Long id) {
-        log.info("Cancela Pago Guardado")
-        
+
+        //SE OBTIENE EL PRESTAMO PAGO        
         def prestamoPagoInstance = PrestamoPago.get(id)
 
         try{
@@ -209,6 +208,9 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
+            flash.message = message(code: errorPago.mensaje, args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), prestamoPagoInstance.id])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
