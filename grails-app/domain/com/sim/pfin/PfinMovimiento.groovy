@@ -58,6 +58,8 @@ class PfinMovimiento {
 	}
 
 	String toString() {
-		"${nota} - ${importeNeto} - ${situacionMovimiento}"
+		"""${nota} - ${importeNeto} - ${situacionMovimiento}  
+		${numeroPagoAmortizacion.equals(0) ? "" : " - Amortización: ${numeroPagoAmortizacion}"}
+		"""
 	}
 }

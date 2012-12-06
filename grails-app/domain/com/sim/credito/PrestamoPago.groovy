@@ -10,6 +10,11 @@ class PrestamoPago {
 
 	static hasMany = [pfinMovimiento: PfinMovimiento]
 
+	static mapping = {
+		pfinMovimiento sort: "numeroPagoAmortizacion"
+	}
+
+
 	String toString() {
 		"${prestamo} - ${fechaPago} - ${importePago}"
 	}
