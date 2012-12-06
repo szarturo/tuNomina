@@ -116,6 +116,17 @@ class PagoService {
 	}
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
+		/*
+		//BUSCA EL PREMOVIMIENTO A CANCELAR EL PAGO GUARDADO
+		def criteriaPreMovimientoGuardado = PfinPreMovimiento.createCriteria()
+		PfinPreMovimiento preMovimientoGuardado  = criteriaPreMovimientoGuardado.get() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionPreMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+				//TEDEPEFE = DEPOSITO DE EFECTIVO
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+			}
+		}*/
 
 		//VALIDA SI EXISTE EL PREMOVIMIENTO PARA CANCELAR DE prestamoPagoInstance
 		PfinPreMovimiento preMovimientoGuardado
@@ -129,18 +140,6 @@ class PagoService {
 					preMovimientoGuardado =  it.pfinPreMovimiento
 			}
 		}
-
-		/*
-		//BUSCA EL PREMOVIMIENTO A CANCELAR EL PAGO GUARDADO
-		def criteriaPreMovimientoGuardado = PfinPreMovimiento.createCriteria()
-		PfinPreMovimiento preMovimientoGuardado  = criteriaPreMovimientoGuardado.get() {
-			and {
-				eq("prestamo",prestamoPagoInstance.prestamo)
-				eq("situacionPreMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
-				//TEDEPEFE = DEPOSITO DE EFECTIVO
-				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-			}
-		}*/
 
 		if(!preMovimientoGuardado){
 			throw new PagoServiceException(mensaje: "No existe el Premovimiento a Cancelar", prestamoPagoInstance:prestamoPagoInstance )
@@ -167,6 +166,21 @@ class PagoService {
 	}	
 
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
+
+		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
+		def criteriaNumeroPreMovimientos = PfinMovimiento.createCriteria()
+		Integer numeroPreMovimientos = criteriaNumeroPreMovimientos.count() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+			}
+		}
+
+		if (numeroPreMovimientos>0){
+			//EXISTEN PAGOS GUARDADOS
+			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
+		}
 
 		//Valida que la fecha valor del pago no sea menor a un pago previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
