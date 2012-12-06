@@ -167,22 +167,23 @@ class PagoService {
 
 	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
 
+		//CORREGIR
 		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
+		/*
 		def criteriaNumeroMovimientos = PfinMovimiento.createCriteria()
 		Integer numeroMovimientos = criteriaNumeroMovimientos.count() {
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
 				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
 				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-				//ne("prestamoPago", prestamoPagoInstance)
+				ne("prestamoPago", prestamoPagoInstance)
 			}
-			ne("prestamoPago", prestamoPagoInstance)
 		}
 
 		if (numeroMovimientos>0){
 			//EXISTEN PAGOS GUARDADOS
 			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
-		}
+		}*/
 
 		//VALIDA SI EL PRESTAMO HA SIDO CANCELADO O APLICADO
 		PfinMovimiento movimiento
