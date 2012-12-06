@@ -600,7 +600,6 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "No se encontro usuario registrado", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
-
 		//ASIGNA VALORES AL PREMOVIMIENTO
 		PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(
 				fechaOperacion: 			fechaMedio, //FECHA DEL MEDIO
@@ -608,7 +607,7 @@ class PagoService {
 				cuenta:  					movimientoAplicado.cuenta,
 				prestamo : 					movimientoAplicado.prestamo,
 				divisa: 					PfinDivisa.findByClaveDivisa('MXP'),
-				operacion: 					PfinCatOperacion.findByClaveOperacion('CANCELA_PAGO'),
+				operacion: 					PfinCatOperacion.findByClaveOperacion('AJUSTE_CARGO'),
 				importeNeto: 				movimientoAplicado.importeNeto,
 				nota : 						"Ajuste Extraordinario",
 				usuario : 					usuario,
@@ -624,6 +623,21 @@ class PagoService {
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}
+
+		PfinMovimiento movimiento
+		try{
+			// GENERA EL MOVIMIENTO
+			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
+					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, movimientoAplicado.fechaAplicacion)
+			// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
+			movimiento.prestamoPago = prestamoPagoInstance
+			movimiento.save(flush:true)			
+		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+			throw errorProcesadorFinanciero
+		}catch(Exception errorGenerarMovimiento){
+			log.error(errorGenerarMovimiento)
+			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
+		}		
 
 	}
 
