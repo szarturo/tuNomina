@@ -117,7 +117,20 @@ class PagoService {
 
 	Boolean cancelaPagoGuardado (PrestamoPago prestamoPagoInstance){
 
-		
+		//VALIDA SI EXISTE EL PREMOVIMIENTO PARA CANCELAR DE prestamoPagoInstance
+		PfinPreMovimiento preMovimientoGuardado
+		//ITERA LOS PfinMovimiento DEL PrestamoPago
+		prestamoPagoInstance.pfinMovimiento.each{
+			//VALIDA SI EXISTE EL PfinMovimiento CON OPERACION DEPOSITO DE EFECTIVO
+			//Y PROCESADO VIRTUALMENTE
+			if (it.operacion.equals(PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_VIRTUAL)){
+					//SI ENCUENTRA EL PfinMovimiento RECUPERA SU PfinPreMovimiento
+					preMovimientoGuardado =  it.pfinPreMovimiento
+			}
+		}
+
+		/*
 		//BUSCA EL PREMOVIMIENTO A CANCELAR EL PAGO GUARDADO
 		def criteriaPreMovimientoGuardado = PfinPreMovimiento.createCriteria()
 		PfinPreMovimiento preMovimientoGuardado  = criteriaPreMovimientoGuardado.get() {
@@ -127,7 +140,7 @@ class PagoService {
 				//TEDEPEFE = DEPOSITO DE EFECTIVO
 				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
 			}
-		}
+		}*/
 
 		if(!preMovimientoGuardado){
 			throw new PagoServiceException(mensaje: "No existe el Premovimiento a Cancelar", prestamoPagoInstance:prestamoPagoInstance )

@@ -209,19 +209,13 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
             log.error "Failed:", errorProcesadorFinanciero
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }catch(Exception errorGuardaPago){
             prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se cancelo el Pago Guardado. Contacte al Administrador")
             log.error "Failed:", errorGuardaPago
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }
         redirect(action: "list")
     }
@@ -238,19 +232,13 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
             log.error "Failed:", errorProcesadorFinanciero
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }catch(Exception errorGuardaPago){
             prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se cancelo el Pago Aplicado. Contacte al Administrador")
             log.error "Failed:", errorGuardaPago
-            render(view: "edit", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
         }
         redirect(action: "list")
     }
