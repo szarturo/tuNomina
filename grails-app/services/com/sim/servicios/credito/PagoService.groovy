@@ -16,6 +16,10 @@ class PagoServiceException extends RuntimeException {
 	PrestamoPago prestamoPagoInstance
 }
 
+class PagoServiceAplicaPagoException extends RuntimeException {
+	String mensaje
+}
+
 class PagoService {
 
 	static transactional = true
@@ -130,7 +134,7 @@ class PagoService {
 		}
 
 		if(!preMovimientoGuardado){
-			throw new PagoServiceException(mensaje: "No existe el Premovimiento a Cancelar", prestamoPagoInstance:prestamoPagoInstance )
+			throw new PagoServiceException(mensaje: "No existe el Pago a Cancelar", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
 		//FECHA DE APLICACION
@@ -153,25 +157,28 @@ class PagoService {
 		}		
 	}	
 
-	Boolean aplicarPago(PrestamoPago prestamoPagoInstance){
+	Boolean aplicarPago(PrestamoPago prestamoPagoInstance, Boolean existePagoInstance){
 
-		//CORREGIR
-		//VALIDA SI EL PRESTAMO TIENE PAGOS GUARDADOS PREVIOS
-		/*
-		def criteriaNumeroMovimientos = PfinMovimiento.createCriteria()
-		Integer numeroMovimientos = criteriaNumeroMovimientos.count() {
-			and {
-				eq("prestamo",prestamoPagoInstance.prestamo)
-				eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
-				eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-				ne("prestamoPago", prestamoPagoInstance)
+		//VALIDA SI prestamoPagoInstance NO EXISTE
+		//SI EXISTE NO HAY POSIBILIDAD QUE EXISTAN MAS PAGOS GUARDADOS, YA QUE SOLO DEBERIA
+		//EXISTIR EL QUE QUE SE VA APLICAR
+		if (!existePagoInstance){
+			//prestamoPagoInstance NO EXISTE
+			//HAY QUE VALIDAR SI EXISTEN PAGOS GUARDADOS DE OTROS PAGOS
+			def criteriaNumeroMovimientos = PfinMovimiento.createCriteria()
+			Integer numeroMovimientos = criteriaNumeroMovimientos.count() {
+				and {
+					eq("prestamo",prestamoPagoInstance.prestamo)
+					eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_VIRTUAL)
+					eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+				}
 			}
-		}
 
-		if (numeroMovimientos>0){
-			//EXISTEN PAGOS GUARDADOS
-			throw new PagoServiceException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados", prestamoPagoInstance:prestamoPagoInstance )
-		}*/
+			if (numeroMovimientos>0){
+				//EXISTEN PAGOS GUARDADOS
+				throw new PagoServiceAplicaPagoException(mensaje: "Existen pagos guardados, debe de cancelar o aplicar los pagos previos guardados")
+			}			
+		}
 
 		//VALIDA SI EL PRESTAMO HA SIDO CANCELADO O APLICADO
 		PfinMovimiento movimiento

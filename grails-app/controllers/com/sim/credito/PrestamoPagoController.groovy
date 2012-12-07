@@ -2,6 +2,7 @@ package com.sim.credito
 
 import org.springframework.dao.DataIntegrityViolationException
 import com.sim.servicios.credito.PagoServiceException
+import com.sim.servicios.credito.PagoServiceAplicaPagoException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class PrestamoPagoController {
@@ -156,11 +157,13 @@ class PrestamoPagoController {
     }
 
     def aplicaPago(Long id){
-        log.info("Aplica Pago")
 
         def prestamoPagoInstance
-        //SI EL ID DEL PRESTAMO PAGO NO EXISTE CREA UN PRESTAMO PAGO
+        Boolean existePagoInstance = false
+        //SI EL ID DEL PRESTAMO PAGO NO EXISTE VALIDA QUE EL PRESTAMO PAGO NO
+        //VAYAN A EXISTIR ERRORES CUANDO MAS ADELANTE SE GUARDE
         if (!id){
+            log.info "*****EL PRESTAMO PAGO NO EXISTE"
             prestamoPagoInstance = new PrestamoPago(params)
 
             if (!prestamoPagoInstance.validate()) {
@@ -169,31 +172,44 @@ class PrestamoPagoController {
             }
         }else{
             //EN CASO DE EXISTIR RECUPERA EL REGISTRO
+            log.info "*****EL PRESTAMO PAGO EXISTE"
             prestamoPagoInstance = PrestamoPago.get(id)    
+            existePagoInstance = true
         }
 
         try{
-            pagoService.aplicarPago(prestamoPagoInstance)
+            pagoService.aplicarPago(prestamoPagoInstance,existePagoInstance)
         //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceAplicaPagoException errorPagoAplicaPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPagoAplicaPago.mensaje)
+            log.error "Failed:", errorPagoAplicaPago
+            flash.message = message(code: errorPagoAplicaPago.mensaje, args: [])
+            redirect(action: "list")
+            return
         }catch(PagoServiceException errorPago){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
-            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
+            flash.message = message(code: errorPago.mensaje, args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
             return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
             log.error "Failed:", errorProcesadorFinanciero
-            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
+            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return            
         }catch(Exception errorAplicaPago){
             prestamoPagoInstance.errors.reject("errorAplicaPago","No se aplico el Pago. Contacte al Administrador")
             log.error "Failed:", errorAplicaPago
-            render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
-            return
+            flash.message = message(code: "No se cancelo el Pago Guardado. Contacte al Administrador", args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return            
         }
-        redirect(action: "list")
+        flash.message = message(code: "El pago ha sido aplicado", args: [])
+        redirect(action: "show", id: prestamoPagoInstance.id)            
     }
 
     def cancelaPagoGuardado(Long id) {
@@ -208,18 +224,25 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
-            flash.message = message(code: errorPago.mensaje, args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), prestamoPagoInstance.id])
+            flash.message = message(code: errorPago.mensaje, args: [])
             redirect(action: "show", id: prestamoPagoInstance.id)            
             return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
             log.error "Failed:", errorProcesadorFinanciero
+            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return            
         }catch(Exception errorGuardaPago){
             prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se cancelo el Pago Guardado. Contacte al Administrador")
             log.error "Failed:", errorGuardaPago
+            flash.message = message(code: "No se cancelo el Pago Guardado. Contacte al Administrador", args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return            
         }
-        redirect(action: "list")
+        flash.message = message(code: "El pago guardado ha sido cancelado", args: [])
+        redirect(action: "show", id: prestamoPagoInstance.id)            
     }
 
     def cancelaPagoAplicado(Long id, Long version){
