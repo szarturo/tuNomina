@@ -162,6 +162,8 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             //ESTE ERROR SE GENERA CUANDO SE APLICA UN PAGO QUE NO SE HAYA GUARDADO
             //Y EXISTEN PAGOS GUARDADOS PREVIOS DE OTROS PAGOS
+            //OTRO MOTIVO PARA LANZAR LA EXCEPCION ES CUANDO EXISTE UN PAGO APLICADO CON FECHA
+            //VALOR MAYOR AL PAGO QUE SE DESEA APLICAR
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPagoAplicaPago.mensaje)
             log.error "Failed:", errorPagoAplicaPago
             flash.message = message(code: errorPagoAplicaPago.mensaje, args: [])

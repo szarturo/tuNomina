@@ -185,7 +185,10 @@ class PagoService {
 		//ITERA LOS PfinMovimiento DEL PrestamoPago
 		prestamoPagoInstance.pfinMovimiento.each{
 			//VALIDA SI EXISTE UN PfinMovimiento APLICADO O CANCELADO
-			if (it.cancelaTransaccion || it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)){
+			if (it.cancelaTransaccion 
+				|| it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_REAL)
+				|| it.situacionMovimiento.equals(SituacionPremovimiento.CANCELADO)){
+				log.info "ENCONTRO EL MOVIMIENTO APLICADO O CANCELADO"
 				movimiento =  it
 			}
 		}
@@ -195,18 +198,18 @@ class PagoService {
 		}
 
 
-		//Valida que la fecha valor del pago no sea menor a un pago previo
+		//Valida que la fecha valor del pago no sea menor a un pago aplicado previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
 		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
-		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
-		        eq("cancelaTransaccion",null)
+		        eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
+		        isNull("cancelaTransaccion")
 		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
 		    }
 		}		
 		if (cuentaMovimientos > 0){
-			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento", prestamoPagoInstance:prestamoPagoInstance )		
+			throw new PagoServiceAplicaPagoException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento")		
 		}
 
 		//Se obtiene la Fecha Valor
@@ -216,18 +219,18 @@ class PagoService {
 		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
 		Date fechaSistema = parametros?.fechaMedio
 		if (!fechaSistema){
-			throw new PagoServiceException(mensaje: "No se encuentra la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
+			throw new PagoServiceAplicaPagoException(mensaje: "No se encuentra la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
 		}
 
 		//Valida que la fecha valor no sea mayor a la fecha del Medio
 		if (fechaValor > fechaSistema) {
-			throw new PagoServiceException(mensaje: "Operación no realizada, la fecha de Aplicación es mayor a la fecha del medio del sistema", prestamoPagoInstance:prestamoPagoInstance )
+			throw new PagoServiceAplicaPagoException(mensaje: "Operación no realizada, la fecha de Aplicación es mayor a la fecha del medio del sistema")
 		}
 
 		//Se obtiene la cuenta Eje del Cliente
 		PfinCuenta cuentaEje = PfinCuenta.findWhere(tipoCuenta: "EJE", cliente: prestamoPagoInstance.prestamo.cliente)
 		if (!cuentaEje){
-			throw new PagoServiceException(mensaje: "No se encontro la cuenta eje del Cliente", prestamoPagoInstance:prestamoPagoInstance )
+			throw new PagoServiceAplicaPagoException(mensaje: "No se encontro la cuenta eje del Cliente")
 		}
 
 		//Recuperar o almacenar el pago Guardado
@@ -386,12 +389,13 @@ class PagoService {
 		ArrayList listaMovimientoDet = []
 		//ITERA TODOS LOS CONCEPTOS A PAGAR DEL PRESTAMO
 		listaPrelacionPagoConcepto.each(){
+			/*
 			log.info "******************"
 			log.info "Numero Amortizacion: "+it.numeroAmortizacion
 			log.info "Orden Pago: "+it.ordenPago
 			log.info "Concepto: " +it.concepto
 			log.info "Cantidad:"+it.cantidadPagar
-
+			*/
 			BigDecimal importeConcepto
 
 			//VERIFICA SI EXISTE SALDO PARA PAGAR EL CONCEPTO CORRESPONDIENTE
@@ -522,10 +526,13 @@ class PagoService {
 			}
 			if (it.operacion.equals(PfinCatOperacion.findByClaveOperacion('CRPAGOPRES'))
 				&& it.situacionMovimiento.equals(SituacionPremovimiento.PROCESADO_VIRTUAL)){
-					//SI ENCUENTRA EL PfinMovimiento 
+					//ALMACENA EN EL ARREGLO TODOS LOS MOVIMIENTOS QUE SON PAGO AL PRESTAMO
 					listaMovimientosPagoPrestamo.add(it)
-			}			
+			}
+
 		}
+
+
 
 		if(!movimientoAplicado){
 			throw new PagoServiceException(mensaje: "No se encontro la transacción para cancelar el pago aplicado", prestamoPagoInstance:prestamoPagoInstance )			
