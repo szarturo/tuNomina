@@ -160,6 +160,8 @@ class PrestamoPagoController {
         //VERIFICAR SI SE GENERO ALGUN ERROR
         }catch(PagoServiceAplicaPagoException errorPagoAplicaPago){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            //ESTE ERROR SE GENERA CUANDO SE APLICA UN PAGO QUE NO SE HAYA GUARDADO
+            //Y EXISTEN PAGOS GUARDADOS PREVIOS DE OTROS PAGOS
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPagoAplicaPago.mensaje)
             log.error "Failed:", errorPagoAplicaPago
             flash.message = message(code: errorPagoAplicaPago.mensaje, args: [])
@@ -235,15 +237,24 @@ class PrestamoPagoController {
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
             prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
             log.error "Failed:", errorPago
+            flash.message = message(code: errorPago.mensaje, args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
             log.error "Failed:", errorProcesadorFinanciero
+            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return                        
         }catch(Exception errorGuardaPago){
             prestamoPagoInstance.errors.reject("ErrorGuardaPago","No se cancelo el Pago Aplicado. Contacte al Administrador")
             log.error "Failed:", errorGuardaPago
+            flash.message = message(code: "No se cancelo el Pago Aplicado. Contacte al Administrador", args: [])
+            redirect(action: "show", id: prestamoPagoInstance.id)            
+            return                        
         }
-        redirect(action: "list")
+        flash.message = message(code: "El pago aplicado ha sido cancelado", args: [])
+        redirect(action: "show", id: prestamoPagoInstance.id)            
     }
-
 }
