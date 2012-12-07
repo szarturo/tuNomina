@@ -82,13 +82,17 @@ class BootStrap {
 		callCenterRole.id = 'ROLE_CALLCENTER'
 		callCenterRole.save(flush: true,failOnError: true)
 
+		def operadorRole = new Rol(authority: 'ROLE_OPERADOR', name: 'Operador')
+		operadorRole.id = 'ROLE_OPERADOR'
+		operadorRole.save(flush: true,failOnError: true)
+
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(flush: true)
 
 		UsuarioRol.create usuarioAdmin, adminRole, true
 		
 		assert Usuario.count() == 1
-		assert Rol.count() == 7
+		assert Rol.count() == 8
 		assert UsuarioRol.count() == 1
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO ADMINISTRADOR
