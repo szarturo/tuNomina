@@ -156,9 +156,9 @@ class RegisterCommand {
 		password blank: false, nullable: false, validator: RegisterController.passwordValidator
 		password2 validator: RegisterController.password2Validator
 		
-		apellidoPaterno size:5..25, blank: false, unique: false
+		apellidoPaterno size:3..25, blank: false, unique: false
 		apellidoMaterno nullable: true, size:0..25
-		primerNombre size:5..25, blank: false, unique: false
+		primerNombre size:3..25, blank: false, unique: false
 		segundoNombre nullable: true, size:0..25
 	}
 }
