@@ -11,7 +11,7 @@ class EntRegion {
     static hasMany = [estados: RsGralEstado]
 
     static constraints = {
-        claveRegion(size:3..15, unique: true, nullable: false, blank: false)
+        claveRegion(size:1..20, unique: true, nullable: false, blank: false)
         nombreRegion(size:3..50, unique: true, nullable: false, blank: false)
         descripcionRegion(size:5..150, nullable: true)
         estados()

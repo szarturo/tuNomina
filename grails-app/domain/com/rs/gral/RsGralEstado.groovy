@@ -14,7 +14,7 @@ class RsGralEstado {
 	static belongsTo = [region: EntRegion]
 
 	static constraints = {
-		cveEstado(size:2..8, unique: true,nullable: false, blank: false)
+		cveEstado(size:2..20, unique: true,nullable: false, blank: false)
 		nombreEstado(size:3..50, unique: true,nullable: false, blank: false)
 		aliasEstado(nullable: true)
 	}
