@@ -13,8 +13,8 @@ class ProPromocionAccesorio {
 
     static constraints = {
     	proPromocion()
-		accesorio (unique: true, nullable: false)
-		orden (range: 1..20, unique: true, nullable: false)
+    	accesorio (unique: false, nullable: false)
+		orden (range: 1..20, unique: false, nullable: false)
 		formaAplicacion()
     } 
     
