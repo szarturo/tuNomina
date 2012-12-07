@@ -197,7 +197,6 @@ class PagoService {
 			throw new PagoServiceException(mensaje: "El pago no puede ser aplicado, ya esta aplicado o cancelado", prestamoPagoInstance:prestamoPagoInstance )	
 		}
 
-
 		//Valida que la fecha valor del pago no sea menor a un pago aplicado previo
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
 		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
@@ -266,7 +265,7 @@ class PagoService {
 		}
 
 		if (!listaAmortizacionPendiente){
-			throw new PagoServiceException(mensaje: "No se encontraron amortizaciones para aplicar el Pago", prestamoPagoInstance:prestamoPagoInstance )			
+			throw new PagoServiceAplicaPagoException(mensaje: "No se encontraron amortizaciones para aplicar el Pago")			
 		}
 
 		//Ejecuta el pago de cada amortizacion pendiente siempre y 
@@ -532,24 +531,23 @@ class PagoService {
 
 		}
 
-
-
 		if(!movimientoAplicado){
 			throw new PagoServiceException(mensaje: "No se encontro la transacción para cancelar el pago aplicado", prestamoPagoInstance:prestamoPagoInstance )			
 		}
 
-		// Valida que la fecha valor no sea menor a un pago previo
+		// VALIDA QUE NO EXISTAN PAGOS APLICADOS MAYORES AL QUE SE DESEA CANCELAR
 		def criteriaPfinMovimiento = PfinMovimiento.createCriteria()
 		Integer cuentaMovimientos = criteriaPfinMovimiento.count(){
 			and {
 				eq("prestamo",prestamoPagoInstance.prestamo)
-		        ne("situacionMovimiento", SituacionPremovimiento.CANCELADO)
-		        eq("cancelaTransaccion",null)
-		        gt("fechaAplicacion", prestamoPagoInstance.fechaPago)
+		        eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
+		        isNull("cancelaTransaccion")
+		        ge("fechaAplicacion", prestamoPagoInstance.fechaPago)
+		        gt("id",prestamoPagoInstance.id)
 		    }
 		}		
 		if (cuentaMovimientos > 0){
-			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor posterior a este movimiento", prestamoPagoInstance:prestamoPagoInstance )		
+			throw new PagoServiceException(mensaje: "Existen movimientos con fecha valor mayor a este movimiento, debe de cancelarlos primero.", prestamoPagoInstance:prestamoPagoInstance )		
 		}
 
 		//SE OBTIENE LA FECHA DEL MEDIO
