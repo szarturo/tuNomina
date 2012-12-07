@@ -31,25 +31,6 @@ class PrestamoPagoController {
             return
         }
 		
-        /*
-        //EJEMPLO DE COMO GENERAR EL PREMOVIMIENTO Y EL MOVIMIENTO
-		try{
-			pagoService.aplicaPagoIndividual(prestamoPagoInstance)
-		//VERIFICAR SI SE GENERO ALGUN ERROR
-		}catch(PagoServiceException errorPago){
-			//EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
-			prestamoPagoInstance.errors.reject("ErrorPagoCredito",errorPago.mensaje)
-			log.error "Failed:", errorPago
-			render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
-			return
-		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
-			//EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
-			prestamoPagoInstance.errors.reject("ErrorProcesadorFinanciero",errorProcesadorFinanciero.mensaje)
-			log.error "Failed:", errorProcesadorFinanciero
-			render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
-			return
-		}*/
-
         flash.message = message(code: 'default.created.message', args: [message(code: 'prestamoPago.label', default: 'PrestamoPago'), prestamoPagoInstance.id])
         redirect(action: "show", id: prestamoPagoInstance.id)
     }
@@ -163,16 +144,13 @@ class PrestamoPagoController {
         //SI EL ID DEL PRESTAMO PAGO NO EXISTE VALIDA QUE EL PRESTAMO PAGO NO
         //VAYAN A EXISTIR ERRORES CUANDO MAS ADELANTE SE GUARDE
         if (!id){
-            log.info "*****EL PRESTAMO PAGO NO EXISTE"
             prestamoPagoInstance = new PrestamoPago(params)
-
             if (!prestamoPagoInstance.validate()) {
                 render(view: "create", model: [prestamoPagoInstance: prestamoPagoInstance])
                 return
             }
         }else{
             //EN CASO DE EXISTIR RECUPERA EL REGISTRO
-            log.info "*****EL PRESTAMO PAGO EXISTE"
             prestamoPagoInstance = PrestamoPago.get(id)    
             existePagoInstance = true
         }

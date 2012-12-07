@@ -502,83 +502,6 @@ class PagoService {
 		}
 	}
 
-	//METODO DE EJEMPLO TOMADO DEL SIM CREDICONFIA
-	//EJEMPLO QUE NOS SIRVIO PARA DESARROLLAR EL CORE FINANCIERO
-	Boolean aplicaPagoIndividual(PrestamoPago prestamoPagoInstance) {
-
-		//Se obtiene el usuario actual
-		Usuario usuario = springSecurityService.getCurrentUser()
-
-		//SE OBTIENE LA FECHA DEL MEDIO
-		//FECHA_MEDIO = FECHA_SISTEMA = FECHA_LIQUIDACION
-		PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
-		Date fechaMedio = parametros?.fechaMedio
-		if (!fechaMedio){
-			throw new PagoServiceException(mensaje: "No existe la fecha del medio", prestamoPagoInstance:prestamoPagoInstance )
-		}
-
-		//FECHA DE APLICACION
-		Date fechaAplicacion = prestamoPagoInstance.fechaPago
-
-		//OBTIENE LA CUENTA DEL CLIENTE
-		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoPagoInstance.prestamo.cliente)
-
-		//VERIFICA SI EXISTE LA CUENTA DEL CLIENTE
-		if (!cuentaCliente){
-			throw new PagoServiceException(mensaje: "No existe la cuenta del Cliente", prestamoPagoInstance:prestamoPagoInstance )
-		}
-
-		//ASIGNA VALORES AL PREMOVIMIENTO
-		PfinPreMovimiento preMovimientoInsertado = new PfinPreMovimiento(cuenta:  cuentaCliente,
-				divisa: PfinDivisa.findByClaveDivisa('MXP'),
-				fechaOperacion:fechaMedio, //FECHA DEL MEDIO
-				fechaLiquidacion:fechaMedio, //FECHA DEL MEDIO
-				importeNeto: prestamoPagoInstance.importePago,
-				//referencia NO SE DEFINE AL CREAR EL PREMOVIMIENTO
-				prestamo : prestamoPagoInstance.prestamo,
-				nota : "Deposito de efectivo a la Cuenta",
-				//pfinMovimiento()
-				situacionPreMovimiento : SituacionPremovimiento.NO_PROCESADO,
-				fechaRegistro:new Date(),
-				logIpDireccion: 'xxxxxxxxx',
-				logUsuario:'xxxxxxxxxx',
-				logHost:'xxxxxxxxxx',
-				usuario : usuario,
-				fechaAplicacion:prestamoPagoInstance.fechaPago,
-				numeroPagoAmortizacion: 0,
-				operacion: PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
-		try{
-			// GENERA EL PREMOVIMIENTO
-			preMovimientoInsertado = procesadorFinancieroService.generaPreMovimiento(preMovimientoInsertado)
-
-			//GENERA LOS DETALLES DEL PREMOVIMIENTO
-			PfinCatOperacion operacion = preMovimientoInsertado.operacion
-
-			def listaConceptos = PfinCatOperacionConcepto.findAllByOperacion(operacion)
-
-			listaConceptos.each() {
-				PfinPreMovimientoDet preMovimientoDet = procesadorFinancieroService.generaPreMovimientoDet(preMovimientoInsertado, it.concepto, 100, "Si pasa!")
-				preMovimientoInsertado.addToPfinPreMovimientoDet(preMovimientoDet)
-			}
-			
-		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
-			throw errorProcesadorFinanciero
-		}
-
-		PfinMovimiento movimiento
-		try{
-			// GENERA EL MOVIMIENTO
-			movimiento = procesadorFinancieroService.procesaMovimiento(preMovimientoInsertado,
-					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, fechaAplicacion)
-		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
-			throw errorProcesadorFinanciero
-		}catch(Exception errorGenerarMovimiento){
-			log.error(errorGenerarMovimiento)
-			throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
-		}
-		return true
-	}
-
 	Boolean cancelaPagoAplicado (PrestamoPago prestamoPagoInstance){
 		log.info("Cancela Pago Aplicado")
 
@@ -745,5 +668,4 @@ class PagoService {
 			actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 		}
 	}
-
 }
