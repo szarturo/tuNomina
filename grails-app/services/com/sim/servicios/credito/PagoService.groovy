@@ -543,7 +543,9 @@ class PagoService {
 		        eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
 		        isNull("cancelaTransaccion")
 		        ge("fechaAplicacion", prestamoPagoInstance.fechaPago)
-		        gt("id",prestamoPagoInstance.id)
+	            prestamoPago {
+	                gt("id",prestamoPagoInstance.id)
+	            }
 		    }
 		}		
 		if (cuentaMovimientos > 0){
