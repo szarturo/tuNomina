@@ -13,9 +13,12 @@ import com.sim.listacobro.*
 import test.*
 import abltutorial.*
 
+import org.codehaus.groovy.grails.commons.ApplicationHolder as AH
+
 class BootStrap {
 
     def listaCobroService
+
 	def init = { servletContext ->
 
 		new SimCatTipoPersona(claveTipoPersona:  'AVAL',
@@ -1501,7 +1504,11 @@ class BootStrap {
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
-
+        //BORRAR LA SESION DEL OBJETO The Hibernate Session
+        def ctx = AH.application.mainContext
+		def sessionFactory = ctx.sessionFactory
+		def session = sessionFactory.currentSession
+		session.clear()
     }
 
 	def destroy = {
