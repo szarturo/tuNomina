@@ -1047,7 +1047,6 @@ class BootStrap {
 				correoSolicitante: "arturo.salazar@rapidsist.com",
                 folioSolicitud : 34534,
                 dependencia : EntDependencia.findByClaveDependencia('IMSS'),
-                primerPagoDependcia : ListaCobro.findByNumeroPago(5),
                 promocion: promocionUno,
                 sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
                 delegacion: EntDelegacion.findByClaveDelegacion('ZACATECAS'),

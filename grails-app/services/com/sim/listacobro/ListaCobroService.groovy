@@ -5,6 +5,7 @@ import com.sim.entidad.EntDependencia
 class ListaCobroService {
 
     //METODO UTILIZADO EN EL BOOTSTRAP
+    /*
     def generarListasCobro(EntDependencia dependencia,Integer anio){
 
         Integer pagoNomina = 1
@@ -20,5 +21,5 @@ class ListaCobroService {
             pagoNomina ++
         }
 
-    }
+    }*/
 }

@@ -11,7 +11,6 @@ class TablaAmortizacionAccesorio {
 	BigDecimal  	importeIvaAccesorioPagado
 
 	static belongsTo = [tablaAmortizacion   : TablaAmortizacionRegistro]
-    static hasMany   = [tablaAmorAccParcial : TablaAmorAccParcial]
 
 	static constraints = {
 		accesorio()			

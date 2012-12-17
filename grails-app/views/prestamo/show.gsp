@@ -84,13 +84,6 @@
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="prestamo.primerPagoDependcia.label" default="Primer pago de la Dependencia" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="listaCobro" action="show" id="${prestamoInstance?.primerPagoDependcia?.id}">${prestamoInstance?.primerPagoDependcia?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>                        
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.sucursal.label" default="Sucursal" /></td>
                             
                             <td valign="top" class="value"><g:link controller="entSucursal" action="show" id="${prestamoInstance?.sucursal?.id}">${prestamoInstance?.sucursal?.encodeAsHTML()}</g:link></td>

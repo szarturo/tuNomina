@@ -14,7 +14,6 @@ import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.call.CallCenter
-import com.sim.listacobro.ListaCobro
 
 class Prestamo {
 
@@ -37,7 +36,6 @@ class Prestamo {
 	String         comentarios
 	Boolean        reenviarSolicitud
 	String         explicacionDevolucion
-	ListaCobro     primerPagoDependcia
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -75,7 +73,6 @@ class Prestamo {
 		approvalStatus nullable:false
 		dateCreated ()
 		lastUpdated nullable:true
-		primerPagoDependcia nullable : true
     }
 	
 	String toString() {
