@@ -821,16 +821,14 @@ class BootStrap {
 
         def dependenciaImss = new EntDependencia(claveDependencia: 'IMSS',
                 nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
-                periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(failOnError: true)
 
         new EntDependencia(claveDependencia: 'CFE',
                 nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
-                periodicidadPagoNomina: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
         ).save(failOnError: true)
 
         //GENERA LAS LISTAS DE COBRO
-        listaCobroService.generarListasCobro(dependenciaImss,2012)
+        //listaCobroService.generarListasCobro(dependenciaImss,2012)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
         def robertoPerez = new RsPersona(
@@ -840,7 +838,7 @@ class BootStrap {
                 tiposPersona : [
                         SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
                 ],
-        ).save(failOnError: true)
+        ).save(failOnError: true, flush:true)
 
         new RsCliente(persona: robertoPerez,
                 dependencia: EntDependencia.findByClaveDependencia('IMSS'),
