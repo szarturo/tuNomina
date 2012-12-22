@@ -37,3 +37,10 @@ static constraints = {
     claveIdentificador(validator: { cveIdentificador ->
         cveIdentificador.claveTipoIdentificador.equals "REGIONAL" })
 }
+
+Asignar directamente la tarea a un usuario
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${usuarioMesaControl}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
