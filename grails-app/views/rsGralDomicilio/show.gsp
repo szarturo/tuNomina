@@ -49,21 +49,30 @@
 					
 				</li>
 				</g:if>
+			
+				<g:if test="${rsGralDomicilioInstance?.rsGralAsentamiento}">
+				<li class="fieldcontain">
+					<span id="rsGralAsentamiento-label" class="property-label"><g:message code="rsGralDomicilio.rsGralAsentamiento.label" default="Rs Gral Asentamiento" /></span>
+					
+						<span class="property-value" aria-labelledby="rsGralAsentamiento-label"><g:link controller="rsGralAsentamiento" action="show" id="${rsGralDomicilioInstance?.rsGralAsentamiento?.id}">${rsGralDomicilioInstance?.rsGralAsentamiento?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${rsGralDomicilioInstance?.esFiscal}">
+				<li class="fieldcontain">
+					<span id="esFiscal-label" class="property-label"><g:message code="rsGralDomicilio.esFiscal.label" default="Es Fiscal" /></span>
+					
+						<span class="property-value" aria-labelledby="esFiscal-label"><g:formatBoolean boolean="${rsGralDomicilioInstance?.esFiscal}" /></span>
+					
+				</li>
+				</g:if>
 
 				<g:if test="${rsGralDomicilioInstance?.tipoVivienda}">
 				<li class="fieldcontain">
 					<span id="tipoVivienda-label" class="property-label"><g:message code="rsGralDomicilio.tipoVivienda.label" default="Tipo Vivienda" /></span>
 					
 						<span class="property-value" aria-labelledby="tipoVivienda-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="tipoVivienda"/></span>
-					
-				</li>
-				</g:if>
-
-				<g:if test="${rsGralDomicilioInstance?.esFiscal}">
-				<li class="fieldcontain">
-					<span id="esFiscal-label" class="property-label"><g:message code="rsGralDomicilio.esFiscal.label" default="Es Fiscal" /></span>
-					
-						<span class="property-value" aria-labelledby="esFiscal-label"><g:formatBoolean boolean="${rsGralDomicilioInstance?.esFiscal}" /></span>
 					
 				</li>
 				</g:if>
@@ -77,21 +86,22 @@
 				</li>
 				</g:if>
 
-			
-				<g:if test="${rsGralDomicilioInstance?.comentarios}">
-				<li class="fieldcontain">
-					<span id="comentarios-label" class="property-label"><g:message code="rsGralDomicilio.comentarios.label" default="Domicilio" /></span>
-					
-						<span class="property-value" aria-labelledby="comentarios-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="comentarios"/></span>
-					
-				</li>
-				</g:if>
-
 				<g:if test="${rsGralDomicilioInstance?.aniosResidencia}">
 				<li class="fieldcontain">
 					<span id="aniosResidencia-label" class="property-label"><g:message code="rsGralDomicilio.aniosResidencia.label" default="A&ntilde;os de Residencia" /></span>
 					
 						<span class="property-value" aria-labelledby="aniosResidencia-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="aniosResidencia"/></span>
+				</li>
+				</g:if>
+
+
+			
+				<g:if test="${rsGralDomicilioInstance?.comentarios}">
+				<li class="fieldcontain">
+					<span id="comentarios-label" class="property-label"><g:message code="rsGralDomicilio.comentarios.label" default="Comentarios" /></span>
+					
+						<span class="property-value" aria-labelledby="comentarios-label"><g:fieldValue bean="${rsGralDomicilioInstance}" field="comentarios"/></span>
+					
 				</li>
 				</g:if>
 			

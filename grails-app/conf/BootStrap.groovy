@@ -697,38 +697,13 @@ class BootStrap {
 				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('MEXICO TRES'),
 				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true, flush: true)
 
-		/*
-		 new RsGralDomicilio(calle: 'Las Palmas',
-		 numeroInterior: '4',
-		 numeroExterior: '67',
-		 esFiscal: 'true',
-		 comentarios : 'ENFRENTE DE UNA FARMACIA',
-		 rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('06860'),
-		 regional : SimRegional.findByClaveRegional('REGION1'),
-		 ).save(failOnError: true)
-		 new RsGralDomicilio(calle: 'Direccion administrador',
-		 numeroInterior: '54',
-		 numeroExterior: '90',
-		 esFiscal: 'false',
-		 comentarios : 'CRUZANDO DE UNA AVENIDA',
-		 rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01790'),
-		 sucursal : SimSucursal.get(1),
-		 ).save(failOnError: true)
-		 new RsGralDomicilio(calle: 'Direccion administrador',
-		 numeroInterior: '78',
-		 numeroExterior: '905',
-		 esFiscal: 'true',
-		 comentarios : 'ATRAS CENTRO COMERCIAL',
-		 rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01580'),
-		 persona : RsPersona.get(1),
-		 ).save(failOnError: true)
-		 */
+		 
 		new RsGralDomicilio(calle: 'BATALLONES ROJOS 205',
 				numeroInterior: '504',
 				numeroExterior: 'EDIF 8',
 				esFiscal: 'true',
 				comentarios : 'UNIDAD ALBARRADA',
-				//rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('06862'),
+				rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('06862'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(failOnError: true)
 		new RsGralDomicilio(calle: 'PROGRESISTA',
@@ -736,7 +711,7 @@ class BootStrap {
 				numeroExterior: 'EDIF 6',
 				esFiscal: 'false',
 				comentarios : 'UNIDAD VICENTE',
-				//rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01600'),
+				rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01600'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(failOnError: true)
 

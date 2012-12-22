@@ -1,9 +1,5 @@
 package com.rs.gral
 
-//import com.sim.regional.SimRegional
-//import com.sim.regional.SimSucursal
-//import com.sim.cliente.SimClienteNegocio
-
 class RsGralDomicilio {
 
 	String  calle
@@ -14,15 +10,9 @@ class RsGralDomicilio {
 	String  entreCalles
 	Integer aniosResidencia
 	String  comentarios
-	 
 	
-	//RsGralAsentamiento rsGralAsentamiento
+	RsGralAsentamiento rsGralAsentamiento
 	
-	/*
-	static belongsTo = [ regional : SimRegional, sucursal : SimSucursal, persona : RsPersona,
-						 negocio : SimClienteNegocio]
-	*/
-
 	static belongsTo = [persona : RsPersona]
 	
     static constraints = {
@@ -30,19 +20,15 @@ class RsGralDomicilio {
 		numeroInterior()
 		numeroExterior()
 		tipoVivienda inList:["PROPIA","RENTADA","FAMILIARES","HIPOTECADA","OTRO"], nullable :true, blank :true
-		//rsGralAsentamiento(nullable: false)
+		rsGralAsentamiento(nullable: false)
 		esFiscal()
-		comentarios(size:0..300)
+		comentarios(nullable: true,size:0..300)
 		entreCalles size:0..300, nullable:true
-		//regional(nullable: true)
-		//sucursal(nullable: true)
 		persona(nullable: true)
 		aniosResidencia nullable: true
-		//negocio(nullable: true)
     }
 	
 	String toString() {
-		//"${calle} ${numeroInterior} ${numeroExterior} - CP:${rsGralAsentamiento.codigoPostal}"
-		"${calle} ${numeroInterior} ${numeroExterior}"
+		"${calle} ${numeroInterior} ${numeroExterior} - CP:${rsGralAsentamiento.codigoPostal}"
 	}
 }
