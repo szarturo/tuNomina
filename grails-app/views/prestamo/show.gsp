@@ -15,8 +15,8 @@
             <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 	          <li><g:link class="list" controller="task" action="myTaskList"><g:message code="myTasks.label" default="My Tasks ({0})" args="[myTasksCount]" /></g:link></li>
             <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-            <li><g:link class="list" controller="prestamoDocumentos" action="listaDocumentos" id="${prestamoInstance.clavePrestamo}"  
-            	params="[clavePrestamo: prestamoInstance.clavePrestamo,
+            <li><g:link class="list" controller="prestamoDocumentos" action="listaDocumentos"
+            	params="[folioSolicitud: prestamoInstance.folioSolicitud,
             	    claveCliente: prestamoInstance?.cliente?.id,
             	    nombreCliente: prestamoInstance?.cliente?.persona?.apellidoPaterno + ' ' +
             	             prestamoInstance?.cliente?.persona?.apellidoMaterno + ' ' +
@@ -52,16 +52,8 @@
                             <td valign="top" class="name"><g:message code="prestamo.correoSolicitante.label" default="Correo Solicitante" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "correoSolicitante")}</td>
-                            
                         </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="prestamo.clavePrestamo.label" default="Clave Prestamo" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "clavePrestamo")}</td>
-                            
-                        </tr>
-                    
+                   
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.folioSolicitud.label" default="Folio Solicitud" /></td>
                             

@@ -33,9 +33,9 @@ class RsClienteController {
         def results = cliente?.creditos?.collect {
             [
                     cell: [
-                            it.clavePrestamo,
-                            it.clavePrestamo,
-                            it.clavePrestamo
+                            it.folioSolicitud,
+                            it.folioSolicitud,
+                            it.folioSolicitud
                     ]
             ]
         }

@@ -95,7 +95,7 @@ class PrestamoController {
 				Object o = null
 				
 				//try{
-					o=service.getByPath("/Sites/tuNomina/creditos/${prestamoInstance.cliente.id}/${prestamoInstance.clavePrestamo}");
+					o=service.getByPath("/Sites/tuNomina/creditos/${prestamoInstance.cliente.id}/${prestamoInstance.folioSolicitud}");
 				//}catch(Exception e){
 					//e.printStackTrace();
 				//}
@@ -255,17 +255,17 @@ class PrestamoController {
         log.info "Estatus Solicitud: ${prestamoInstance.estatusSolicitud}"
 
         if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("PROCESADA"))){
-            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}"
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}"
+            log.info "La solicitud continua en ${prestamoInstance.folioSolicitud}"
+            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} continua en ${prestamoInstance.estatusSolicitud}"
         }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("AUTORIZADA"))){
-            log.info "La solicitud se encuentra en ${prestamoInstance.clavePrestamo}"
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} se encuentra en ${prestamoInstance.estatusSolicitud}"
+            log.info "La solicitud se encuentra en ${prestamoInstance.folioSolicitud}"
+            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} se encuentra en ${prestamoInstance.estatusSolicitud}"
         }else{
 
             //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
             params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
             completeTask(params)
-            flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.clavePrestamo} a ${prestamoInstance.estatusSolicitud}"
+            flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.folioSolicitud} a ${prestamoInstance.estatusSolicitud}"
         }
         redirect(controller: "task", action: "myTaskList")
     }
@@ -276,8 +276,8 @@ class PrestamoController {
         def prestamoInstance = Prestamo.get(params.id)
 
         if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
-            log.info "La solicitud continua en ${prestamoInstance.clavePrestamo}, necesita ser DISPERSADA"
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} continua en ${prestamoInstance.estatusSolicitud}, necesita ser DISPERSADA"
+            log.info "La solicitud continua en ${prestamoInstance.folioSolicitud}, necesita ser DISPERSADA"
+            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} continua en ${prestamoInstance.estatusSolicitud}, necesita ser DISPERSADA"
         }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA"))){
             //CONSULTA SI EL PAGO AL CLIENTE SE REALIZA A TRAVES DE TRANSFERENCIA ELECTRONICA O
             //POR VENTANILLA BANCARIA
@@ -302,12 +302,12 @@ class PrestamoController {
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')
             }
 
-            flash.message = "La solicitud ${prestamoInstance.clavePrestamo} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
+            flash.message = "La solicitud ${prestamoInstance.folioSolicitud} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
             prestamoInstance.save(flush: true)
             completeTask(params)
             
         }else{
-            flash.message = " La solicitud ${prestamoInstance.clavePrestamo} debe cambiar al estatus  ${SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA")}"
+            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} debe cambiar al estatus  ${SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA")}"
         }
 
         redirect(controller: "task", action: "myTaskList")

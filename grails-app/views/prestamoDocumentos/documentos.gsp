@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>Documentos para iniciar apertura de Cr&eacute;dito</h1>
-		<uploadr:add name="${clavePrestamo}" path="${path}" direction="up"
+		<uploadr:add name="folio${folioSolicitud}" path="${path}" direction="up"
 			maxVisible="8"
 			unsupported="${createLink(plugin: 'uploadr', controller: 'upload', action: 'warning')}"
 			maxSize="52428800" rating="true" voting="true">
@@ -21,7 +21,7 @@
 			</g:each>
 			
 			<uploadr:onSuccess>
-				${remoteFunction(controller:'prestamoDocumentos',action:'salvarAlfresco', params:"'nombreArchivo='+file.fileName+'&clavePrestamo=${clavePrestamo}&claveCliente=${claveCliente}'")};
+				${remoteFunction(controller:'prestamoDocumentos',action:'salvarAlfresco', params:"'nombreArchivo='+file.fileName+'&folioSolicitud=${folioSolicitud}&claveCliente=${claveCliente}'")};
 				callback();
 			</uploadr:onSuccess>			
 			
@@ -46,7 +46,7 @@
 
 					      $(this).append($("<iframe style='width:700px; height: 500px;'></iframe>").attr('src',
 					      '${createLink(action:'obtenerImagen')}?fileName='+
-					      escape(file.fileName)+'&claveCliente='+escape('${claveCliente}')+'&clavePrestamo='+escape('${clavePrestamo}')))
+					      escape(file.fileName)+'&claveCliente='+escape('${claveCliente}')+'&folioSolicitud='+escape('${folioSolicitud}')))
 
 					}
 				}).width(width).height(height).animate({ top: '10' });				
@@ -111,7 +111,7 @@
 
                       $(this).append($("<iframe style='width:1150px; height: 600px;'></iframe>").attr('src',
                       '${createLink(action:'compararDocumentos')}?fileName0='+
-                      escape(documentos[0])+'&fileName1='+escape(documentos[1])+'&claveCliente='+escape('${claveCliente}')+'&clavePrestamo='+escape('${clavePrestamo}')))
+                      escape(documentos[0])+'&fileName1='+escape(documentos[1])+'&claveCliente='+escape('${claveCliente}')+'&folioSolicitud='+escape('${folioSolicitud}')))
 
                 }
             }).width(width).height(height).animate({ top: '10' });

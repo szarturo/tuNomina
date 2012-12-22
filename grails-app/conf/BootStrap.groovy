@@ -1042,7 +1042,7 @@ class BootStrap {
 		).save(failOnError: true, flush: true)
 
 
-        new Prestamo(clavePrestamo: "KLP987",
+        new Prestamo(
                 cliente : clienteArturo,
 				correoSolicitante: "arturo.salazar@rapidsist.com",
                 folioSolicitud : 34534,
@@ -1284,7 +1284,7 @@ class BootStrap {
 			fechaLiquidacion:new Date('09/30/2012'),
 			importeNeto: 1000.50,
 			referencia: 34,
-			prestamo : Prestamo.findByClavePrestamo('KLP987'),
+			prestamo : Prestamo.findByFolioSolicitud(34534),
 			nota : 'Pago de Prestamo',
 			listaCobro : 3453,
 			//pfinMovimiento()
@@ -1408,7 +1408,7 @@ class BootStrap {
 				valor			:	'1',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
-				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				prestamo		: 	Prestamo.findByFolioSolicitud(34534)
 				).save(failOnError: true)
         
 		new PrestamoAccesorio(
@@ -1416,7 +1416,7 @@ class BootStrap {
 				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
-				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				prestamo		: 	Prestamo.findByFolioSolicitud(34534)
 				).save(failOnError: true)
 
 		new PrestamoAccesorio(
@@ -1424,7 +1424,7 @@ class BootStrap {
 				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
-				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				prestamo		: 	Prestamo.findByFolioSolicitud(34534)
 				).save(failOnError: true)
 
 		new PrestamoAccesorio(
@@ -1432,7 +1432,7 @@ class BootStrap {
 				valor			:	'10',
 				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
-				prestamo		: 	Prestamo.findByClavePrestamo("KLP987")
+				prestamo		: 	Prestamo.findByFolioSolicitud(34534)
 				).save(failOnError: true)
 
         new ProPromocionAccesorio (

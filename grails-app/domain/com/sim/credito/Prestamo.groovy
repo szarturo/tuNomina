@@ -17,7 +17,6 @@ import com.sim.call.CallCenter
 
 class Prestamo {
 
-	String         clavePrestamo
     Integer        folioSolicitud
     EntDependencia dependencia
     //SOLO SE DEBEN MOSTRAR LAS PROMOCIONES DE LA DEPENDENCIA SELECCIONADA
@@ -54,7 +53,6 @@ class Prestamo {
     static constraints = {
         cliente(nullable: false)
 		correoSolicitante email:true, nullable: false
-		clavePrestamo(size:1..20, unique: true, nullable: false, blank: false)
         folioSolicitud(nullable: false, unique: true)
         promocion(nullable: false)
         dependencia(nullable: false)
@@ -76,6 +74,6 @@ class Prestamo {
     }
 	
 	String toString() {
-		"${cliente} - ${clavePrestamo}"
+		"${cliente} - ${folioSolicitud}"
 	}
 }

@@ -31,8 +31,6 @@
                         
                             <th><g:message code="prestamo.cliente.label" default="Cliente" /></th>
                         
-                            <g:sortableColumn property="clavePrestamo" title="${message(code: 'prestamo.clavePrestamo.label', default: 'Clave Prestamo')}" />
-                        
                             <g:sortableColumn property="folioSolicitud" title="${message(code: 'prestamo.folioSolicitud.label', default: 'Folio Solicitud')}" />
                         
                             <th><g:message code="prestamo.promocion.label" default="Promocion" /></th>
@@ -48,8 +46,6 @@
                             <td><g:link action="show" id="${prestamoInstance.id}">${fieldValue(bean: prestamoInstance, field: "id")}</g:link></td>
                         
                             <td>${fieldValue(bean: prestamoInstance, field: "cliente")}</td>
-                        
-                            <td>${fieldValue(bean: prestamoInstance, field: "clavePrestamo")}</td>
                         
                             <td>${fieldValue(bean: prestamoInstance, field: "folioSolicitud")}</td>
                         

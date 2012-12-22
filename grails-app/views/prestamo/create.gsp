@@ -51,15 +51,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="clavePrestamo"><g:message code="prestamo.clavePrestamo.label" default="Clave Prestamo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'clavePrestamo', 'errors')}">
-                                    <g:textField name="clavePrestamo" maxlength="20" value="${prestamoInstance?.clavePrestamo}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="folioSolicitud"><g:message code="prestamo.folioSolicitud.label" default="Folio Solicitud" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'folioSolicitud', 'errors')}">
