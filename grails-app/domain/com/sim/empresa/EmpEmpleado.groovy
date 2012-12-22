@@ -6,12 +6,12 @@ import com.sim.entidad.EntSucursal
 class EmpEmpleado {
 
     RsPersona    persona
-    String  clavePromotor
-    Date    fechaIngreso
-    String  numeroNomina
-    Boolean esVigente = false
-    String  tipoEmpleado
-    EmpPuesto puesto
+    String       clavePromotor
+    Date         fechaIngreso
+    String       numeroNomina
+    Boolean      esVigente = false
+    String       tipoEmpleado
+    EmpPuesto    puesto
     EntSucursal  sucursal
 
     static constraints = {
