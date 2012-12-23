@@ -72,7 +72,12 @@
                             <td valign="top" class="name"><g:message code="prestamo.dependencia.label" default="Dependencia" /></td>
                             
                             <td valign="top" class="value"><g:link controller="entDependencia" action="show" id="${prestamoInstance?.dependencia?.id}">${prestamoInstance?.dependencia?.encodeAsHTML()}</g:link></td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.tipoEmpleadoDep.label" default="Tipo Empleado Dependencia" /></td>
                             
+                            <td valign="top" class="value"><g:link controller="simCatTipoEmp" action="show" id="${prestamoInstance?.tipoEmpleadoDep?.id}">${prestamoInstance?.tipoEmpleadoDep?.encodeAsHTML()}</g:link></td>
                         </tr>
 
                         <tr class="prop">

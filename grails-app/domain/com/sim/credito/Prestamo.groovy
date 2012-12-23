@@ -12,6 +12,7 @@ import com.sim.producto.ProPromocion
 import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.catalogo.SimCatEtapaPrestamo
+import com.sim.catalogo.SimCatTipoEmp
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.call.CallCenter
 
@@ -19,6 +20,7 @@ class Prestamo {
 
     Integer        folioSolicitud
     EntDependencia dependencia
+    SimCatTipoEmp  tipoEmpleadoDep
     //SOLO SE DEBEN MOSTRAR LAS PROMOCIONES DE LA DEPENDENCIA SELECCIONADA
     ProPromocion   promocion
     //SOLO SE DEBEN MOSTRAR LAS SUCURSALES DE LA DEPENDENCIA SELECCIONADA
@@ -56,6 +58,7 @@ class Prestamo {
         folioSolicitud(nullable: false, unique: true)
         promocion(nullable: false)
         dependencia(nullable: false)
+        tipoEmpleadoDep(nullable : true)
         sucursal(nullable: true)
         delegacion(nullable: true)
         vendedor(nullable: false)

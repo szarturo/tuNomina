@@ -85,7 +85,18 @@
                                     <g:select name="dependencia.id" from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" value="${prestamoInstance?.dependencia?.id}"  />
                                 </td>
                             </tr>
-                        
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="tipoEmpleadoDep"><g:message code="prestamo.tipoEmpleadoDep.label" default="Tipo Empleado Dependencia" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'tipoEmpleadoDep', 'errors')}">
+                                    <g:select name="tipoEmpleadoDep.id" from="${com.sim.catalogo.SimCatTipoEmp.list()}" optionKey="id" 
+                                    noSelection="${['null':'Seleccionar Tipo Empleado']}"
+                                    value="${prestamoInstance?.tipoEmpleadoDep?.id}"  />
+                                </td>
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="sucursal"><g:message code="prestamo.sucursal.label" default="Sucursal" /></label>
