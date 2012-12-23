@@ -2,6 +2,7 @@ package com.sim.entidad
 
 import com.sim.listacobro.ListaCobro
 import com.sim.producto.ProPromocion
+import com.sim.catalogo.SimCatTipoEmp
 
 class EntDependencia {
 
@@ -11,7 +12,13 @@ class EntDependencia {
 
     SortedSet listaCobro
 
-    static hasMany = [listaCobro: ListaCobro, promocion: ProPromocion]
+    static hasMany = [listaCobro: ListaCobro, 
+                    promocion: ProPromocion, 
+                    tiposEmpleado: SimCatTipoEmp]
+
+    static mapping = {
+        tiposEmpleado joinTable: [name:'REL_TIPOS_EMPLEADOS', key:'ID_DEPENDENCIA', column:'ID_TIPO_EMPLEADO']
+    }
 
     static constraints = {
         claveDependencia(size:3..15, unique: true, nullable: false, blank: false)
@@ -19,6 +26,7 @@ class EntDependencia {
         descripcionDependencia(size:5..150, nullable: true)
         listaCobro(nullable: true)
         promocion(nullable: true)
+        tiposEmpleado(nullable: true)
     }
 
     String toString() {

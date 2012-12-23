@@ -178,7 +178,9 @@
 									<li><g:link controller="entDependencia">
 											<span>Dependencia</span>
 										</g:link></li>
-
+									<li><g:link controller="simCatTipoEmp">
+											<span>Tipo Empleado</span>
+										</g:link></li>
 								</ul>
 							</div></li>
 

@@ -21,6 +21,22 @@ class BootStrap {
 
 	def init = { servletContext ->
 
+		new SimCatTipoEmp(claveTipoEmpleadoDep:  'HOMOLOGADOS',
+				nombreTipoEmpleadoDep: 'HOMOLOGADOS',
+				).save(failOnError: true)
+
+		new SimCatTipoEmp(claveTipoEmpleadoDep:  'ESTATALES',
+				nombreTipoEmpleadoDep: 'ESTATALES',
+				).save(failOnError: true)
+
+		new SimCatTipoEmp(claveTipoEmpleadoDep:  'CENTRALIZADOS',
+				nombreTipoEmpleadoDep: 'CENTRALIZADOS',
+				).save(failOnError: true)
+		
+		new SimCatTipoEmp(claveTipoEmpleadoDep:  'FEDERALES',
+				nombreTipoEmpleadoDep: 'FEDERALES',
+				).save(failOnError: true)
+
 		new SimCatTipoPersona(claveTipoPersona:  'AVAL',
 				nombreTipoPersona: 'AVAL',
 				descripcionTipoPersona: 'DESCRIPCION AVAL',
