@@ -1,6 +1,7 @@
 package com.sim.entidad
 
 import com.sim.listacobro.ListaCobro
+import grails.converters.*
 
 class EntDependenciaController {
 
@@ -10,5 +11,10 @@ class EntDependenciaController {
         log.info("showListaCobro Inicio")
         EntDependencia dependencia = EntDependencia.findByClaveDependencia(params.claveDependencia)
     }
+
+    def ajaxGetTipoEmpleado = {
+		EntDependencia dependencia = EntDependencia.get(params.id)
+    	render dependencia?.tiposEmpleado as JSON
+    }    
 
 }

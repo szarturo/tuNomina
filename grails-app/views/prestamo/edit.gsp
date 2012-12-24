@@ -1,7 +1,7 @@
-
-
 <%@ page import="com.sim.credito.Prestamo" %>
 <%@ page import="org.grails.activiti.ApprovalStatus"%>
+<g:javascript library="prototype" />
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -77,14 +77,22 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="dependencia"><g:message code="prestamo.dependencia.label" default="Dependencia" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'dependencia', 'errors')}">
-                                    <g:select name="dependencia.id" from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" value="${prestamoInstance?.dependencia?.id}"  />
-                                </td>
-                            </tr>
+             <tr class="prop">
+                <td valign="top" class="name">
+                    <label for="dependencia"><g:message code="prestamo.dependencia.label" default="Dependencia" /></label>
+                </td>
+                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'dependencia', 'errors')}">
+                    <g:select 
+                        name="dependencia.id" 
+                        from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" 
+                        value="${prestamoInstance?.dependencia?.id}" 
+                        onchange="${remoteFunction(
+                            controller:'entDependencia', 
+                            action:'ajaxGetTipoEmpleado', 
+                            params:'\'id=\' + escape(this.value)', 
+                            onComplete:'updateTipoEmpleado(e)')}"/>
+                </td>
+            </tr>                            
 
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -92,7 +100,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'tipoEmpleadoDep', 'errors')}">
                                     <g:select name="tipoEmpleadoDep.id" from="${com.sim.catalogo.SimCatTipoEmp.list()}" optionKey="id" 
-                                    noSelection="${['null':'Seleccionar Tipo Empleado']}"
                                     value="${prestamoInstance?.tipoEmpleadoDep?.id}"  />
                                 </td>
                             </tr>
@@ -236,3 +243,44 @@
         </div>
     </body>
 </html>
+
+<g:javascript>
+    function updateTipoEmpleado(e) {
+        // The response comes back as a bunch-o-JSON
+        var tipoEmpleado = eval("(" + e.responseText + ")")   
+        // evaluate JSON
+
+        if (tipoEmpleado) {
+            var rselect = document.getElementById('tipoEmpleadoDep.id')
+
+            // Clear all previous options
+            var l = rselect.length
+
+            while (l > 0) {
+                l--
+                rselect.remove(l)
+            }
+
+            // Rebuild the select
+            for (var i=0; i < tipoEmpleado.length; i++) {
+                var tipoEmpleadoDependencia = tipoEmpleado[i]
+                var opt = document.createElement('option');
+                opt.text = tipoEmpleadoDependencia.nombreTipoEmpleadoDep
+                opt.value = tipoEmpleadoDependencia.id
+                try {
+                    rselect.add(opt, null) // standards compliant; doesn't work in IE
+                }
+                catch(ex) {
+                    rselect.add(opt) // IE only
+                }
+            }
+        }
+    }
+
+    
+    // This is called when the page loads to initialize dependencia
+    var zselect = document.getElementById('dependencia.id')
+    var zopt = zselect.options[zselect.selectedIndex]
+    ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + zopt.value", onComplete:"updateTipoEmpleado(e)")}
+
+</g:javascript>

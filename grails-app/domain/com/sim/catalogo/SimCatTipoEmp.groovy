@@ -8,7 +8,7 @@ class SimCatTipoEmp {
 	String	nombreTipoEmpleadoDep
 
     static constraints = {
-    	claveTipoEmpleadoDep(size:3..20, unique: true, nullable: false, blank: false)
+    	claveTipoEmpleadoDep(size:2..20, unique: true, nullable: false, blank: false)
 		nombreTipoEmpleadoDep(size:5..50, unique: true, nullable: false, blank: false)
     }
 
