@@ -1,7 +1,5 @@
 package com.sim.catalogo
 
-import  com.sim.entidad.EntDependencia
-
 class SimCatTipoEmp {
 
     String	claveTipoEmpleadoDep
