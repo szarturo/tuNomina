@@ -217,7 +217,8 @@ class BootStrap {
 					numeroDias: 14,
 					).save(failOnError: true)
 	
-		new SimCatPeriodicidad(clavePeriodicidad:  'QUINCENA',
+		SimCatPeriodicidad periodicidadQuincena = new SimCatPeriodicidad(
+					clavePeriodicidad:  'QUINCENA',
 					nombrePeriodicidad: 'QUINCENAL',
 					cantidadPagos:  24 ,
 					numeroDias: 15,
@@ -823,7 +824,8 @@ class BootStrap {
         ).save(failOnError: true)
 
         //GENERA LAS LISTAS DE COBRO
-        //listaCobroService.generarListasCobro(dependenciaImss,2012)
+        listaCobroService.generarListasCobro(dependenciaImss,2012,periodicidadQuincena)
+        listaCobroService.generarListasCobro(dependenciaImss,2013,periodicidadQuincena)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
         def robertoPerez = new RsPersona(
