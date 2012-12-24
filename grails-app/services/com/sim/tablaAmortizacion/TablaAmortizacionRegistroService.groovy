@@ -5,7 +5,7 @@ import java.util.Date
 import com.sim.credito.Prestamo
 import com.sim.producto.ProPromocion
 import com.sim.producto.ProPromocionAccesorio
-//import com.sim.listacobro.ListaCobro
+import com.sim.listacobro.ListaCobro
 
 import com.sim.pfin.PfinMovimiento
 import com.sim.pfin.PfinCatOperacion
@@ -38,9 +38,9 @@ class TablaAmortizacionRegistroService {
 		//VARIABLE PARA SABER CUANTOS PAGOS TIENE EL CREDITO
 		Integer pagoCredito = 0
 
-		/*
 		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
-		ListaCobro primerPago = prestamoInstance.primerPagoDependcia
+		//CORREGIR LA ASIGNACION
+		ListaCobro primerPago = ListaCobro.findByAnioAndNumeroPago('2012','20')
 
 		if (!primerPago){
 			log.info("No se especifico la lista de cobro para la amortizacion uno")
@@ -68,7 +68,6 @@ class TablaAmortizacionRegistroService {
 
 		//SE CREA OBJETO ITERATOR PARA MANEJAR LAS LISTAS DE COBRO
  		Iterator iteratorListasCobro = listasDeCobro.iterator();
- 		*/
 
 		//OBTIENE TODOS LOS MOVIMIENTOS DEL PRESTAMO
 		ArrayList listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
@@ -173,7 +172,7 @@ class TablaAmortizacionRegistroService {
 			(1..promocion.numeroDePagos).each{
 
 				//SE OBTIENE LA LISTA DE COBRO QUE LE CORRESPONDE A LA AMORTIZACION
-				//ListaCobro listaCobroConsecutivo = (ListaCobro)iteratorListasCobro.next();
+				ListaCobro listaCobroConsecutivo = (ListaCobro)iteratorListasCobro.next();
 
 				//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
 				if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))) {
@@ -211,7 +210,7 @@ class TablaAmortizacionRegistroService {
 						impCapitalPagado: 		0,
 						impPagoPagado: 			0,
 						pagado: 				false,
-						//listaCobro:    			listaCobroConsecutivo,
+						listaCobro:    			listaCobroConsecutivo,
 						prestamo:               prestamoInstance
 						).save(flush: true,failOnError: true)
 
@@ -294,8 +293,6 @@ class TablaAmortizacionRegistroService {
 			log.info("No se genera la tabla ya que existen pagos al credito.")
 			throw new TablaAmortizacionServiceException(mensaje: "No se genero la Tabla de Amortizacion ya que existen pagos al credito")
 		}
-
-
 
 		return true
 	}

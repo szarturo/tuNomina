@@ -1,6 +1,7 @@
 package com.sim.tablaAmortizacion
 
 import com.sim.credito.Prestamo
+import com.sim.listacobro.ListaCobro
 
 class TablaAmortizacionRegistro {
 	
@@ -21,6 +22,7 @@ class TablaAmortizacionRegistro {
 	Boolean     pagado = false
 	Date		fechaPagoUltimo
 	Date		fechaValorCalculado
+	ListaCobro  listaCobro
 
 	static belongsTo = [prestamo:Prestamo]
 	
@@ -44,6 +46,7 @@ class TablaAmortizacionRegistro {
 		pagado()
 		fechaPagoUltimo             nullable:true
 		fechaValorCalculado 		nullable:true
+		listaCobro()
 	}
 
 	String toString() {
