@@ -77,7 +77,7 @@
                                 </td>
                             </tr>
                         
-             <tr class="prop">
+            <tr class="prop">
                 <td valign="top" class="name">
                     <label for="dependencia"><g:message code="prestamo.dependencia.label" default="Dependencia" /></label>
                 </td>
@@ -106,16 +106,24 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="sucursal"><g:message code="prestamo.sucursal.label" default="Sucursal" /></label>
+                                    <label for="sucursal"><g:message code="prestamo.sucursal.label" default="Sucursal" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'sucursal', 'errors')}">
-                                    <g:select name="sucursal.id" from="${com.sim.entidad.EntSucursal.list()}" optionKey="id" value="${prestamoInstance?.sucursal?.id}" noSelection="['null': '']" />
+                                    <g:select 
+                                    name="sucursal.id" 
+                                    from="${com.sim.entidad.EntSucursal.list()}" optionKey="id" 
+                                        value="${prestamoInstance?.sucursal?.id}" 
+                                        onchange="${remoteFunction(
+                                        controller:'entSucursal', 
+                                        action:'ajaxGetDelegacion', 
+                                        params:'\'id=\' + escape(this.value)', 
+                                        onComplete:'updateDelegacion(e)')}"/>
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="delegacion"><g:message code="prestamo.delegacion.label" default="Delegacion" /></label>
+                                    <label for="delegacion"><g:message code="prestamo.delegacion.label" default="Delegacion" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'delegacion', 'errors')}">
                                     <g:select name="delegacion.id" from="${com.sim.entidad.EntDelegacion.list()}" optionKey="id" value="${prestamoInstance?.delegacion?.id}" noSelection="['null': '']" />
@@ -252,6 +260,9 @@
 
         if (tipoEmpleado) {
             var rselect = document.getElementById('tipoEmpleadoDep.id')
+            // OBTIENE EL TIPO DE EMPLEADO ASIGNADO EN EL MOMENTO
+            // DE CREAR EL PRESTAMO
+            var tipoEmpleadoActual =  rselect.value
 
             // Clear all previous options
             var l = rselect.length
@@ -274,6 +285,8 @@
                     rselect.add(opt) // IE only
                 }
             }
+            //ASIGNA EL TIPO DE EMPLEADO ACTUAL
+            rselect.value = tipoEmpleadoActual            
         }
     }
 
@@ -283,4 +296,46 @@
     var zopt = zselect.options[zselect.selectedIndex]
     ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + zopt.value", onComplete:"updateTipoEmpleado(e)")}
 
+    function updateDelegacion(e) {
+        // The response comes back as a bunch-o-JSON
+        var delegaciones = eval("(" + e.responseText + ")")   
+        // evaluate JSON
+
+        if (delegaciones) {
+            var rselect = document.getElementById('delegacion.id')
+            // OBTIENE LA DELEGACION ASIGNADA EN EL MOMENTO
+            // DE CREAR EL PRESTAMO
+            var delegacionActual =  rselect.value
+
+            // Clear all previous options
+            var l = rselect.length
+
+            while (l > 0) {
+                l--
+                rselect.remove(l)
+            }
+
+            // Rebuild the select
+            for (var i=0; i < delegaciones.length; i++) {
+                var entDelegacion = delegaciones[i]
+                var opt = document.createElement('option');
+                opt.text = entDelegacion.nombreDelegacion
+                opt.value = entDelegacion.id
+                try {
+                    rselect.add(opt, null) // standards compliant; doesn't work in IE
+                }
+                catch(ex) {
+                    rselect.add(opt) // IE only
+                }
+            }
+            //ASIGNA EL VALOR DE LA DELEGACION GUARDADA
+            rselect.value = delegacionActual
+
+        }
+    }
+
+    // This is called when the page loads to initialize dependencia
+    var zselect = document.getElementById('sucursal.id')
+    var zopt = zselect.options[zselect.selectedIndex]
+    ${remoteFunction(controller:"entSucursal", action:"ajaxGetDelegacion", params:"'id=' + zopt.value", onComplete:"updateDelegacion(e)")}    
 </g:javascript>

@@ -99,10 +99,18 @@
                                     <label for="sucursal"><g:message code="prestamo.sucursal.label" default="Sucursal" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'sucursal', 'errors')}">
-                                    <g:select name="sucursal.id" from="${com.sim.entidad.EntSucursal.list()}" optionKey="id" value="${prestamoInstance?.sucursal?.id}" noSelection="['null': '']" />
+                                    <g:select 
+                                    name="sucursal.id" 
+                                    from="${com.sim.entidad.EntSucursal.list()}" optionKey="id" 
+                                        value="${prestamoInstance?.sucursal?.id}" 
+                                        onchange="${remoteFunction(
+                                        controller:'entSucursal', 
+                                        action:'ajaxGetDelegacion', 
+                                        params:'\'id=\' + escape(this.value)', 
+                                        onComplete:'updateDelegacion(e)')}"/>
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="delegacion"><g:message code="prestamo.delegacion.label" default="Delegacion" /></label>
@@ -207,5 +215,42 @@
     var zselect = document.getElementById('dependencia.id')
     var zopt = zselect.options[zselect.selectedIndex]
     ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + zopt.value", onComplete:"updateTipoEmpleado(e)")}
+
+    function updateDelegacion(e) {
+        // The response comes back as a bunch-o-JSON
+        var delegaciones = eval("(" + e.responseText + ")")   
+        // evaluate JSON
+
+        if (delegaciones) {
+            var rselect = document.getElementById('delegacion.id')
+
+            // Clear all previous options
+            var l = rselect.length
+
+            while (l > 0) {
+                l--
+                rselect.remove(l)
+            }
+
+            // Rebuild the select
+            for (var i=0; i < delegaciones.length; i++) {
+                var entDelegacion = delegaciones[i]
+                var opt = document.createElement('option');
+                opt.text = entDelegacion.nombreDelegacion
+                opt.value = entDelegacion.id
+                try {
+                    rselect.add(opt, null) // standards compliant; doesn't work in IE
+                }
+                catch(ex) {
+                    rselect.add(opt) // IE only
+                }
+            }
+        }
+    }
+
+    // This is called when the page loads to initialize dependencia
+    var zselect = document.getElementById('sucursal.id')
+    var zopt = zselect.options[zselect.selectedIndex]
+    ${remoteFunction(controller:"EntSucursal", action:"ajaxGetDelegacion", params:"'id=' + zopt.value", onComplete:"updateDelegacion(e)")}
 
 </g:javascript>
