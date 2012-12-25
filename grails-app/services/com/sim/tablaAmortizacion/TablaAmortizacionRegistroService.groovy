@@ -40,31 +40,16 @@ class TablaAmortizacionRegistroService {
 
 		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
 		//CORREGIR LA ASIGNACION
-		ListaCobro primerPago = ListaCobro.findByAnioAndNumeroPago('2012','20')
+		ListaCobro primerPago = ListaCobro.findByAnioAndNumeroPago('2012','21')
 
 		if (!primerPago){
 			log.info("No se especifico la lista de cobro para la amortizacion uno")
-			throw new TablaAmortizacionServiceException(mensaje: "No se especifico el primer pago de la Dependencia")
+			throw new TablaAmortizacionServiceException(mensaje: "No se especifico la lista de cobro para la amortizacion uno")
 		}
 
 		//SE OBTIENTEN LAS LISTAS DE COBRO QUE PERTENECEN A LA DEPENDENCIA
-		ArrayList listasDeCobro = ListaCobro.findAllByDependencia(prestamoInstance.dependencia,
-                  [sort: "id", order: "asc"])
-
-		//ARRAY PARA ALMACENAR LAS LISTAS DE COBRA QUE SE ELIMINARAN
-		ArrayList periodicidadPagos = []
-
-		//VALIDA QUE LISTAS DE COBRO VAN A SER ELIMINADAS
-		listasDeCobro.each(){
-			if (primerPago>it){
-				periodicidadPagos.add(it)
-			}
-		}
-
-		//REMUEVE LAS LISTAS DE COBRO QUE NO SE UTILIZAN
-		periodicidadPagos.each(){
-			listasDeCobro.remove(it)
-		}
+		ArrayList listasDeCobro = 
+			ListaCobro.findAllByIdGreaterThanEqualsAndDependencia(primerPago.id,prestamoInstance.dependencia,[sort: "id", order: "asc"])
 
 		//SE CREA OBJETO ITERATOR PARA MANEJAR LAS LISTAS DE COBRO
  		Iterator iteratorListasCobro = listasDeCobro.iterator();
@@ -102,7 +87,7 @@ class TablaAmortizacionRegistroService {
 				registrosTabla.each() {
 					prestamoInstance.removeFromTablaAmortizacion(it)
 				}
-				prestamoInstance.save(flush: true)
+				prestamoInstance.save()
 			}
 
 			//SE OBTIENEN LOS DATOS DEL PRESTAMO
@@ -212,7 +197,7 @@ class TablaAmortizacionRegistroService {
 						pagado: 				false,
 						listaCobro:    			listaCobroConsecutivo,
 						prestamo:               prestamoInstance
-						).save(flush: true,failOnError: true)
+						).save()
 
 				//CALCULA EL SALDO RESTANTE DEL CAPITAL
 				saldoInicial  = saldoInicial  - amortizacion
@@ -249,7 +234,7 @@ class TablaAmortizacionRegistroService {
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
-								).save(flush: true,failOnError: true)
+								).save()
 					} else
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE SALDOA_LAFECHA
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'))) {
@@ -264,7 +249,7 @@ class TablaAmortizacionRegistroService {
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
-								).save(flush: true,failOnError: true)
+								).save()
 					} else
 					//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE CARGO_FIJO
 					if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'))) {
@@ -279,12 +264,12 @@ class TablaAmortizacionRegistroService {
 								importeAccesorioPagado:	 	 0,
 								importeIvaAccesorioPagado :  0,
 								tablaAmortizacion:			 tablaAmortizacionInsertada
-								).save(flush: true,failOnError: true)
+								).save()
 					}
 					//POR CADA ACCESORIO SE MODIFICA EL TOTAL DE LO QUE HAY QUE PAGAR
 					//POR AMORTIZACION
 					tablaAmortizacionInsertada.impPago =  tablaAmortizacionInsertada.impPago + (importeAccesorio ?: 0)
-					tablaAmortizacionInsertada.save(flush:true,failOnError: true)
+					tablaAmortizacionInsertada.save()
 				}
 				numeroPago++
 			}
