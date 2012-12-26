@@ -47,7 +47,7 @@ class PagoService {
 		}
 
 		//ALMACENA EL REGISTRO DE PAGO
-        if (!prestamoPagoInstance.save(flush: true)) {
+        if (!prestamoPagoInstance.save()) {
             throw new PagoServiceException(mensaje: "No se guardo el registro de Pago", prestamoPagoInstance:prestamoPagoInstance )
         }
 
@@ -111,7 +111,7 @@ class PagoService {
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, fechaAplicacion)
 			// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
 			movimiento.prestamoPago = prestamoPagoInstance
-			movimiento.save(flush:true)			
+			movimiento.save()			
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}catch(Exception errorGenerarMovimiento){
@@ -252,7 +252,7 @@ class PagoService {
 		//EL MOVIMIENTO CAMBIARA A PROCESADO REAL PARA INDICAR QUE YA NO ES UN PAGO GUARDADO
 		//Y QUE HA SIDO APLICADO 
 		movimientoGuardado.situacionMovimiento = SituacionPremovimiento.PROCESADO_REAL
-		movimientoGuardado.save(flush:true)
+		movimientoGuardado.save()
 
 		//Se obtienen las amortizaciones pendientes de pago
 		//ORDENADAS POR NUMERO DE PAGO
@@ -447,7 +447,7 @@ class PagoService {
 		}
 
 		preMovimientoInsertado.importeNeto = importeNeto
-		preMovimientoInsertado.save(flush:true)	
+		preMovimientoInsertado.save()	
 
 		PfinMovimiento movimiento
 		try{
@@ -456,7 +456,7 @@ class PagoService {
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, prestamoPago.fechaPago)
 			// SE INDICA A QUE PAGO PRESTAMO PERTENECE EL MOVIMIENTO
 			movimiento.prestamoPago = prestamoPago
-			movimiento.save(flush:true)
+			movimiento.save()
 
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
@@ -467,7 +467,7 @@ class PagoService {
 
 		//Se actualiza el identificador del movimiento en el dominio preMovimiento
 		preMovimientoInsertado.pfinMovimiento = movimiento
-		preMovimientoInsertado.save(flush:true)	
+		preMovimientoInsertado.save()	
 
 		actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 	}
@@ -514,13 +514,13 @@ class PagoService {
 			    	tablaAmortizacionActual.tablaAmortizacionAccesorio.each{ tabAmorAcc ->
 			    		if (listMovDet.concepto.equals(tabAmorAcc.accesorio.concepto)){
 			    			tabAmorAcc.importeAccesorioPagado = tabAmorAcc.importeAccesorioPagado + (listMovDet.importeConcepto * afectaCredito)
-			    			tabAmorAcc.save(flush:true)
+			    			tabAmorAcc.save()
 			    		}
 			    	}
 			}
 			//INCREMETA O DECREMENTA LO PAGADO EN LA AMORTIZACION
 			tablaAmortizacionActual.impPagoPagado = tablaAmortizacionActual.impPagoPagado + (listMovDet.importeConcepto * afectaCredito)
- 			tablaAmortizacionActual.save(flush:true)
+ 			tablaAmortizacionActual.save()
 		}
 	}
 
@@ -616,7 +616,7 @@ class PagoService {
 					SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, movimientoAplicado.fechaAplicacion)
 			// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
 			movimiento.prestamoPago = prestamoPagoInstance
-			movimiento.save(flush:true)			
+			movimiento.save()			
 		}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 			throw errorProcesadorFinanciero
 		}catch(Exception errorGenerarMovimiento){
@@ -681,7 +681,7 @@ class PagoService {
 						SituacionPremovimiento.PROCESADO_VIRTUAL, usuario, movimientoPago.fechaAplicacion)
 				// SE ASIGNA LA RELACION PRESTAMO PAGO Y MOVIMIENTO
 				movimiento.prestamoPago = prestamoPagoInstance
-				movimiento.save(flush:true)			
+				movimiento.save()			
 			}catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 				throw errorProcesadorFinanciero
 			}catch(Exception errorGenerarMovimiento){
@@ -689,7 +689,7 @@ class PagoService {
 				throw new PagoServiceException(mensaje: "No se genero el movimiento", prestamoPagoInstance:prestamoPagoInstance )
 			}		
 			movimientoPago.cancelaTransaccion = movimiento
-			movimientoPago.save(flush:true)
+			movimientoPago.save()
 
 			actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 		}

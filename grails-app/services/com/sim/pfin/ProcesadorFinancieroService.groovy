@@ -22,7 +22,7 @@ class ProcesadorFinancieroService {
 	//METODO PARA INSERTAR EL PREMOVIMIENTO
 	PfinPreMovimiento generaPreMovimiento(PfinPreMovimiento preMovimiento) {
 		try{
-			preMovimiento.save(flush: true,failOnError: true)
+			preMovimiento.save()
 
 		}catch(Exception errorInsertarPreMovimiento){
 			log.error(errorInsertarPreMovimiento)
@@ -36,7 +36,7 @@ class ProcesadorFinancieroService {
 			new PfinPreMovimientoDet(concepto:  catConcepto,
 					importeConcepto: importeConcepto,
 					nota : nota,
-					preMovimiento : preMovimiento).save(flush: true,failOnError: true)
+					preMovimiento : preMovimiento).save()
 			
 		}catch(Exception errorInsertarPreMovimientoDet) {
 			log.error(errorInsertarPreMovimientoDet)
@@ -92,7 +92,7 @@ class ProcesadorFinancieroService {
 			movimiento.numeroPagoAmortizacion = pfinPreMovimiento.numeroPagoAmortizacion
 		
 			try{
-				movimiento.save(flush: true,failOnError: true)
+				movimiento.save()
 	
 			}catch(Exception errorInsertarMovimiento){
 				log.error(errorInsertarMovimiento)
@@ -112,19 +112,19 @@ class ProcesadorFinancieroService {
 				movimientoDetalle.concepto = it.concepto
 				movimientoDetalle.importeConcepto = it.importeConcepto
 				movimientoDetalle.nota =   it.nota
-				movimientoDetalle.save(flush: true,failOnError: true)
+				movimientoDetalle.save()
 			}
 			//ACTUALIZA PARAMETROS DEL PREMOVIMIENTO
 			pfinPreMovimiento.situacionPreMovimiento = SituacionPremovimiento.PROCESADO_VIRTUAL
 			pfinPreMovimiento.pfinMovimiento = movimiento
-			pfinPreMovimiento.save(flush:true)
+			pfinPreMovimiento.save()
 		}else{
 			//EN CASO DE SER UNA CANCELACION SOLO SE ACTUALIZA LA SITUACION DEL MOVIMIENTO Y PREMOVIMIENTO
 			//SE MODIFICA LA SITUACION DEL PREMOVIMIENTO
 			pfinPreMovimiento.situacionPreMovimiento = SituacionPremovimiento.CANCELADO
 			pfinPreMovimiento.usuario = usuario
 			try{
-				pfinPreMovimiento.save(flush:true)
+				pfinPreMovimiento.save()
 			}catch(Exception errorCancelarPremovimiento){
 				log.error(errorCancelarPremovimiento)
 				throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al cancelar el premovimiento")
@@ -134,7 +134,7 @@ class ProcesadorFinancieroService {
 			movimiento.situacionMovimiento = SituacionPremovimiento.CANCELADO
 			movimiento.usuario = usuario
 			try{
-				movimiento.save(flush:true)
+				movimiento.save()
 			}catch(Exception errorCancelarMovimiento){
 				log.error(errorCancelarMovimiento)
 				throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al cancelar el movimiento")
@@ -164,7 +164,7 @@ class ProcesadorFinancieroService {
 				//ACTUALIZA EL SALDO DE LA CUENTA CON LA FECHA FOTO
 				saldoCliente.saldo = saldoCliente.saldo + (pfinPreMovimiento.importeNeto * afectaSaldo)
 				try{
-					saldoCliente.save(flush:true)
+					saldoCliente.save()
 				}catch(Exception errorActualizarSaldoCuenta){
 					log.error(errorActualizarSaldoCuenta)
 					throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al actualizar el saldo de la cuenta")
@@ -178,7 +178,7 @@ class ProcesadorFinancieroService {
 						   divisa: pfinPreMovimiento.divisa,
 						    saldo: pfinPreMovimiento.importeNeto * afectaSaldo,  
 						   cuenta: pfinPreMovimiento.cuenta,
-					).save(flush: true,failOnError: true)
+					).save()
 				}catch(Exception errorInsertarSaldoCuenta){
 					log.error(errorInsertarSaldoCuenta)
 					throw new ProcesadorFinancieroServiceException(mensaje: "Ocurrio un problema al insertar el saldo de la cuenta")
