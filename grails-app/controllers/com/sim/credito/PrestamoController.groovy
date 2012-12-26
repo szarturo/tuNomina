@@ -302,7 +302,7 @@ class PrestamoController {
                 params.idPrestamo = params.id
                 prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PENDIENTE_COBRO')
             }else{
-                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')
+                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')
             }
 
             flash.message = "La solicitud ${prestamoInstance.folioSolicitud} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"

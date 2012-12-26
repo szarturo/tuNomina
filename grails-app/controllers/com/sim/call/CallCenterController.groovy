@@ -51,7 +51,7 @@ class CallCenterController {
                 SimCatEtapaPrestamo estatusPrestamo = prestamo.estatusSolicitud
                 log.info "Estatus Solicitud: ${estatusPrestamo}"
                 log.info "Registro Cerrado?: ${callCenterInstance.cerrarRegistro}"
-                if (estatusPrestamo.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo('APLICADO')) || 
+                if (estatusPrestamo.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')) || 
                     params.cerrarRegistro.equals("on")){
                     params.continuaLocalizando = false
                     flash.message = "El registro de las llamadas para localizar al cliente ha sido cerrado"

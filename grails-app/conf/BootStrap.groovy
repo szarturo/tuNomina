@@ -1033,8 +1033,8 @@ class BootStrap {
 			descripcionEtapaPrestamo: 'PENDIENTE DE COBRO EN VENTANILLA DE BANCO',
 		).save(failOnError: true)
 
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'APLICADO',
-			nombreEtapaPrestamo: 'CREDITO APLICADO',
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'ACTIVO',
+			nombreEtapaPrestamo: 'CREDITO ACTIVO',
 			descripcionEtapaPrestamo: 'CREDITO COBRADO POR EL CLIENTE',
 		).save(failOnError: true, flush: true)
 
