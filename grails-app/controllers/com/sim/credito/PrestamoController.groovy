@@ -13,6 +13,7 @@ import org.grails.activiti.ApprovalStatus
 class PrestamoController {
 	
 	def tablaAmortizacionRegistroService
+    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -50,6 +51,9 @@ class PrestamoController {
 		prestamoInstance.documentosCorrectos = false
 		prestamoInstance.aprobado = false
 		prestamoInstance.reenviarSolicitud = false
+        //SE OBTIENE EL NOMBRE DEL USUARIO DE MESA DE CONTROL
+        def user = springSecurityService.getCurrentUser()
+        prestamoInstance.usuarioMesaControl = user.username
 		if (!params.correoSolicitante){
 			log.info("No se asigno correo al solicitante")
 			prestamoInstance.correoSolicitante = "sincorreo@gmail.com"
@@ -157,6 +161,7 @@ class PrestamoController {
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
+                    params.usuarioMesaControl = prestamoInstance.usuarioMesaControl
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_AMESA") && params.reenviarSolicitud.equals("on")){
@@ -229,7 +234,6 @@ class PrestamoController {
     }
 	
 	def generaTablaAmortizacion = {
-		log.info(params.idPrestamo)
 		Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
 	
 		try{
@@ -251,7 +255,6 @@ class PrestamoController {
 
         def prestamoInstance = Prestamo.get(params.id)
 
-        log.info params
         log.info "Estatus Solicitud: ${prestamoInstance.estatusSolicitud}"
 
         if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("PROCESADA"))){

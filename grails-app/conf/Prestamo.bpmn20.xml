@@ -49,11 +49,11 @@
 			name="Mesa de Control tiene que volver a revisar solicitud de prestamo">
 			<documentation>Control de Calidad devuelve solicitud de credito a Mesa de Control
 			</documentation>
-			<potentialOwner>
+			<humanPerformer>
 				<resourceAssignmentExpression>
-					<formalExpression>ROLE_MESA_CONTROL</formalExpression>
+					<formalExpression>${usuarioMesaControl}</formalExpression>
 				</resourceAssignmentExpression>
-			</potentialOwner>			
+			</humanPerformer>			
 		</userTask>
 		
 		<sequenceFlow id="flujo5" sourceRef="enDevolucion" targetRef="reenviarSolicitud">

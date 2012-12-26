@@ -37,6 +37,7 @@ class Prestamo {
 	String         comentarios
 	Boolean        reenviarSolicitud
 	String         explicacionDevolucion
+    String         usuarioMesaControl
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -72,6 +73,7 @@ class Prestamo {
 		comentarios nullable:true, size:5..255
 		explicacionDevolucion blank:true, nullable:true, size:5..255
 		approvalStatus nullable:false
+        usuarioMesaControl nullable:true
 		dateCreated ()
 		lastUpdated nullable:true
     }
