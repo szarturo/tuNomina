@@ -199,29 +199,32 @@
                             
 							<g:if
 								test="${prestamoInstance.approvalStatus == ApprovalStatus.REJECTED}">
+                                <g:if
+                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'DEVOLUCION_AMESA'}">
+
 								
-								<tr class="prop">
-									<td valign="top" class="name"><label for="explicacionDevolucion"><g:message
-												code="prestamo.explicacionDevolucion.label" default="Motivo Devoluci&oacute;n" /></label></td>
-									<td valign="top"
-										class="value ${hasErrors(bean: prestamoInstance, field: 'explicacionDevolucion', 'errors')}">
-										<g:textArea name="explicacionDevolucion" cols="40" rows="5"
-											value="${prestamoInstance?.explicacionDevolucion}" />
-									</td>
-								</tr>
-								
-								<tr class="prop">
-									<td valign="top" class="name"><label
-										for="reenviarSolicitud"><g:message
-												code="prestamo.reenviarSolicitud.label"
-												default="Reenviar Solicitud" /></label></td>
-									<td valign="top"
-										class="value ${hasErrors(bean: prestamoInstance, field: 'reenviarSolicitud', 'errors')}">
-										<g:checkBox name="reenviarSolicitud"
-											value="${prestamoInstance?.reenviarSolicitud}" />
-									</td>
-								</tr>
-	
+    								<tr class="prop">
+    									<td valign="top" class="name"><label for="explicacionDevolucion"><g:message
+    												code="prestamo.explicacionDevolucion.label" default="Motivo Devoluci&oacute;n" /></label></td>
+    									<td valign="top"
+    										class="value ${hasErrors(bean: prestamoInstance, field: 'explicacionDevolucion', 'errors')}">
+    										<g:textArea name="explicacionDevolucion" cols="40" rows="5"
+    											value="${prestamoInstance?.explicacionDevolucion}" />
+    									</td>
+    								</tr>
+    								
+    								<tr class="prop">
+    									<td valign="top" class="name"><label
+    										for="reenviarSolicitud"><g:message
+    												code="prestamo.reenviarSolicitud.label"
+    												default="Reenviar Solicitud" /></label></td>
+    									<td valign="top"
+    										class="value ${hasErrors(bean: prestamoInstance, field: 'reenviarSolicitud', 'errors')}">
+    										<g:checkBox name="reenviarSolicitud"
+    											value="${prestamoInstance?.reenviarSolicitud}" />
+    									</td>
+    								</tr>
+	                           </g:if>
 							</g:if>
                             
                             

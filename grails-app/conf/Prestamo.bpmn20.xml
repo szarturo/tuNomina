@@ -105,6 +105,10 @@
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("DEVOLUCION_CR")}</conditionExpression>
 		</sequenceFlow>    	
 
+		<sequenceFlow id="flujo12A" sourceRef="respuestaCreditoRealGateway" targetRef="revisaControlCalidad">
+			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("CANCELADA_CR")}</conditionExpression>
+		</sequenceFlow>    			
+
 		<sequenceFlow id="flujo13" sourceRef="respuestaCreditoRealGateway" targetRef="fin">
 			  <conditionExpression xsi:type="tFormalExpression">${estatusSolicitudActual.equals("RECHAZADA_CR")}</conditionExpression>
 		</sequenceFlow>    	

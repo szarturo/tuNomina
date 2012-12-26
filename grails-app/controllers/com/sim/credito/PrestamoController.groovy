@@ -161,7 +161,6 @@ class PrestamoController {
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
-                    params.usuarioMesaControl = prestamoInstance.usuarioMesaControl
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_AMESA") && params.reenviarSolicitud.equals("on")){
@@ -173,7 +172,13 @@ class PrestamoController {
                 }else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && !params.aprobado.equals("on")){
                     prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
                     prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
-                }
+                }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
+                    prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+                }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && !params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
+                    prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
+                }                
 
             }
 			
@@ -184,7 +189,8 @@ class PrestamoController {
                                         log.info "LA TAREA ES COMPLETADA"
 										params.aprobado = params.aprobado.equals("on")
 										params.reenviarSolicitud = prestamoInstance.reenviarSolicitud
-
+                                        //EL SIGUIENTE PARAMETRO SE UTILIZA CUANDO SE REALIZA UNA DEVOLUCION A MESA DE CONTROL
+                                        params.usuarioMesaControl = prestamoInstance.usuarioMesaControl
 										//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 										//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
 										params.remove("dependencia")

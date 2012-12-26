@@ -1023,6 +1023,11 @@ class BootStrap {
 			descripcionEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
 		).save(failOnError: true)
 
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CANCELADA_CR',
+			nombreEtapaPrestamo: 'CANCELADA POR CREDITO REAL',
+			descripcionEtapaPrestamo: 'CANCELADA POR CREDITO REAL',
+		).save(failOnError: true)
+
 		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DISPERSADA',
 			nombreEtapaPrestamo: 'DISPERSADA',
 			descripcionEtapaPrestamo: 'TESORERIA DISPERSA CREDITO',
