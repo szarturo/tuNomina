@@ -1041,8 +1041,12 @@ class BootStrap {
 		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'ACTIVO',
 			nombreEtapaPrestamo: 'CREDITO ACTIVO',
 			descripcionEtapaPrestamo: 'CREDITO COBRADO POR EL CLIENTE',
-		).save(failOnError: true, flush: true)
+		).save(failOnError: true)
 
+		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'LIQUIDADO',
+			nombreEtapaPrestamo: 'CREDITO LIQUIDADO',
+			descripcionEtapaPrestamo: 'CREDITO LIQUIDADO POR EL CLIENTE',
+		).save(failOnError: true, flush: true)
 
         new Prestamo(
                 cliente : clienteArturo,

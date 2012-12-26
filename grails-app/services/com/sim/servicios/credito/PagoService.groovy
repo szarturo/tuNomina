@@ -6,6 +6,7 @@ import com.sim.tablaAmortizacion.*
 import com.sim.catalogo.SimCatTipoAccesorio
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
+import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.producto.ProPromocionAccesorio
 import com.sim.usuario.Usuario
 
@@ -279,6 +280,24 @@ class PagoService {
 				AplicaPagoCreditoPorAmort(prestamoPagoInstance,it,importeSaldo,cuentaEje,fechaSistema)
 			}
 		}
+
+		//SE VUELVE A OBTENER LAS AMORTIZACIONES PENDIENTES DE PAGO
+		def criteriaPendientesPago = TablaAmortizacionRegistro.createCriteria()
+		ArrayList listaPendientesPago  = criteriaPendientesPago.list() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("pagado", false)
+			}
+		}
+
+		//SI YA NO EXISTEN AMORTIZACIONES PENDIENTES DE PAGO
+		//EL PRESTAMO DEBE CAMBIAR DE ESTATUS A LIQUIDADO
+		if (!listaPendientesPago){
+			log.info ("El prestamo ha sido liquidado")
+			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('LIQUIDADO')
+			prestamoPagoInstance.prestamo.save()
+		}
+
 	}
 
 	Boolean AplicaPagoCreditoPorAmort (PrestamoPago prestamoPago,
