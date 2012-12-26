@@ -693,5 +693,26 @@ class PagoService {
 
 			actualizaTablaAmortizacion(movimiento,listaMovimientoDet)
 		}
+
+		//AL CANCELAR UN PAGO APLICADO SE TIENE QUE ASIGNAR EL 
+		//ESTATUS DEL PRESTAMO QUE CORRESPONDA
+		def criteriaPendientesPago = TablaAmortizacionRegistro.createCriteria()
+		ArrayList listaPendientesPago  = criteriaPendientesPago.list() {
+			and {
+				eq("prestamo",prestamoPagoInstance.prestamo)
+				eq("pagado", false)
+			}
+		}
+
+		//SI EXISTEN AMORTIZACIONES PENDIENTES DE PAGO
+		//EL PRESTAMO DEBE CAMBIAR DE ESTATUS A ACTIVO
+		if (listaPendientesPago){
+			log.info ("El prestamo continua en estatus Activo")
+			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')
+			prestamoPagoInstance.prestamo.save()
+		}
+
+
+
 	}
 }
