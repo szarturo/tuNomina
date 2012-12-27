@@ -179,6 +179,7 @@
     
     function cambiaDependencia(idDependencia){
         ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + idDependencia", onComplete:"updateTipoEmpleado(e)")}        
+        ${remoteFunction(controller:"entDependencia", action:"ajaxGetPromocion", params:"'id=' + idDependencia", onComplete:"updatePromocion(e)")}                
     }
 
     function updateTipoEmpleado(e) {
@@ -212,11 +213,45 @@
             }
         }
     }
+
+    function updatePromocion(e) {
+        // The response comes back as a bunch-o-JSON
+        var promociones = eval("(" + e.responseText + ")")   
+        // evaluate JSON
+
+        if (promociones) {
+            var rselect = document.getElementById('promocion.id')
+
+            // Clear all previous options
+            var l = rselect.length
+
+            while (l > 0) {
+                l--
+                rselect.remove(l)
+            }
+
+            // Rebuild the select
+            for (var i=0; i < promociones.length; i++) {
+                var promocion = promociones[i]
+                var opt = document.createElement('option');
+                opt.text = promocion.clavePromocion
+                opt.value = promocion.id
+                try {
+                    rselect.add(opt, null) // standards compliant; doesn't work in IE
+                }
+                catch(ex) {
+                    rselect.add(opt) // IE only
+                }
+            }
+        }
+    }
+
     
     // This is called when the page loads to initialize dependencia
     var zselect = document.getElementById('dependencia.id')
     var zopt = zselect.options[zselect.selectedIndex]
     ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + zopt.value", onComplete:"updateTipoEmpleado(e)")}
+    ${remoteFunction(controller:"entDependencia", action:"ajaxGetPromocion", params:"'id=' + zopt.value", onComplete:"updatePromocion(e)")}    
 
     function updateDelegacion(e) {
         // The response comes back as a bunch-o-JSON
