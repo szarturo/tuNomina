@@ -68,16 +68,7 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="promocion"><g:message code="prestamo.promocion.label" default="Promocion" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'promocion', 'errors')}">
-                                    <g:select name="promocion.id" from="${com.sim.producto.ProPromocion.list()}" optionKey="id" value="${prestamoInstance?.promocion?.id}"  />
-                                </td>
-                            </tr>
-                        
-            <tr class="prop">
+             <tr class="prop">
                 <td valign="top" class="name">
                     <label for="dependencia"><g:message code="prestamo.dependencia.label" default="Dependencia" /></label>
                 </td>
@@ -86,11 +77,7 @@
                         name="dependencia.id" 
                         from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" 
                         value="${prestamoInstance?.dependencia?.id}" 
-                        onchange="${remoteFunction(
-                            controller:'entDependencia', 
-                            action:'ajaxGetTipoEmpleado', 
-                            params:'\'id=\' + escape(this.value)', 
-                            onComplete:'updateTipoEmpleado(e)')}"/>
+                        onchange="cambiaDependencia(escape(this.value))"/>
                 </td>
             </tr>                            
 
@@ -103,6 +90,15 @@
                                     value="${prestamoInstance?.tipoEmpleadoDep?.id}"  />
                                 </td>
                             </tr>
+
+                           <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="promocion"><g:message code="prestamo.promocion.label" default="Promocion" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'promocion', 'errors')}">
+                                    <g:select name="promocion.id" from="${com.sim.producto.ProPromocion.list()}" optionKey="id" value="${prestamoInstance?.promocion?.id}"  />
+                                </td>
+                            </tr>                            
 
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -256,6 +252,12 @@
 </html>
 
 <g:javascript>
+
+    function cambiaDependencia(idDependencia){
+        ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + idDependencia", onComplete:"updateTipoEmpleado(e)")}        
+        ${remoteFunction(controller:"entDependencia", action:"ajaxGetPromocion", params:"'id=' + idDependencia", onComplete:"updatePromocion(e)")}                
+    }
+
     function updateTipoEmpleado(e) {
         // The response comes back as a bunch-o-JSON
         var tipoEmpleado = eval("(" + e.responseText + ")")   
@@ -293,12 +295,48 @@
         }
     }
 
+   function updatePromocion(e) {
+        // The response comes back as a bunch-o-JSON
+        var promociones = eval("(" + e.responseText + ")")   
+        // evaluate JSON
+
+        if (promociones) {
+            var rselect = document.getElementById('promocion.id')
+            // OBTIENE LA PROMOCION ASIGNADA EN EL MOMENTO
+            // DE CREAR EL PRESTAMO
+            var promocionActual =  rselect.value            
+
+            // Clear all previous options
+            var l = rselect.length
+
+            while (l > 0) {
+                l--
+                rselect.remove(l)
+            }
+
+            // Rebuild the select
+            for (var i=0; i < promociones.length; i++) {
+                var promocion = promociones[i]
+                var opt = document.createElement('option');
+                opt.text = promocion.clavePromocion
+                opt.value = promocion.id
+                try {
+                    rselect.add(opt, null) // standards compliant; doesn't work in IE
+                }
+                catch(ex) {
+                    rselect.add(opt) // IE only
+                }
+            }
+            //ASIGNA LA PROMOCION ACTUAL
+            rselect.value = promocionActual             
+        }
+    }
     
     // This is called when the page loads to initialize dependencia
     var zselect = document.getElementById('dependencia.id')
     var zopt = zselect.options[zselect.selectedIndex]
     ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + zopt.value", onComplete:"updateTipoEmpleado(e)")}
-
+    ${remoteFunction(controller:"entDependencia", action:"ajaxGetPromocion", params:"'id=' + zopt.value", onComplete:"updatePromocion(e)")}        
     function updateDelegacion(e) {
         // The response comes back as a bunch-o-JSON
         var delegaciones = eval("(" + e.responseText + ")")   
