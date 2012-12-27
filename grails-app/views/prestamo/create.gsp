@@ -58,14 +58,6 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="promocion"><g:message code="prestamo.promocion.label" default="Promocion" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'promocion', 'errors')}">
-                                    <g:select name="promocion.id" from="${com.sim.producto.ProPromocion.list()}" optionKey="id" value="${prestamoInstance?.promocion?.id}"  />
-                                </td>
-                            </tr>
 
              <tr class="prop">
                 <td valign="top" class="name">
@@ -76,11 +68,7 @@
                         name="dependencia.id" 
                         from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" 
                         value="${prestamoInstance?.dependencia?.id}" 
-                        onchange="${remoteFunction(
-                            controller:'entDependencia', 
-                            action:'ajaxGetTipoEmpleado', 
-                            params:'\'id=\' + escape(this.value)', 
-                            onComplete:'updateTipoEmpleado(e)')}"/>
+                        onchange="cambiaDependencia(escape(this.value))"/>
                 </td>
             </tr>
         
@@ -91,6 +79,15 @@
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'tipoEmpleadoDep', 'errors')}">
                                     <g:select name="tipoEmpleadoDep.id" from="${com.sim.catalogo.SimCatTipoEmp.list()}" optionKey="id" 
                                     value="${prestamoInstance?.tipoEmpleadoDep?.id}"  />
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="promocion"><g:message code="prestamo.promocion.label" default="Promocion" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'promocion', 'errors')}">
+                                    <g:select name="promocion.id" from="${com.sim.producto.ProPromocion.list()}" optionKey="id" value="${prestamoInstance?.promocion?.id}"  />
                                 </td>
                             </tr>
 
@@ -179,6 +176,11 @@
 </html>
 
 <g:javascript>
+    
+    function cambiaDependencia(idDependencia){
+        ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + idDependencia", onComplete:"updateTipoEmpleado(e)")}        
+    }
+
     function updateTipoEmpleado(e) {
         // The response comes back as a bunch-o-JSON
         var tipoEmpleado = eval("(" + e.responseText + ")")   
