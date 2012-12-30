@@ -120,5 +120,11 @@
 
     <div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
 
+    <g:form controller="prestamoDocumentos">
+        <g:hiddenField name="idCliente" value="${claveCliente}" />
+        <g:hiddenField name="folioSolicitud" value="${folioSolicitud}" />
+        <g:actionSubmit value="Asignar Nombre" action="asignaNombre"/>
+    </g:form>    
+
     </body>
 </html>

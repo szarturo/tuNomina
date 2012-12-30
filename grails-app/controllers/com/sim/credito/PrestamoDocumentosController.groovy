@@ -2,6 +2,8 @@ package com.sim.credito
 
 import com.sim.alfresco.AlfrescoService
 import org.apache.chemistry.opencmis.client.api.Folder
+import org.apache.chemistry.opencmis.client.api.CmisObject
+import org.apache.chemistry.opencmis.client.api.Document
 
 class PrestamoDocumentosController {
 	
@@ -75,6 +77,56 @@ class PrestamoDocumentosController {
 		
 		AlfrescoService alfrescoService = new AlfrescoService();
 		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, folioSolicitud, username);
+	}
+
+	def asignaNombre(){
+		log.info "PASO asignarNombre: ${params.idCliente} ${params.folioSolicitud}"
+		List<Document> documentos = new ArrayList<Document>();
+		AlfrescoService service = new AlfrescoService();
+		Object o = null
+		
+		o=service.getByPath("/Sites/tuNomina/creditos/${params.idCliente}/${params.folioSolicitud}");
+		
+		if(o!=null){
+			Folder folder = (Folder)o;
+			
+			for(CmisObject cmisObject: folder.getChildren()){
+				if(cmisObject instanceof Document){
+					documentos.add((Document) cmisObject);
+				}
+			}
+			
+			request.putAt("documentos", documentos);
+		}	
+		model: [folioSolicitud:params.folioSolicitud, idCliente:params.idCliente]
+
+	}
+
+	def guardaNombre(){
+		log.info "PASO guardarNombre"
+
+		List<Document> documentos = new ArrayList<Document>();
+		AlfrescoService service = new AlfrescoService();
+		Object o = null
+		
+		o=service.getByPath("/Sites/tuNomina/creditos/${params.idCliente}/${params.folioSolicitud}");
+		
+		if(o!=null){
+			Folder folder = (Folder)o;
+			
+			for(CmisObject cmisObject: folder.getChildren()){
+				if(cmisObject instanceof Document){
+					documentos.add((Document) cmisObject);
+				}
+			}
+		}	
+
+		documentos.each{
+			log.info it.id
+			log.info request.getParameter("${it.id}")
+
+		}
+
 	}
 
 }
