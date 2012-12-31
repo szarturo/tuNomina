@@ -240,7 +240,7 @@ class BootStrap {
 
 		new SimCatTipoDocumento(claveTipoDocumento:  'LEGAL',
 				nombreTipoDocumento: 'LEGAL',
-				).save(failOnError: true)
+				).save(failOnError: true, flush:true)
 
 		new SimCatDocumento(claveDocumento:  'CFE',
 				nombreDocumento: 'COMPROBANTE DE LUZ',
@@ -264,6 +264,10 @@ class BootStrap {
 				nombreDocumento: 'LICENCIA DE CONDUCIR',
 				descripcion: 'LICENCIA DE CONDUCIR',
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('IDENTIFICACION'),
+				).save(failOnError: true)
+
+		new SimCatDocumento(claveDocumento:  'NO_DEFINIDO',
+				nombreDocumento: 'NO DEFINIDO',
 				).save(failOnError: true)
 
 		new SimCatEscolaridad(claveEscolaridad:  'PRIMARIA',

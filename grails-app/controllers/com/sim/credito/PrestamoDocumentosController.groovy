@@ -12,9 +12,6 @@ class PrestamoDocumentosController {
 
      def listaDocumentos() {
 		 
-		log.info "folioSolicitud: ${params.folioSolicitud}"
-		log.info "ClaveCliente ${params.claveCliente}"
-		
 		String nombreCliente = params.cliente
 		String claveCliente = params.claveCliente
 		String folioSolicitud = params.folioSolicitud
@@ -87,10 +84,12 @@ class PrestamoDocumentosController {
 		//SE OBTIENEN LOS DOCUMENTOS QUE SE ASIGNARON AL PRESTAMO
 		Prestamo prestamo = Prestamo.findByFolioSolicitud(params.folioSolicitud)	
 		ArrayList documentosPrestamo = PrestamoDocumento.findAllByPrestamo(prestamo)
+		//ARREGLO PARA PRESENTAR LOS DOCUMENTOS EN LA PANTALLA
+		//NECESARIO PARA NO ENVIAR AQUELLOS DOCUMENTOS QUE HAYAN SIDO ELIMINADOS
+		List documentosPrestamoActualizado = []
 
 		//SE ITERAN LOS DOCUMENTOS DEL SERVIDOR
 		documentos.each{ doctoServidor ->
-			log.info ("Nombre Archivo Servidor: ${doctoServidor.name}")
 			
 			Boolean archivoEncontrado = false
 			//SE ITERAN LOS DOCUMENTOS DEL PRESTAMO
@@ -98,32 +97,27 @@ class PrestamoDocumentosController {
 				//VALIDAR SI EL DOCUMENTO GUARDADO EN EL SERVIDOR
 				//EXISTE ASIGNADO AL PRESTAMO
 				if (doctoServidor.name.equals(doctoPrestamo.nombreArchivo)){
-					log.info("El documento SI existe en los documentos del prestamo")
 					archivoEncontrado = true
-				}else{
-					log.info("El documento NO existe en los documentos del prestamo")
-				}
+					documentosPrestamoActualizado.add(doctoPrestamo)
 			}
 
 			//SI EL ARCHIVO NO FUE ENCONTRADO EN LOS DOCUMENTOS DEL PRESTAMO
 			//HAY QUE CREARLO
 			if(!archivoEncontrado){
-				log.info ("El documento no existia definido en el Prestamo")
 				PrestamoDocumento prestamoDocumentoCreado = new PrestamoDocumento(nombreArchivo: doctoServidor.name,
-					documento: SimCatDocumento.findByClaveDocumento('IFE'),
+					documento: SimCatDocumento.findByClaveDocumento('NO_DEFINIDO'),
 					prestamo: prestamo).save()
-				documentosPrestamo.add(prestamoDocumentoCreado)
+				documentosPrestamoActualizado.add(prestamoDocumentoCreado)
 
 			}
 		}
 
-		model: [documentosPrestamo: documentosPrestamo,
+		model: [documentosPrestamo: documentosPrestamoActualizado,
 			folioSolicitud:params.folioSolicitud, 
 			idCliente:params.idCliente]
 	}
 
 	def guardaNombre(){
-		log.info "PASO guardarNombre"
 
 		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${params.idCliente}/${params.folioSolicitud}")
 		List<File> imagenes = path.listFiles()	
@@ -133,7 +127,6 @@ class PrestamoDocumentosController {
 		//SE OBTIENEN LOS DOCUMENTOS DEL PRESTAMO PARA SER ELIMINADOS
 		ArrayList documentosPrestamo = PrestamoDocumento.findAllByPrestamo(prestamo)
 		if(documentosPrestamo){
-			log.info("Elimina los documentos del prestamo")
 			documentosPrestamo.each() {
 				prestamo.removeFromDocumentos(it)
 			}
