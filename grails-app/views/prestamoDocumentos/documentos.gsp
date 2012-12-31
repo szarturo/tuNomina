@@ -8,7 +8,7 @@
 	<body>
 		<h1>Documentos para iniciar apertura de Cr&eacute;dito</h1>
 		<uploadr:add name="folio${folioSolicitud}" path="${path}" direction="up"
-			maxVisible="8"
+			maxVisible="12"
 			unsupported="${createLink(plugin: 'uploadr', controller: 'upload', action: 'warning')}"
 			maxSize="52428800" rating="true" voting="true">
 			<g:each in="${imagenes}" var="file">
