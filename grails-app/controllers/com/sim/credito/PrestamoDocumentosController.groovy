@@ -8,9 +8,9 @@ import org.apache.chemistry.opencmis.client.api.Document
 
 class PrestamoDocumentosController {
 	
-	 def springSecurityService
+	def springSecurityService
 
-     def listaDocumentos() {
+    def listaDocumentos(){
 		 
 		String nombreCliente = params.cliente
 		String claveCliente = params.claveCliente
@@ -43,7 +43,6 @@ class PrestamoDocumentosController {
 		response.contentType = 'image/jpg' // or the appropriate image content type
 		response.outputStream << archivo
 		response.outputStream.flush()
-		
 	}
 
     def compararDocumentos(){
@@ -99,6 +98,7 @@ class PrestamoDocumentosController {
 				if (doctoServidor.name.equals(doctoPrestamo.nombreArchivo)){
 					archivoEncontrado = true
 					documentosPrestamoActualizado.add(doctoPrestamo)
+				}
 			}
 
 			//SI EL ARCHIVO NO FUE ENCONTRADO EN LOS DOCUMENTOS DEL PRESTAMO
@@ -141,6 +141,6 @@ class PrestamoDocumentosController {
 				prestamo: prestamo).save()
 		}
 		redirect (action: "listaDocumentos" , params :[folioSolicitud:params.folioSolicitud, claveCliente:params.idCliente])
-
 	}
+
 }

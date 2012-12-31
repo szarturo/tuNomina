@@ -970,6 +970,8 @@ class BootStrap {
                 iva : 16,
         ).save(failOnError: true)
 
+        dependenciaImss.addToPromocion(promocionUno).save()
+
         new SimCatFormaEntrega(claveFormaEntrega: 'VENBANCO',
                 nombreFormaEntrega: 'ENTREGA EN VENTANILLA DE BANCO',
         ).save(failOnError: true)
