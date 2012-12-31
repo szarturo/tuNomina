@@ -45,11 +45,13 @@ class Prestamo {
 	Date lastUpdated
 	
 	static hasMany = [ tablaAmortizacion : TablaAmortizacionRegistro ,  prestamoAccesorio : PrestamoAccesorio,
-                       callCenter: CallCenter]
+                       callCenter: CallCenter, documentos: PrestamoDocumento]
 	
 	static mapping = {
 		tablaAmortizacion cascade: "all-delete-orphan"
-	 }
+        documentos  cascade: "all-delete-orphan"
+     }
+	 
 
     static belongsTo = [cliente : RsCliente]
 	
@@ -74,6 +76,7 @@ class Prestamo {
 		explicacionDevolucion blank:true, nullable:true, size:5..255
 		approvalStatus nullable:false
         usuarioMesaControl nullable:true
+        documentos nullable:true
 		dateCreated ()
 		lastUpdated nullable:true
     }

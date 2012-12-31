@@ -1,5 +1,6 @@
 package com.sim.credito
 
+import com.sim.catalogo.SimCatDocumento
 import com.sim.alfresco.AlfrescoService
 import org.apache.chemistry.opencmis.client.api.Folder
 import org.apache.chemistry.opencmis.client.api.CmisObject
@@ -74,59 +75,79 @@ class PrestamoDocumentosController {
 		log.info ("Usuario actual: ${username}")
 		if (!username) username = "RUBEN"
 		
-		
 		AlfrescoService alfrescoService = new AlfrescoService();
 		alfrescoService.saveFile(nombreArchivo, archivo,"image/jpg", claveCliente, folioSolicitud, username);
 	}
 
 	def asignaNombre(){
-		log.info "PASO asignarNombre: ${params.idCliente} ${params.folioSolicitud}"
-		List<Document> documentos = new ArrayList<Document>();
-		AlfrescoService service = new AlfrescoService();
-		Object o = null
-		
-		o=service.getByPath("/Sites/tuNomina/creditos/${params.idCliente}/${params.folioSolicitud}");
-		
-		if(o!=null){
-			Folder folder = (Folder)o;
+		//SE OBTIENE LOS DOCUMENTOS QUE SE GUARDARON EN EL SERVIDOR
+		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${params.idCliente}/${params.folioSolicitud}")
+		List<File> documentos = path.listFiles()		
+
+		//SE OBTIENEN LOS DOCUMENTOS QUE SE ASIGNARON AL PRESTAMO
+		Prestamo prestamo = Prestamo.findByFolioSolicitud(params.folioSolicitud)	
+		ArrayList documentosPrestamo = PrestamoDocumento.findAllByPrestamo(prestamo)
+
+		//SE ITERAN LOS DOCUMENTOS DEL SERVIDOR
+		documentos.each{ doctoServidor ->
+			log.info ("Nombre Archivo Servidor: ${doctoServidor.name}")
 			
-			for(CmisObject cmisObject: folder.getChildren()){
-				if(cmisObject instanceof Document){
-					documentos.add((Document) cmisObject);
+			Boolean archivoEncontrado = false
+			//SE ITERAN LOS DOCUMENTOS DEL PRESTAMO
+			documentosPrestamo.each{ doctoPrestamo ->
+				//VALIDAR SI EL DOCUMENTO GUARDADO EN EL SERVIDOR
+				//EXISTE ASIGNADO AL PRESTAMO
+				if (doctoServidor.name.equals(doctoPrestamo.nombreArchivo)){
+					log.info("El documento SI existe en los documentos del prestamo")
+					archivoEncontrado = true
+				}else{
+					log.info("El documento NO existe en los documentos del prestamo")
 				}
 			}
-			
-			request.putAt("documentos", documentos);
-		}	
-		model: [folioSolicitud:params.folioSolicitud, idCliente:params.idCliente]
 
+			//SI EL ARCHIVO NO FUE ENCONTRADO EN LOS DOCUMENTOS DEL PRESTAMO
+			//HAY QUE CREARLO
+			if(!archivoEncontrado){
+				log.info ("El documento no existia definido en el Prestamo")
+				PrestamoDocumento prestamoDocumentoCreado = new PrestamoDocumento(nombreArchivo: doctoServidor.name,
+					documento: SimCatDocumento.findByClaveDocumento('IFE'),
+					prestamo: prestamo).save()
+				documentosPrestamo.add(prestamoDocumentoCreado)
+
+			}
+		}
+
+		model: [documentosPrestamo: documentosPrestamo,
+			folioSolicitud:params.folioSolicitud, 
+			idCliente:params.idCliente]
 	}
 
 	def guardaNombre(){
 		log.info "PASO guardarNombre"
 
-		List<Document> documentos = new ArrayList<Document>();
-		AlfrescoService service = new AlfrescoService();
-		Object o = null
-		
-		o=service.getByPath("/Sites/tuNomina/creditos/${params.idCliente}/${params.folioSolicitud}");
-		
-		if(o!=null){
-			Folder folder = (Folder)o;
-			
-			for(CmisObject cmisObject: folder.getChildren()){
-				if(cmisObject instanceof Document){
-					documentos.add((Document) cmisObject);
-				}
+		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${params.idCliente}/${params.folioSolicitud}")
+		List<File> imagenes = path.listFiles()	
+
+		Prestamo prestamo = Prestamo.findByFolioSolicitud(params.folioSolicitud)	
+
+		//SE OBTIENEN LOS DOCUMENTOS DEL PRESTAMO PARA SER ELIMINADOS
+		ArrayList documentosPrestamo = PrestamoDocumento.findAllByPrestamo(prestamo)
+		if(documentosPrestamo){
+			log.info("Elimina los documentos del prestamo")
+			documentosPrestamo.each() {
+				prestamo.removeFromDocumentos(it)
 			}
-		}	
-
-		documentos.each{
-			log.info it.id
-			log.info request.getParameter("${it.id}")
-
+			prestamo.save()
 		}
 
-	}
+		imagenes.each{
+			String idDocumento = request.getParameter("${it.name}")
+			SimCatDocumento documento = SimCatDocumento.findById(idDocumento)
+			new PrestamoDocumento(nombreArchivo: it.name,
+				documento: documento,
+				prestamo: prestamo).save()
+		}
+		redirect (action: "listaDocumentos" , params :[folioSolicitud:params.folioSolicitud, claveCliente:params.idCliente])
 
+	}
 }

@@ -27,23 +27,15 @@
                         </tr>
                     </thead>
 
-   
-
                     <tbody>
-                    <g:each in="${documentos}" status="i" var="documento">
+                    <g:each in="${documentosPrestamo}" status="i" var="documento">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td>${documento.name}</td>
+                            <td>${documento.nombreArchivo}</td>
 
-                        <td><g:select name="${documento.id}" from="${18..30}" value="${age}"/></td>
-
+                            <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.list()}" value="${documento.documento.id}" optionKey="id"/></td>
                         </tr>
-
-
                     </g:each>
                     </tbody>                    
-
-
-  
 
                 </table>
             </div>
