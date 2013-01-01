@@ -116,6 +116,20 @@
                             <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "montoSolicitado")}</td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.percepcionesMensuales.label" default="Percepciones Mensuales" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "percepcionesMensuales")}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.deduccionesMensuales.label" default="Deducciones Mensuales" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "deduccionesMensuales")}</td>
+                            
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.estatusSolicitud.label" default="Estatus Solicitud" /></td>
@@ -171,6 +185,13 @@
                             <td valign="top" class="name"><g:message code="prestamo.comentarios.label" default="Comentarios" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "comentarios")}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.consecutivoCr.label" default="Consecutivo Credito Real" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "consecutivoCr")}</td>
                             
                         </tr>
                         

@@ -152,6 +152,24 @@
                                     <g:textField name="montoSolicitado" value="${fieldValue(bean: prestamoInstance, field: 'montoSolicitado')}" />
                                 </td>
                             </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="percepcionesMensuales"><g:message code="prestamo.percepcionesMensuales.label" default="Percepciones Mensuales" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'percepcionesMensuales', 'errors')}">
+                                    <g:textField name="percepcionesMensuales" value="${fieldValue(bean: prestamoInstance, field: 'percepcionesMensuales')}" />
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="deduccionesMensuales"><g:message code="prestamo.deduccionesMensuales.label" default="Deducciones Mensuales" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'deduccionesMensuales', 'errors')}">
+                                    <g:textField name="deduccionesMensuales" value="${fieldValue(bean: prestamoInstance, field: 'deduccionesMensuales')}" />
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
