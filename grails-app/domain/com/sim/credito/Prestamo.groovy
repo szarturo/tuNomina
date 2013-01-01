@@ -29,6 +29,8 @@ class Prestamo {
     EmpEmpleado    vendedor
 	String         correoSolicitante
     Date    	   fechaSolicitud
+    BigDecimal     percepcionesMensuales
+    BigDecimal     deduccionesMensuales
     BigDecimal     montoSolicitado
     SimCatEtapaPrestamo estatusSolicitud
     SimCatFormaEntrega formaDeDispercion
@@ -38,6 +40,7 @@ class Prestamo {
 	Boolean        reenviarSolicitud
 	String         explicacionDevolucion
     String         usuarioMesaControl
+    String         consecutivoCr
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -67,6 +70,8 @@ class Prestamo {
         vendedor(nullable: false)
         fechaSolicitud()
         montoSolicitado(nullable: false)
+        percepcionesMensuales(nullable: true)
+        deduccionesMensuales(nullable: true)
         estatusSolicitud( nullable: false)
         formaDeDispercion(nullable: false)
         documentosCorrectos(nullable: false)
@@ -76,6 +81,7 @@ class Prestamo {
 		explicacionDevolucion blank:true, nullable:true, size:5..255
 		approvalStatus nullable:false
         usuarioMesaControl nullable:true
+        consecutivoCr nullable:true
         documentos nullable:true
 		dateCreated ()
 		lastUpdated nullable:true
