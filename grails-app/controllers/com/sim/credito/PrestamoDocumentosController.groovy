@@ -20,12 +20,16 @@ class PrestamoDocumentosController {
 		
         def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${claveCliente}/${folioSolicitud}")
 		def imagenes = path.listFiles()
-		 
-		AlfrescoService alfrescoService = new AlfrescoService();
-		//EN CASO DE NO EXISTIR EL FOLDER DEL CREDITO SE CREA EN ALFRESCO
-		Folder creditos= alfrescoService.getRootFolder();
-		Folder folderCliente=alfrescoService.getFolderCliente(creditos, claveCliente);
-		alfrescoService.getFolderCredito(folderCliente, folioSolicitud)
+
+		try{
+			AlfrescoService alfrescoService = new AlfrescoService();
+			//EN CASO DE NO EXISTIR EL FOLDER DEL CREDITO SE CREA EN ALFRESCO
+			Folder creditos= alfrescoService.getRootFolder();
+			Folder folderCliente=alfrescoService.getFolderCliente(creditos, claveCliente);
+			alfrescoService.getFolderCredito(folderCliente, folioSolicitud)
+		}catch(Exception e){
+				e.printStackTrace();
+		}
 		
         render(view: "documentos", model: [folioSolicitud:folioSolicitud, path:path, imagenes:imagenes, claveCliente:claveCliente])
     }
