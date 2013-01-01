@@ -14,6 +14,7 @@ class PrestamoController {
 	
 	def tablaAmortizacionRegistroService
     def springSecurityService
+    def prestamoService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -158,8 +159,11 @@ class PrestamoController {
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && params.aprobado.equals("on")){
+                    //EL PRESTAMO ES ENVIADO A CREDITO REAL
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+                    log.info("El credito se envia a CR")
+                    prestamoService.envioSolicitudCreditoReal()
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED

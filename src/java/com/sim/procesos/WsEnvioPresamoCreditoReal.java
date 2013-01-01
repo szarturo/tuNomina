@@ -17,7 +17,7 @@ public class WsEnvioPresamoCreditoReal implements JavaDelegate{
 		
 		
 		String comentarios = (String)execution.getVariable("comentarios");
-		comentarios = comentarios + " ,Envio de prestamo a Credito Real";
+		comentarios = comentarios + " Envio de prestamo a Credito Real";
 		System.out.println("Credito Real Envio Credito. "+comentarios);
 		execution.setVariable("comentarios", comentarios);
 		
