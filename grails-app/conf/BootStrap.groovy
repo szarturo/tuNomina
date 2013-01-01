@@ -242,6 +242,10 @@ class BootStrap {
 				nombreTipoDocumento: 'LEGAL',
 				).save(failOnError: true, flush:true)
 
+		new SimCatTipoDocumento(claveTipoDocumento:  'PRESTAMO',
+				nombreTipoDocumento: 'DOCUMENTACION DEL PRESTAMO',
+				).save(failOnError: true, flush:true)
+
 		new SimCatDocumento(claveDocumento:  'CFE',
 				nombreDocumento: 'COMPROBANTE DE LUZ',
 				descripcion: 'COMPROBANTE DE LUZ',
@@ -266,8 +270,24 @@ class BootStrap {
 				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('IDENTIFICACION'),
 				).save(failOnError: true)
 
+		new SimCatDocumento(claveDocumento:  'SOLICITUD_PRESTAMO',
+				nombreDocumento: 'SOLICITUD DE PRESTAMO',
+				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'),				
+				).save(failOnError: true)
+
+		new SimCatDocumento(claveDocumento:  'PAGARE_PRESTAMO',
+				nombreDocumento: 'PAGARE DEL PRESTAMO',
+				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'),
+				).save(failOnError: true)
+
+		new SimCatDocumento(claveDocumento:  'IDENTIFICACION_PRESTAMO',
+				nombreDocumento: 'IDENTIFICACION DEL PRESTAMO',
+				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'),				
+				).save(failOnError: true)
+
 		new SimCatDocumento(claveDocumento:  'NO_DEFINIDO',
 				nombreDocumento: 'NO DEFINIDO',
+				tipoDocumento : SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'),
 				).save(failOnError: true)
 
 		new SimCatEscolaridad(claveEscolaridad:  'PRIMARIA',

@@ -32,7 +32,7 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             <td>${documento.nombreArchivo}</td>
 
-                            <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.list()}" value="${documento.documento.id}" optionKey="id"/></td>
+                            <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'))}" value="${documento.documento.id}" optionKey="id"/></td>
                         </tr>
                     </g:each>
                     </tbody>                    
