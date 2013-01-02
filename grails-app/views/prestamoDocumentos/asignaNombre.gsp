@@ -22,18 +22,25 @@
                     <thead>
                         <tr>
                             <th>Documento</th>
-                        
                             <th>Nombre</th>
+                            <th>Enviar a Credito Real</th>
                         </tr>
                     </thead>
 
                     <tbody>
                     <g:each in="${documentosPrestamo}" status="i" var="documento">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td>${documento.nombreArchivo}</td>
+                            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                                <td>${documento.nombreArchivo}</td>
 
-                            <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'))}" value="${documento.documento.id}" optionKey="id"/></td>
-                        </tr>
+                                <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'))}" value="${documento.documento.id}" optionKey="id"/></td>
+                                <td>
+                                    <g:link action="enviaDocumento" params="[idDocumento : documento.id, folioSolicitud : folioSolicitud, idCliente : idCliente]">
+                                        Enviar Documento
+                                    </g:link>    
+                                </td>
+                            </tr>
+                            
+                        <!--/g:form-->          
                     </g:each>
                     </tbody>                    
 

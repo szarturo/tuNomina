@@ -111,7 +111,7 @@ class PrestamoService {
 				adicional.setConsecutivo(consecutivo)
 				adicional.setDocAd(doctoAdicional.getBytes())
 				
-				boolean respuesta = false
+				String respuesta = "No se genero respuesta"
 				
 				try {
 					respuesta = client.documentoAdicional(adicional);
@@ -123,5 +123,39 @@ class PrestamoService {
 			}
 		}
         return consecutivo
+    }
+
+    String envioDocumentoCreditoReal(String idDocumento) {
+
+		PrestamoDocumento documento = 
+			PrestamoDocumento.get(idDocumento)	
+		log.info "Documento: "+documento
+
+		String respuesta = "No se genero respuesta"
+
+		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${documento.prestamo.cliente.id}/${documento.prestamo.folioSolicitud}")
+		log.info ("Path: "+path)
+
+		String consecutivo = documento.prestamo.consecutivoCr
+		log.info "Prestamo: "+documento.prestamo
+		log.info "Consecutivo CR: "+consecutivo
+
+		File doctoAdicional = new File(path, documento.nombreArchivo)
+		log.info "Documento Adicional: "+doctoAdicional
+
+		Adicional adicional = new Adicional()
+		adicional.setConsecutivo(consecutivo)
+		adicional.setDocAd(doctoAdicional.getBytes())		
+		
+		try {
+			Client client = new Client(true);
+			respuesta = client.documentoAdicional(adicional);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
+
+		return respuesta
     }
 }

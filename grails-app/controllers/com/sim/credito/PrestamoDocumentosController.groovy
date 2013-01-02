@@ -9,6 +9,7 @@ import org.apache.chemistry.opencmis.client.api.Document
 class PrestamoDocumentosController {
 	
 	def springSecurityService
+	def prestamoService
 
     def listaDocumentos(){
 		 
@@ -145,6 +146,13 @@ class PrestamoDocumentosController {
 				prestamo: prestamo).save()
 		}
 		redirect (action: "listaDocumentos" , params :[folioSolicitud:params.folioSolicitud, claveCliente:params.idCliente])
+	}
+
+	def enviaDocumento(){
+        String respuesta = "No se genero respuesta"
+        respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
+
+		redirect (action: "listaDocumentos" , params :[folioSolicitud:params.folioSolicitud, claveCliente:params.idCliente])		
 	}
 
 }
