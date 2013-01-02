@@ -151,8 +151,8 @@ class PrestamoDocumentosController {
 	def enviaDocumento(){
         String respuesta = "No se genero respuesta"
         respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
-
-		redirect (action: "listaDocumentos" , params :[folioSolicitud:params.folioSolicitud, claveCliente:params.idCliente])		
+        flash.message = message(code: "Respuesta de Credito Real para el documento ${respuesta}", args: [])
+		redirect (action: "asignaNombre" , params :[folioSolicitud:params.folioSolicitud, idCliente:params.idCliente])		
 	}
 
 }

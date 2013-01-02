@@ -146,16 +146,16 @@ class PrestamoService {
 		Adicional adicional = new Adicional()
 		adicional.setConsecutivo(consecutivo)
 		adicional.setDocAd(doctoAdicional.getBytes())		
-		
+		/*
 		try {
 			Client client = new Client(true);
 			respuesta = client.documentoAdicional(adicional);
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 
-		return respuesta
+		return "${documento.nombreArchivo} : ${respuesta}"
     }
 }
