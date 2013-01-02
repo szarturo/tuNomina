@@ -140,21 +140,27 @@ class PrestamoService {
 		log.info "Prestamo: "+documento.prestamo
 		log.info "Consecutivo CR: "+consecutivo
 
-		File doctoAdicional = new File(path, documento.nombreArchivo)
-		log.info "Documento Adicional: "+doctoAdicional
+		if(consecutivo){
+			File doctoAdicional = new File(path, documento.nombreArchivo)
+			log.info "Documento Adicional: "+doctoAdicional
 
-		Adicional adicional = new Adicional()
-		adicional.setConsecutivo(consecutivo)
-		adicional.setDocAd(doctoAdicional.getBytes())		
-		/*
-		try {
-			Client client = new Client(true);
-			respuesta = client.documentoAdicional(adicional);
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
+			Adicional adicional = new Adicional()
+			adicional.setConsecutivo(consecutivo)
+			adicional.setDocAd(doctoAdicional.getBytes())		
+			
+			try {
+				Client client = new Client(true);
+				respuesta = client.documentoAdicional(adicional);
+			} catch (ClientException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
+		}else{
+			respuesta = """
+			No existe consecutivo, debe enviarse primero la solicitud a Credito Real
+			"""
+		}
 
 		return "${documento.nombreArchivo} : ${respuesta}"
     }

@@ -27,7 +27,11 @@
                         <tr>
                             <th>Documento</th>
                             <th>Nombre</th>
-                            <th>Enviar a Credito Real</th>
+                            <th>
+                                <sec:ifAllGranted roles="ROLE_CONTROL_CALIDAD">
+                                Enviar a Credito Real
+                                </sec:ifAllGranted>
+                            </th>
                         </tr>
                     </thead>
 
@@ -38,9 +42,11 @@
 
                                 <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'))}" value="${documento.documento.id}" optionKey="id"/></td>
                                 <td>
+                                <sec:ifAllGranted roles="ROLE_CONTROL_CALIDAD">
                                     <g:link action="enviaDocumento" params="[idDocumento : documento.id, folioSolicitud : folioSolicitud, idCliente : idCliente]">
                                         Enviar Documento
                                     </g:link>    
+                                </sec:ifAllGranted>
                                 </td>
                             </tr>
                             
