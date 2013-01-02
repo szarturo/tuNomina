@@ -13,6 +13,11 @@ class PrestamoService {
 
     	def documentos = prestamo.documentos
     	File doctoSolicitud
+    	File doctoPagare
+    	File doctoIdentificacion
+    	File doctoAdicionalA
+    	File doctoAdicionalB
+    	File doctoAdicionalC
 
 		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${prestamo.cliente.id}/${prestamo.folioSolicitud}")
 		
@@ -21,20 +26,33 @@ class PrestamoService {
 			switch ( documentoPrestamo.documento ) {
 			    case SimCatDocumento.findByClaveDocumento('SOLICITUD_PRESTAMO'):
 			    	doctoSolicitud = new File(path, documentoPrestamo.nombreArchivo)
-			    	log.info ("***: "+doctoSolicitud)
+			    	log.info "Solicitud: "+doctoSolicitud
 			    break
 			    case SimCatDocumento.findByClaveDocumento('PAGARE_PRESTAMO'):
-			    	log.info "Pagare: "+documentoPrestamo.nombreArchivo
+			    	doctoPagare = new File(path, documentoPrestamo.nombreArchivo)
+			    	log.info "Pagare: "+doctoPagare
 			    break
 			    case SimCatDocumento.findByClaveDocumento('IDENTIFICACION_PRESTAMO'):
-			    	log.info "Identificacion: "+documentoPrestamo.nombreArchivo
+			    	doctoIdentificacion = new File(path, documentoPrestamo.nombreArchivo)
+			    	log.info "Identificacion: "+doctoIdentificacion
 			    break
 			    default:
-			    	log.info "Otro: "+documentoPrestamo.nombreArchivo
+			    	if (!doctoAdicionalA){
+			    		doctoAdicionalA = new File(path, documentoPrestamo.nombreArchivo)
+			    		log.info "doctoAdicionalA: "+doctoAdicionalA
+			    	}else if(!doctoAdicionalB){
+			    		doctoAdicionalB = new File(path, documentoPrestamo.nombreArchivo)
+			    		log.info "doctoAdicionalB: "+doctoAdicionalB
+			    	}else if(!doctoAdicionalC){
+			    		doctoAdicionalC = new File(path, documentoPrestamo.nombreArchivo)
+			    		log.info "doctoAdicionalC: "+doctoAdicionalC
+			    	}else{
+			    		log.info "No se asigno el documento: "+documentoPrestamo.nombreArchivo
+			    	}
 			}
     	}
 
-    	
+    	/*
 		Client client = null;
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
@@ -42,7 +60,7 @@ class PrestamoService {
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		Solicitud solicitud = new Solicitud();
 		solicitud.setReferencia("${prestamo.folioSolicitud}"); //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
@@ -57,15 +75,16 @@ class PrestamoService {
         log.info "Percepciones Mensuales: "+ solicitud.getPercepciones()
 		solicitud.setDeducciones(prestamo.deduccionesMensuales); //Deducciones mensuales del cliente
         log.info "Deducciones Mensuales: "+ solicitud.getDeducciones()
-		solicitud.setSolicitud(doctoSolicitud.getBytes()); //Imagen binarizada de la Solictud de credito
-		solicitud.setPagare("1".getBytes()); //Imagen binarizada del pagare
-		solicitud.setIdentificacion("1".getBytes()); //Imagen binarizada de la identificacion
-		solicitud.setDocadA("1".getBytes()); //Imagen binarizada de un documento adicional
-		solicitud.setDocadB("1".getBytes()); //Imagen binarizada de un documento adicional
-		solicitud.setDocadC("1".getBytes()); //Imagen binarizada de un documento adicional
+		solicitud.setSolicitud(doctoSolicitud?.getBytes()); //Imagen binarizada de la Solictud de credito
+		solicitud.setPagare(doctoPagare?.getBytes()); //Imagen binarizada del pagare
+		solicitud.setIdentificacion(doctoIdentificacion?.getBytes()); //Imagen binarizada de la identificacion
+		solicitud.setDocadA(doctoAdicionalA?.getBytes()); //Imagen binarizada de un documento adicional
+		solicitud.setDocadB(doctoAdicionalB?.getBytes()); //Imagen binarizada de un documento adicional
+		solicitud.setDocadC(doctoAdicionalC?.getBytes()); //Imagen binarizada de un documento adicional
 		
-		String consecutivo = null;
+		String consecutivo = "NO SE GENERO";
 		
+		/*
 		try {
 			consecutivo = client.solicitudZell(solicitud);
 		} catch (ClientException e) {
@@ -73,8 +92,8 @@ class PrestamoService {
 			e.printStackTrace();
 		}
 		System.out.println("Respuesta Credito Real Consecutivo: "+ consecutivo);
-		
+		*/
+		prestamo.consecutivoCr = consecutivo
         return consecutivo
-
     }
 }
