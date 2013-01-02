@@ -18,8 +18,11 @@ class PrestamoService {
     	File doctoAdicionalA
     	File doctoAdicionalB
     	File doctoAdicionalC
+    	File doctoAdicional
 
 		File path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${prestamo.cliente.id}/${prestamo.folioSolicitud}")
+
+		List<PrestamoDocumento> documentosListaCr = []
 		
 		documentos.each{documentoPrestamo ->
 
@@ -47,12 +50,15 @@ class PrestamoService {
 			    		doctoAdicionalC = new File(path, documentoPrestamo.nombreArchivo)
 			    		log.info "doctoAdicionalC: "+doctoAdicionalC
 			    	}else{
+			    		//SE ASIGNA EL DOCUMENTO A UNA LISTA PARA ENVIAR
+			    		//A CREDITO REAL
+			    		documentosListaCr.add(documentoPrestamo)
 			    		log.info "No se asigno el documento: "+documentoPrestamo.nombreArchivo
 			    	}
 			}
     	}
 
-    	/*
+    	
 		Client client = null;
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
@@ -60,7 +66,7 @@ class PrestamoService {
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		Solicitud solicitud = new Solicitud();
 		solicitud.setReferencia("${prestamo.folioSolicitud}"); //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
@@ -83,8 +89,7 @@ class PrestamoService {
 		solicitud.setDocadC(doctoAdicionalC?.getBytes()); //Imagen binarizada de un documento adicional
 		
 		String consecutivo = "NO SE GENERO";
-		
-		/*
+				
 		try {
 			consecutivo = client.solicitudZell(solicitud);
 		} catch (ClientException e) {
@@ -92,8 +97,31 @@ class PrestamoService {
 			e.printStackTrace();
 		}
 		System.out.println("Respuesta Credito Real Consecutivo: "+ consecutivo);
-		*/
+		
 		prestamo.consecutivoCr = consecutivo
+
+		if(documentosListaCr){
+			log.info ("Existen mas de 6 documentos para enviar a CR")
+
+			documentosListaCr.each{ documentoPrestamo ->
+				
+			    doctoAdicional = new File(path, documentoPrestamo.nombreArchivo)				
+
+				Adicional adicional = new Adicional()
+				adicional.setConsecutivo(consecutivo)
+				adicional.setDocAd(doctoAdicional.getBytes())
+				
+				boolean respuesta = false
+				
+				try {
+					respuesta = client.documentoAdicional(adicional);
+				} catch (ClientException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
+			}
+		}
         return consecutivo
     }
 }
