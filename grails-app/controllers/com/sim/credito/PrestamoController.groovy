@@ -151,6 +151,7 @@ class PrestamoController {
 			def estatusSolicitud = SimCatEtapaPrestamo.get(params.estatusSolicitud.id)
 			
 			log.info("Estatus de la solicitud: "+estatusSolicitud)
+            String consecutivo
 
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
@@ -162,8 +163,9 @@ class PrestamoController {
                     //EL PRESTAMO ES ENVIADO A CREDITO REAL
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-                    log.info("El credito se envia a CR")
-                    prestamoService.envioSolicitudCreditoReal()
+                    log.info("El credito es enviado a CR")
+                    consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
