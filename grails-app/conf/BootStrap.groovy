@@ -1085,6 +1085,8 @@ class BootStrap {
                 vendedor : empleado,
                 fechaSolicitud: new Date('04/30/2012'),
                 montoSolicitado: 6000,
+                percepcionesMensuales: 12000,
+                deduccionesMensuales: 2000,
                 estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INICIO_MESA'),
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
