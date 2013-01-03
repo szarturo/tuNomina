@@ -57,17 +57,16 @@ class PrestamoService {
 			    	}
 			}
     	}
-
     	
 		Client client = null;
-		/*
+		
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
 			client = new Client(true);
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		Solicitud solicitud = new Solicitud();
 		solicitud.setReferencia("${prestamo.folioSolicitud}"); //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
@@ -91,13 +90,12 @@ class PrestamoService {
 		
 		String consecutivo = "NO SE GENERO";
 			
-		/*	
 		try {
 			consecutivo = client.solicitudZell(solicitud);
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		System.out.println("Respuesta Credito Real Consecutivo: "+ consecutivo);
 		
 		prestamo.consecutivoCr = consecutivo
@@ -114,13 +112,12 @@ class PrestamoService {
 				adicional.setDocAd(doctoAdicional.getBytes())
 				
 				String respuesta = "No se genero respuesta"
-				/*	
 				try {
 					respuesta = client.documentoAdicional(adicional);
 				} catch (ClientException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 				log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 			}
 		}
@@ -150,14 +147,13 @@ class PrestamoService {
 			adicional.setConsecutivo(consecutivo)
 			adicional.setDocAd(doctoAdicional.getBytes())		
 			
-			/*
 			try {
 				Client client = new Client(true);
 				respuesta = client.documentoAdicional(adicional);
 			} catch (ClientException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
+			}
 			log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 		}else{
 			respuesta = """
