@@ -10,7 +10,7 @@ class RsGralEstado {
 	String  aliasEstado
 	
 	SortedSet ciudad
-	static hasMany = [ ciudad : RsGralCiudad, sucursal: EntSucursal ]
+	static hasMany = [ delegacionMunicipio : RsGralDelegacionMunicipio, sucursal: EntSucursal ]
 	static belongsTo = [region: EntRegion]
 
 	static constraints = {

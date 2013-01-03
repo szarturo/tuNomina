@@ -4,10 +4,10 @@ import grails.converters.*
 
 class RsGralEstadoController {
 	def scaffold = true
-	
-	def ajaxGetCiudades = {
+
+	def ajaxGetDelegacionMunicipio = {
 		def estado = RsGralEstado.get(params.id)
-		render estado?.ciudad as JSON
+		render estado?.delegacionMunicipio as JSON
 	}
-	
+
 }

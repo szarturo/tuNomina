@@ -1,16 +1,19 @@
 <%@ page import="com.rs.gral.RsGralDomicilio"%>
 
-
 <g:if test="${rsGralDomicilioInstance?.persona?.id}">
 	<div
 		class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'persona', 'error')} ">
-		<label for="persona"> <g:message
-				code="rsGralDomicilio.persona.label" default="Persona" />
-
-		</label> <label> ${rsGralDomicilioInstance?.persona}
-		</label>
-		<g:hiddenField name='persona.id'
-			value='${rsGralDomicilioInstance?.persona?.id}' />
+		<label for="persona"> <g:message code="rsGralDomicilio.persona.label" default="Persona" /></label> 
+		<label> ${rsGralDomicilioInstance?.persona}</label>
+		<g:hiddenField name='persona.id' value='${rsGralDomicilioInstance?.persona?.id}' />
+	</div>
+</g:if>
+<g:if test="${rsGralDomicilioInstance?.sucursal?.id}">
+	<div
+		class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'sucursal', 'error')} ">
+		<label for="sucursal"> <g:message code="rsGralDomicilio.sucursal.label" default="Sucursal" /></label> 
+		<label> ${rsGralDomicilioInstance?.sucursal}</label>
+		<g:hiddenField name='sucursal.id' value='${rsGralDomicilioInstance?.sucursal?.id}' />
 	</div>
 </g:if>
 
@@ -82,18 +85,6 @@
 		from='${com.rs.gral.RsGralEstado.list()}'
 		onchange="${remoteFunction(
 					            controller:'rsGralEstado', 
-					            action:'ajaxGetCiudades', 
-					            params:'\'id=\' + escape(this.value)', 
-					            onComplete:'updateCiudad(e)')}"
-		class="many-to-one"></g:select>
-</div>
-
-<div
-	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
-	<label>Ciudad:</label>
-	<g:select name='ciudad' id='ciudad' from=''
-		onchange="${remoteFunction(
-					            controller:'rsGralCiudad', 
 					            action:'ajaxGetDelegacionMunicipio', 
 					            params:'\'id=\' + escape(this.value)', 
 					            onComplete:'updateDelegacionMunicipio(e)')}"

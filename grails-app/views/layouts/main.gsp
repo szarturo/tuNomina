@@ -72,9 +72,6 @@
 												<li><g:link controller="rsGralEstado">
 														<span>Estados</span>
 													</g:link></li>
-												<li><g:link controller="rsGralCiudad">
-														<span>Ciudades</span>
-													</g:link></li>
 												<li><g:link controller="rsGralDelegacionMunicipio">
 														<span>Delegaciones o Municipios</span>
 													</g:link></li>

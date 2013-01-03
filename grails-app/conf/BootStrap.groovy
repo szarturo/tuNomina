@@ -345,102 +345,78 @@ class BootStrap {
 				region: EntRegion.findByClaveRegion('CENTRO'),
 				).save(failOnError: true, flush: true)
 
-		new RsGralCiudad(nombreCiudad: 'EL COLORADO',
+		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'Aguascalientes',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
-		new RsGralCiudad(nombreCiudad: 'AMAPOLAS DEL RIO',
+		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'San Francisco de los Romo',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
-		new RsGralCiudad(nombreCiudad: 'EL CONEJAL',
+		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'El Llano',
 				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
-
-		new RsGralCiudad(nombreCiudad: 'DISTRITO NORTE',
-				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
-
-		new RsGralCiudad(nombreCiudad: 'DISTRITO SUR',
-				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
-
-		new RsGralCiudad(nombreCiudad: 'METEPEC',
-				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
-
-		new RsGralCiudad(nombreCiudad: 'CHIMALHUACAN',
-				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
-
-		new RsGralCiudad(nombreCiudad: 'MEXICO',
-				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true, flush: true)
-
-		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL COLORADO UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL COLORADO')).save(failOnError: true)
-
-		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL COLORADO DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL COLORADO')).save(failOnError: true)
-
-		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL COLORADO TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL COLORADO')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL AMAPOLAS UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('AMAPOLAS DEL RIO')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL AMAPOLAS DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('AMAPOLAS DEL RIO')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL AMAPOLAS TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('AMAPOLAS DEL RIO')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL CONEJAL UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL CONEJAL')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL CONEJAL DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL CONEJAL')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'EL CONEJAL TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('EL CONEJAL')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('AGS')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'CUAUHTEMOC',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO NORTE')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'VENUSTIANO CARRANZA',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO NORTE')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'ALVARO OBREGON',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO NORTE')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'BENITO JUAREZ',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO SUR')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'COYOACAN',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO SUR')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'TLALPAN',
-				ciudad : RsGralCiudad.findByNombreCiudad('DISTRITO SUR')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('DF')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'METEPEC UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('METEPEC')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'METEPEC DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('METEPEC')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'METEPEC TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('METEPEC')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'CHIMALHUACAN UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('CHIMALHUACAN')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'CHIMALHUACAN DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('CHIMALHUACAN')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'CHIMALHUACAN TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('CHIMALHUACAN')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'MEXICO UNO',
-				ciudad : RsGralCiudad.findByNombreCiudad('MEXICO')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'MEXICO DOS',
-				ciudad : RsGralCiudad.findByNombreCiudad('MEXICO')).save(failOnError: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true)
 
 		new RsGralDelegacionMunicipio(nombreDelegacionMunicipio: 'MEXICO TRES',
-				ciudad : RsGralCiudad.findByNombreCiudad('MEXICO')).save(failOnError: true, flush: true)
+				estado : RsGralEstado.findByCveEstado('EDOMEX')).save(failOnError: true, flush: true)
 
 		new SimCatTipoAsentamiento(claveTipoAsentamiento:  'CIUDAD',
 				nombreTipoAsentamiento: 'CIUDAD',
@@ -448,47 +424,26 @@ class BootStrap {
 		new SimCatTipoAsentamiento(claveTipoAsentamiento:  'COLONIA',
 				nombreTipoAsentamiento: 'COLONIA',
 				).save(failOnError: true)
+		new SimCatTipoAsentamiento(claveTipoAsentamiento:  'GRANUSUARIO',
+				nombreTipoAsentamiento: 'GRAN USUARIO',
+				).save(failOnError: true)
 		new SimCatTipoAsentamiento(claveTipoAsentamiento:  'URBANA',
 				nombreTipoAsentamiento: 'URBANA',
 				).save(failOnError: true, flush: true)
 
 
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 1 ASENTAMIENTO UNO',
-				codigoPostal: '01000',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO UNO'),
+		new RsGralAsentamiento(nombreAsentamiento: 'Zona Centro',
+				codigoPostal: '20000',
+				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('Aguascalientes'),
 				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 1 ASENTAMIENTO DOS',
-				codigoPostal: '01010',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO UNO'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 1 ASENTAMIENTO TRES',
-				codigoPostal: '01020',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO UNO'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 2 ASENTAMIENTO UNO',
-				codigoPostal: '01100',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO DOS'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 2 ASENTAMIENTO DOS',
-				codigoPostal: '01110',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO DOS'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 2 ASENTAMIENTO TRES',
-				codigoPostal: '01120',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO DOS'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 3 ASENTAMIENTO UNO',
-				codigoPostal: '01200',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO TRES'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 3 ASENTAMIENTO DOS',
-				codigoPostal: '01210',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO TRES'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
-		new RsGralAsentamiento(nombreAsentamiento: 'EL COLORADO 3 ASENTAMIENTO TRES',
-				codigoPostal: '01220',
-				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL COLORADO TRES'),
-				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true)
+		new RsGralAsentamiento(nombreAsentamiento: 'Delegacion de La Secretaria de Comercio y Fomento Industrial',
+				codigoPostal: '20008',
+				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('Aguascalientes'),
+				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('GRANUSUARIO')).save(failOnError: true)
+		new RsGralAsentamiento(nombreAsentamiento: 'Palacio de Gobierno del Estado de Aguascalientes',
+				codigoPostal: '20009',
+				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('Aguascalientes'),
+				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('GRANUSUARIO')).save(failOnError: true)
 		new RsGralAsentamiento(nombreAsentamiento: 'EL AMAPOLAS 1 ASENTAMIENTO UNO',
 				codigoPostal: '01230',
 				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('EL AMAPOLAS UNO'),
@@ -741,7 +696,6 @@ class BootStrap {
 				codigoPostal: '01790',
 				delegacionMunicipio : RsGralDelegacionMunicipio.findByNombreDelegacionMunicipio('MEXICO TRES'),
 				tipoAsentamiento: SimCatTipoAsentamiento.findByClaveTipoAsentamiento('COLONIA')).save(failOnError: true, flush: true)
-
 		 
 		new RsGralDomicilio(calle: 'BATALLONES ROJOS 205',
 				numeroInterior: '504',

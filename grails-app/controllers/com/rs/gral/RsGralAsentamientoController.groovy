@@ -19,11 +19,10 @@ class RsGralAsentamientoController {
 		if (tamanoCp == 5){
 			def asentamiento = RsGralAsentamiento.findByCodigoPostal(codigoPostal)
 			if (asentamiento){
-				def idEstado = asentamiento.delegacionMunicipio.ciudad.estado.id
-				def idCiudad = asentamiento.delegacionMunicipio.ciudad.id
+				def idEstado = asentamiento.delegacionMunicipio.estado.id
 				def idDelegacionMunicipio = asentamiento.delegacionMunicipio.id
 				def idAsentamiento = asentamiento.id
-				a = JSON.parse("[ ${idEstado}, ${idCiudad}, ${idDelegacionMunicipio}, ${idAsentamiento}]")
+				a = JSON.parse("[ ${idEstado}, ${idDelegacionMunicipio}, ${idAsentamiento}]")
 			}
 		}
 		render a as JSON
