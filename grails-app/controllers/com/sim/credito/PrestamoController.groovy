@@ -163,9 +163,7 @@ class PrestamoController {
                     //EL PRESTAMO ES ENVIADO A CREDITO REAL
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-                    log.info("El credito es enviado a CR")
                     consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
-
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
@@ -173,19 +171,38 @@ class PrestamoController {
 					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && params.aprobado.equals("on")){
+                    log.info("El prestamo es envido otra vez a CR")
+                    log.info("Estatus actual: DEVOLUCION_CR")
+                    log.info("Valor Solo enviar docto: "+params.soloEnviarDocumento)
+                    //EL PRESTAMO ES OTRA VEZ ENVIADO A CREDITO REAL
                     prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
                     prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+                    //VALIDAR SI SOLO FUE ENVIADO UNO O MAS DOCUMENTOS
+                    if(!params.soloEnviarDocumento.equals("on")){
+                        log.info("Se vuelve a enviar los datos del prestamo")
+                        //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
+                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                    }
                 }else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && !params.aprobado.equals("on")){
                     prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
                     prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
                 }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && params.aprobado.equals("on")){
+                    log.info("El prestamo es envido otra vez a CR")
+                    log.info("Estatus actual: CANCELADA_CR")
+                    log.info("Valor Solo enviar docto: "+params.soloEnviarDocumento)
+                    //EL PRESTAMO ES OTRA VEZ ENVIADO A CREDITO REAL
                     prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
                     prestamoInstance.approvalStatus = ApprovalStatus.PENDING
+                    //VALIDAR SI SOLO FUE ENVIADO UNO O MAS DOCUMENTOS
+                    if(!params.soloEnviarDocumento.equals("on")){
+                        log.info("Se vuelve a enviar los datos del prestamo")
+                        //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
+                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                    }
                 }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && !params.aprobado.equals("on")){
                     prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
                     prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
                 }                
-
             }
 			
             if (!prestamoInstance.hasErrors() && prestamoInstance.save(flush: true)) {

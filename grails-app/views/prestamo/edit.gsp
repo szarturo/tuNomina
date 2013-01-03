@@ -208,7 +208,29 @@
 											value="${prestamoInstance?.explicacionDevolucion}" />
 									</td>
 								</tr>
-	                            
+
+                                <g:if
+                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'DEVOLUCION_CR'}">
+                                        <tr class="prop">
+                                            <td valign="top" class="name">
+                                              <label for="envioDocto"><g:message code="prestamo.envioDocto.label" default="Se enviaron solo documento(s)" /></label>
+                                            </td>
+                                            <td valign="top">
+                                                <g:checkBox name="soloEnviarDocumento" />
+                                            </td>
+                                        </tr>
+                                </g:if>
+                                <g:if
+                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'CANCELADA_CR'}">
+                                        <tr class="prop">
+                                            <td valign="top" class="name">
+                                              <label for="envioDocto"><g:message code="prestamo.envioDocto.label" default="Se enviaron solo documento(s)" /></label>
+                                            </td>
+                                            <td valign="top">
+                                                <g:checkBox name="soloEnviarDocumento" />
+                                            </td>
+                                        </tr>
+                                </g:if>                                
                             </sec:ifAllGranted>
                             
 							<g:if
