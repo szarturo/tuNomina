@@ -313,13 +313,14 @@
 													<span>Inicio Solicitud</span>
 												</g:link></li>
 										</sec:ifAllGranted>
+										<!--		
 										<li><g:link controller="solicitudCredito" action="start">
 												<span>Credito</span>
 											</g:link></li>
 										<li><g:link controller="solicitudPrestamo" action="start">
 												<span>Prestamo</span>
 											</g:link></li>
-
+										-->
 									</ul>
 								</div></li>
 						</ul>
