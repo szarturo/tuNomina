@@ -166,17 +166,54 @@ class TablaAmortizacionRegistroService {
 					amortizacion = capitalTotal / promocion.numeroDePagos
 					//FORMULA PARA EL PAGO DE INTERES
 					pagoIntereses = capitalTotal * tasa
+					log.info("Pago de Interes: " + pagoIntereses)
 					//CALCULA EL IVA DEL INTERES
 					importeIvaInteres = pagoIntereses * (iva/100)
 					//FORMULA PARA VER EL PAGO TOTAL
 					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
+					log.info("Cuota Total: " + cuotaTotal)
 					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
 					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
 					saldoInsoluto = saldoInsoluto - amortizacion
 					//CALCULA LA FECHA DE PAGO
 					fechaPago = fechaPago + diasPeriodicidadPago
-				}
+				} else if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO02'))) {
+					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
+					amortizacion = capitalTotal / promocion.numeroDePagos
+					//FORMULA PARA EL PAGO DE INTERES
+					pagoIntereses = saldoInsoluto * tasa
+					log.info("Pago de Interes: " + pagoIntereses)
+					//CALCULA EL IVA DEL INTERES
+					importeIvaInteres = pagoIntereses * (iva/100)
+					//FORMULA PARA VER EL PAGO TOTAL
+					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
+					log.info("Cuota Total: " + cuotaTotal)
+					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
+					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
+					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
+					saldoInsoluto = saldoInsoluto - amortizacion
+					//CALCULA LA FECHA DE PAGO
+					fechaPago = fechaPago + diasPeriodicidadPago
+				} else if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO05'))) {
+					BigDecimal p = capitalTotal / ((1 - (1 / ((1 + tasa)**promocion.numeroDePagos))) / tasa)
+					//FORMULA PARA EL PAGO DE INTERES
+					pagoIntereses = saldoInsoluto * tasa
+					log.info("Pago de Interes: " + pagoIntereses)
+					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
+					amortizacion = p - pagoIntereses
+					//CALCULA EL IVA DEL INTERES
+					importeIvaInteres = pagoIntereses * (iva/100)
+					//FORMULA PARA VER EL PAGO TOTAL
+					cuotaTotal = p + importeIvaInteres
+					log.info("Cuota Total: " + cuotaTotal)
+					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
+					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
+					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
+					saldoInsoluto = saldoInsoluto - amortizacion
+					//CALCULA LA FECHA DE PAGO
+					fechaPago = fechaPago + diasPeriodicidadPago
+				} 
 				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION
 				TablaAmortizacionRegistro tablaAmortizacionInsertada = new TablaAmortizacionRegistro(
