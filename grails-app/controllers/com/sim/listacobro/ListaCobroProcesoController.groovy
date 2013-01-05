@@ -101,6 +101,16 @@ class ListaCobroProcesoController {
                 }
             }
             listaCobroProcesoInstance.properties = params
+
+              //SE RECUPERAN PARAMETROS QUE NO SON DEFINIDOS POR EL USUARIO
+              SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA')
+              listaCobroProcesoInstance.estatusListaCobro = estatus
+              PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+              Date fechaMedio = parametros?.fechaMedio  
+              listaCobroProcesoInstance.fechaMedio = fechaMedio
+              Usuario user = springSecurityService.getCurrentUser()
+              listaCobroProcesoInstance.usuario = user
+              
             if (!listaCobroProcesoInstance.hasErrors() && listaCobroProcesoInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'listaCobroProceso.label', default: 'ListaCobroProceso'), listaCobroProcesoInstance.id])}"
 								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))

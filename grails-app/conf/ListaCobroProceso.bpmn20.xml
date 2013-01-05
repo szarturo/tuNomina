@@ -19,7 +19,19 @@
 			</potentialOwner>
 		</userTask>
 
-		<sequenceFlow id="flujo1" sourceRef="inicioListaCobro" targetRef="fin" />
+		<sequenceFlow id="flujo1" sourceRef="inicioListaCobro" targetRef="enviarListaCobro" />
+
+		<userTask id="enviarListaCobro" activiti:formKey="/listaCobroProceso/edit"
+			name="Envio Lista de Cobro a Dependencia">
+			<documentation>Envio de lista de cobro a la Dependencia</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>ROLE_COBRANZA</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="flujo2" sourceRef="enviarListaCobro" targetRef="fin" />
 
 		<endEvent id="fin" />
 

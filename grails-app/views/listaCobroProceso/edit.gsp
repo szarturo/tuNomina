@@ -62,33 +62,6 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="estatusListaCobro"><g:message code="listaCobroProceso.estatusListaCobro.label" default="Estatus Lista Cobro" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: listaCobroProcesoInstance, field: 'estatusListaCobro', 'errors')}">
-                                    <g:select name="estatusListaCobro.id" from="${com.sim.catalogo.SimCatListaCobroEstatus.list()}" optionKey="id" value="${listaCobroProcesoInstance?.estatusListaCobro?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="usuario"><g:message code="listaCobroProceso.usuario.label" default="Usuario" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: listaCobroProcesoInstance, field: 'usuario', 'errors')}">
-                                    <g:select name="usuario.id" from="${com.sim.usuario.Usuario.list()}" optionKey="id" value="${listaCobroProcesoInstance?.usuario?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="fechaMedio"><g:message code="listaCobroProceso.fechaMedio.label" default="Fecha Medio" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: listaCobroProcesoInstance, field: 'fechaMedio', 'errors')}">
-                                    <g:datePicker name="fechaMedio" precision="day" value="${listaCobroProcesoInstance?.fechaMedio}"  />
-                                </td>
-                            </tr>
-                        
                         </tbody>
                     </table>
                 </div>
