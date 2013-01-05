@@ -109,13 +109,17 @@ class BootStrap {
 		operadorRole.id = 'ROLE_OPERADOR'
 		operadorRole.save(failOnError: true)
 
+		def cobranzaRole = new Rol(authority: 'ROLE_COBRANZA', name: 'Tesoreria - Cobranza')
+		cobranzaRole.id = 'ROLE_COBRANZA'
+		cobranzaRole.save(failOnError: true)
+
 		def usuarioAdmin = new Usuario(username: 'admin', enabled: true, password: '1234')
 		usuarioAdmin.save(failOnError: true)
 
 		UsuarioRol.create usuarioAdmin, adminRole, true
 		
 		assert Usuario.count() == 1
-		assert Rol.count() == 8
+		assert Rol.count() == 9
 		assert UsuarioRol.count() == 1
 		
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO ADMINISTRADOR
@@ -157,7 +161,11 @@ class BootStrap {
 		def usuarioRosa = new Usuario(username: 'rosa', enabled: true, password: 'rosa')
 		usuarioRosa.save(failOnError: true)
 		UsuarioRol.create usuarioRosa, callCenterRole, true
-		
+
+		def usuarioRoman = new Usuario(username: 'roman', enabled: true, password: 'roman')
+		usuarioRoman.save(failOnError: true)
+		UsuarioRol.create usuarioRoman, cobranzaRole, true
+
 		//DA DE ALTA UNA PERSONA Y LE ASIGNA EL USUARIO KERMIT
 		def kermitPersona = new RsPersona(
 				apellidoPaterno: "Perez",
