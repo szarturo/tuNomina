@@ -1474,26 +1474,26 @@ class BootStrap {
         ).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "PARAPLICADA",
-			    nombreListaEstatus : "Aplicar Lista Cobro Parcial",
+			    claveListaEstatus : "GENERAR",
+			    nombreListaEstatus : "Genera lista de cobro",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "PARGUARDADA",
-			    nombreListaEstatus : "Guarda Lista Cobro Parcial",
+			    claveListaEstatus : "ENVIAR_DEPENDENCIA",
+			    nombreListaEstatus : "Envio de lista de cobro a la Dependencia",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "PARCANAPLICADA",
-			    nombreListaEstatus : "Cancela Lista Cobro Parcial Aplicada",
+			    claveListaEstatus : "INSTALAR_DEPENDENCIA",
+			    nombreListaEstatus : "Instalación de la lista de cobro por la dependencia",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "PARCANGUARDADA",
-			    nombreListaEstatus : "Cancela Lista Cobro Parcial Guardada",
+			    claveListaEstatus : "DEVOLVER_DEPENDENCIA",
+			    nombreListaEstatus : "Devolucion de la lista de cobro por la Dependencia",
 			    aplicaParcial : 'true',
        	).save(failOnError: true,flush: true)
 
