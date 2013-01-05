@@ -33,6 +33,10 @@ class ListaCobroProcesoController {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'listaCobroProceso.label', default: 'ListaCobroProceso'), listaCobroProcesoInstance.id])}"
 			      params.id = listaCobroProcesoInstance.id
 						if (params.complete) {
+                            //CORRECCION A LOS BUGS DE ACTIVITI
+                            params.remove("listaCobro")
+                            params.remove("usuario")
+                            params.remove("estatusListaCobro")
 							completeTask(params)
 						} else {
 							params.action="show"
@@ -84,6 +88,10 @@ class ListaCobroProcesoController {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'listaCobroProceso.label', default: 'ListaCobroProceso'), listaCobroProcesoInstance.id])}"
 								Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 								if (isComplete) {
+                                    //CORRECCION A LOS BUGS DE ACTIVITI
+                                        params.remove("listaCobro")
+                                        params.remove("usuario")
+                                        params.remove("estatusListaCobro")
 										completeTask(params)
 								} else {
 										params.action="show"
