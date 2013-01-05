@@ -22,9 +22,9 @@ class DummyCobranza {
     	detalleRegistro()
 		field1 ()
 		field2 ()
-		field3 nullable:false, blank:false
-		field4 nullable:false, blank:false
+		field3 nullable:true, blank:true
+		field4 nullable:true, blank:true
 		field5 ()
-		field6 nullable:false, blank:false
+		field6 nullable:true, blank:true
     }
 }

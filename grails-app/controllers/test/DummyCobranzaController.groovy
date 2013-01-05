@@ -155,15 +155,15 @@ class DummyCobranzaController {
 			id= ((String[])params.get("id"))[idrow];
 			//field2= ((String[])params.get("field2"))[idrow];
 			field2=Double.parseDouble(  ((String[])params.get("field2"))[idrow] );
-			field3= ((String[])params.get("field3"))[idrow];
-			field6= ((String[])params.get("field6"))[idrow];
+			//field3= ((String[])params.get("field3"))[idrow];
+			//field6= ((String[])params.get("field6"))[idrow];
 			field5=getFecha(params.get("field50_value"));
 			
 		}else{
 			id= params.get("id");
 			field2=Double.parseDouble(params.get("field2"));
-			field3=params.get("field3");
-			field6=params.get("field6");
+			//field3=params.get("field3");
+			//field6=params.get("field6");
 			field5=getFecha(params.get("field50_value"));
 		}
 		
