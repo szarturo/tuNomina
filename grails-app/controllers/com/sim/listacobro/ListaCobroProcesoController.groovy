@@ -1,6 +1,11 @@
 package com.sim.listacobro
+import com.sim.catalogo.SimCatListaCobroEstatus
+import com.sim.pfin.PfinCatParametro
+import com.sim.usuario.Usuario
 
 class ListaCobroProcesoController {
+
+    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -28,10 +33,25 @@ class ListaCobroProcesoController {
     }
 
     def save = {
-        def listaCobroProcesoInstance = new ListaCobroProceso(params)
+          def listaCobroProcesoInstance = new ListaCobroProceso(params)
+
+          SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR')
+          log.info "Estatus: "+estatus
+          listaCobroProcesoInstance.estatusListaCobro = estatus
+          PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
+          Date fechaMedio = parametros?.fechaMedio  
+          log.info "fechaMedio: "+fechaMedio
+          listaCobroProcesoInstance.fechaMedio = fechaMedio
+          Usuario user = springSecurityService.getCurrentUser()
+          log.info "user: "+user
+          log.info user.class
+          listaCobroProcesoInstance.usuario = user
+
+
         if (listaCobroProcesoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'listaCobroProceso.label', default: 'ListaCobroProceso'), listaCobroProcesoInstance.id])}"
 			      params.id = listaCobroProcesoInstance.id
+
 						if (params.complete) {
                             //CORRECCION A LOS BUGS DE ACTIVITI
                             params.remove("listaCobro")
