@@ -35,16 +35,13 @@ class ListaCobroProcesoController {
     def save = {
           def listaCobroProcesoInstance = new ListaCobroProceso(params)
 
+          //SE RECUPERAN PARAMETROS QUE NO SON DEFINIDOS POR EL USUARIO
           SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR')
-          log.info "Estatus: "+estatus
           listaCobroProcesoInstance.estatusListaCobro = estatus
           PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
           Date fechaMedio = parametros?.fechaMedio  
-          log.info "fechaMedio: "+fechaMedio
           listaCobroProcesoInstance.fechaMedio = fechaMedio
           Usuario user = springSecurityService.getCurrentUser()
-          log.info "user: "+user
-          log.info user.class
           listaCobroProcesoInstance.usuario = user
 
 
