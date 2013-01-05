@@ -1,10 +1,14 @@
 package test
 
+import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
+
 class DummyCobranza {
 
-	double field1;
+	TablaAmortizacionRegistro detalleRegistro
+
+	Double field1;
 	
-	double field2;
+	Double field2;
 	
 	String field3;
 	
@@ -15,6 +19,7 @@ class DummyCobranza {
 	String field6;
 	
     static constraints = {
+    	detalleRegistro()
 		field1 ()
 		field2 ()
 		field3 nullable:false, blank:false

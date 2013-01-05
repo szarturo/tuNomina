@@ -1,10 +1,16 @@
 <%@ page import="test.DummyCobranza" %>
 
-
+<div class="fieldcontain ${hasErrors(bean: dummyCobranzaInstance, field: 'detalleRegistro', 'error')} required">
+	<label for="detalleRegistro">
+		<g:message code="rsGralDomicilio.detalleRegistro.label" default="Detalle Registro" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="detalleRegistro.id" from="${com.sim.tablaAmortizacion.TablaAmortizacionRegistro.list()}" value="${dummyCobranzaInstance?.detalleRegistro?.id}" optionKey="id" />
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: dummyCobranzaInstance, field: 'field1', 'error')} required">
 	<label for="field1">
-		<g:message code="dummyCobranza.field1.label" default="Field1" />
+		<g:message code="dummyCobranza.field1.label" default="A Pagar" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="field1" required="" value="${dummyCobranzaInstance?.field1}"/>
@@ -12,7 +18,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: dummyCobranzaInstance, field: 'field2', 'error')} required">
 	<label for="field2">
-		<g:message code="dummyCobranza.field2.label" default="Field2" />
+		<g:message code="dummyCobranza.field2.label" default="Cobrado" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="field2" required="" value="${dummyCobranzaInstance?.field2}"/>
@@ -36,7 +42,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: dummyCobranzaInstance, field: 'field5', 'error')} required">
 	<label for="field5">
-		<g:message code="dummyCobranza.field5.label" default="Field5" />
+		<g:message code="dummyCobranza.field5.label" default="Fecha Aplicacion" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:datePicker name="field5" value="${dummyCobranzaInstance?.field5}" />

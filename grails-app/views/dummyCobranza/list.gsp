@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'dummyCobranza.label', default: 'DummyCobranza')}" />
+		<g:set var="entityName" value="${message(code: 'dummyCobranza.label', default: 'Detalle Cobro')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<link rel='stylesheet' type='text/css' href='${request.contextPath}/css/cobranza/color_estados.css' />
 		<calendar:resources lang="es" theme="green"  />
@@ -58,123 +58,146 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			
-			<g:link  url="javascript:select(1);">Select all</g:link>
-			<g:link url="javascript:select(2);">Deselect all</g:link> 
+			<g:link  url="javascript:select(1);">SeleccionarTodos</g:link>
+			<g:link url="javascript:select(2);">LimpiarSeleccion</g:link> 
 			
 			<table>
 				<thead>
 					<tr>
 						<td></td>
-						
+
+						<g:sortableColumn property="id" title="${message(code: 'dummyCobranza.id.label', default: 'Id')}" />
+
+						<th><g:message code="dummyCobranza.detalleRegistro.cliente.label" default="Cliente" /></th>				
+						<th><g:message code="dummyCobranza.detalleRegistro.amortizacion.label" default="Amort" /></th>				
 						<g:sortableColumn property="field1" title="${message(code: 'dummyCobranza.field1.label', default: 'Pago')}" />
 					
 						<g:sortableColumn property="field2" title="${message(code: 'dummyCobranza.field2.label', default: 'Cobrado')}" />
-					
+						
+						<!--
 						<g:sortableColumn property="field3" title="${message(code: 'dummyCobranza.field3.label', default: 'Field3')}" />
 						
 						<g:sortableColumn property="field6" title="${message(code: 'dummyCobranza.field6.label', default: 'Field6')}" />
+						-->
+						<g:sortableColumn property="field4" title="${message(code: 'dummyCobranza.field4.label', default: 'Insoluto')}" />
 					
-						<g:sortableColumn property="field4" title="${message(code: 'dummyCobranza.field4.label', default: 'Field4')}" />
-					
-						<g:sortableColumn property="field5" title="${message(code: 'dummyCobranza.field5.label', default: 'Field5')}" />
+						<g:sortableColumn property="field5" title="${message(code: 'dummyCobranza.field5.label', default: 'Fecha Aplicacion')}" />
 						
-						
-						<td>Action r1</td>
-						
+						<td>Guardar</td>
+
+						<td>Aplicar</td>
+						<!--
 						<td>Action r2</td>
-					
+						-->
 					</tr>
 				</thead>
 				<tbody>
-				<g:form name="frmLista" action="clean">
-					<g:hiddenField name="numeroFila" value=""/>
+
+<g:form name="frmLista" action="clean">
+	<g:hiddenField name="numeroFila" value=""/>
+
+	<g:each in="${dummyCobranzaInstanceList}" status="i" var="dummyCobranzaInstance">
+		<tr
+			<g:if test="${dummyCobranzaInstance.field1 == dummyCobranzaInstance.field2}">
+				class="pago_igual"
+			</g:if>
+			<g:if test="${dummyCobranzaInstance.field1>dummyCobranzaInstance.field2 && dummyCobranzaInstance.field2>0 }">
+				class="pago_menor"
+			</g:if>
+			<g:if test="${dummyCobranzaInstance.field1<dummyCobranzaInstance.field2}">
+				class="pago_mayor"
+			</g:if>
+			<g:if test="${0 >= dummyCobranzaInstance.field2}">
+				class="sin_pago"
+			</g:if>
+		>
+			<td>
+				<g:checkBox name="rowcheck${i}" />
+			</td>
+
+			<td>${fieldValue(bean: dummyCobranzaInstance, field: "id")}</td>
+			<td>${fieldValue(bean: dummyCobranzaInstance, field: "detalleRegistro.prestamo.cliente")}</td>
+			<td>${fieldValue(bean: dummyCobranzaInstance, field: "detalleRegistro.numeroPago")}</td>
+			<td>				
+				<g:hiddenField name="field1" value="${fieldValue(bean: dummyCobranzaInstance, field: "field1")}"/>
+				<g:hiddenField name="id" value="${dummyCobranzaInstance.id}"/>
 				
-					<g:each in="${dummyCobranzaInstanceList}" status="i" var="dummyCobranzaInstance">
-						<tr
-							<g:if test="${dummyCobranzaInstance.field1 == dummyCobranzaInstance.field2}">
-								class="pago_igual"
-							</g:if>
-							<g:if test="${dummyCobranzaInstance.field1>dummyCobranzaInstance.field2 && dummyCobranzaInstance.field2>0 }">
-								class="pago_menor"
-							</g:if>
-							<g:if test="${dummyCobranzaInstance.field1<dummyCobranzaInstance.field2}">
-								class="pago_mayor"
-							</g:if>
-							<g:if test="${0 >= dummyCobranzaInstance.field2}">
-								class="sin_pago"
-							</g:if>
-						>
-							
-							<td>
-								<g:checkBox name="rowcheck${i}" />
-							</td>
-							
-							<td>
-								<g:hiddenField name="field1" value="${fieldValue(bean: dummyCobranzaInstance, field: "field1")}"/>
-								<g:hiddenField name="id" value="${dummyCobranzaInstance.id}"/>
-								
-								<g:link  action="show" id="${dummyCobranzaInstance.id}"><g:formatNumber  number="${dummyCobranzaInstance.field1}" format="#.####" locale="es_MX" /></g:link>
-							</td>
-						
-							<td>
-								<input type="text" name="field2" id="field2" value="<g:formatNumber  number="${dummyCobranzaInstance.field2}" format="#.####" locale="es_MX" />" size="3" />
-							</td>
-						
-							<td>
-								<input type="text" name="field3" id="field3" value="<g:fieldValue bean="${dummyCobranzaInstance}" field="field3"/>" size="3" />
-							</td>
-							
-							<td>
-								<!-- HTML code -->
-								<div class="combobox">
-									<input type="text" name="field6" id="field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}" value="${fieldValue(bean: dummyCobranzaInstance, field: "field6")}">
-									<span>↓</span>
-									<div class="dropdownlist" style="z-index:100000000;">
-										<a>${fieldValue(bean: dummyCobranzaInstance, field: "field6")}</a>
-										<g:each var="item" in="${dependencias }">
-											<a>${item }</a>
-										</g:each>
-									</div>
-								</div>
-								<!-- JS code -->
-								<script type="text/javascript" charset="utf-8" src="${request.contextPath }/js/combobox/combobox.js"></script>
-								<script type="text/javascript" charset="utf-8">
-								var no = new ComboBox('field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}');
-								</script>
-							
-							</td>
-						
-							<td>${fieldValue(bean: dummyCobranzaInstance, field: "field4")}
-								<g:hiddenField name="field4" value="${fieldValue(bean: dummyCobranzaInstance, field: "field4")}"/>
-							</td>
-						
-							<td nowrap="nowrap">
-								<calendar:datePicker dateFormat="%d/%m/%Y"  name="field5${i }" defaultValue="${dummyCobranzaInstance.field5}" />
-								<script type="text/javascript">
-									document.frmLista.field5${i }_value.style.width="80px";
-									document.getElementById('field5${i }_value').style.width="80px";
-								</script>
-							</td>
-							
-							<td>
-								<g:link url="javascript:send('actionr1', ${i});" >save row</g:link>
-							</td>
-							
-							<td>
-								<g:link url="javascript:send('deleteRow', ${i});" > Delete row</g:link>
-							</td>
-						
-						</tr>
-					</g:each>
-				</g:form>
+				<g:link  action="show" id="${dummyCobranzaInstance.id}"><g:formatNumber  number="${dummyCobranzaInstance.field1}" format="#.####" locale="es_MX" /></g:link>
+			</td>
+		
+			<td>
+				<input type="text" name="field2" id="field2" value="<g:formatNumber  number="${dummyCobranzaInstance.field2}" format="#.####" locale="es_MX" />" size="3" />
+			</td>
+		
+			<!--
+			<td>
+				<input type="text" name="field3" id="field3" value="<g:fieldValue bean="${dummyCobranzaInstance}" field="field3"/>" size="3" />
+			</td>
+			
+			<td>
+				
+				<div class="combobox">
+					<input type="text" name="field6" id="field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}" value="${fieldValue(bean: dummyCobranzaInstance, field: "field6")}">
+					<span>↓</span>
+					<div class="dropdownlist" style="z-index:100000000;">
+						<a>${fieldValue(bean: dummyCobranzaInstance, field: "field6")}</a>
+						<g:each var="item" in="${dependencias }">
+							<a>${item }</a>
+						</g:each>
+					</div>
+				</div>
+				
+				<script type="text/javascript" charset="utf-8" src="${request.contextPath }/js/combobox/combobox.js"></script>
+				<script type="text/javascript" charset="utf-8">
+				var no = new ComboBox('field6${fieldValue(bean: dummyCobranzaInstance, field: "id")}');
+				</script>
+			
+			</td>
+			-->
+		
+			<td>${fieldValue(bean: dummyCobranzaInstance, field: "detalleRegistro.impSaldoFinal")}</td>
+			
+		
+			<td nowrap="nowrap">
+				<calendar:datePicker dateFormat="%d/%m/%Y"  name="field5${i }" defaultValue="${dummyCobranzaInstance.field5}" />
+				<script type="text/javascript">
+					document.frmLista.field5${i }_value.style.width="80px";
+					document.getElementById('field5${i }_value').style.width="80px";
+				</script>
+			</td>
+			
+			<td>
+				<g:link url="javascript:send('actionr1', ${i});" >Guardar Pago</g:link>
+			</td>
+
+			<td>
+				<g:link url="javascript:send('actionr1', ${i});" >Aplicar Pago</g:link>
+			</td>
+
+			
+			<!--
+			<td>
+				<g:link url="javascript:send('deleteRow', ${i});" > Delete row</g:link>
+			</td>
+			-->
+		
+		</tr>
+	</g:each>
+</g:form>
 				</tbody>
 				<tr>	
 					<td>
-						<g:link url="javascript:send('saveAll', 0);" >Save All</g:link>
+						<g:link url="javascript:send('saveAll', 0);" >Guardar Pagos</g:link>
 					</td>
+					<td>
+						<g:link url="javascript:send('saveAll', 0);" >Aplicar Pagos</g:link>
+					</td>
+
+					<!--
 					<td>
 						<g:link url="javascript:send('deleteAll', 0);" >deleteAll</g:link>
 					</td>
+					-->
 				</tr>
 			</table>
 			<div class="pagination">
