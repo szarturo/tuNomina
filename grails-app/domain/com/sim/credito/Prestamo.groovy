@@ -46,6 +46,8 @@ class Prestamo {
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
 	Date dateCreated
 	Date lastUpdated
+
+    static belongsTo = [cliente : RsCliente]
 	
 	static hasMany = [ tablaAmortizacion : TablaAmortizacionRegistro ,  prestamoAccesorio : PrestamoAccesorio,
                        callCenter: CallCenter, documentos: PrestamoDocumento]
@@ -55,8 +57,7 @@ class Prestamo {
         documentos  cascade: "all-delete-orphan"
      }
 	 
-
-    static belongsTo = [cliente : RsCliente]
+    static hasOne = [datosCrRespuesta : PrestamoCrRespuesta , datosCrComprada : PrestamoCrComprada ]
 	
     static constraints = {
         cliente(nullable: false)
@@ -83,7 +84,9 @@ class Prestamo {
         usuarioMesaControl nullable:true
         consecutivoCr nullable:true
         documentos nullable:true
-		dateCreated ()
+        datosCrRespuesta nullable:true
+        datosCrComprada nullable:true
+ 		dateCreated ()
 		lastUpdated nullable:true
     }
 	
