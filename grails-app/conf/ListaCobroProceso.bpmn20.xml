@@ -21,14 +21,14 @@
 
 		<sequenceFlow id="flujo1" sourceRef="inicioListaCobro" targetRef="enviarListaCobro" />
 
-		<userTask id="enviarListaCobro" activiti:formKey="/listaCobroProceso/edit"
+		<userTask id="enviarListaCobro" activiti:formKey="/listaCobroProceso/create"
 			name="Envio Lista de Cobro a Dependencia">
 			<documentation>Envio de lista de cobro a la Dependencia</documentation>
-			<potentialOwner>
+			<humanPerformer>
 				<resourceAssignmentExpression>
-					<formalExpression>ROLE_COBRANZA</formalExpression>
+					<formalExpression>${username}</formalExpression>
 				</resourceAssignmentExpression>
-			</potentialOwner>
+			</humanPerformer>			
 		</userTask>
 
 		<sequenceFlow id="flujo2" sourceRef="enviarListaCobro" targetRef="fin" />
