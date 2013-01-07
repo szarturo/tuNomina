@@ -28,8 +28,17 @@ class ListaCobroProcesoController {
     def create = {
         def listaCobroProcesoInstance = new ListaCobroProceso()
         listaCobroProcesoInstance.properties = params
+        Boolean existeListaCobro = false
+        log.info "Parametros Create:"+params
+        if (params.id){
+            //YA ESTA DEFINIDA LA LISTA DE COBRO, YA FUE INICIADO EL PROCESO
+            log.info ("Se recupera la lista de cobro")
+            listaCobroProcesoInstance.listaCobro = listaCobroProcesoInstance.get(params.id).listaCobro
+            existeListaCobro = true
+        }
         return [listaCobroProcesoInstance: listaCobroProcesoInstance,
-			          myTasksCount: assignedTasksCount]
+                    existeListaCobro :existeListaCobro,
+			        myTasksCount: assignedTasksCount]
     }
 
     def save = {

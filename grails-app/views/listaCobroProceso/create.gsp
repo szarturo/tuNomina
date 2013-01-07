@@ -31,6 +31,8 @@
                     <table>
                         <tbody>
                         
+                        <g:if
+                            test="${existeListaCobro == false}">                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="listaCobro"><g:message code="listaCobroProceso.listaCobro.label" default="Lista Cobro" /></label>
@@ -39,7 +41,21 @@
                                     <g:select name="listaCobro.id" from="${com.sim.listacobro.ListaCobro.list()}" optionKey="id" value="${listaCobroProcesoInstance?.listaCobro?.id}"  />
                                 </td>
                             </tr>
-                        
+
+                        </g:if>
+
+                        <g:if
+                            test="${existeListaCobro == true}">
+
+                            <tr class="prop">
+                                <td valign="top" class="name"><g:message code="listaCobroProceso.listaCobro.label" default="Lista Cobro" /></td>
+                                
+                                <td valign="top" class="value"><g:link controller="listaCobro" action="show" id="${listaCobroProcesoInstance?.listaCobro?.id}">${listaCobroProcesoInstance?.listaCobro?.encodeAsHTML()}</g:link></td>
+                            </tr>
+
+                            <g:hiddenField name="listaCobro.id" value="${listaCobroProcesoInstance?.listaCobro?.id}" />
+
+                        </g:if>                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="fechaAplicacion"><g:message code="listaCobroProceso.fechaAplicacion.label" default="Fecha Aplicacion" /></label>
