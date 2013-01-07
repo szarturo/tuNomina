@@ -7,12 +7,13 @@ class ListaCobroProceso {
 
 	Usuario usuario
 	Date    fechaAplicacion
-	ListaCobro listaCobro
 	SimCatListaCobroEstatus estatusListaCobro
 	String comentarios
 	Date fechaMedio
 	Date dateCreated
 	Date lastUpdated
+
+	static belongsTo = [listaCobro :ListaCobro]
 
     static constraints = {
     	//DATOS SOLICITADOS AL USUARIO
