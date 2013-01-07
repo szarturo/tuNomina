@@ -261,11 +261,12 @@
 									<span>Promociones</span>
 								</g:link></li>
 
-							<li><a href="#" class="parent"><span>Generales</span></a>
+							<li><a href="#" class="parent"><span>Listas de Cobro</span></a>
 								<div>
 									<ul>
-										<li><a href="#"><span>Sub Item 1.1</span></a></li>
-										<li><a href="#"><span>Sub Item 1.2</span></a></li>
+									<li><g:link controller="listaCobroProceso">
+										<span>Lista</span>
+									</g:link></li>
 									</ul>
 								</div></li>
 
@@ -310,6 +311,11 @@
 													<span>Inicio Solicitud</span>
 												</g:link></li>
 										</sec:ifAllGranted>
+										<sec:ifAllGranted roles="ROLE_COBRANZA">
+											<li><g:link controller="listaCobroProceso" action="start">
+													<span>Inicio Listas de Cobro</span>
+												</g:link></li>
+										</sec:ifAllGranted>										
 										<!--		
 										<li><g:link controller="solicitudCredito" action="start">
 												<span>Credito</span>
