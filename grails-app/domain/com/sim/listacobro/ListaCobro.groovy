@@ -10,7 +10,8 @@ class ListaCobro implements Comparable {
     Date    fechaFin
     Boolean parcialidades = false
 
-    static hasMany = [listaCobroProceso:ListaCobroProceso]
+    static hasMany = [listaCobroProceso:ListaCobroProceso,
+                      detalle: ListaCobroDetalle]
 
     static belongsTo = [dependencia:EntDependencia]
 
@@ -21,6 +22,7 @@ class ListaCobro implements Comparable {
         fechaInicio nullable: true
         fechaFin nullable: true
         listaCobroProceso()
+        detalle()
     }
 
    String toString() {
