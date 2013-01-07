@@ -38,6 +38,15 @@ class TablaAmortizacionRegistroService {
 		//VARIABLE PARA SABER CUANTOS PAGOS TIENE EL CREDITO
 		Integer pagoCredito = 0
 
+		//SE RECUPERA LA FECHA EN QUE EL CLIENTE COBRO EL CREDITO
+		Date fechaCobro = prestamoInstance.fechaCobro
+		log.info ("Fecha de Cobro: "+fechaCobro)
+
+		if (!fechaCobro){
+			log.info("No se especifico la fecha de Cobro")
+			throw new TablaAmortizacionServiceException(mensaje: "No se especifico la Fecha de Cobro")
+		}
+
 		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
 		//CORREGIR LA ASIGNACION
 		ListaCobro primerPago = ListaCobro.findByAnioAndNumeroPago('2012','21')
@@ -116,9 +125,8 @@ class TablaAmortizacionRegistroService {
 
 			Date fechaMedio = parametros.fechaMedio
 			
-			//PARA OBTENER LA PRIMERA FECHA DE AMORTIZACION SE SUMAN 60 DIAS
-			//IMPLEMENTACION TEMPORAL PARA ASIGNAR LAS FECHAS DE AMORTIZACION
-			fechaPago = fechaMedio + 60
+			//AHORA ASIGNAMOS LA FECHA DE COBRO COMO LA FECHA PARA LA AMORTIZACION UNO
+			fechaPago = fechaCobro
 			
 			//SE VA A OBTENER LOS ACCESORIOS QUE APLIQUEN COMO CARGO INICIAL
 			//RECUPERA LOS ACCESORIOS DEL PRESTAMO

@@ -41,6 +41,9 @@ class Prestamo {
 	String         explicacionDevolucion
     String         usuarioMesaControl
     String         consecutivoCr
+    //FECHA PARA INDICAR CUANDO SE REALIZO LA TRANSFERENCIA ELECTRONICA O
+    //FECHA EN QUE EL USUARIO COBRO SU CREDITO
+    Date           fechaCobro
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -86,6 +89,7 @@ class Prestamo {
         documentos nullable:true
         datosCrRespuesta nullable:true
         datosCrComprada nullable:true
+        fechaCobro nullable:true
  		dateCreated ()
 		lastUpdated nullable:true
     }
