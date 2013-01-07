@@ -6,6 +6,7 @@ import com.sim.credito.Prestamo
 import com.sim.producto.ProPromocion
 import com.sim.producto.ProPromocionAccesorio
 import com.sim.listacobro.ListaCobro
+import com.sim.entidad.EntDependencia
 
 import com.sim.pfin.PfinMovimiento
 import com.sim.pfin.PfinCatOperacion
@@ -48,8 +49,7 @@ class TablaAmortizacionRegistroService {
 		}
 
 		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
-		//CORREGIR LA ASIGNACION
-		ListaCobro primerPago = ListaCobro.findByAnioAndNumeroPago('2012','21')
+		ListaCobro primerPago = obtenerListaCobroPrimerPago(fechaCobro,prestamoInstance.dependencia)
 
 		if (!primerPago){
 			log.info("No se especifico la lista de cobro para la amortizacion uno")
@@ -326,4 +326,21 @@ class TablaAmortizacionRegistroService {
 
 		return true
 	}
+
+	ListaCobro obtenerListaCobroPrimerPago(Date fechaCobro, EntDependencia dependencia){
+
+		def criteriaListaCobro = ListaCobro.createCriteria()
+		ListaCobro listaCobroPrimerPago  = criteriaListaCobro.get() {
+			and {
+				eq("dependencia",dependencia)
+				le("fechaInicio", fechaCobro)
+				ge("fechaFin",fechaCobro )
+			}
+		}
+
+		log.info ("ListaCobro: ${listaCobroPrimerPago}")
+
+		return listaCobroPrimerPago
+	}
+
 }
