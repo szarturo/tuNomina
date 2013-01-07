@@ -1495,7 +1495,25 @@ class BootStrap {
 			    claveListaEstatus : "DEVOLVER_DEPENDENCIA",
 			    nombreListaEstatus : "Devolucion de la lista de cobro por la Dependencia",
 			    aplicaParcial : 'true',
-       	).save(failOnError: true,flush: true)
+       	).save(failOnError: true)
+
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "REGISTRO_PAGOS",
+			    nombreListaEstatus : "Registro de pagos de la lista de cobro",
+			    aplicaParcial : 'true',
+       	).save(failOnError: true)
+
+       	new SimCatListaCobroEstatus (
+			    claveListaEstatus : "APLICADA",
+			    nombreListaEstatus : "Lista de cobro aplicada",
+			    aplicaParcial : 'true',
+       	).save(failOnError: true)       	
+
+       	new SimCatListaCobroEstatus (
+			    claveListaEstatus : "PUBLICADA",
+			    nombreListaEstatus : "Lista de cobro publicada",
+			    aplicaParcial : 'true',
+       	).save(failOnError: true,flush: true)       	
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext

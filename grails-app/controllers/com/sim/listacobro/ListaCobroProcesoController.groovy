@@ -51,6 +51,18 @@ class ListaCobroProcesoController {
                     listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('DEVOLVER_DEPENDENCIA')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('DEVOLVER_DEPENDENCIA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('REGISTRO_PAGOS')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('REGISTRO_PAGOS'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('PUBLICADA')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break                
                 default:
                     log.info ("NO se definio el estatus para la lista de Cobro")
             }

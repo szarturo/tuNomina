@@ -55,7 +55,43 @@
 			</humanPerformer>			
 		</userTask>
 
-		<sequenceFlow id="flujo4" sourceRef="devolverListaCobro" targetRef="fin" />
+		<sequenceFlow id="flujo4" sourceRef="devolverListaCobro" targetRef="pagarListaCobro" />
+
+		<userTask id="pagarListaCobro" activiti:formKey="/listaCobroProceso/create"
+			name="Registro de pagos de la Lista de Cobro">
+			<documentation>Registro de pagos de la lista de Cobro</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
+		</userTask>
+
+		<sequenceFlow id="flujo5" sourceRef="pagarListaCobro" targetRef="aplicarListaCobro"/>
+
+		<userTask id="aplicarListaCobro" activiti:formKey="/listaCobroProceso/create"
+			name="Aplicar Lista de Cobro">
+			<documentation>Aplicación de la lista de Cobro</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
+		</userTask>
+
+		<sequenceFlow id="flujo6" sourceRef="aplicarListaCobro" targetRef="publicarListaCobro" />
+
+		<userTask id="publicarListaCobro" activiti:formKey="/listaCobroProceso/create"
+			name="Publicar Lista de Cobro">
+			<documentation>Publicación de la lista de Cobro</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
+		</userTask>
+
+		<sequenceFlow id="flujo7" sourceRef="publicarListaCobro" targetRef="fin" />
 
 		<endEvent id="fin" />
 
