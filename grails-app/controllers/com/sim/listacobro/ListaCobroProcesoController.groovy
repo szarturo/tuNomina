@@ -29,12 +29,37 @@ class ListaCobroProcesoController {
         def listaCobroProcesoInstance = new ListaCobroProceso()
         listaCobroProcesoInstance.properties = params
         Boolean existeListaCobro = false
-        log.info "Parametros Create:"+params
         if (params.id){
             //YA ESTA DEFINIDA LA LISTA DE COBRO, YA FUE INICIADO EL PROCESO
             log.info ("Se recupera la lista de cobro")
             listaCobroProcesoInstance.listaCobro = listaCobroProcesoInstance.get(params.id).listaCobro
             existeListaCobro = true
+            //SE OBTIENE EL ESTATUS ACTUAL
+            SimCatListaCobroEstatus estatus = listaCobroProcesoInstance.get(params.id).estatusListaCobro
+            log.info ("Estatus actual: ${estatus}")
+
+            switch ( estatus ) {
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALAR_DEPENDENCIA')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALAR_DEPENDENCIA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('DEVOLVER_DEPENDENCIA')
+                    log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
+                break
+                default:
+                    log.info ("NO se definio el estatus para la lista de Cobro")
+            }
+
+        }else{
+            //INICIO DEL PROCESO, NO ESTA DEFINIDA LA LISTA DE COBRO
+            //SE INDICA EL ESTATUS DE GENERAR
+            SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR')
+            listaCobroProcesoInstance.estatusListaCobro = estatus   
         }
         return [listaCobroProcesoInstance: listaCobroProcesoInstance,
                     existeListaCobro :existeListaCobro,
@@ -45,14 +70,11 @@ class ListaCobroProcesoController {
           def listaCobroProcesoInstance = new ListaCobroProceso(params)
 
           //SE RECUPERAN PARAMETROS QUE NO SON DEFINIDOS POR EL USUARIO
-          SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR')
-          listaCobroProcesoInstance.estatusListaCobro = estatus
           PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
           Date fechaMedio = parametros?.fechaMedio  
           listaCobroProcesoInstance.fechaMedio = fechaMedio
           Usuario user = springSecurityService.getCurrentUser()
           listaCobroProcesoInstance.usuario = user
-
 
         if (listaCobroProcesoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'listaCobroProceso.label', default: 'ListaCobroProceso'), listaCobroProcesoInstance.id])}"
@@ -112,8 +134,6 @@ class ListaCobroProcesoController {
             listaCobroProcesoInstance.properties = params
 
               //SE RECUPERAN PARAMETROS QUE NO SON DEFINIDOS POR EL USUARIO
-              SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA')
-              listaCobroProcesoInstance.estatusListaCobro = estatus
               PfinCatParametro parametros = PfinCatParametro.findByClaveMedio("SistemaMtn")
               Date fechaMedio = parametros?.fechaMedio  
               listaCobroProcesoInstance.fechaMedio = fechaMedio

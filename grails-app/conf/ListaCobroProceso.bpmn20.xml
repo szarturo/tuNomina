@@ -31,7 +31,31 @@
 			</humanPerformer>			
 		</userTask>
 
-		<sequenceFlow id="flujo2" sourceRef="enviarListaCobro" targetRef="fin" />
+		<sequenceFlow id="flujo2" sourceRef="enviarListaCobro" targetRef="instalarListaCobro" />
+
+		<userTask id="instalarListaCobro" activiti:formKey="/listaCobroProceso/create"
+			name="Instalar Lista de Cobro por la Dependencia">
+			<documentation>Instalar lista de cobro por parte de la Dependencia</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
+		</userTask>
+
+		<sequenceFlow id="flujo3" sourceRef="instalarListaCobro" targetRef="devolverListaCobro" />
+
+		<userTask id="devolverListaCobro" activiti:formKey="/listaCobroProceso/create"
+			name="Devolucion de la Lista de Cobro por la Dependencia">
+			<documentation>Devolucion de la lista de Cobro por parte de la Dependencia</documentation>
+			<humanPerformer>
+				<resourceAssignmentExpression>
+					<formalExpression>${username}</formalExpression>
+				</resourceAssignmentExpression>
+			</humanPerformer>			
+		</userTask>
+
+		<sequenceFlow id="flujo4" sourceRef="devolverListaCobro" targetRef="fin" />
 
 		<endEvent id="fin" />
 
