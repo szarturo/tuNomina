@@ -264,9 +264,12 @@
 							<li><a href="#" class="parent"><span>Listas de Cobro</span></a>
 								<div>
 									<ul>
-									<li><g:link controller="listaCobroProceso">
-										<span>Lista</span>
+									<li><g:link controller="listaCobro">
+										<span>Listas de Cobro</span>
 									</g:link></li>
+									<li><g:link controller="listaCobroProceso">
+										<span>Lista Cobro Procesos</span>
+									</g:link></li>									
 									</ul>
 								</div></li>
 
