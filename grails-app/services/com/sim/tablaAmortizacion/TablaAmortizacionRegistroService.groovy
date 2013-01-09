@@ -21,6 +21,7 @@ import com.sim.catalogo.SimCatMetodoCalculo
 import com.sim.catalogo.SimCatPeriodicidad
 import com.sim.catalogo.SimCatUnidad
 import com.sim.catalogo.SimCatTipoAccesorio
+import com.sim.catalogo.SimCatListaCobroEstatus
 
 
 class TablaAmortizacionServiceException extends RuntimeException {
@@ -82,17 +83,13 @@ class TablaAmortizacionRegistroService {
 		
 		//SI NO EXISTEN MOVIMIENTOS CON CLAVE OPERACION IGUAL A CRPAGOPRES Y QUE NO ESTEN CANCELADOS, SE CREA LA TABLA DE AMORTIZACION
 		if (pagoCredito == 0) {
-			log.info("Se genera la tabla de amortizacion")
 
 			//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO PARA ELIMINARLOS
 			
 			//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion
 			ArrayList registrosTabla = TablaAmortizacionRegistro.findAllByPrestamo(prestamoInstance)
-			//log.info prestamoInstance.tablaAmortizacion.class
-			//log.info registrosTabla.class
 			
 			if(registrosTabla){
-				log.info("Elimina los registros de la tabla de amortizacion del credito")
 				registrosTabla.each() {
 					prestamoInstance.removeFromTablaAmortizacion(it)
 				}
@@ -174,12 +171,12 @@ class TablaAmortizacionRegistroService {
 					amortizacion = capitalTotal / promocion.numeroDePagos
 					//FORMULA PARA EL PAGO DE INTERES
 					pagoIntereses = capitalTotal * tasa
-					log.info("Pago de Interes: " + pagoIntereses)
+					//log.info("Pago de Interes: " + pagoIntereses)
 					//CALCULA EL IVA DEL INTERES
 					importeIvaInteres = pagoIntereses * (iva/100)
 					//FORMULA PARA VER EL PAGO TOTAL
 					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
-					log.info("Cuota Total: " + cuotaTotal)
+					//log.info("Cuota Total: " + cuotaTotal)
 					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
 					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
@@ -191,12 +188,12 @@ class TablaAmortizacionRegistroService {
 					amortizacion = capitalTotal / promocion.numeroDePagos
 					//FORMULA PARA EL PAGO DE INTERES
 					pagoIntereses = saldoInsoluto * tasa
-					log.info("Pago de Interes: " + pagoIntereses)
+					//log.info("Pago de Interes: " + pagoIntereses)
 					//CALCULA EL IVA DEL INTERES
 					importeIvaInteres = pagoIntereses * (iva/100)
 					//FORMULA PARA VER EL PAGO TOTAL
 					cuotaTotal = amortizacion + pagoIntereses + importeIvaInteres
-					log.info("Cuota Total: " + cuotaTotal)
+					//log.info("Cuota Total: " + cuotaTotal)
 					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
 					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
@@ -207,14 +204,14 @@ class TablaAmortizacionRegistroService {
 					BigDecimal p = capitalTotal / ((1 - (1 / ((1 + tasa)**promocion.numeroDePagos))) / tasa)
 					//FORMULA PARA EL PAGO DE INTERES
 					pagoIntereses = saldoInsoluto * tasa
-					log.info("Pago de Interes: " + pagoIntereses)
+					//log.info("Pago de Interes: " + pagoIntereses)
 					//FORMULA PARA EL CALCULO DE LA AMORTIZACION
 					amortizacion = p - pagoIntereses
 					//CALCULA EL IVA DEL INTERES
 					importeIvaInteres = pagoIntereses * (iva/100)
 					//FORMULA PARA VER EL PAGO TOTAL
 					cuotaTotal = p + importeIvaInteres
-					log.info("Cuota Total: " + cuotaTotal)
+					//log.info("Cuota Total: " + cuotaTotal)
 					//VARIABLES QUE GENERAN LOS PAGOS TOTALES
 					pagoTotalInteres  = pagoIntereses * promocion.numeroDePagos
 					pagoTotalPrestamo = capitalTotal + pagoTotalInteres
@@ -335,6 +332,38 @@ class TablaAmortizacionRegistroService {
 				eq("dependencia",dependencia)
 				le("fechaInicio", fechaCobro)
 				ge("fechaFin",fechaCobro )
+			}
+		}
+		
+		//VALIDA SI LA LISTA DE COBRO HA SIDO GENERADA
+		if (listaCobroPrimerPago.estatus.equals(
+			SimCatListaCobroEstatus.findByClaveListaEstatus("NO_GENERADA"))){
+			log.info ("La lista de cobro se encuentra con estatus: No generada")
+			//SE ASIGNA A LA LISTA DE COBRO QUE SE OBTUVO
+		}
+		
+		else{
+			//LA LISTA DE COBRO YA NO SE ENCUENTRA SIN GENERAR
+			def criteriaListasDeCobro = ListaCobro.createCriteria()
+			ArrayList listasDeCobro  = criteriaListasDeCobro.list() {
+				and {
+					eq("dependencia",dependencia)
+					gt("id", listaCobroPrimerPago.id)
+					order("id", "desc")
+				}
+			}
+
+			//BUSCA LA PRIMERA LISTA DE COBRO QUE SE ENCUENTRE CON
+			//ESTATUS DE NO GENERADA
+			listasDeCobro.each{
+				Boolean listaEncontrada = false
+				SimCatListaCobroEstatus estatusListaCiclo = it.estatus
+				if (estatusListaCiclo.equals(
+					SimCatListaCobroEstatus.findByClaveListaEstatus("NO_GENERADA"))&&
+					listaEncontrada == false){
+					listaCobroPrimerPago = it
+					listaEncontrada = true
+				}
 			}
 		}
 
