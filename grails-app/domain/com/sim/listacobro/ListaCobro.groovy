@@ -26,7 +26,7 @@ class ListaCobro implements Comparable {
         registros(nullable:true)
     }
 
-   String toString() {
+    String toString() {
         "${dependencia}: ${numeroPago} - ${anio}"
     }    
 
