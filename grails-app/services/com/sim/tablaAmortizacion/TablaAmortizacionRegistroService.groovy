@@ -344,6 +344,8 @@ class TablaAmortizacionRegistroService {
 		
 		else{
 			//LA LISTA DE COBRO YA NO SE ENCUENTRA SIN GENERAR
+			//SE OBTIENEN LAS LISTAS DE COBRO MAYORES A LA LISTA
+			//DE COBRO QUE DEBERIA DE CORRESPONDER
 			def criteriaListasDeCobro = ListaCobro.createCriteria()
 			ArrayList listasDeCobro  = criteriaListasDeCobro.list() {
 				and {
