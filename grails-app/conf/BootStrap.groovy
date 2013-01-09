@@ -809,9 +809,6 @@ class BootStrap {
                 nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
         ).save(failOnError: true)
 
-        //GENERA LAS LISTAS DE COBRO
-        listaCobroService.generarListasCobro(dependenciaImss,2012,periodicidadQuincena)
-        listaCobroService.generarListasCobro(dependenciaImss,2013,periodicidadQuincena)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
         def robertoPerez = new RsPersona(
@@ -1475,26 +1472,32 @@ class BootStrap {
         ).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "GENERAR",
-			    nombreListaEstatus : "Genera lista de cobro",
+			    claveListaEstatus : "NO_GENERADA",
+			    nombreListaEstatus : "Lista de cobro no Generada",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "ENVIAR_DEPENDENCIA",
-			    nombreListaEstatus : "Envio de lista de cobro a la Dependencia",
+			    claveListaEstatus : "GENERADA",
+			    nombreListaEstatus : "Lista de cobro Generada",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "INSTALAR_DEPENDENCIA",
-			    nombreListaEstatus : "Instalación de la lista de cobro por la dependencia",
+			    claveListaEstatus : "ENVIADA_DEPENDENCIA",
+			    nombreListaEstatus : "Lista de cobro enviada a la Dependencia",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
         new SimCatListaCobroEstatus (
-			    claveListaEstatus : "DEVOLVER_DEPENDENCIA",
-			    nombreListaEstatus : "Devolucion de la lista de cobro por la Dependencia",
+			    claveListaEstatus : "INSTALADA_DEPENDENCIA",
+			    nombreListaEstatus : "Lista de cobro instalada por la dependencia",
+			    aplicaParcial : 'true',
+       	).save(failOnError: true)
+
+        new SimCatListaCobroEstatus (
+			    claveListaEstatus : "DEVUELTA_DEPENDENCIA",
+			    nombreListaEstatus : "Lista de cobro devuelta por la Dependencia",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)
 
@@ -1505,8 +1508,14 @@ class BootStrap {
        	).save(failOnError: true)
 
        	new SimCatListaCobroEstatus (
-			    claveListaEstatus : "APLICADA",
-			    nombreListaEstatus : "Lista de cobro aplicada",
+			    claveListaEstatus : "APLICADA_PARCIALMENTE",
+			    nombreListaEstatus : "Lista de cobro aplicada parcialmente",
+			    aplicaParcial : 'true',
+       	).save(failOnError: true)       	
+
+       	new SimCatListaCobroEstatus (
+			    claveListaEstatus : "APLICADA_COMPLETAMENTE",
+			    nombreListaEstatus : "Lista de cobro aplicada completamente",
 			    aplicaParcial : 'true',
        	).save(failOnError: true)       	
 
@@ -1515,6 +1524,10 @@ class BootStrap {
 			    nombreListaEstatus : "Lista de cobro publicada",
 			    aplicaParcial : 'true',
        	).save(failOnError: true,flush: true)       	
+
+        //GENERA LAS LISTAS DE COBRO
+        listaCobroService.generarListasCobro(dependenciaImss,2013,periodicidadQuincena)
+        listaCobroService.generarListasCobro(dependenciaImss,2014,periodicidadQuincena)
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext

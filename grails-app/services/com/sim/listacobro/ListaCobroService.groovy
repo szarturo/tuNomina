@@ -2,6 +2,7 @@ package com.sim.listacobro
 
 import com.sim.entidad.EntDependencia
 import com.sim.catalogo.SimCatPeriodicidad
+import com.sim.catalogo.SimCatListaCobroEstatus
 
 class ListaCobroService {
 
@@ -21,6 +22,7 @@ class ListaCobroService {
                     numeroPago: numeroPago,
                     parcialidades: false,
                     dependencia: dependencia,
+                    estatus: SimCatListaCobroEstatus.findByClaveListaEstatus("NO_GENERADA"),
             )
 
             //SE OBTIENE SI VA A CORRESPONDER A UNA QUINCENA DE INICIO DEL MES

@@ -1,5 +1,6 @@
 package com.sim.listacobro
 
+import com.sim.catalogo.SimCatListaCobroEstatus
 import com.sim.entidad.EntDependencia
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 
@@ -10,6 +11,7 @@ class ListaCobro implements Comparable {
     Date    fechaInicio
     Date    fechaFin
     Boolean parcialidades = false
+    SimCatListaCobroEstatus estatus
 
     static hasMany = [registros: TablaAmortizacionRegistro,
         listaCobroProceso:ListaCobroProceso]
@@ -22,6 +24,7 @@ class ListaCobro implements Comparable {
         numeroPago ()
         fechaInicio nullable: true
         fechaFin nullable: true
+        estatus()
         listaCobroProceso()
         registros(nullable:true)
     }
