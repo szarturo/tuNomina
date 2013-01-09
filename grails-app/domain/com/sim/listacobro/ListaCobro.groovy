@@ -1,6 +1,7 @@
 package com.sim.listacobro
 
 import com.sim.entidad.EntDependencia
+import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 
 class ListaCobro implements Comparable {
 
@@ -10,7 +11,8 @@ class ListaCobro implements Comparable {
     Date    fechaFin
     Boolean parcialidades = false
 
-    static hasMany = [listaCobroProceso:ListaCobroProceso]
+    static hasMany = [registros: TablaAmortizacionRegistro,
+        listaCobroProceso:ListaCobroProceso]
 
     static belongsTo = [dependencia:EntDependencia]
 
@@ -21,6 +23,7 @@ class ListaCobro implements Comparable {
         fechaInicio nullable: true
         fechaFin nullable: true
         listaCobroProceso()
+        registros(nullable:true)
     }
 
    String toString() {
