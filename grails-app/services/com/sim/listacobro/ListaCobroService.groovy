@@ -19,6 +19,7 @@ class ListaCobroService {
         (1..periodicidad.cantidadPagos).each{
 
             ListaCobro listaCobro = new ListaCobro(anio:  anio,
+                    periodicidad : periodicidad,
                     numeroPago: numeroPago,
                     parcialidades: false,
                     dependencia: dependencia,
@@ -52,5 +53,39 @@ class ListaCobroService {
 
     def generar(ListaCobro listaCobro){
         println ("Service Lista Cobro: ${listaCobro}")
+        Integer numeroLista = listaCobro.numeroPago
+        ListaCobro listaCobroAnterior
+        
+        //VALIDA SI ES EL PRIMER PAGO DEL AÑO
+        if(numeroPago == 1){
+            //SE OBTIENE EL AÑO ANTERIOR
+            Integer anioAnterior = listaCobro.anio - 1
+            //SE OBTIENE LA CANTIDAD DE PAGOS DE LA PERIODICIDAD
+            SimCatPeriodicidad periodicidad = listaCobro.periodicidad
+            Integer cantidadPeriodicidad = periodicidad.cantidadPagos
+            //SE OBTIENE EL ULTIMO PAGO DEL AÑO ANTERIOR
+            def criteriaListaCobro = ListaCobro.createCriteria()
+            listaCobroAnterior  = criteriaListaCobro.get() {
+                and {
+                    eq("dependencia",listaCobro.dependencia)
+                    eq("numeroPago", cantidadPeriodicidad)
+                    ge("anio",anioAnterior )
+                }
+            }
+
+        }else{
+            //SE RECUPERA LA ANTERIOR LISTA DE COBRO
+            Integer numeroListaAnterior = numeroLista -1
+            def criteriaListaCobro = ListaCobro.createCriteria()
+            listaCobroAnterior  = criteriaListaCobro.get() {
+                and {
+                    eq("dependencia",listaCobro.dependencia)
+                    eq("numeroPago", numeroListaAnterior)
+                    ge("anio",listaCobro.anio )
+                }
+            }
+        }
+
+        printnl "Numero de Lista Anterior: ${listaCobroAnterior}"
     }
 }
