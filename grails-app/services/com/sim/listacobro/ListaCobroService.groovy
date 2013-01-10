@@ -48,6 +48,9 @@ class ListaCobroService {
             numeroPago ++
             listaCobro.save()
         }
+    }
 
+    def generar(ListaCobro listaCobro){
+        println ("Service Lista Cobro: ${listaCobro}")
     }
 }
