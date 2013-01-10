@@ -7,7 +7,7 @@ import com.sim.catalogo.SimCatListaCobroEstatus
 class ListaCobroService {
 
     //METODO UTILIZADO EN EL BOOTSTRAP
-    def generarListasCobro(EntDependencia dependencia,
+    def crearListasCobro(EntDependencia dependencia,
             Integer anio,
             SimCatPeriodicidad periodicidad){
 

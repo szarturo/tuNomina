@@ -1526,8 +1526,8 @@ class BootStrap {
        	).save(failOnError: true,flush: true)       	
 
         //GENERA LAS LISTAS DE COBRO
-        listaCobroService.generarListasCobro(dependenciaImss,2013,periodicidadQuincena)
-        listaCobroService.generarListasCobro(dependenciaImss,2014,periodicidadQuincena)
+        listaCobroService.crearListasCobro(dependenciaImss,2013,periodicidadQuincena)
+        listaCobroService.crearListasCobro(dependenciaImss,2014,periodicidadQuincena)
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext
