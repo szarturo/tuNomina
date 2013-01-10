@@ -57,7 +57,7 @@ class ListaCobroService {
         ListaCobro listaCobroAnterior
         
         //VALIDA SI ES EL PRIMER PAGO DEL AÑO
-        if(numeroPago == 1){
+        if(numeroLista == 1){
             //SE OBTIENE EL AÑO ANTERIOR
             Integer anioAnterior = listaCobro.anio - 1
             //SE OBTIENE LA CANTIDAD DE PAGOS DE LA PERIODICIDAD
@@ -69,7 +69,7 @@ class ListaCobroService {
                 and {
                     eq("dependencia",listaCobro.dependencia)
                     eq("numeroPago", cantidadPeriodicidad)
-                    ge("anio",anioAnterior )
+                    eq("anio",anioAnterior )
                 }
             }
 
@@ -81,11 +81,16 @@ class ListaCobroService {
                 and {
                     eq("dependencia",listaCobro.dependencia)
                     eq("numeroPago", numeroListaAnterior)
-                    ge("anio",listaCobro.anio )
+                    eq("anio",listaCobro.anio )
                 }
             }
         }
 
-        printnl "Numero de Lista Anterior: ${listaCobroAnterior}"
+        if (!listaCobroAnterior){
+            //EN CASO DE NO EXISTIR TOMA LA LISTA DE COBRO ORIGINAL
+            listaCobroAnterior = listaCobro
+        }
+
+        log.info "Numero de Lista Anterior: ${listaCobroAnterior}"
     }
 }
