@@ -3,6 +3,7 @@ package com.sim.listacobro
 import com.sim.entidad.EntDependencia
 import com.sim.catalogo.SimCatPeriodicidad
 import com.sim.catalogo.SimCatListaCobroEstatus
+import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.credito.Prestamo
 
@@ -113,19 +114,23 @@ class ListaCobroService {
             //POR CADA AMORTIZACION SE RECUPERA EL PRESTAMO 
             //QUE LE CORRESPONDE
             Prestamo prestamo = amortizacion.prestamo
-            log.info ("Prestamo de la lista de cobro anterior: ${prestamo}")
-            //SE RECUPERA LA PRIMERA AMORTIZACION NO PAGADA DEL CREDITO
-            def criteriaAmortizacionPendiete = TablaAmortizacionRegistro.createCriteria()
-            Integer numeroAmortizacionPendiente  = criteriaAmortizacionPendiete.get() {
-                projections {
-                   min("numeroPago")
+            //SE VALIDA SI EL PRESTAMO SE INCLUYE EN LISTAS DE COBRO
+            //Y QUE ESTE ACTIVO
+            if (!prestamo.incluirEnListasCobro==false &&
+                    prestamo.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("ACTIVO")))
+                log.info ("Prestamo de la lista de cobro anterior: ${prestamo}")
+                //SE RECUPERA LA PRIMERA AMORTIZACION NO PAGADA DEL CREDITO
+                def criteriaAmortizacionPendiete = TablaAmortizacionRegistro.createCriteria()
+                Integer numeroAmortizacionPendiente  = criteriaAmortizacionPendiete.get() {
+                    projections {
+                       min("numeroPago")
+                    }
+                    and {
+                        eq("prestamo",prestamo)
+                        eq("pagado", false)
+                    }
                 }
-                and {
-                    eq("prestamo",prestamo)
-                    eq("pagado", false)
-                }
-            }
-            log.info "Amortizacion no pagada ${numeroAmortizacionPendiente}"
+                log.info "Amortizacion no pagada ${numeroAmortizacionPendiente}"
 
 
         }
