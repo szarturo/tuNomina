@@ -41,6 +41,7 @@ class Prestamo {
 	String         explicacionDevolucion
     String         usuarioMesaControl
     String         consecutivoCr
+    Boolean        incluirEnListasCobro
     //FECHA PARA INDICAR CUANDO SE REALIZO LA TRANSFERENCIA ELECTRONICA O
     //FECHA EN QUE EL USUARIO COBRO SU CREDITO
     Date           fechaCobro
@@ -90,6 +91,7 @@ class Prestamo {
         datosCrRespuesta nullable:true
         datosCrComprada nullable:true
         fechaCobro nullable:true
+        incluirEnListasCobro ()
  		dateCreated ()
 		lastUpdated nullable:true
     }

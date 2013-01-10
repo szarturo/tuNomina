@@ -52,6 +52,7 @@ class PrestamoController {
 		prestamoInstance.documentosCorrectos = false
 		prestamoInstance.aprobado = false
 		prestamoInstance.reenviarSolicitud = false
+        prestamoInstance.incluirEnListasCobro = true
         //SE OBTIENE EL NOMBRE DEL USUARIO DE MESA DE CONTROL
         def user = springSecurityService.getCurrentUser()
         prestamoInstance.usuarioMesaControl = user.username
