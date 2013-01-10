@@ -3,6 +3,8 @@ package com.sim.listacobro
 import com.sim.entidad.EntDependencia
 import com.sim.catalogo.SimCatPeriodicidad
 import com.sim.catalogo.SimCatListaCobroEstatus
+import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
+import com.sim.credito.Prestamo
 
 class ListaCobroService {
 
@@ -88,9 +90,47 @@ class ListaCobroService {
 
         if (!listaCobroAnterior){
             //EN CASO DE NO EXISTIR TOMA LA LISTA DE COBRO ORIGINAL
+            log.info ("No existe la lista de cobro anterior, se toma la actual")
             listaCobroAnterior = listaCobro
         }
 
         log.info "Numero de Lista Anterior: ${listaCobroAnterior}"
+
+        //LISTA PARA GUARDAR LAS AMORTIZACIONES QUE SE VAN A GENERAR PARA LA LISTA
+        List<TablaAmortizacionRegistro> listaAmortizaciones = []
+
+        //SE CONTINUAN CONTEMPLANDO LAS AMORTIZACIONES CON NUMERO DE PAGO IGUAL A UNO
+        //QUE ACTUALMENTE SE ENCUENTRAN EN LA LISTA DE COBRO
+        listaCobro.registros.each{ amortizacion ->
+            if (amortizacion.numeroPago == 1){
+                log.info "NumeroPago igual a 1: ${amortizacion}"
+                listaAmortizaciones.add(amortizacion)
+            }
+        }
+
+        //ITERACION DE LAS AMORTIZACIONES DE LA LISTA DE COBRO ANTERIOR
+        listaCobroAnterior.registros.each{ amortizacion ->
+            //POR CADA AMORTIZACION SE RECUPERA EL PRESTAMO 
+            //QUE LE CORRESPONDE
+            Prestamo prestamo = amortizacion.prestamo
+            log.info ("Prestamo de la lista de cobro anterior: ${prestamo}")
+            //SE RECUPERA LA PRIMERA AMORTIZACION NO PAGADA DEL CREDITO
+            def criteriaAmortizacionPendiete = TablaAmortizacionRegistro.createCriteria()
+            Integer numeroAmortizacionPendiente  = criteriaAmortizacionPendiete.get() {
+                projections {
+                   min("numeroPago")
+                }
+                and {
+                    eq("prestamo",prestamo)
+                    eq("pagado", false)
+                }
+            }
+            log.info "Amortizacion no pagada ${numeroAmortizacionPendiente}"
+
+
+        }
+
+       
+
     }
 }

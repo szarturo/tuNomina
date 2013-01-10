@@ -1051,7 +1051,7 @@ class BootStrap {
                 documentosCorrectos: false,
 				aprobado: false,
 				reenviarSolicitud: false,
-				fechaCobro: new Date('01/07/2013'),	//7 ENERO 2013
+				fechaCobro: new Date('01/20/2013'),	//20 ENERO 2013
         ).save(failOnError: true)
 
         /*
