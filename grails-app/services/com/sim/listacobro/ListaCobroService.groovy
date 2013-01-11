@@ -111,17 +111,18 @@ class ListaCobroService {
 
         //ITERACION DE LAS AMORTIZACIONES DE LA LISTA DE COBRO ANTERIOR
         listaCobroAnterior.registros.each{ amortizacion ->
+            log.info("Si encontro amortizaciones de la lista anterior")
             //POR CADA AMORTIZACION SE RECUPERA EL PRESTAMO 
             //QUE LE CORRESPONDE
             Prestamo prestamo = amortizacion.prestamo
             //SE VALIDA SI EL PRESTAMO SE INCLUYE EN LISTAS DE COBRO
             //Y QUE ESTE ACTIVO
-            if (!prestamo.incluirEnListasCobro==false &&
-                    prestamo.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("ACTIVO")))
+            if (prestamo.incluirEnListasCobro==true &&
+                    prestamo.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("ACTIVO"))){
                 log.info ("Prestamo de la lista de cobro anterior: ${prestamo}")
                 //SE RECUPERA LA PRIMERA AMORTIZACION NO PAGADA DEL CREDITO
-                def criteriaAmortizacionPendiete = TablaAmortizacionRegistro.createCriteria()
-                Integer numeroAmortizacionPendiente  = criteriaAmortizacionPendiete.get() {
+                def criteriaAmortizacionPendiente = TablaAmortizacionRegistro.createCriteria()
+                Integer numeroAmortizacionPendiente  = criteriaAmortizacionPendiente.get() {
                     projections {
                        min("numeroPago")
                     }
@@ -130,12 +131,31 @@ class ListaCobroService {
                         eq("pagado", false)
                     }
                 }
-                log.info "Amortizacion no pagada ${numeroAmortizacionPendiente}"
-
-
+                log.info "Numero amortizacion no pagada: ${numeroAmortizacionPendiente}"
+                def criteriaAmortizacionPendienteRegistro = TablaAmortizacionRegistro.createCriteria()
+                TablaAmortizacionRegistro amortizacionPendiente  = criteriaAmortizacionPendienteRegistro.get() {
+                    and {
+                        eq("prestamo",prestamo)
+                        eq("pagado", false)
+                        eq("numeroPago",numeroAmortizacionPendiente)
+                    }
+                }                
+                log.info "Amortizacion no pagada: ${amortizacionPendiente}"
+                listaAmortizaciones.add(amortizacionPendiente)   
+            }
         }
 
-       
+        //SE ELIMINAN LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
+        listaCobro.registros.each() {
+            listaCobro.removeFromRegistros(it)
+        }
 
+        //SE ASIGNAN LAS AMORTIZACIONES GENERADAS A LA LISTA DE COBRO
+        listaAmortizaciones.each{
+            log.info("Lista de amortizaciones generadas para la Lista")
+            log.info it
+            listaCobro.addToRegistros(it)
+        }
+        listaCobro.save()
     }
 }

@@ -20,6 +20,10 @@ class ListaCobro implements Comparable {
 
     static belongsTo = [dependencia:EntDependencia]
 
+    static mapping = {
+        registros cascade: "all-delete-orphan"
+     }    
+
     static constraints = {
         dependencia()
         anio range: 2012..2020

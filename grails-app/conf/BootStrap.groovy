@@ -1046,7 +1046,7 @@ class BootStrap {
                 montoSolicitado: 6000,
                 percepcionesMensuales: 12000,
                 deduccionesMensuales: 2000,
-                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INICIO_MESA'),
+                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
 				aprobado: false,
