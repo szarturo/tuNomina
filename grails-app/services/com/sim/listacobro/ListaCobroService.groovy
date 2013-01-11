@@ -102,7 +102,7 @@ class ListaCobroService {
 
         //SE CONTINUAN CONTEMPLANDO LAS AMORTIZACIONES CON NUMERO DE PAGO IGUAL A UNO
         //QUE ACTUALMENTE SE ENCUENTRAN EN LA LISTA DE COBRO
-        listaCobro.registros.each{ amortizacion ->
+        listaCobro.amortizaciones.each{ amortizacion ->
             if (amortizacion.numeroPago == 1){
                 log.info "NumeroPago igual a 1: ${amortizacion}"
                 listaAmortizaciones.add(amortizacion)
@@ -110,7 +110,7 @@ class ListaCobroService {
         }
 
         //ITERACION DE LAS AMORTIZACIONES DE LA LISTA DE COBRO ANTERIOR
-        listaCobroAnterior.registros.each{ amortizacion ->
+        listaCobroAnterior.amortizaciones.each{ amortizacion ->
             log.info("Si encontro amortizaciones de la lista anterior")
             //POR CADA AMORTIZACION SE RECUPERA EL PRESTAMO 
             //QUE LE CORRESPONDE
@@ -146,15 +146,15 @@ class ListaCobroService {
         }
 
         //SE ELIMINAN LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
-        listaCobro.registros.each() {
-            listaCobro.removeFromRegistros(it)
+        listaCobro.amortizaciones.each() {
+            listaCobro.removeFromAmortizaciones(it)
         }
 
         //SE ASIGNAN LAS AMORTIZACIONES GENERADAS A LA LISTA DE COBRO
         listaAmortizaciones.each{
             log.info("Lista de amortizaciones generadas para la Lista")
             log.info it
-            listaCobro.addToRegistros(it)
+            listaCobro.addToAmortizaciones(it)
         }
         listaCobro.save()
     }

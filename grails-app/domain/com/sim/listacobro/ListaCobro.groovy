@@ -15,13 +15,13 @@ class ListaCobro implements Comparable {
     SimCatListaCobroEstatus estatus
     SimCatPeriodicidad periodicidad
 
-    static hasMany = [registros: TablaAmortizacionRegistro,
+    static hasMany = [amortizaciones: TablaAmortizacionRegistro,
         listaCobroProceso:ListaCobroProceso]
 
     static belongsTo = [dependencia:EntDependencia]
 
     static mapping = {
-        registros cascade: "all-delete-orphan"
+        amortizaciones cascade: "all-delete-orphan"
      }    
 
     static constraints = {
@@ -33,7 +33,7 @@ class ListaCobro implements Comparable {
         fechaFin nullable: true
         estatus()
         listaCobroProceso()
-        registros(nullable:true)
+        amortizaciones(nullable:true)
     }
 
     String toString() {
