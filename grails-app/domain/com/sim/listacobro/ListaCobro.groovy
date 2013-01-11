@@ -15,7 +15,8 @@ class ListaCobro implements Comparable {
     SimCatListaCobroEstatus estatus
     SimCatPeriodicidad periodicidad
 
-    static hasMany = [amortizaciones: TablaAmortizacionRegistro,
+    static hasMany = [detalles: ListaCobroDetalle,
+        amortizaciones: TablaAmortizacionRegistro,
         listaCobroProceso:ListaCobroProceso]
 
     static belongsTo = [dependencia:EntDependencia]
