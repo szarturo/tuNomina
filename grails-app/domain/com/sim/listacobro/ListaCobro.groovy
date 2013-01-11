@@ -23,6 +23,7 @@ class ListaCobro implements Comparable {
 
     static mapping = {
         amortizaciones cascade: "all-delete-orphan"
+        detalles cascade: "all-delete-orphan"
      }    
 
     static constraints = {
@@ -34,6 +35,7 @@ class ListaCobro implements Comparable {
         fechaFin nullable: true
         estatus()
         listaCobroProceso()
+        detalles(nullable:true)
         amortizaciones(nullable:true)
     }
 

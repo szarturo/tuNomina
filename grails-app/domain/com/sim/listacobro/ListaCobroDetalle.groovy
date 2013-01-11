@@ -17,4 +17,8 @@ class ListaCobroDetalle {
     	amortizacion nullable:false
     	pago nullable:true
     }
+
+    String toString() {
+        "${amortizacion} - ${estatus}"
+    }       
 }

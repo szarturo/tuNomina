@@ -149,13 +149,24 @@ class ListaCobroService {
         listaCobro.amortizaciones.each() {
             listaCobro.removeFromAmortizaciones(it)
         }
+        //SE ELIMINAN LOS DETALLES DE LA LISTA DE COBRO ACTUAL
+        listaCobro.detalles.each() {
+            listaCobro.removeFromDetalles(it)   
+        }
 
         //SE ASIGNAN LAS AMORTIZACIONES GENERADAS A LA LISTA DE COBRO
         listaAmortizaciones.each{
             log.info("Lista de amortizaciones generadas para la Lista")
             log.info it
             listaCobro.addToAmortizaciones(it)
+            //SE CREAN LOS DETALLES PARA LA LISTA DE COBRO
+            ListaCobroDetalle detalle = new ListaCobroDetalle(
+                estatus:  ListaCobroDetalleEstatus.INICIO,
+                amortizacion: it,
+                listaCobro: listaCobro,
+                ).save()
         }
+        
         listaCobro.save()
     }
 }
