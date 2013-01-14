@@ -118,4 +118,15 @@ class ListaCobroController {
        listaCobroService.generar(listaCobro)    
     }
 
+    def mostrarDetalles(Long id) {
+        def listaCobroInstance = ListaCobro.get(id)
+        if (!listaCobroInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'listaCobro.label', default: 'ListaCobro'), id])
+            redirect(action: "list")
+            return
+        }
+
+        [listaCobroInstance: listaCobroInstance]
+    }
+
 }

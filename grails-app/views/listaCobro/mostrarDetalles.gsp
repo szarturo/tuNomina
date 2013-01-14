@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="dependencia-label" class="property-label"><g:message code="listaCobro.dependencia.label" default="Dependencia" /></span>
 					
-						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="entDependencia" action="show" id="${listaCobroInstance?.dependencia?.id}">${listaCobroInstance?.dependencia?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dependencia-label">${listaCobroInstance?.dependencia?.encodeAsHTML()}</span>
 					
 				</li>
 				</g:if>
@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="periodicidad-label" class="property-label"><g:message code="listaCobro.periodicidad.label" default="Periodicidad" /></span>
 					
-						<span class="property-value" aria-labelledby="periodicidad-label"><g:link controller="simCatPeriodicidad" action="show" id="${listaCobroInstance?.periodicidad?.id}">${listaCobroInstance?.periodicidad?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="periodicidad-label">${listaCobroInstance?.periodicidad?.encodeAsHTML()}</span>
 					
 				</li>
 				</g:if>
@@ -81,7 +81,7 @@
 				<li class="fieldcontain">
 					<span id="estatus-label" class="property-label"><g:message code="listaCobro.estatus.label" default="Estatus" /></span>
 					
-						<span class="property-value" aria-labelledby="estatus-label"><g:link controller="simCatListaCobroEstatus" action="show" id="${listaCobroInstance?.estatus?.id}">${listaCobroInstance?.estatus?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="estatus-label">${listaCobroInstance?.estatus?.encodeAsHTML()}</span>
 					
 				</li>
 				</g:if>
@@ -133,8 +133,6 @@
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${listaCobroInstance?.id}" />
 					<g:link class="edit" action="edit" id="${listaCobroInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:link class="edit" action="mostrarDetalles" id="${listaCobroInstance?.id}">Mostrar Detalles</g:link>					
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>
