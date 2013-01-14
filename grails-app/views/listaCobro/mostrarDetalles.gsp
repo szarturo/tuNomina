@@ -124,7 +124,7 @@
 			<form id="listacobro-form" name="listacobro-form" method="post">
 				<filterpane:filterPane domain="com.sim.listacobro.ListaCobroDetalle" 
 				title = "Filtrar Registros de la Lista de Cobro"
-				<g:actionSubmit value="Apply Filter" action="mostrarDetalles" />
+				action = "mostrarDetalles"/>
 			</form>
 
 			<g:if test="${flash.message}">
