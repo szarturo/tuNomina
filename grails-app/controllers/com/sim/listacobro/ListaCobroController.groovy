@@ -126,11 +126,12 @@ class ListaCobroController {
             return
         }
 
-        //Se obtiene los detalles de la lista de cobro
-        def listaCobroDetalleInstanceList = ListaCobroDetalle.findAllByListaCobro(listaCobroInstance)
+        def listaCobroDetalleInstanceList 
 
         [listaCobroInstance: listaCobroInstance,
-         listaCobroDetalleInstanceList: listaCobroDetalleInstanceList]
+         listaCobroDetalleInstanceList: filterPaneService.filter( params, ListaCobroDetalle ),
+         filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params),
+         params: params]
     }
 
 }

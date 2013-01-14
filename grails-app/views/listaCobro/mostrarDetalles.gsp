@@ -6,13 +6,14 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'listaCobro.label', default: 'ListaCobro')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<filterpane:includes />
 	</head>
 	<body>
 		<a href="#show-listaCobro" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Listas de Cobro</g:link></li>
 			</ul>
 		</div>
 		<div id="show-listaCobro" class="content scaffold-show" role="main">
@@ -118,7 +119,14 @@
 		</div>
 
 		<div id="list-listaCobroDetalle" class="content scaffold-list" role="main">
-			
+
+			<filterpane:filterButton text="Mostrar Criterios de Busqueda" />	
+			<form id="listacobro-form" name="listacobro-form" method="post">
+				<filterpane:filterPane domain="com.sim.listacobro.ListaCobroDetalle" 
+				title = "Filtrar Registros de la Lista de Cobro"
+				<g:actionSubmit value="Apply Filter" action="mostrarDetalles" />
+			</form>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
