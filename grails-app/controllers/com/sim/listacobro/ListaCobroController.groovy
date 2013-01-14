@@ -126,7 +126,11 @@ class ListaCobroController {
             return
         }
 
-        [listaCobroInstance: listaCobroInstance]
+        //Se obtiene los detalles de la lista de cobro
+        def listaCobroDetalleInstanceList = ListaCobroDetalle.findAllByListaCobro(listaCobroInstance)
+
+        [listaCobroInstance: listaCobroInstance,
+         listaCobroDetalleInstanceList: listaCobroDetalleInstanceList]
     }
 
 }

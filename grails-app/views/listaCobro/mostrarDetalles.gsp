@@ -13,7 +13,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-listaCobro" class="content scaffold-show" role="main">
@@ -63,7 +62,7 @@
 				<li class="fieldcontain">
 					<span id="fechaInicio-label" class="property-label"><g:message code="listaCobro.fechaInicio.label" default="Fecha Inicio" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaInicio-label"><g:formatDate date="${listaCobroInstance?.fechaInicio}" /></span>
+						<span class="property-value" aria-labelledby="fechaInicio-label"><g:formatDate format="dd-MM-yyyy" date="${listaCobroInstance?.fechaInicio}"/></span>
 					
 				</li>
 				</g:if>
@@ -72,7 +71,7 @@
 				<li class="fieldcontain">
 					<span id="fechaFin-label" class="property-label"><g:message code="listaCobro.fechaFin.label" default="Fecha Fin" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaFin-label"><g:formatDate date="${listaCobroInstance?.fechaFin}" /></span>
+						<span class="property-value" aria-labelledby="fechaFin-label"><g:formatDate format="dd-MM-yyyy" date="${listaCobroInstance?.fechaFin}"/></span>
 					
 				</li>
 				</g:if>
@@ -97,27 +96,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${listaCobroInstance?.detalles}">
-				<li class="fieldcontain">
-					<span id="detalles-label" class="property-label"><g:message code="listaCobro.detalles.label" default="Detalles" /></span>
-					
-						<g:each in="${listaCobroInstance.detalles}" var="d">
-						<span class="property-value" aria-labelledby="detalles-label"><g:link controller="listaCobroDetalle" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${listaCobroInstance?.amortizaciones}">
-				<li class="fieldcontain">
-					<span id="amortizaciones-label" class="property-label"><g:message code="listaCobro.amortizaciones.label" default="Amortizaciones" /></span>
-					
-						<g:each in="${listaCobroInstance.amortizaciones}" var="a">
-						<span class="property-value" aria-labelledby="amortizaciones-label"><g:link controller="tablaAmortizacionRegistro" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
 			
 				<g:if test="${listaCobroInstance?.parcialidades}">
 				<li class="fieldcontain">
@@ -129,12 +107,57 @@
 				</g:if>
 			
 			</ol>
+		<!--
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${listaCobroInstance?.id}" />
 					<g:link class="edit" action="edit" id="${listaCobroInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 				</fieldset>
 			</g:form>
+		-->
 		</div>
+
+		<div id="list-listaCobroDetalle" class="content scaffold-list" role="main">
+			
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<table>
+				<thead>
+					<tr>
+					
+						<g:sortableColumn property="estatus" title="${message(code: 'listaCobroDetalle.estatus.label', default: 'Estatus')}" />
+					
+						<th><g:message code="listaCobroDetalle.listaCobro.label" default="Lista Cobro" /></th>
+					
+						<th><g:message code="listaCobroDetalle.amortizacion.label" default="Amortizacion" /></th>
+					
+						<th><g:message code="listaCobroDetalle.pago.label" default="Pago" /></th>
+					
+					</tr>
+				</thead>
+				<tbody>
+				<g:each in="${listaCobroDetalleInstanceList}" status="i" var="listaCobroDetalleInstance">
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
+					
+						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "listaCobro")}</td>
+					
+						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
+					
+						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "pago")}</td>
+					
+					</tr>
+				</g:each>
+				</tbody>
+			</table>
+			<div class="pagination">
+				<!--g:paginate total="${listaCobroDetalleInstanceTotal}" /-->
+			</div>
+		</div>
+
+
+
 	</body>
 </html>
