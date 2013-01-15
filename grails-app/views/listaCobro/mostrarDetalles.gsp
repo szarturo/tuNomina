@@ -7,6 +7,7 @@
 		<g:set var="entityName" value="${message(code: 'listaCobro.label', default: 'ListaCobro')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 		<filterpane:includes />
+		<calendar:resources lang="es" theme="green"  />
 	</head>
 	<body>
 		<a href="#show-listaCobro" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -144,12 +145,20 @@
 						<th><g:message code="listaCobroDetalle.apagar.label" default="A Pagar" /></th>
 
 						<th><g:message code="listaCobroDetalle.saldo.label" default="Saldo" /></th>
+
+						<th><g:message code="listaCobroDetalle.fechaAplicacion.label" default="Fecha Aplicacion" /></th>
 					
 						<th><g:message code="listaCobroDetalle.pago.label" default="Pago" /></th>
+
+						<th>Guardar</th>
+
+						<th>Aplicar</th>						
 					
 					</tr>
 				</thead>
 				<tbody>
+
+				<g:form name="frmLista" action="clean">
 				<g:each in="${listaCobroDetalleInstanceList}" status="i" var="listaCobroDetalleInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
@@ -160,10 +169,31 @@
 						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impPago")}</td>		
 
 						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impSaldoInicial")}</td>											
-						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "pago")}</td>
+
+						<td nowrap="nowrap">
+							<calendar:datePicker dateFormat="%d/%m/%Y"  name="fecha${i}" defaultValue="${listaCobroDetalleInstance?.pago?.fechaPago}" />
+							<script type="text/javascript">
+								document.frmLista.fecha${i}_value.style.width="90px";
+								document.getElementById('fecha${i}_value').style.width="90px";
+							</script>
+						</td>
+
+			<td>
+				<input type="text" name="pago" id="pago" value="<g:formatNumber  number="${listaCobroDetalleInstance?.pago?.importePago}" format="#.####" locale="es_MX" />" size="2" />
+			</td>						
+
+						<td>
+							<g:link url="javascript:send('actionr1', ${i});" >Guardar Pago</g:link>
+						</td>
+
+						<td>
+							<g:link url="javascript:send('actionr1', ${i});" >Aplicar Pago</g:link>
+						</td>
 
 					</tr>
 				</g:each>
+				</g:form>
+
 				</tbody>
 			</table>
 			<div class="pagination">
