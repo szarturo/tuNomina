@@ -13,7 +13,6 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="list-listaCobro" class="content scaffold-list" role="main">
@@ -58,9 +57,9 @@
 					
 						<td>${fieldValue(bean: listaCobroInstance, field: "numeroPago")}</td>
 					
-						<td><g:formatDate date="${listaCobroInstance.fechaInicio}" /></td>
+						<td><g:formatDate date="${listaCobroInstance.fechaInicio}" format="dd-MM-yyyy"/></td>
 					
-						<td><g:formatDate date="${listaCobroInstance.fechaFin}" /></td>
+						<td><g:formatDate date="${listaCobroInstance.fechaFin}" format="dd-MM-yyyy"/></td>
 					
 					</tr>
 				</g:each>
