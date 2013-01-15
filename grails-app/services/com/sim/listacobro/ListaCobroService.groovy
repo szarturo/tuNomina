@@ -164,7 +164,8 @@ class ListaCobroService {
                 estatus:  ListaCobroDetalleEstatus.INICIO,
                 amortizacion: it,
                 listaCobro: listaCobro,
-                ).save()
+                tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
+            ).save()
         }
         
         listaCobro.save()

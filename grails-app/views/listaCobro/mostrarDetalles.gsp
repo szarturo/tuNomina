@@ -123,10 +123,11 @@
 			<filterpane:filterButton text="Mostrar Criterios de Busqueda" />	
 			<form id="listacobro-form" name="listacobro-form" method="post">
 				<filterpane:filterPane domain="com.sim.listacobro.ListaCobroDetalle" 
-				title = "Filtrar Registros de la Lista de Cobro"
+				title = "Filtrar Detalles"
 				action = "mostrarDetalles"
 				associatedProperties="amortizacion.numeroPago,
-				amortizacion.impPago"/>
+				amortizacion.impPago,
+				tipoEmpleadoDep.nombreTipoEmpleadoDep"/>
 			</form>
 
 			<g:if test="${flash.message}">
@@ -144,6 +145,7 @@
 					
 						<th><g:message code="listaCobroDetalle.pago.label" default="Pago" /></th>
 					
+						<th><g:message code="listaCobroDetalle.tipoEmpleadoDep.label" default="Tipo Empleado" /></th>					
 					</tr>
 				</thead>
 				<tbody>
@@ -157,6 +159,8 @@
 						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
 					
 						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "pago")}</td>
+
+						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "tipoEmpleadoDep")}</td>
 					
 					</tr>
 				</g:each>
