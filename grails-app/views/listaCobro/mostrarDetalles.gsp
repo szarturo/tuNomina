@@ -124,7 +124,9 @@
 			<form id="listacobro-form" name="listacobro-form" method="post">
 				<filterpane:filterPane domain="com.sim.listacobro.ListaCobroDetalle" 
 				title = "Filtrar Registros de la Lista de Cobro"
-				action = "mostrarDetalles"/>
+				action = "mostrarDetalles"
+				associatedProperties="amortizacion.numeroPago,
+				amortizacion.impPago"/>
 			</form>
 
 			<g:if test="${flash.message}">
