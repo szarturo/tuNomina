@@ -39,27 +39,27 @@ class ListaCobroProcesoController {
             log.info ("Estatus actual: ${estatus}")
 
             switch ( estatus ) {
-                case SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR'):
-                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA')
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('GENERADA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIADA_DEPENDENCIA')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
-                case SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIAR_DEPENDENCIA'):
-                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALAR_DEPENDENCIA')
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('ENVIADA_DEPENDENCIA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALADA_DEPENDENCIA')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
-                case SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALAR_DEPENDENCIA'):
-                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('DEVOLVER_DEPENDENCIA')
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('INSTALADA_DEPENDENCIA'):
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('DEVUELTA_DEPENDENCIA')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
-                case SimCatListaCobroEstatus.findByClaveListaEstatus('DEVOLVER_DEPENDENCIA'):
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('DEVUELTA_DEPENDENCIA'):
                     listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('REGISTRO_PAGOS')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
                 case SimCatListaCobroEstatus.findByClaveListaEstatus('REGISTRO_PAGOS'):
-                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA')
+                    listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA_COMPLETAMENTE')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break
-                case SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA'):
+                case SimCatListaCobroEstatus.findByClaveListaEstatus('APLICADA_COMPLETAMENTE'):
                     listaCobroProcesoInstance.estatusListaCobro = SimCatListaCobroEstatus.findByClaveListaEstatus('PUBLICADA')
                     log.info ("Cambio a Estatus: ${listaCobroProcesoInstance.estatusListaCobro}")
                 break                
@@ -70,7 +70,7 @@ class ListaCobroProcesoController {
         }else{
             //INICIO DEL PROCESO, NO ESTA DEFINIDA LA LISTA DE COBRO
             //SE INDICA EL ESTATUS DE GENERAR
-            SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERAR')
+            SimCatListaCobroEstatus estatus = SimCatListaCobroEstatus.findByClaveListaEstatus('GENERADA')
             listaCobroProcesoInstance.estatusListaCobro = estatus   
         }
         return [listaCobroProcesoInstance: listaCobroProcesoInstance,
