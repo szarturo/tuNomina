@@ -29,6 +29,6 @@ class ListaCobroProceso {
     }
 
     String toString() {
-        "${estatusListaCobro} ${fechaAplicacion}"
+        "${fechaAplicacion} ${estatusListaCobro}"
     }     
 }
