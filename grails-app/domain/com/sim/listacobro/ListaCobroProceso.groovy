@@ -27,4 +27,8 @@ class ListaCobroProceso {
     	dateCreated ()
 		lastUpdated nullable:true
     }
+
+    String toString() {
+        "${estatusListaCobro} ${fechaAplicacion}"
+    }     
 }
