@@ -139,13 +139,14 @@
 					
 						<g:sortableColumn property="estatus" title="${message(code: 'listaCobroDetalle.estatus.label', default: 'Estatus')}" />
 					
-						<th><g:message code="listaCobroDetalle.listaCobro.label" default="Lista Cobro" /></th>
-					
-						<th><g:message code="listaCobroDetalle.amortizacion.label" default="Amortizacion" /></th>
+						<th><g:message code="listaCobroDetalle.amortizacion.label" default="Prestamo:No. Amortizacion" /></th>
+
+						<th><g:message code="listaCobroDetalle.apagar.label" default="A Pagar" /></th>
+
+						<th><g:message code="listaCobroDetalle.saldo.label" default="Saldo" /></th>
 					
 						<th><g:message code="listaCobroDetalle.pago.label" default="Pago" /></th>
 					
-						<th><g:message code="listaCobroDetalle.tipoEmpleadoDep.label" default="Tipo Empleado" /></th>					
 					</tr>
 				</thead>
 				<tbody>
@@ -154,14 +155,13 @@
 					
 						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
 					
-						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "listaCobro")}</td>
-					
 						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
-					
+
+						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impPago")}</td>		
+
+						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impSaldoInicial")}</td>											
 						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "pago")}</td>
 
-						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "tipoEmpleadoDep")}</td>
-					
 					</tr>
 				</g:each>
 				</tbody>
