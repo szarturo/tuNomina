@@ -126,10 +126,18 @@ class ListaCobroController {
             return
         }
 
-        def listaCobroDetalleInstanceList 
+        //SE APLICAN LOS FILTROS PARA LA BUSQUEDA
+        //AUNQUE SE APLICAN A TODAS LAS LISTAS DE COBRO
+        def listaCobroDetalleListFiltros = filterPaneService.filter( params, ListaCobroDetalle )
+
+        //SE OBTIENE TODOS LOS DETALLES DE COBRO QUE NO PERTENECEN A LA LISTA DE COBRO
+        def listaCobroDetalleNoPertenecen = ListaCobroDetalle.findAllByListaCobroNotEqual(listaCobroInstance)
+
+        //SE ELIMINAN DE LA BUSQUEDA ORIGINAL TODOS LO QUE NO PERTENECEN A LA LISTA DE COBRO
+        def listaCobroDetalleInstanceList = listaCobroDetalleListFiltros.minus(listaCobroDetalleNoPertenecen)
 
         [listaCobroInstance: listaCobroInstance,
-         listaCobroDetalleInstanceList: filterPaneService.filter( params, ListaCobroDetalle ),
+         listaCobroDetalleInstanceList: listaCobroDetalleInstanceList,
          filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params),
          params: params]
     }
