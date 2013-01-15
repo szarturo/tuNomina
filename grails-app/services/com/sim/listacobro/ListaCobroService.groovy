@@ -167,7 +167,7 @@ class ListaCobroService {
                 tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
             ).save()
         }
-        
+        listaCobro.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("GENERADA")
         listaCobro.save()
     }
 }
