@@ -1,6 +1,7 @@
 package com.sim.listacobro
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.sim.catalogo.SimCatListaCobroEstatus
 
 class ListaCobroController {
 
@@ -112,10 +113,20 @@ class ListaCobroController {
                 params:params ] )
     }
 
-    def generar(){
-       ListaCobro listaCobro = ListaCobro.get(params.id)
-       log.info "Lista Cobro: ${listaCobro}"
-       listaCobroService.generar(listaCobro)    
+    def generar(Long id){
+        ListaCobro listaCobro = ListaCobro.get(id)
+        String estatusListaCobro = listaCobro.estatus.claveListaEstatus
+        if ( estatusListaCobro in ["REGISTRO_PAGOS",
+             "APLICADA_PARCIALMENTE", 
+             "APLICADA_COMPLETAMENTE", 
+             "PUBLICADA"] == true){
+            flash.message = message(code: "No se pueden generar listas de cobro con estatus: ${listaCobro.estatus}", args: [])
+        }else{
+            listaCobroService.generar(listaCobro) 
+            flash.message = message(code: "Se ha generado la lista de cobro", args: [])
+        }
+
+        redirect(action: "show", id: id)
     }
 
     def mostrarDetalles(Long id) {
