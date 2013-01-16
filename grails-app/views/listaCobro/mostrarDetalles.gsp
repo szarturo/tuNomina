@@ -137,7 +137,7 @@
 			<table>
 				<thead>
 					<tr>
-					
+
 						<g:sortableColumn property="estatus" title="${message(code: 'listaCobroDetalle.estatus.label', default: 'Estatus')}" />
 					
 						<th><g:message code="listaCobroDetalle.amortizacion.label" default="Prestamo:No. Amortizacion" /></th>
@@ -156,43 +156,48 @@
 					
 					</tr>
 				</thead>
+
 				<tbody>
 
-				<g:form name="frmLista" action="clean">
-				<g:each in="${listaCobroDetalleInstanceList}" status="i" var="listaCobroDetalleInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
-					
-						<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
+	<g:form name="frmLista" action="clean">
+		<g:each in="${listaCobroDetalleInstanceList}" status="i" var="listaCobroDetalleInstance">
+			<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impPago")}</td>		
+				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
+			
+				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
 
-						<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impSaldoInicial")}</td>											
+				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impPago")}</td>		
 
-						<td nowrap="nowrap">
-							<calendar:datePicker dateFormat="%d/%m/%Y"  name="fecha${i}" defaultValue="${listaCobroDetalleInstance?.pago?.fechaPago}" />
-							<script type="text/javascript">
-								document.frmLista.fecha${i}_value.style.width="90px";
-								document.getElementById('fecha${i}_value').style.width="90px";
-							</script>
-						</td>
+				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impSaldoInicial")}</td>											
 
-			<td>
-				<input type="text" name="pago" id="pago" value="<g:formatNumber  number="${listaCobroDetalleInstance?.pago?.importePago}" format="#.####" locale="es_MX" />" size="2" />
-			</td>						
+				<td nowrap="nowrap">
+					<calendar:datePicker dateFormat="%d/%m/%Y"  name="fecha${i}" defaultValue="${listaCobroDetalleInstance?.pago?.fechaPago}" />
+					<script type="text/javascript">
+						document.frmLista.fecha${i}_value.style.width="90px";
+						document.getElementById('fecha${i}_value').style.width="90px";
+					</script>
+				</td>
 
-						<td>
-							<g:link url="javascript:send('actionr1', ${i});" >Guardar Pago</g:link>
-						</td>
+				<td>
+					<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.pago?.importePago}" format="#.####" locale="es_MX" />" size="2" />
+				</td>						
 
-						<td>
-							<g:link url="javascript:send('actionr1', ${i});" >Aplicar Pago</g:link>
-						</td>
+				<td>
+					<g:link url="javascript:send('guardarPagoLc', ${i});"> Guardar Pago </g:link>
+				</td>
 
-					</tr>
-				</g:each>
-				</g:form>
+				<td>
+					<g:link url="javascript:send('aplicarPagoLc', ${i});" >Aplicar Pago</g:link>
+				</td>
+
+			</tr>
+			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
+		</g:each>
+
+		<g:hiddenField name="numeroFila" value=""/>
+		
+	</g:form>
 
 				</tbody>
 			</table>
@@ -200,8 +205,18 @@
 				<!--g:paginate total="${listaCobroDetalleInstanceTotal}" /-->
 			</div>
 		</div>
+		<script>
 
+			function send(action, numeroFila){
+				document.frmLista.action="${request.contextPath}/listaCobro/"+action;
+				document.frmLista.numeroFila.value=numeroFila;
+				document.frmLista.submit();
+			}
+			
+		</script>
 
 
 	</body>
 </html>
+
+

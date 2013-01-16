@@ -2,6 +2,7 @@ package com.sim.listacobro
 
 import org.springframework.dao.DataIntegrityViolationException
 import com.sim.catalogo.SimCatListaCobroEstatus
+import java.text.SimpleDateFormat
 
 class ListaCobroController {
 
@@ -152,5 +153,21 @@ class ListaCobroController {
          filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params),
          params: params]
     }
+
+    def guardarPagoLc(){
+       
+        Integer numeroFila= params.numeroFila.toInteger()
+       
+        String id = params.get("id${numeroFila}")
+        Double pago = request.getParameter("pago${numeroFila}").toDouble()
+        Date   fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
+        String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
+
+    }
+
+    private Date getFecha(String value){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.parse(value);
+    }    
 
 }
