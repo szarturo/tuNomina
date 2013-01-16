@@ -214,6 +214,8 @@ class ListaCobroController {
                 return                        
             }                   
         }
+        flash.message = message(code: "El pago ha sido Guardado", args: [])
+        redirect(action: "mostrarDetalles", id: idListaCobro)
     }
 
     private Date getFecha(String value){
