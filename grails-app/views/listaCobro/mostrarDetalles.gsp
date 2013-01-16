@@ -1,4 +1,4 @@
-
+<%@ page import="com.sim.listacobro.ListaCobroDetalleEstatus"%>
 <%@ page import="com.sim.listacobro.ListaCobro" %>
 <!DOCTYPE html>
 <html>
@@ -150,9 +150,9 @@
 					
 						<th><g:message code="listaCobroDetalle.pago.label" default="Pago" /></th>
 
-						<th>Guardar</th>
+						<th></th>
 
-						<th>Aplicar</th>						
+						<th></th>						
 					
 					</tr>
 				</thead>
@@ -183,13 +183,26 @@
 					<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.pago?.importePago}" format="#.####" locale="es_MX" />" size="2" />
 				</td>						
 
-				<td>
-					<g:link url="javascript:send('guardarPagoLc', ${i});"> Guardar Pago </g:link>
-				</td>
+				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.INICIO}">
+					<td>
+						<g:link url="javascript:send('guardarPagoLc', ${i});"> Guardar Pago </g:link>
+					</td>
 
-				<td>
-					<g:link url="javascript:send('aplicarPagoLc', ${i});" >Aplicar Pago</g:link>
-				</td>
+					<td>
+						<g:link url="javascript:send('aplicarPagoLc', ${i});" >Aplicar Pago</g:link>
+					</td>
+				</g:if>
+
+				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.GUARDADO}">
+					<td>
+						<g:link url="javascript:send('guardarPagoLc', ${i});"> Aplicar Pago </g:link>
+					</td>
+
+					<td>
+						<g:link url="javascript:send('aplicarPagoLc', ${i});" >Cancelar Pago Guardado</g:link>
+					</td>
+				</g:if>
+
 
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
