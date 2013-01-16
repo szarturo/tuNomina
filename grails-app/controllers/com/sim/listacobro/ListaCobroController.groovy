@@ -1,8 +1,12 @@
 package com.sim.listacobro
 
 import org.springframework.dao.DataIntegrityViolationException
-import com.sim.catalogo.SimCatListaCobroEstatus
 import java.text.SimpleDateFormat
+
+import com.sim.catalogo.SimCatListaCobroEstatus
+import com.sim.servicios.credito.PagoServiceException
+import com.sim.servicios.credito.PagoServiceAplicaPagoException
+import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class ListaCobroController {
 
@@ -160,15 +164,42 @@ class ListaCobroController {
         Integer numeroFila= params.numeroFila.toInteger()
        
         String id = params.get("id${numeroFila}")
+        String idListaCobro = params.get("idListaCobro")        
+        String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
+        String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
         Double pago = request.getParameter("pago${numeroFila}").toDouble()
         Date   fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
-        String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
-        String idPrestamo = request.getParameter("idPrestamo${numeroFila}")
 
-        listaCobroPagoService.guardarPago(idListaCobroDetalle,
+        try{
+            listaCobroPagoService.guardarPago(idListaCobroDetalle,
             idPrestamo,
             pago,
-            fechaPago)        
+            fechaPago) 
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(ListaCobroPagoServiceException errorPagoListaCobro){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
+            log.error "Failed:", errorPagoListaCobro
+            flash.message = message(code: errorPagoListaCobro.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return        
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            log.error "Failed:", errorPago
+            flash.message = message(code: errorPago.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            log.error "Failed:", errorProcesadorFinanciero
+            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }catch(Exception errorGuardaPago){
+            log.error "Failed:", errorGuardaPago
+            flash.message = message(code: "No se Guardo el Pago. Contacte al Administrador", args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }                   
 
     }
 
