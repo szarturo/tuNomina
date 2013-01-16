@@ -193,6 +193,7 @@
 
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
+			<g:hiddenField name="idPrestamo${i}" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>
 		</g:each>
 
 		<g:hiddenField name="numeroFila" value=""/>

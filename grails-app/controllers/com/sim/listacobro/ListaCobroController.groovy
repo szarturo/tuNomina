@@ -162,6 +162,9 @@ class ListaCobroController {
         Double pago = request.getParameter("pago${numeroFila}").toDouble()
         Date   fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
+        String idPrestamo = request.getParameter("idPrestamo${numeroFila}")
+
+        log.info "Id Prestamo: ${idPrestamo}"        
 
     }
 
