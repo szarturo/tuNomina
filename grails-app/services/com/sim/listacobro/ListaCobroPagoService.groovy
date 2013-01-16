@@ -1,10 +1,12 @@
 package com.sim.listacobro
 
+import com.sim.catalogo.SimCatListaCobroEstatus
 import com.sim.credito.Prestamo
 import com.sim.credito.PrestamoPago
 import com.sim.servicios.credito.PagoService
 import com.sim.servicios.credito.PagoServiceException
 import com.sim.pfin.ProcesadorFinancieroServiceException
+import com.sim.pfin.PfinMovimiento
 
 class ListaCobroPagoServiceException extends RuntimeException {
 	String mensaje
@@ -19,7 +21,14 @@ class ListaCobroPagoService {
     def guardarPago(String idListaCobroDetalle,
     	String idPrestamo,
     	Double pago,
-    	Date   fechaPago){
+    	Date   fechaPago,
+    	String idListaCobro){
+
+    		//SE OBTIENE LA LISTA DE COBRO
+			ListaCobro listaCobroInstance = ListaCobro.get(idListaCobro)
+	        if (!listaCobroInstance) {
+				throw new ListaCobroPagoServiceException(mensaje: "No se encontro la lista de Cobro")
+	        }
 
 			//SE OBTIENE EL DETALLE DE LA LISTA DE COBRO
 			ListaCobroDetalle listaCobroDetalleInstance = ListaCobroDetalle.get(idListaCobroDetalle)
@@ -42,8 +51,10 @@ class ListaCobroPagoService {
 	            return
         	}
 
+        	PfinMovimiento pfinMovimientoGuardado
+
 	        try{
-	            pagoService.guardarPago(prestamoPagoInstance)
+	            pfinMovimientoGuardado = pagoService.guardarPago(prestamoPagoInstance)
 	        //VERIFICAR SI SE GENERO ALGUN ERROR
 	        }catch(PagoServiceException errorPago){
 	            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
@@ -51,6 +62,15 @@ class ListaCobroPagoService {
 	        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
 	            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
 	            throw errorProcesadorFinanciero
+	        }
+
+	        if (pfinMovimientoGuardado){
+	        	listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.GUARDADO
+	        	listaCobroDetalleInstance.pago = prestamoPagoInstance
+	        	//SE CAMBIA EL ESTATUS A LA LISTA DE COBRO
+	        	if (listaCobroInstance.estatus.equals(SimCatListaCobroEstatus.findByClaveListaEstatus("GENERADA"))){
+	        		listaCobroInstance.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("REGISTRO_PAGOS")
+	        	}
 	        }
 
     		log.info "Servicio"

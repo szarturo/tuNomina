@@ -186,7 +186,8 @@ class ListaCobroController {
                 listaCobroPagoService.guardarPago(idListaCobroDetalle,
                 idPrestamo,
                 pago,
-                fechaPago) 
+                fechaPago,
+                idListaCobro) 
             //VERIFICAR SI SE GENERO ALGUN ERROR
             }catch(ListaCobroPagoServiceException errorPagoListaCobro){
                 //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
