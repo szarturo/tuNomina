@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 
 import com.sim.catalogo.SimCatListaCobroEstatus
 import com.sim.servicios.credito.PagoServiceException
-import com.sim.servicios.credito.PagoServiceAplicaPagoException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class ListaCobroController {
