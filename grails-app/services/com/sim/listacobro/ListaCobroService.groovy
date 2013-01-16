@@ -9,6 +9,8 @@ import com.sim.credito.Prestamo
 
 class ListaCobroService {
 
+    static transactional = true
+
     //METODO UTILIZADO EN EL BOOTSTRAP
     def crearListasCobro(EntDependencia dependencia,
             Integer anio,
