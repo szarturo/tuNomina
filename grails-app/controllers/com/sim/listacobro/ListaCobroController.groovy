@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat
 class ListaCobroController {
 
     def listaCobroService
+    def listaCobroPagoService
     def filterPaneService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -164,7 +165,10 @@ class ListaCobroController {
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")
 
-        log.info "Id Prestamo: ${idPrestamo}"        
+        listaCobroPagoService.guardarPago(idListaCobroDetalle,
+            idPrestamo,
+            pago,
+            fechaPago)        
 
     }
 
