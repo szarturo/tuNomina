@@ -2,9 +2,9 @@ package com.sim.listacobro
 
 import com.sim.credito.Prestamo
 import com.sim.credito.PrestamoPago
+import com.sim.servicios.credito.PagoService
 import com.sim.servicios.credito.PagoServiceException
 import com.sim.pfin.ProcesadorFinancieroServiceException
-import com.sim.servicios.credito.PagoService
 
 class ListaCobroPagoServiceException extends RuntimeException {
 	String mensaje
@@ -35,9 +35,9 @@ class ListaCobroPagoService {
 			PrestamoPago prestamoPagoInstance = new PrestamoPago(
 				importePago:  pago,
 				prestamo: prestamoInstance,
-				fechaPago: fechaPago)
+				fechaPago: fechaPago).save()
 
-			if (!prestamoPagoInstance.save(flush: true)) {
+			if (!prestamoPagoInstance){
 	            throw new ListaCobroPagoServiceException(mensaje: "No se puedo crear el objeto PrestamoPago")
 	            return
         	}
