@@ -167,40 +167,53 @@ class ListaCobroController {
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
-        Double pago = request.getParameter("pago${numeroFila}").toDouble()
-        Date   fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
+        String sPago = request.getParameter("pago${numeroFila}")
+        String sfechaPago = request.getParameter("fecha${numeroFila}")
 
-        try{
-            listaCobroPagoService.guardarPago(idListaCobroDetalle,
-            idPrestamo,
-            pago,
-            fechaPago) 
-        //VERIFICAR SI SE GENERO ALGUN ERROR
-        }catch(ListaCobroPagoServiceException errorPagoListaCobro){
-            //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
-            log.error "Failed:", errorPagoListaCobro
-            flash.message = message(code: errorPagoListaCobro.mensaje, args: [])
-            redirect(action: "mostrarDetalles", id: idListaCobro)
-            return        
-        }catch(PagoServiceException errorPago){
-            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
-            log.error "Failed:", errorPago
-            flash.message = message(code: errorPago.mensaje, args: [])
-            redirect(action: "mostrarDetalles", id: idListaCobro)
-            return
-        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
-            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
-            log.error "Failed:", errorProcesadorFinanciero
-            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+        if (!sPago){
+            log.info ("El importe es incorrecto")
+            flash.message = message(code: "El importe es incorrecto", args: [])
             redirect(action: "mostrarDetalles", id: idListaCobro)
             return                        
-        }catch(Exception errorGuardaPago){
-            log.error "Failed:", errorGuardaPago
-            flash.message = message(code: "No se Guardo el Pago. Contacte al Administrador", args: [])
+        }else if(!sfechaPago){
+            log.info ("Indique la fecha de Aplicacion")
+            flash.message = message(code: "Indique la fecha de Aplicacion", args: [])
             redirect(action: "mostrarDetalles", id: idListaCobro)
             return                        
-        }                   
-
+        }else{
+            Double pago = request.getParameter("pago${numeroFila}")?.toDouble()            
+            Date   fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
+            try{
+                listaCobroPagoService.guardarPago(idListaCobroDetalle,
+                idPrestamo,
+                pago,
+                fechaPago) 
+            //VERIFICAR SI SE GENERO ALGUN ERROR
+            }catch(ListaCobroPagoServiceException errorPagoListaCobro){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
+                log.error "Failed:", errorPagoListaCobro
+                flash.message = message(code: errorPagoListaCobro.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return        
+            }catch(PagoServiceException errorPago){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+                log.error "Failed:", errorPago
+                flash.message = message(code: errorPago.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return
+            }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+                log.error "Failed:", errorProcesadorFinanciero
+                flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return                        
+            }catch(Exception errorGuardaPago){
+                log.error "Failed:", errorGuardaPago
+                flash.message = message(code: "No se Guardo el Pago. Contacte al Administrador", args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return                        
+            }                   
+        }
     }
 
     private Date getFecha(String value){
