@@ -297,6 +297,7 @@ class PagoService {
 			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('LIQUIDADO')
 			prestamoPagoInstance.prestamo.save()
 		}
+		return true
 
 	}
 
