@@ -205,7 +205,7 @@
 					</td>
 
 					<td>
-						<g:link url="javascript:send('aplicarPagoLc', ${i});" >Cancelar Pago Guardado</g:link>
+						<g:link url="javascript:send('cancelarPagoGuardadoLc', ${i});" >Cancelar Pago Guardado</g:link>
 					</td>
 				</g:if>
 
@@ -227,15 +227,12 @@
 			</div>
 		</div>
 		<script>
-
 			function send(action, numeroFila){
 				document.frmLista.action="${request.contextPath}/listaCobro/"+action;
 				document.frmLista.numeroFila.value=numeroFila;
 				document.frmLista.submit();
 			}
-			
 		</script>
-
 
 	</body>
 </html>

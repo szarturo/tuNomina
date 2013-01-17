@@ -72,13 +72,33 @@ class ListaCobroPagoService {
 	        		listaCobroInstance.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("REGISTRO_PAGOS")
 	        	}
 	        }
+    }
 
-    		log.info "Servicio"
-			log.info listaCobroDetalleInstance
-			log.info prestamoInstance
-			log.info prestamoPagoInstance
-			log.info pago
-			log.info fechaPago
+    def cancelarPagoGuardadoLc(String idListaCobroDetalle){
 
+		//SE OBTIENE EL DETALLE DE LA LISTA DE COBRO
+		ListaCobroDetalle listaCobroDetalleInstance = ListaCobroDetalle.get(idListaCobroDetalle)
+        if (!listaCobroDetalleInstance) {
+			throw new ListaCobroPagoServiceException(mensaje: "No se encontro el detalle de la lista de cobro")
+        }
+
+    	Boolean canceloPagoGuardado
+
+        try{
+            canceloPagoGuardado = pagoService.cancelaPagoGuardado(
+            	listaCobroDetalleInstance.pago)
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            throw errorPago
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            throw errorProcesadorFinanciero
+        }
+
+        if (canceloPagoGuardado){
+        	listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.INICIO
+        	listaCobroDetalleInstance.pago = null
+        }        
     }
 }

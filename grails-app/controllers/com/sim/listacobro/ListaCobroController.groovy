@@ -218,6 +218,46 @@ class ListaCobroController {
         redirect(action: "mostrarDetalles", id: idListaCobro)
     }
 
+    def cancelarPagoGuardadoLc(){
+       
+        Integer numeroFila= params.numeroFila.toInteger()
+       
+        String id = params.get("id${numeroFila}")
+        String idListaCobro = params.get("idListaCobro")        
+        String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
+
+        try{
+            listaCobroPagoService.cancelarPagoGuardadoLc(idListaCobroDetalle) 
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(ListaCobroPagoServiceException errorPagoListaCobro){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
+            log.error "Failed:", errorPagoListaCobro
+            flash.message = message(code: errorPagoListaCobro.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return        
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            log.error "Failed:", errorPago
+            flash.message = message(code: errorPago.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            log.error "Failed:", errorProcesadorFinanciero
+            flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }catch(Exception errorGuardaPago){
+            log.error "Failed:", errorGuardaPago
+            flash.message = message(code: "No se Cancelo el Pago Guardado. Contacte al Administrador", args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }                   
+
+        flash.message = message(code: "El pago Guardado ha sido Cancelado", args: [])
+        redirect(action: "mostrarDetalles", id: idListaCobro)
+    }    
+
     private Date getFecha(String value){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.parse(value);
