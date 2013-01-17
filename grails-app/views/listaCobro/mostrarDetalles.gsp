@@ -201,12 +201,16 @@
 					<td>${fieldValue(bean: listaCobroDetalleInstance.pago, field: "importePago")}</td>
 
 					<td>
-						<g:link url="javascript:send('guardarPagoLc', ${i});"> Aplicar Pago </g:link>
+						<g:link url="javascript:send('aplicarPagoLc', ${i});"> Aplicar Pago </g:link>
 					</td>
 
 					<td>
 						<g:link url="javascript:send('cancelarPagoGuardadoLc', ${i});" >Cancelar Pago Guardado</g:link>
 					</td>
+
+					<g:hiddenField name="pago${i}" value="${listaCobroDetalleInstance?.pago?.importePago}"/>
+					<g:hiddenField name="fecha${i}" value="${listaCobroDetalleInstance?.pago?.fechaPago}"/>
+
 				</g:if>
 
 

@@ -162,7 +162,7 @@ class ListaCobroController {
        
         Integer numeroFila= params.numeroFila.toInteger()
        
-        String id = params.get("id${numeroFila}")
+        //String id = params.get("id${numeroFila}")
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
@@ -222,7 +222,7 @@ class ListaCobroController {
        
         Integer numeroFila= params.numeroFila.toInteger()
        
-        String id = params.get("id${numeroFila}")
+        //String id = params.get("id${numeroFila}")
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
 
@@ -257,6 +257,72 @@ class ListaCobroController {
         flash.message = message(code: "El pago Guardado ha sido Cancelado", args: [])
         redirect(action: "mostrarDetalles", id: idListaCobro)
     }    
+
+    def aplicarPagoLc(){
+        Integer numeroFila= params.numeroFila.toInteger()
+       
+        //String id = params.get("id${numeroFila}")
+        String idListaCobro = params.get("idListaCobro")        
+        String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
+        String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
+        String sPago = request.getParameter("pago${numeroFila}")
+        String sfechaPago = request.getParameter("fecha${numeroFila}")
+
+        if (!sPago){
+            log.info ("El importe es incorrecto")
+            flash.message = message(code: "El importe es incorrecto", args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }else if(!sfechaPago){
+            log.info ("Indique la fecha de Aplicacion")
+            flash.message = message(code: "Indique la fecha de Aplicacion", args: [])
+            redirect(action: "mostrarDetalles", id: idListaCobro)
+            return                        
+        }else{
+            Double pago = request.getParameter("pago${numeroFila}")?.toDouble()
+            Date fechaPago = new Date()           
+            try{
+                fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))                
+            }catch(Exception exception){
+                log.info ("Probablemente sea un pago ya guardado")
+            }
+
+            try{
+                listaCobroPagoService.aplicarPago(idListaCobroDetalle,
+                idPrestamo,
+                pago,
+                fechaPago,
+                idListaCobro) 
+            //VERIFICAR SI SE GENERO ALGUN ERROR
+            }catch(ListaCobroPagoServiceException errorPagoListaCobro){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO ListaCobroPagoService
+                log.error "Failed:", errorPagoListaCobro
+                flash.message = message(code: errorPagoListaCobro.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return        
+            }catch(PagoServiceException errorPago){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+                log.error "Failed:", errorPago
+                flash.message = message(code: errorPago.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return
+            }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+                log.error "Failed:", errorProcesadorFinanciero
+                flash.message = message(code: errorProcesadorFinanciero.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return                        
+            }catch(Exception errorGuardaPago){
+                log.error "Failed:", errorGuardaPago
+                flash.message = message(code: "No se Aplico el Pago. Contacte al Administrador", args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return                        
+            }                   
+        }
+
+        flash.message = message(code: "El pago ha sido Aplicado", args: [])
+        redirect(action: "mostrarDetalles", id: idListaCobro)
+    }
 
     private Date getFecha(String value){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
