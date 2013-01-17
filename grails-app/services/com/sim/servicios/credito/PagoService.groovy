@@ -712,5 +712,7 @@ class PagoService {
 			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')
 			prestamoPagoInstance.prestamo.save()
 		}
+
+		return true
 	}
 }

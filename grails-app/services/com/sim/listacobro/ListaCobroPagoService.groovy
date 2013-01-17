@@ -173,4 +173,32 @@ class ListaCobroPagoService {
 
     }
 
+    def cancelarPagoAplicadoLc(String idListaCobroDetalle){
+
+        //SE OBTIENE EL DETALLE DE LA LISTA DE COBRO
+        ListaCobroDetalle listaCobroDetalleInstance = ListaCobroDetalle.get(idListaCobroDetalle)
+        if (!listaCobroDetalleInstance) {
+            throw new ListaCobroPagoServiceException(mensaje: "No se encontro el detalle de la lista de cobro")
+        }
+
+        Boolean canceloPagoAplicado
+
+        try{
+            canceloPagoAplicado = pagoService.cancelaPagoAplicado(
+                listaCobroDetalleInstance.pago)
+        //VERIFICAR SI SE GENERO ALGUN ERROR
+        }catch(PagoServiceException errorPago){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+            throw errorPago
+        }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
+            //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
+            throw errorProcesadorFinanciero
+        }
+
+        if (canceloPagoAplicado){
+            listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.INICIO
+            listaCobroDetalleInstance.pago = null
+        }        
+    }
+
 }

@@ -220,7 +220,7 @@
 					<td>${fieldValue(bean: listaCobroDetalleInstance.pago, field: "importePago")}</td>
 
 					<td>
-						<g:link url="javascript:send('aplicarPagoLc', ${i});"> Cancelar Pago Aplicado</g:link>
+						<g:link url="javascript:send('cancelarPagoAplicadoLc', ${i});"> Cancelar Pago Aplicado</g:link>
 					</td>
 
 					<td>
