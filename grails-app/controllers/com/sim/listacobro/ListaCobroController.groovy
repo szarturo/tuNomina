@@ -162,7 +162,6 @@ class ListaCobroController {
        
         Integer numeroFila= params.numeroFila.toInteger()
        
-        //String id = params.get("id${numeroFila}")
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
@@ -222,7 +221,6 @@ class ListaCobroController {
        
         Integer numeroFila= params.numeroFila.toInteger()
        
-        //String id = params.get("id${numeroFila}")
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
 
@@ -261,7 +259,6 @@ class ListaCobroController {
     def aplicarPagoLc(){
         Integer numeroFila= params.numeroFila.toInteger()
        
-        //String id = params.get("id${numeroFila}")
         String idListaCobro = params.get("idListaCobro")        
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
