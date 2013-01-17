@@ -4,8 +4,7 @@ public enum ListaCobroDetalleEstatus {
 	
 	INICIO,
 	GUARDADO,
-	GUARDADO_CANCELADO,
 	APLICADO,
-	APLICADO_CANCELADO,
-	
+	EN_LOTE,
+	PUBLICADO,	
 }
