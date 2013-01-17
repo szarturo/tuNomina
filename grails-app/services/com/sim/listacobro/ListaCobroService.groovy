@@ -10,6 +10,8 @@ import com.sim.credito.Prestamo
 class ListaCobroService {
 
     static transactional = true
+    //SERVICIO PARA RECUPERAR EL USUARIO
+    def springSecurityService
 
     //METODO UTILIZADO EN EL BOOTSTRAP
     def crearListasCobro(EntDependencia dependencia,
@@ -167,6 +169,7 @@ class ListaCobroService {
                 amortizacion: it,
                 listaCobro: listaCobro,
                 tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
+                usuario: springSecurityService.getCurrentUser(),
             ).save()
         }
         listaCobro.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("GENERADA")

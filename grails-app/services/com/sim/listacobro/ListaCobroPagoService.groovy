@@ -15,6 +15,8 @@ class ListaCobroPagoServiceException extends RuntimeException {
 class ListaCobroPagoService {
 
 	static transactional = true
+    //SERVICIO PARA RECUPERAR EL USUARIO
+    def springSecurityService    
 	//SERVICIO PARA APLICAR PAGOS
 	def pagoService
 
@@ -167,6 +169,7 @@ class ListaCobroPagoService {
         if (resultadoAplicarPago){
             listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.APLICADO
             listaCobroDetalleInstance.pago = prestamoPagoInstance
+            listaCobroDetalleInstance.usuario = springSecurityService.getCurrentUser()
             //SE CAMBIA EL ESTATUS A LA LISTA DE COBRO
             listaCobroInstance.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("APLICADA_PARCIALMENTE")
         }
