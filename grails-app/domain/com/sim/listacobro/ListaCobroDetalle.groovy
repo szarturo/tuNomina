@@ -4,6 +4,7 @@ import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.credito.PrestamoPago
 import com.sim.catalogo.SimCatTipoEmp
 import com.sim.usuario.Usuario
+import com.sim.publicacion.PublicacionDet
 
 class ListaCobroDetalle {
 
@@ -14,6 +15,7 @@ class ListaCobroDetalle {
     Usuario usuario
 
 	static belongsTo = [listaCobro: ListaCobro]
+    static hasOne = [publicacionDet: PublicacionDet]
 
     static constraints = {
     	estatus nullable:false
@@ -22,6 +24,7 @@ class ListaCobroDetalle {
     	pago nullable:true
         tipoEmpleadoDep nullable:true
         usuario nullable:false
+        publicacionDet nullable:true
     }
 
     String toString() {

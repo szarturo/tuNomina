@@ -1,4 +1,5 @@
 package com.sim.publicacion
+import com.sim.listacobro.ListaCobroDetalle
 
 class PublicacionDet {
 
@@ -17,6 +18,7 @@ class PublicacionDet {
 	String fechaPagoMes		
 	String fechaPagoDia		
 	String fechaPagoAnio	
+	ListaCobroDetalle listaCobroDetalle	
 
     static constraints = {
     	usuario size:1..10
@@ -36,5 +38,6 @@ class PublicacionDet {
 		fechaPagoMes size:1..2
 		fechaPagoDia size:1..2
 		fechaPagoAnio size:1..4
+		listaCobroDetalle unique:true
     }
 }
