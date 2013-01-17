@@ -261,17 +261,6 @@
 									<span>Promociones</span>
 								</g:link></li>
 
-							<li><a href="#" class="parent"><span>Listas de Cobro</span></a>
-								<div>
-									<ul>
-									<li><g:link controller="listaCobro">
-										<span>Listas de Cobro</span>
-									</g:link></li>
-									<li><g:link controller="listaCobroProceso">
-										<span>Lista Cobro Procesos</span>
-									</g:link></li>									
-									</ul>
-								</div></li>
 
 						</ul>
 					</div></li>
@@ -332,6 +321,30 @@
 						</ul>
 					</div></li>
 			</sec:ifLoggedIn>
+
+			<li><a href="#" class="parent"><span>Cobranza</span></a>
+
+				<div>
+					<ul>
+						<li><a href="#" class="parent"><span>Listas de Cobro</span></a>
+							<div>
+								<ul>
+								<li><g:link controller="listaCobro">
+									<span>Listas de Cobro</span>
+								</g:link></li>
+								<li><g:link controller="listaCobroProceso">
+									<span>Lista Cobro Procesos</span>
+								</g:link></li>			
+								</ul>
+							</div>
+						</li>
+						<li><g:link controller="publicacionLote" action="publicarLote">
+									<span>Publicaci&oacute;n</span>
+							</g:link>
+						</li>
+					</ul>
+				</div>
+			</li>	
 
 			<li><a href="#"><span>Seguridad</span></a>
 				<div>
