@@ -120,37 +120,39 @@ class ListaCobroPagoService {
             throw new ListaCobroPagoServiceException(mensaje: "No se encontro el detalle de la lista de cobro")
         }
 
-        Boolean existePagoInstance = false
+        Boolean existePrestamoPago = false
 
         PrestamoPago prestamoPagoExiste = listaCobroDetalleInstance.pago
-
+        Prestamo prestamoInstance
+        PrestamoPago prestamoPagoInstance
+        Boolean resultadoAplicarPago = false
         if (prestamoPagoExiste){
-            existePagoInstance = true
+            //EXISTE EL OBJETO PRESTAMO PAGO
+            existePrestamoPago = true
             log.info("Existe el pago guardado")
+            prestamoPagoInstance = prestamoPagoExiste
         }else{
+            //NO EXISTE EL OBJETO PRESTAMO PAGO
             log.info("No Existe pago guardado")
+
+            prestamoInstance = Prestamo.get(idPrestamo)
+            if (!prestamoInstance) {
+                throw new ListaCobroPagoServiceException(mensaje: "No se encontro el Prestamo para guardar el pago")
+            }    
+
+            prestamoPagoInstance = new PrestamoPago(
+                importePago:  pago,
+                prestamo: prestamoInstance,
+                fechaPago: fechaPago).save()
+
+            if (!prestamoPagoInstance){
+                throw new ListaCobroPagoServiceException(mensaje: "No se puedo crear el objeto PrestamoPago")
+                return
+            }
         }
-
-        /*
-        Prestamo prestamoInstance = Prestamo.get(idPrestamo)
-        if (!prestamoInstance) {
-            throw new ListaCobroPagoServiceException(mensaje: "No se encontro el Prestamo para guardar el pago")
-        }    
-
-        PrestamoPago prestamoPagoInstance = new PrestamoPago(
-            importePago:  pago,
-            prestamo: prestamoInstance,
-            fechaPago: fechaPago).save()
-
-        if (!prestamoPagoInstance){
-            throw new ListaCobroPagoServiceException(mensaje: "No se puedo crear el objeto PrestamoPago")
-            return
-        }
-
-        PfinMovimiento pfinMovimientoGuardado
 
         try{
-            pfinMovimientoGuardado = pagoService.guardarPago(prestamoPagoInstance)
+            resultadoAplicarPago = pagoService.aplicarPago(prestamoPagoInstance,existePrestamoPago)
         //VERIFICAR SI SE GENERO ALGUN ERROR
         }catch(PagoServiceException errorPago){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
@@ -160,15 +162,15 @@ class ListaCobroPagoService {
             throw errorProcesadorFinanciero
         }
 
-        if (pfinMovimientoGuardado){
-            listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.GUARDADO
+        log.info ("Resultado Aplicar Pago: ${resultadoAplicarPago}")
+
+        if (resultadoAplicarPago){
+            listaCobroDetalleInstance.estatus = ListaCobroDetalleEstatus.APLICADO
             listaCobroDetalleInstance.pago = prestamoPagoInstance
             //SE CAMBIA EL ESTATUS A LA LISTA DE COBRO
-            if (listaCobroInstance.estatus.equals(SimCatListaCobroEstatus.findByClaveListaEstatus("GENERADA"))){
-                listaCobroInstance.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("REGISTRO_PAGOS")
-            }
+            listaCobroInstance.estatus = SimCatListaCobroEstatus.findByClaveListaEstatus("APLICADA_PARCIALMENTE")
         }
-        */
+
     }
 
 }

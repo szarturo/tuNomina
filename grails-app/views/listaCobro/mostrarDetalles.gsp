@@ -213,6 +213,23 @@
 
 				</g:if>
 
+				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.APLICADO}">
+
+					<td><g:formatDate format="dd-MM-yyyy" date="${listaCobroDetalleInstance.pago.fechaPago}" /></td>
+
+					<td>${fieldValue(bean: listaCobroDetalleInstance.pago, field: "importePago")}</td>
+
+					<td>
+						<g:link url="javascript:send('aplicarPagoLc', ${i});"> Cancelar Pago Aplicado</g:link>
+					</td>
+
+					<td>
+					</td>
+
+					<g:hiddenField name="pago${i}" value="${listaCobroDetalleInstance?.pago?.importePago}"/>
+					<g:hiddenField name="fecha${i}" value="${listaCobroDetalleInstance?.pago?.fechaPago}"/>
+
+				</g:if>
 
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
