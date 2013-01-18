@@ -45,1119 +45,1119 @@ class RsClienteController {
     }
 	
 	def altaClientes = {
-	// CLIENTE 1
-		
-				  def javierHernandez = new RsPersona(
-							email : "javierhernandez@gmail.com",
-							apellidoPaterno: "HERNANDEZb",
-							apellidoMaterno: "CHIHARITO",
-							primerNombre: "JAVIER",
-							segundoNombre: "JAVI",
-							sexo: "MASCULINO",
-							estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-							fechaNacimiento : new Date('09/30/1974'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
-							numeroIdentificacionOficial : "JCHI727328328",
-							rfc : "JCHI89778",
-							curp : "JCHI76878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-				   
-					def clienteJavier = new RsCliente(persona: javierHernandez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'JCHSDFYUYUI',
-					).save(flush: true,failOnError: true)
-			
-			
-			// CLIENTE 2
-			
-			  def carlossalcido = new RsPersona(
-						email : "carsalcido@gmail.com",
-						apellidoPaterno: "SALCIDO",
-						apellidoMaterno: "CAMPOS",
-						primerNombre: "CARLOS",
-						segundoNombre: "CHARLY",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/30/1970'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
-						numeroIdentificacionOficial : "CSAL727328328",
-						rfc : "CSAL89778",
-						curp : "CSAL76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('QUINDER'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+		// CLIENTE 1
+
+		def javierHernandez = new RsPersona(
+				email : "javierhernandez@gmail.com",
+				apellidoPaterno: "HERNANDEZ",
+				apellidoMaterno: "CHIHARITO",
+				primerNombre: "JAVIER",
+				segundoNombre: "JAVI",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1974'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+				numeroIdentificacionOficial : "JCHI727328328",
+				rfc : "JCHI89778",
+				curp : "JCHI76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteCarlos = new RsCliente(persona: carlossalcido,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'CSALSDFYUYUI',
+
+		def clienteJavier = new RsCliente(persona: javierHernandez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'JCHSDFYUYUI',
 				).save(flush: true,failOnError: true)
-					
-				// CLIENTE 3
-				
-				def franciscorodriguez = new RsPersona(
-								email : "franciscorodriguez@gmail.com",
-								apellidoPaterno: "RODRIGUEZ",
-								apellidoMaterno: "MAZA",
-								primerNombre: "FRANCISCO",
-								segundoNombre: "EL MAZA",
-								sexo: "MASCULINO",
-								estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-								fechaNacimiento : new Date('09/30/1980'),
-								identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
-								numeroIdentificacionOficial : "MAZA727328328",
-								rfc : "MAZA89778",
-								curp : "MAZA76878968",
-								escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PRIMARIA'),
-								tiposPersona : [
-										SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-								],
-						).save(flush: true,failOnError: true)
-				
-						def clienteFrancisco = new RsCliente(persona: franciscorodriguez,
-								dependencia: EntDependencia.findByClaveDependencia('CFE'),
-								numeroDeNomina: 'MAZASDFYUYUI',
-						).save(flush: true,failOnError: true)
-					
-							
-							
-			// CLIENTE 4
-			
-				 def guillermoochoa = new RsPersona(
-							email : "guillermoochoa@gmail.com",
-							apellidoPaterno: "PACOMEMO",
-							apellidoMaterno: "OCHOA",
-							primerNombre: "FRANCISCO",
-							segundoNombre: "PACO MEMO",
-							sexo: "MASCULINO",
-							estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-							fechaNacimiento : new Date('09/30/1985'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "PACO727328328",
-							rfc : "PACO89778",
-							curp : "PACO76878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('SECUNDARIA'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-			
-					def clienteGuillermo = new RsCliente(persona: guillermoochoa,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'PACOSDFYUYUI',
-					).save(flush: true,failOnError: true)
-			
-						
-							
-				// CLIENTE 5
-				
-				def jesuscorona = new RsPersona(
-						email : "jesuscorona@gmail.com",
-						apellidoPaterno: "CHUY",
-						apellidoMaterno: "CORONA",
-						primerNombre: "JESUS",
-						segundoNombre: "CHUY CORONA",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('09/20/1973'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "CHUY727328328",
-						rfc : "CHUY89778",
-						curp : "CHUY76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+		// CLIENTE 2
+
+		def carlossalcido = new RsPersona(
+				email : "carsalcido@gmail.com",
+				apellidoPaterno: "SALCIDO",
+				apellidoMaterno: "CAMPOS",
+				primerNombre: "CARLOS",
+				segundoNombre: "CHARLY",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1970'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+				numeroIdentificacionOficial : "CSAL727328328",
+				rfc : "CSAL89778",
+				curp : "CSAL76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('QUINDER'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJesus = new RsCliente(persona: jesuscorona,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'CHUYSDFYUYUI',
+
+		def clienteCarlos = new RsCliente(persona: carlossalcido,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'CSALSDFYUYUI',
 				).save(flush: true,failOnError: true)
-					
-							
-				// CLIENTE 6
-				
-				   def gerardotorrado = new RsPersona(
-							email : "gerardotorrado@gmail.com",
-							apellidoPaterno: "TORRADO",
-							apellidoMaterno: "CASTRO",
-							primerNombre: "GERARDO",
-							segundoNombre: "GERA",
-							sexo: "MASCULINO",
-							estadoCivil : "SOLTERO",
-							fechaNacimiento : new Date('09/20/1967'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "TORR727328328",
-							rfc : "TORR89778",
-							curp : "TORR76878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-			
-					def clienteGerardo = new RsCliente(persona: gerardotorrado,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'TORRSDFYUYUI',
-					).save(flush: true,failOnError: true)
-							
-									
-							
-			// CLIENTE 7
-						
-				def oribeperalta = new RsPersona(
-						email : "oribeperalta@gmail.com",
-						apellidoPaterno: "PERALTA",
-						apellidoMaterno: "CASTRO",
-						primerNombre: "ORIBE",
-						segundoNombre: "ORI",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('09/20/1967'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ORIB727328328",
-						rfc : "ORIB89778",
-						curp : "ORIB76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		// CLIENTE 3
+
+		def franciscorodriguez = new RsPersona(
+				email : "franciscorodriguez@gmail.com",
+				apellidoPaterno: "RODRIGUEZ",
+				apellidoMaterno: "MAZA",
+				primerNombre: "FRANCISCO",
+				segundoNombre: "EL MAZA",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1980'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+				numeroIdentificacionOficial : "MAZA727328328",
+				rfc : "MAZA89778",
+				curp : "MAZA76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PRIMARIA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteOribe = new RsCliente(persona: oribeperalta,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ORIBSDFYUYUI',
+
+		def clienteFrancisco = new RsCliente(persona: franciscorodriguez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'MAZASDFYUYUI',
 				).save(flush: true,failOnError: true)
-							
-									
-									
+
+
+
+		// CLIENTE 4
+
+		def guillermoochoa = new RsPersona(
+				email : "guillermoochoa@gmail.com",
+				apellidoPaterno: "PACOMEMO",
+				apellidoMaterno: "OCHOA",
+				primerNombre: "FRANCISCO",
+				segundoNombre: "PACO MEMO",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1985'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "PACO727328328",
+				rfc : "PACO89778",
+				curp : "PACO76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('SECUNDARIA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteGuillermo = new RsCliente(persona: guillermoochoa,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'PACOSDFYUYUI',
+				).save(flush: true,failOnError: true)
+
+
+
+		// CLIENTE 5
+
+		def jesuscorona = new RsPersona(
+				email : "jesuscorona@gmail.com",
+				apellidoPaterno: "CHUY",
+				apellidoMaterno: "CORONA",
+				primerNombre: "JESUS",
+				segundoNombre: "CHUY CORONA",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('09/20/1973'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "CHUY727328328",
+				rfc : "CHUY89778",
+				curp : "CHUY76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteJesus = new RsCliente(persona: jesuscorona,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'CHUYSDFYUYUI',
+				).save(flush: true,failOnError: true)
+
+
+		// CLIENTE 6
+
+		def gerardotorrado = new RsPersona(
+				email : "gerardotorrado@gmail.com",
+				apellidoPaterno: "TORRADO",
+				apellidoMaterno: "CASTRO",
+				primerNombre: "GERARDO",
+				segundoNombre: "GERA",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('09/20/1967'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "TORR727328328",
+				rfc : "TORR89778",
+				curp : "TORR76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteGerardo = new RsCliente(persona: gerardotorrado,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'TORRSDFYUYUI',
+				).save(flush: true,failOnError: true)
+
+
+
+		// CLIENTE 7
+
+		def oribeperalta = new RsPersona(
+				email : "oribeperalta@gmail.com",
+				apellidoPaterno: "PERALTA",
+				apellidoMaterno: "CASTRO",
+				primerNombre: "ORIBE",
+				segundoNombre: "ORI",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('09/20/1967'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ORIB727328328",
+				rfc : "ORIB89778",
+				curp : "ORIB76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteOribe = new RsCliente(persona: oribeperalta,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ORIBSDFYUYUI',
+				).save(flush: true,failOnError: true)
+
+
+
 		// CLIENTE 8
-		
-				def benjamingalindo = new RsPersona(
-						email : "benjamingalindo@gmail.com",
-						apellidoPaterno: "GALINDO",
-						apellidoMaterno: "MENCHACA",
-						primerNombre: "GALINDO",
-						segundoNombre: "EL MAESTRO",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/13/1960'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "BENJ727328328",
-						rfc : "BENJ89778",
-						curp : "BENJ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('MAESTRO'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def benjamingalindo = new RsPersona(
+				email : "benjamingalindo@gmail.com",
+				apellidoPaterno: "GALINDO",
+				apellidoMaterno: "MENCHACA",
+				primerNombre: "GALINDO",
+				segundoNombre: "EL MAESTRO",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/13/1960'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "BENJ727328328",
+				rfc : "BENJ89778",
+				curp : "BENJ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('MAESTRO'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteBenjamin = new RsCliente(persona: benjamingalindo,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'BENJSDFYUYUI',
+
+		def clienteBenjamin = new RsCliente(persona: benjamingalindo,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'BENJSDFYUYUI',
 				).save(flush: true,failOnError: true)
-							
-									
-									
+
+
+
 		// CLIENTE 9
-		
-				def alfredotena = new RsPersona(
-						email : "alfredotena@gmail.com",
-						apellidoPaterno: "TENA",
-						apellidoMaterno: "GALINDO",
-						primerNombre: "ALFREDO",
-						segundoNombre: "AMERICA",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/13/1968'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "TENA727328328",
-						rfc : "TENA89778",
-						curp : "TENA76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('AMERICA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def alfredotena = new RsPersona(
+				email : "alfredotena@gmail.com",
+				apellidoPaterno: "TENA",
+				apellidoMaterno: "GALINDO",
+				primerNombre: "ALFREDO",
+				segundoNombre: "AMERICA",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/13/1968'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "TENA727328328",
+				rfc : "TENA89778",
+				curp : "TENA76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('AMERICA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAlfredo = new RsCliente(persona: alfredotena,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'TENASDFYUYUI',
+
+		def clienteAlfredo = new RsCliente(persona: alfredotena,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'TENASDFYUYUI',
 				).save(flush: true,failOnError: true)
-							
-								
-							
-		  // CLIENTE 10
-		
-				def luisgarcia = new RsPersona(
-						email : "luisgarcia@gmail.com",
-						apellidoPaterno: "GARCIA",
-						apellidoMaterno: "POSTIGO",
-						primerNombre: "LUIS",
-						segundoNombre: "DOCTOR",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/13/1971'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "LUIS727328328",
-						rfc : "LUIS89778",
-						curp : "LUIS76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 10
+
+		def luisgarcia = new RsPersona(
+				email : "luisgarcia@gmail.com",
+				apellidoPaterno: "GARCIA",
+				apellidoMaterno: "POSTIGO",
+				primerNombre: "LUIS",
+				segundoNombre: "DOCTOR",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/13/1971'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "LUIS727328328",
+				rfc : "LUIS89778",
+				curp : "LUIS76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LIC'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteLuis = new RsCliente(persona: luisgarcia,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'LUISSDFYUYUI',
+
+		def clienteLuis = new RsCliente(persona: luisgarcia,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'LUISSDFYUYUI',
 				).save(flush: true,failOnError: true)
-							
-		
-		 							
-		 
+
+
+
+
 		// CLIENTE 11
-		
-				def joaquinlopez = new RsPersona(
-						email : "joaquinlopez@gmail.com",
-						apellidoPaterno: "LOPEZ",
-						apellidoMaterno: "DORIGA",
-						primerNombre: "JOAQUIN",
-						segundoNombre: "TEACHER",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/13/1960'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "JOAQ727328328",
-						rfc : "JOAQ89778",
-						curp : "JOAQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('MAESTRO'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def joaquinlopez = new RsPersona(
+				email : "joaquinlopez@gmail.com",
+				apellidoPaterno: "LOPEZ",
+				apellidoMaterno: "DORIGA",
+				primerNombre: "JOAQUIN",
+				segundoNombre: "TEACHER",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/13/1960'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "JOAQ727328328",
+				rfc : "JOAQ89778",
+				curp : "JOAQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('MAESTRO'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJoaquin = new RsCliente(persona: joaquinlopez,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'JOAQSDFYUYUI',
+
+		def clienteJoaquin = new RsCliente(persona: joaquinlopez,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'JOAQSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-											
-											
+
+
+
 		// CLIENTE 12
-		
-				def javieralatorre = new RsPersona(
-						email : "javieralatorre@hotmail.com",
-						apellidoPaterno: "ALA",
-						apellidoMaterno: "TORRE",
-						primerNombre: "JAVIER",
-						segundoNombre: "HECHOS",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/23/1970'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "JAVI727328328",
-						rfc : "JAVIQ89778",
-						curp : "JAVIQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('INGENIERO'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def javieralatorre = new RsPersona(
+				email : "javieralatorre@hotmail.com",
+				apellidoPaterno: "ALA",
+				apellidoMaterno: "TORRE",
+				primerNombre: "JAVIER",
+				segundoNombre: "HECHOS",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/23/1970'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "JAVI727328328",
+				rfc : "JAVIQ89778",
+				curp : "JAVIQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('INGENIERO'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJaviera = new RsCliente(persona: javieralatorre,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'JAVISDFYUYUI',
+
+		def clienteJaviera = new RsCliente(persona: javieralatorre,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'JAVISDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-											
-											
-											
+
+
+
+
 		// CLIENTE 13
-		
-				def alejandrovillalvazo = new RsPersona(
-						email : "alejandrovillalvazo@hotmail.com",
-						apellidoPaterno: "VILLALVAZO",
-						apellidoMaterno: "BUSTO",
-						primerNombre: "ALEJANDRO",
-						segundoNombre: "ALEX",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/23/1980'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ALEX727328328",
-						rfc : "ALEXQ89778",
-						curp : "ALEXQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('INGENIERO'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def alejandrovillalvazo = new RsPersona(
+				email : "alejandrovillalvazo@hotmail.com",
+				apellidoPaterno: "VILLALVAZO",
+				apellidoMaterno: "BUSTO",
+				primerNombre: "ALEJANDRO",
+				segundoNombre: "ALEX",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/23/1980'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ALEX727328328",
+				rfc : "ALEXQ89778",
+				curp : "ALEXQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('INGENIERO'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAlejandro = new RsCliente(persona: alejandrovillalvazo,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'ALEXSDFYUYUI',
+
+		def clienteAlejandro = new RsCliente(persona: alejandrovillalvazo,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'ALEXSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-											
-									
+
+
+
 		// CLIENTE 14
-		
-				def adelamicha = new RsPersona(
-						email : "adelamicha@hotmail.com",
-						apellidoPaterno: "MICHA",
-						apellidoMaterno: "BUSTO",
-						primerNombre: "ADELA",
-						segundoNombre: "ADELINA",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/23/1982'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ADEL727328328",
-						rfc : "ADELQ89778",
-						curp : "ADELQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('ADMIN'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def adelamicha = new RsPersona(
+				email : "adelamicha@hotmail.com",
+				apellidoPaterno: "MICHA",
+				apellidoMaterno: "BUSTO",
+				primerNombre: "ADELA",
+				segundoNombre: "ADELINA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/23/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ADEL727328328",
+				rfc : "ADELQ89778",
+				curp : "ADELQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('ADMIN'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAdela = new RsCliente(persona: adelamicha,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'ADELSDFYUYUI',
+
+		def clienteAdela = new RsCliente(persona: adelamicha,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'ADELSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-											
-									
+
+
+
 		// CLIENTE 15
-		
-				def eduardosalazar = new RsPersona(
-						email : "eduardosalazar@hotmail.com",
-						apellidoPaterno: "SALAZAR",
-						apellidoMaterno: "BUSTO",
-						primerNombre: "EDUARDO",
-						segundoNombre: "LALO",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/23/1982'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ADEL727328328",
-						rfc : "ADELQ89778",
-						curp : "ADELQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('ADMIN'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def eduardosalazar = new RsPersona(
+				email : "eduardosalazar@hotmail.com",
+				apellidoPaterno: "SALAZAR",
+				apellidoMaterno: "BUSTO",
+				primerNombre: "EDUARDO",
+				segundoNombre: "LALO",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/23/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ADEL727328328",
+				rfc : "ADELQ89778",
+				curp : "ADELQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('ADMIN'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteEduardo = new RsCliente(persona: eduardosalazar,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'ADELSDFYUYUI',
+
+		def clienteEduardo = new RsCliente(persona: eduardosalazar,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'EDUSALBUS',
 				).save(flush: true,failOnError: true)
-									
-											
-									
+
+
+
 		// CLIENTE 16
-		
-				def carmenaristegui = new RsPersona(
-						email : "carmenaristegui@gmail.com",
-						apellidoPaterno: "ARISTEGUI",
-						apellidoMaterno: "BUSTO",
-						primerNombre: "CARMEN",
-						segundoNombre: "CARMELA",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('03/27/1982'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "CARM727328328",
-						rfc : "CARMQ89778",
-						curp : "CARMQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def carmenaristegui = new RsPersona(
+				email : "carmenaristegui@gmail.com",
+				apellidoPaterno: "ARISTEGUI",
+				apellidoMaterno: "BUSTO",
+				primerNombre: "CARMEN",
+				segundoNombre: "CARMELA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('03/27/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "CARM727328328",
+				rfc : "CARMQ89778",
+				curp : "CARMQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteCarmen = new RsCliente(persona: carmenaristegui,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'CARMSDFYUYUI',
+
+		def clienteCarmen = new RsCliente(persona: carmenaristegui,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'CARMSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-										
-											
-			// CLIENTE 17
-				
-				def araceliPaz = new RsPersona(
-						email : "arelypaz@hotmail.com",
-						apellidoPaterno: "PAZ",
-						apellidoMaterno: "SALAS",
-						primerNombre: "ARELY",
-						segundoNombre: "ARACELI",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/20/1982'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ARAP727328328",
-						rfc : "ARAPQ89778",
-						curp : "ARAPQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 17
+
+		def araceliPaz = new RsPersona(
+				email : "arelypaz@hotmail.com",
+				apellidoPaterno: "PAZ",
+				apellidoMaterno: "SALAS",
+				primerNombre: "ARELY",
+				segundoNombre: "ARACELI",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/20/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ARAP727328328",
+				rfc : "ARAPQ89778",
+				curp : "ARAPQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAraceli = new RsCliente(persona: araceliPaz,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'ARAPSDFYUYUI',
+
+		def clienteAraceli = new RsCliente(persona: araceliPaz,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'ARAPSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-									
-											
-											
-							// CLIENTE 18
-									
-				def lidyaCacho = new RsPersona(
-						email : "lidya09@hotmail.com",
-						apellidoPaterno: "CACHO",
-						apellidoMaterno: "PASTRANA",
-						primerNombre: "LIDYA",
-						segundoNombre: "LIDYACA",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('06/20/1972'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "LIDY727328328",
-						rfc : "LIDYQ89778",
-						curp : "LIDYQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+
+		// CLIENTE 18
+
+		def lidyaCacho = new RsPersona(
+				email : "lidya09@hotmail.com",
+				apellidoPaterno: "CACHO",
+				apellidoMaterno: "PASTRANA",
+				primerNombre: "LIDYA",
+				segundoNombre: "LIDYACA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('06/20/1972'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "LIDY727328328",
+				rfc : "LIDYQ89778",
+				curp : "LIDYQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteLydiac = new RsCliente(persona: lidyaCacho,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'LIDYSDFYUYUI',
+
+		def clienteLydiac = new RsCliente(persona: lidyaCacho,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'LIDYSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-											
-									
-			// CLIENTE 19
-					
-				def hanniaNovel = new RsPersona(
-						email : "hannia@hotmail.com",
-						apellidoPaterno: "NOVEL",
-						apellidoMaterno: "PEREZ",
-						primerNombre: "HANNIA",
-						segundoNombre: "HANNIAARA",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('09/20/1972'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "HANN727328328",
-						rfc : "HANNQ89778",
-						curp : "HANNQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 19
+
+		def hanniaNovel = new RsPersona(
+				email : "hannia@hotmail.com",
+				apellidoPaterno: "NOVEL",
+				apellidoMaterno: "PEREZ",
+				primerNombre: "HANNIA",
+				segundoNombre: "HANNIAARA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/20/1972'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "HANN727328328",
+				rfc : "HANNQ89778",
+				curp : "HANNQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteHannia = new RsCliente(persona: hanniaNovel,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'HANNSDFYUYUI',
+
+		def clienteHannia = new RsCliente(persona: hanniaNovel,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'HANNSDFYUYUI',
 				).save(flush: true,failOnError: true)
-										
-											
-			// CLIENTE 20
-						
-				def anamariaNovelli = new RsPersona(
-						email : "anama13@gmail.com",
-						apellidoPaterno: "NOVELLI",
-						apellidoMaterno: "ESTRADA",
-						primerNombre: "ANA",
-						segundoNombre: "MARIA",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('03/27/1962'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ANAM727328328",
-						rfc : "ANAMQ89778",
-						curp : "ANAMQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+		// CLIENTE 20
+
+		def anamariaNovelli = new RsPersona(
+				email : "anama13@gmail.com",
+				apellidoPaterno: "NOVELLI",
+				apellidoMaterno: "ESTRADA",
+				primerNombre: "ANA",
+				segundoNombre: "MARIA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('03/27/1962'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ANAM727328328",
+				rfc : "ANAMQ89778",
+				curp : "ANAMQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAnam = new RsCliente(persona: anamariaNovelli,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ANAMSDFYUYUI',
+
+		def clienteAnam = new RsCliente(persona: anamariaNovelli,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ANAMSDFYUYUI',
 				).save(flush: true,failOnError: true)
-									
-							
-							
+
+
+
 		// CLIENTE 21
-				
-				def anaGuevara = new RsPersona(
-					email : "guevara@gmail.com",
-					apellidoPaterno: "GUEVARA",
-					apellidoMaterno: "BUSTOS",
-					primerNombre: "ANA",
-					segundoNombre: "GABRIELA",
-					sexo: "FEMENINO",
-					estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-					fechaNacimiento : new Date('05/27/1982'),
-					identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-					numeroIdentificacionOficial : "ANAG727328328",
-					rfc : "ANAGQ89778",
-					curp : "ANAGQ76878968",
-					escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
-					tiposPersona : [
-							SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-					],
+
+		def anaGuevara = new RsPersona(
+				email : "guevara@gmail.com",
+				apellidoPaterno: "GUEVARA",
+				apellidoMaterno: "BUSTOS",
+				primerNombre: "ANA",
+				segundoNombre: "GABRIELA",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('05/27/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ANAG727328328",
+				rfc : "ANAGQ89778",
+				curp : "ANAGQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADORA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAnag = new RsCliente(persona: anaGuevara,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ANAGSDFYUYUI',
+
+		def clienteAnag = new RsCliente(persona: anaGuevara,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ANAGSDFYUYUI',
 				).save(flush: true,failOnError: true)
-						
-						
-				// CLIENTE 22
-						
-				def estebanArce = new RsPersona(
-						email : "esteban03@gmail.com",
-						apellidoPaterno: "ARCE",
-						apellidoMaterno: "GORDILLO",
-						primerNombre: "ESTEBAN",
-						segundoNombre: "ESTEB",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('05/27/1962'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ESTE727328328",
-						rfc : "ESTEQ89778",
-						curp : "ESTEQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+		// CLIENTE 22
+
+		def estebanArce = new RsPersona(
+				email : "esteban03@gmail.com",
+				apellidoPaterno: "ARCE",
+				apellidoMaterno: "GORDILLO",
+				primerNombre: "ESTEBAN",
+				segundoNombre: "ESTEB",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('05/27/1962'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ESTE727328328",
+				rfc : "ESTEQ89778",
+				curp : "ESTEQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteEsteb = new RsCliente(persona: estebanArce,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ESTBSDFYUYUI',
+
+		def clienteEsteb = new RsCliente(persona: estebanArce,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ESTBSDFYUYUI',
 				).save(flush: true,failOnError: true)
-							
-							
-										
-					
-									
+
+
+
+
+
 		// CLIENTE 23
-		
-				def marianoOsorio = new RsPersona(
-					email : "mariano09@gmail.com",
-					apellidoPaterno: "OSORIO",
-					apellidoMaterno: "ARCE",
-					primerNombre: "MARIANO",
-					segundoNombre: "MAR",
-					sexo: "MASCULINO",
-					estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-					fechaNacimiento : new Date('05/27/1982'),
-					identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-					numeroIdentificacionOficial : "MARI727328328",
-					rfc : "MARIQ89778",
-					curp : "MARIQ76878968",
-					escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-					tiposPersona : [
-							SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-					],
+
+		def marianoOsorio = new RsPersona(
+				email : "mariano09@gmail.com",
+				apellidoPaterno: "OSORIO",
+				apellidoMaterno: "ARCE",
+				primerNombre: "MARIANO",
+				segundoNombre: "MAR",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('05/27/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "MARI727328328",
+				rfc : "MARIQ89778",
+				curp : "MARIQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteMariano = new RsCliente(persona: marianoOsorio,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'MARISDFYUYUI',
+
+		def clienteMariano = new RsCliente(persona: marianoOsorio,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'MARISDFYUYUI',
 				).save(flush: true,failOnError: true)
-		
-				
-				
-				
+
+
+
+
 		// CLIENTE 24
-		
-				def jorgeZarza = new RsPersona(
-						email : "zaeza09@gmail.com",
-						apellidoPaterno: "zarza",
-						apellidoMaterno: "cortes",
-						primerNombre: "jorge",
-						segundoNombre: "jor",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('05/17/1982'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "jorg727328328",
-						rfc : "jorgQ89778",
-						curp : "jorgQ76878968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def jorgeZarza = new RsPersona(
+				email : "zaeza09@gmail.com",
+				apellidoPaterno: "zarza",
+				apellidoMaterno: "cortes",
+				primerNombre: "jorge",
+				segundoNombre: "jor",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('05/17/1982'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "jorg727328328",
+				rfc : "jorgQ89778",
+				curp : "jorgQ76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJorgez = new RsCliente(persona: jorgeZarza,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'jorgSDFYUYUI',
+
+		def clienteJorgez = new RsCliente(persona: jorgeZarza,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'jorgSDFYUYUI',
 				).save(flush: true,failOnError: true)
-						
-						
-						
-			// CLIENTE 25
-			
-				def eugenioderbez = new RsPersona(
-							email : "eugenioder09@gmail.com",
-							apellidoPaterno: "DERBEZ",
-							apellidoMaterno: "ONTERO",
-							primerNombre: "EUGENIO",
-							segundoNombre: "EU",
-							sexo: "MASCULINO",
-							estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-							fechaNacimiento : new Date('06/12/1978'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "EUGE7328328",
-							rfc : "EUGE879778",
-							curp : "EUGE6878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-			
-					def clienteEugenio = new RsCliente(persona:eugenioderbez,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'EUGENIOHUYTG',
-					).save(flush: true,failOnError: true)
-								
-								
-			// CLIENTE 26
-			
-				def omarchaparro = new RsPersona(
-							email : "omarchaparro@gmail.com",
-							apellidoPaterno: "chaparro",
-							apellidoMaterno: "guevara",
-							primerNombre: "omar",
-							segundoNombre: "ramo",
-							sexo: "MASCULINO",
-							estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-							fechaNacimiento : new Date('08/25/1954'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "omarw27328328",
-							rfc : "omarom89778",
-							curp : "omarom6878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-			
-					def clienteOmar = new RsCliente(persona: omarchaparro,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'OMARDFYUYUI',
-					).save(flush: true,failOnError: true)
-										
-										
-									
+
+
+
+		// CLIENTE 25
+
+		def eugenioderbez = new RsPersona(
+				email : "eugenioder09@gmail.com",
+				apellidoPaterno: "DERBEZ",
+				apellidoMaterno: "ONTERO",
+				primerNombre: "EUGENIO",
+				segundoNombre: "EU",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('06/12/1978'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "EUGE7328328",
+				rfc : "EUGE879778",
+				curp : "EUGE6878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteEugenio = new RsCliente(persona:eugenioderbez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'EUGENIOHUYTG',
+				).save(flush: true,failOnError: true)
+
+
+		// CLIENTE 26
+
+		def omarchaparro = new RsPersona(
+				email : "omarchaparro@gmail.com",
+				apellidoPaterno: "chaparro",
+				apellidoMaterno: "guevara",
+				primerNombre: "omar",
+				segundoNombre: "ramo",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('08/25/1954'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "omarw27328328",
+				rfc : "omarom89778",
+				curp : "omarom6878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteOmar = new RsCliente(persona: omarchaparro,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'OMARDFYUYUI',
+				).save(flush: true,failOnError: true)
+
+
+
 		// CLIENTE 27
-			
-				def javierlopez = new RsPersona(
-							email : "javierlopez@gmail.com",
-							apellidoPaterno: "LOPEZ",
-							apellidoMaterno: "CHABELO",
-							primerNombre: "JAVIER",
-							segundoNombre: "CHABE",
-							sexo: "MASCULINO",
-							estadoCivil : "SOLTERO",
-							fechaNacimiento : new Date('03/02/1956'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "CHABE57328328",
-							rfc : "CHABE589778",
-							curp : "CHABE5878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
+
+		def javierlopez = new RsPersona(
+				email : "javierlopez@gmail.com",
+				apellidoPaterno: "LOPEZ",
+				apellidoMaterno: "CHABELO",
+				primerNombre: "JAVIER",
+				segundoNombre: "CHABE",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('03/02/1956'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "CHABE57328328",
+				rfc : "CHABE589778",
+				curp : "CHABE5878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJavierL = new RsCliente(persona: javierlopez,
-						dependencia: EntDependencia.findByClaveDependencia('IMSS'),
-						numeroDeNomina: 'CHABE5FYUYUI',
+
+		def clienteJavierL = new RsCliente(persona: javierlopez,
+				dependencia: EntDependencia.findByClaveDependencia('IMSS'),
+				numeroDeNomina: 'CHABE5FYUYUI',
 				).save(flush: true,failOnError: true)
-												
-												
-			// CLIENTE 28
-			
-				def adrianarodriguez = new RsPersona(
-						email : "adrianarodrigu@gmail.com",
-						apellidoPaterno: "RODRGUEZ",
-						apellidoMaterno: "RODRGUEZ",
-						primerNombre: "ADRIANA",
-						segundoNombre: "ADI",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('06/01/1985'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ADRIANA7328328",
-						rfc : "ADRIANA79778",
-						curp : "ADRIANA778968",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+		// CLIENTE 28
+
+		def adrianarodriguez = new RsPersona(
+				email : "adrianarodrigu@gmail.com",
+				apellidoPaterno: "RODRGUEZ",
+				apellidoMaterno: "RODRGUEZ",
+				primerNombre: "ADRIANA",
+				segundoNombre: "ADI",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('06/01/1985'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ADRIANA7328328",
+				rfc : "ADRIANA79778",
+				curp : "ADRIANA778968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteAdriana = new RsCliente(persona: adrianarodriguez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ADISDFYUYUI',
+
+		def clienteAdriana = new RsCliente(persona: adrianarodriguez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ADISDFYUYUI',
 				).save(flush: true,failOnError: true)
-														
-														
+
+
 		// CLIENTE 29
-			
-				def carlosperez = new RsPersona(
-							email : "carlosperez@gmail.com",
-							apellidoPaterno: "PEREZ",
-							apellidoMaterno: "RUIZ",
-							primerNombre: "CARLOS",
-							segundoNombre: "LEE",
-							sexo: "MASCULINO",
-							estadoCivil : "SOLTERO",
-							fechaNacimiento : new Date('01/25/1987'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "LEE44466",
-							rfc : "LEE44466",
-							curp : "LEE44466",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
+
+		def carlosperez = new RsPersona(
+				email : "carlosperez@gmail.com",
+				apellidoPaterno: "PEREZ",
+				apellidoMaterno: "RUIZ",
+				primerNombre: "CARLOS",
+				segundoNombre: "LEE",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('01/25/1987'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "LEE44466",
+				rfc : "LEE44466",
+				curp : "LEE44466",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteCarlosl = new RsCliente(persona: carlosperez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'LEE41235',
+
+		def clienteCarlosl = new RsCliente(persona: carlosperez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'LEE41235',
 				).save(flush: true,failOnError: true)
-															
-																
-																
-		  // CLIENTE 30
-		
-				def paulinarubio = new RsPersona(
-						email : "paulinarubio@gmail.com",
-						apellidoPaterno: "RUBIO",
-						apellidoMaterno: "RUBIO",
-						primerNombre: "PAULINA",
-						segundoNombre: "PAU",
-						sexo: "FEMENINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('02/30/1967'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "PAU321215",
-						rfc : "PAU3212155TR",
-						curp : "PAU321215UG",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 30
+
+		def paulinarubio = new RsPersona(
+				email : "paulinarubio@gmail.com",
+				apellidoPaterno: "RUBIO",
+				apellidoMaterno: "RUBIO",
+				primerNombre: "PAULINA",
+				segundoNombre: "PAU",
+				sexo: "FEMENINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('02/30/1967'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "PAU321215",
+				rfc : "PAU3212155TR",
+				curp : "PAU321215UG",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clientePaulina = new RsCliente(persona: paulinarubio,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'PAU678990',
+
+		def clientePaulina = new RsCliente(persona: paulinarubio,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'PAU678990',
 				).save(flush: true,failOnError: true)
-			/*															
-																		
-																		
+
+
+
 		// CLIENTE 31
-		
-				def romeosantos = new RsPersona(
-						email : "romeosantos@gmail.com",
-						apellidoPaterno: "SANTOS",
-						apellidoMaterno: "JEREZ",
-						primerNombre: "ROMEO",
-						segundoNombre: "JUAN",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('12/05/1997'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ROMEO328328",
-						rfc : "ROMEO328328YT",
-						curp : "ROMEO328328",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def romeosantos = new RsPersona(
+				email : "romeosantos@gmail.com",
+				apellidoPaterno: "SANTOS",
+				apellidoMaterno: "JEREZ",
+				primerNombre: "ROMEO",
+				segundoNombre: "JUAN",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('12/05/1997'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ROMEO328328",
+				rfc : "ROMEO328328YT",
+				curp : "ROMEO328328",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteRomeo = new RsCliente(persona: romeosantos,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ROMEO342',
+
+		def clienteRomeo = new RsCliente(persona: romeosantos,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ROMEO342',
 				).save(flush: true,failOnError: true)
-																				
-																				
-																				
-		  // CLIENTE 32
-		
-				def henrisanchez = new RsPersona(
-						email : "henrisanchez@gmail.com",
-						apellidoPaterno: "SANCHEZ",
-						apellidoMaterno: "ROJAS",
-						primerNombre: "HENRI",
-						segundoNombre: "HERNAN",
-						sexo: "MASCULINO",
-						estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-						fechaNacimiento : new Date('02/28/1973'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "HENRI123457",
-						rfc : "HENRI123457",
-						curp : "HENRI123457",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 32
+
+		def henrisanchez = new RsPersona(
+				email : "henrisanchez@gmail.com",
+				apellidoPaterno: "SANCHEZ",
+				apellidoMaterno: "ROJAS",
+				primerNombre: "HENRI",
+				segundoNombre: "HERNAN",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('02/28/1973'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "HENRI123457",
+				rfc : "HENRI123457",
+				curp : "HENRI123457",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteHenri = new RsCliente(persona: henrisanchez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'HNERI462',
+
+		def clienteHenri = new RsCliente(persona: henrisanchez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'HNERI462',
 				).save(flush: true,failOnError: true)
-																						
-																						
-																						
+
+
+
 		// CLIENTE 33
-		
-				def luissolis = new RsPersona(
-						email : "luissolis@gmail.com",
-						apellidoPaterno: "SOLIS",
-						apellidoMaterno: "SOLAR",
-						primerNombre: "LUIS",
-						segundoNombre: "RYAN",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('18/09/1956'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "RYAN4567828",
-						rfc : "RYAN4567828",
-						curp : "RYAN4567828",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def luissolis = new RsPersona(
+				email : "luissolis@gmail.com",
+				apellidoPaterno: "SOLIS",
+				apellidoMaterno: "SOLAR",
+				primerNombre: "LUIS",
+				segundoNombre: "RYAN",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('18/09/1956'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "RYAN4567828",
+				rfc : "RYAN4567828",
+				curp : "RYAN4567828",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteLuisR = new RsCliente(persona: luissolis,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'LUI456',
+
+		def clienteLuisR = new RsCliente(persona: luissolis,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'LUI456',
 				).save(flush: true,failOnError: true)
-																								
-																								
-																								
+
+
+
 		// CLIENTE 34
-		
-				def elsaruiz = new RsPersona(
-						email : "elsaruizs@gmail.com",
-						apellidoPaterno: "RUIZ",
-						apellidoMaterno: "RIOS",
-						primerNombre: "ELSA",
-						segundoNombre: "ISABEL",
-						sexo: "FEMENINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('07/03/1943'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "ELSA789328",
-						rfc : "ELSA789328",
-						curp : "ELSA789328",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+		def elsaruiz = new RsPersona(
+				email : "elsaruizs@gmail.com",
+				apellidoPaterno: "RUIZ",
+				apellidoMaterno: "RIOS",
+				primerNombre: "ELSA",
+				segundoNombre: "ISABEL",
+				sexo: "FEMENINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('07/03/1943'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "ELSA789328",
+				rfc : "ELSA789328",
+				curp : "ELSA789328",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteElsa = new RsCliente(persona: elsaruiz,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'ELSA543',
+
+		def clienteElsa = new RsCliente(persona: elsaruiz,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'ELSA543',
 				).save(flush: true,failOnError: true)
-																										
-																										
-																										
-			// CLIENTE 35
-		
-				def guillermoochoal = new RsPersona(
-							email : "memo@gmail.com",
-							apellidoPaterno: "OCHOA",
-							apellidoMaterno: "SALAZ",
-							primerNombre: "GUILLERMO",
-							segundoNombre: "PACO",
-							sexo: "MASCULINO",
-							estadoCivil : "SOLTERO",
-							fechaNacimiento : new Date('18/09/1986'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "PACO4567828",
-							rfc : "PACO4567828",
-							curp : "PACO4567828",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					).save(flush: true,failOnError: true)
-		
-					def clienteGuillermoo = new RsCliente(persona: guillermoochoal,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'PACO456',
-					).save(flush: true,failOnError: true)
-																										
-																									
-			// CLIENTE 36
-																												
-				def rafaelMarquez = new RsPersona(
-						email : "rmarquez@gmail.com",
-						apellidoPaterno: "MARQUEZ",
-						apellidoMaterno: "ROSAS",
-						primerNombre: "RAFAEL",
-						segundoNombre: "RAFA",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('07/03/1943'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "RAFA789328",
-						rfc : "RAFA789328",
-						curp : "RAFA789328",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 35
+
+		def guillermoochoal = new RsPersona(
+				email : "memo@gmail.com",
+				apellidoPaterno: "OCHOA",
+				apellidoMaterno: "SALAZ",
+				primerNombre: "GUILLERMO",
+				segundoNombre: "PACO",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('18/09/1986'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "PACO4567828",
+				rfc : "PACO4567828",
+				curp : "PACO4567828",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteRafam = new RsCliente(persona: rafaelMarquez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'RAFA543',
+
+		def clienteGuillermoo = new RsCliente(persona: guillermoochoal,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'PACO456',
 				).save(flush: true,failOnError: true)
-																											
-																											
-																											
-		  // CLIENTE 37
-					
-				def gerardoTorrado = new RsPersona(
-						email : "gerardo4@gmail.com",
-						apellidoPaterno: "TORRADO",
-						apellidoMaterno: "PASTRANA",
-						primerNombre: "GERARDO",
-						segundoNombre: "BORREGO",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('18/09/1976'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "GERA4567828",
-						rfc : "GERA4567828",
-						curp : "GERA4567828",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+		// CLIENTE 36
+
+		def rafaelMarquez = new RsPersona(
+				email : "rmarquez@gmail.com",
+				apellidoPaterno: "MARQUEZ",
+				apellidoMaterno: "ROSAS",
+				primerNombre: "RAFAEL",
+				segundoNombre: "RAFA",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('07/03/1943'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "RAFA789328",
+				rfc : "RAFA789328",
+				curp : "RAFA789328",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteGerardot = new RsCliente(persona: gerardoTorrado,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'GERA456',
+
+		def clienteRafam = new RsCliente(persona: rafaelMarquez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'RAFA543',
 				).save(flush: true,failOnError: true)
-																											
-																										
-																										
-			// CLIENTE 38
-					
-				def juanDiaz = new RsPersona(
-						email : "juand@gmail.com",
-						apellidoPaterno: "DIAZ",
-						apellidoMaterno: "TORRES",
-						primerNombre: "JUAN",
-						segundoNombre: "JUANGA",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('18/09/1986'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "JUAN4567828",
-						rfc : "JUAN4567828",
-						curp : "JUAN4567828",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
+
+
+
+		// CLIENTE 37
+
+		def gerardoTorrado = new RsPersona(
+				email : "gerardo4@gmail.com",
+				apellidoPaterno: "TORRADO",
+				apellidoMaterno: "PASTRANA",
+				primerNombre: "GERARDO",
+				segundoNombre: "BORREGO",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('18/09/1976'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "GERA4567828",
+				rfc : "GERA4567828",
+				curp : "GERA4567828",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
 				).save(flush: true,failOnError: true)
-		
-				def clienteJuang = new RsCliente(persona: juanDiaz,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'JUAN456',
+
+		def clienteGerardot = new RsCliente(persona: gerardoTorrado,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'GERA456',
 				).save(flush: true,failOnError: true)
-				
-				// CLIENTE 39
-				
-					 def carlosPerez = new RsPersona(
-							email : "carpe@gmail.com",
-							apellidoPaterno: "PEREZ",
-							apellidoMaterno: "ROSALES",
-							primerNombre: "CARLOS",
-							segundoNombre: "CARPE",
-							sexo: "MASCULINO",
-							estadoCivil : "CASADO - BIENES MANCOMUNADOS",
-							fechaNacimiento : new Date('06/12/1980'),
-							identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-							numeroIdentificacionOficial : "CARP7328328",
-							rfc : "CARP879778",
-							curp : "CARP6878968",
-							escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
-							tiposPersona : [
-									SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-							],
-					)save(flush: true,failOnError: true)
-				
-					def clienteCarlo = new RsCliente(persona:carlosPerez,
-							dependencia: EntDependencia.findByClaveDependencia('CFE'),
-							numeroDeNomina: 'CARPNIOHUYTG',
-					)save(flush: true,failOnError: true)
-					
-					
-					// CLIENTE 40
-					
-				def cristianBenitez = new RsPersona(
-						email : "cristianbenitez@gmail.com",
-						apellidoPaterno: "BENITES",
-						apellidoMaterno: "SALCEDO",
-						primerNombre: "CRISTIAN",
-						segundoNombre: "CHUCHO",
-						sexo: "MASCULINO",
-						estadoCivil : "SOLTERO",
-						fechaNacimiento : new Date('10/09/1976'),
-						identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
-						numeroIdentificacionOficial : "CRIS4567828",
-						rfc : "CRIS4567828",
-						curp : "CRIS4567828",
-						escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
-						tiposPersona : [
-								SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
-						],
-				)save(flush: true,failOnError: true)
-				
-				def clienteCristianb = new RsCliente(persona: cristianBenitez,
-						dependencia: EntDependencia.findByClaveDependencia('CFE'),
-						numeroDeNomina: 'CRIS456',
-				)save(flush: true,failOnError: true)
-																											
-																										
-																										
+
+
+
+		// CLIENTE 38
+
+		def juanDiaz = new RsPersona(
+				email : "juand@gmail.com",
+				apellidoPaterno: "DIAZ",
+				apellidoMaterno: "TORRES",
+				primerNombre: "JUAN",
+				segundoNombre: "JUANGA",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('18/09/1986'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "JUAN4567828",
+				rfc : "JUAN4567828",
+				curp : "JUAN4567828",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteJuang = new RsCliente(persona: juanDiaz,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'JUAN456',
+				).save(flush: true,failOnError: true)
+
+		// CLIENTE 39
+
+		def carlosPerez = new RsPersona(
+				email : "carpe@gmail.com",
+				apellidoPaterno: "PEREZ",
+				apellidoMaterno: "ROSALES",
+				primerNombre: "CARLOS",
+				segundoNombre: "CARPE",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('06/12/1980'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "CARP7328328",
+				rfc : "CARP879778",
+				curp : "CARP6878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('CONTADOR'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteCarlo = new RsCliente(persona:carlosPerez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'CARPNIOHUYTG',
+				).save(flush: true,failOnError: true)
+
+
+		// CLIENTE 40
+
+		def cristianBenitez = new RsPersona(
+				email : "cristianbenitez@gmail.com",
+				apellidoPaterno: "BENITES",
+				apellidoMaterno: "SALCEDO",
+				primerNombre: "CRISTIAN",
+				segundoNombre: "CHUCHO",
+				sexo: "MASCULINO",
+				estadoCivil : "SOLTERO",
+				fechaNacimiento : new Date('10/09/1976'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('IFE'),
+				numeroIdentificacionOficial : "CRIS4567828",
+				rfc : "CRIS4567828",
+				curp : "CRIS4567828",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('LICENCIATURA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(flush: true,failOnError: true)
+
+		def clienteCristianb = new RsCliente(persona: cristianBenitez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'CRIS456',
+				).save(flush: true,failOnError: true)
+
+
+		/*																											
 				// CLIENTE 41
 					
 					def laloMolina = new RsPersona(

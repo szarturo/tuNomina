@@ -384,5 +384,12 @@ class PrestamoController {
         }
     }
 
+    def altaPrestamo = {
+        def datosIntroducidos
+        datosIntroducidos = prestamoService.altaPrestamos()
+        log.info("Los prestamos de dieron de alta correctamente: " + datosIntroducidos)
+        redirect(action: "list")
+    }
+
 	
 }

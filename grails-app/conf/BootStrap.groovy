@@ -805,10 +805,9 @@ class BootStrap {
                 nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
         ).save(failOnError: true)
 
-        new EntDependencia(claveDependencia: 'CFE',
-                nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
-        ).save(failOnError: true)
-
+        def dependenciaCfe  = new EntDependencia(claveDependencia: 'CFE',
+				nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
+				).save(failOnError: true)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE
         def robertoPerez = new RsPersona(
@@ -949,7 +948,21 @@ class BootStrap {
                 iva : 16,
         ).save(failOnError: true)
 
+        def promocionDos = new ProPromocion(
+				clavePromocion : "PROMOCHIDO",
+				nombrePromocion : "PROMOCION LO MAS CHIDO",
+				tasaDeInteres:  4.5,
+				metodoCalculo : SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'),
+				periodicidadTasa: SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				numeroDePagos:  24,
+				periodicidadPagos: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
+				fechaInicioVigencia : new Date('04/30/2012'),
+				fechaFinVigencia  : new Date('09/30/2013'),
+				iva : 16,
+				).save(failOnError: true)
+
         dependenciaImss.addToPromocion(promocionUno).save()
+        dependenciaCfe.addToPromocion(promocionDos).save()
 
         new SimCatFormaEntrega(claveFormaEntrega: 'VENBANCO',
                 nombreFormaEntrega: 'ENTREGA EN VENTANILLA DE BANCO',
@@ -1530,6 +1543,8 @@ class BootStrap {
         //GENERA LAS LISTAS DE COBRO
         listaCobroService.crearListasCobro(dependenciaImss,2013,periodicidadQuincena)
         listaCobroService.crearListasCobro(dependenciaImss,2014,periodicidadQuincena)
+        listaCobroService.crearListasCobro(dependenciaCfe,2013,periodicidadQuincena)
+		listaCobroService.crearListasCobro(dependenciaCfe,2014,periodicidadQuincena)
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext
