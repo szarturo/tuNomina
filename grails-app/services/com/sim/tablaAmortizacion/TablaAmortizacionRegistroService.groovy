@@ -49,6 +49,9 @@ class TablaAmortizacionRegistroService {
 			throw new TablaAmortizacionServiceException(mensaje: "No se especifico la Fecha de Cobro")
 		}
 
+		//INCREMENTA LA FECHA DE COBRO EN LOS DIAS DE LA PERIODICIDAD
+		fechaCobro = fechaCobro + prestamoInstance.promocion.periodicidadPagos.numeroDias
+
 		//SE OBTIENE LA LISTA DE COBRO QUE SE ASIGNA A LA AMORTIZACION UNO
 		ListaCobro primerPago = obtenerListaCobroPrimerPago(fechaCobro,prestamoInstance.dependencia)
 
