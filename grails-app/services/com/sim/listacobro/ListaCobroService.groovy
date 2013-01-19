@@ -149,12 +149,15 @@ class ListaCobroService {
             }
         }
 
+        ArrayList amortizacionesListaCobro = listaCobro.amortizaciones
         //SE ELIMINAN LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
-        listaCobro.amortizaciones.each() {
-            listaCobro.removeFromAmortizaciones(it)
+        amortizacionesListaCobro.each() {
+            it.listaCobro = null
         }
+
+        ArrayList detallesListaCobro = listaCobro.detalles
         //SE ELIMINAN LOS DETALLES DE LA LISTA DE COBRO ACTUAL
-        listaCobro.detalles.each() {
+        detallesListaCobro.each() {
             listaCobro.removeFromDetalles(it)   
         }
 

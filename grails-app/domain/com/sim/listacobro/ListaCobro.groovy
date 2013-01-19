@@ -22,7 +22,6 @@ class ListaCobro implements Comparable {
     static belongsTo = [dependencia:EntDependencia]
 
     static mapping = {
-        amortizaciones cascade: "all-delete-orphan"
         detalles cascade: "all-delete-orphan"
      }    
 
