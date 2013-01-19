@@ -11,6 +11,7 @@ import com.sim.entidad.*
 import com.sim.empresa.EmpEmpleado
 import com.sim.producto.ProPromocion
 import com.sim.cliente.RsCliente
+import com.sim.pfin.PfinCatConcepto
 
 class PrestamoService {
 
@@ -193,10 +194,43 @@ class PrestamoService {
 				reenviarSolicitud:     false,
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/16/2013'),
-				).save(failOnError: true)
+				).save()
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoUno)
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+				valor			:	'1',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	prestamoUno
+				).save()
+        
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
+				prestamo		: 	prestamoUno
+				).save()
 
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
+				prestamo		: 	prestamoUno
+				).save()
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
+				prestamo		: 	prestamoUno
+				).save()
+
+		//tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoUno)		
+
+/*
 		Prestamo prestamoDos = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CSALSDFYUYUI'),
 				correoSolicitante:     "carsalcido@gmail.com",
@@ -1136,7 +1170,7 @@ class PrestamoService {
 				).save(failOnError: true)
 
 		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoCuarenta)
-
+*/
 		return true
 
 	}
