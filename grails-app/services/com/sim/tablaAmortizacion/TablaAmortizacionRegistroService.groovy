@@ -14,6 +14,7 @@ import com.sim.pfin.SituacionPremovimiento
 import com.sim.pfin.PfinCatParametro
 import com.sim.pfin.PfinCatConcepto
 import com.sim.pfin.PrelacionPagoConcepto
+import com.sim.pfin.PfinCuenta
 
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
@@ -83,6 +84,19 @@ class TablaAmortizacionRegistroService {
 				}
 			}
 		}
+
+		//VALIDA SI EXISTE LA CUENTA EJE DEL CLIENTE
+		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoInstance.cliente)
+		if (!cuentaCliente){
+			//SE CREA LA CUENTA EJE DEL CLIENTE
+			cuentaCliente = new PfinCuenta(tipoCuenta:  'EJE',
+				situacion: 'ACTIVO',
+				cliente: prestamoInstance.cliente,
+			).save()
+		}
+		if (!cuentaCliente){
+			throw new TablaAmortizacionServiceException(mensaje: "No se pudo generar la cuenta Eje del Cliente")	
+		}
 		
 		//SI NO EXISTEN MOVIMIENTOS CON CLAVE OPERACION IGUAL A CRPAGOPRES Y QUE NO ESTEN CANCELADOS, SE CREA LA TABLA DE AMORTIZACION
 		if (pagoCredito == 0) {
@@ -127,11 +141,26 @@ class TablaAmortizacionRegistroService {
 			
 			//AHORA ASIGNAMOS LA FECHA DE COBRO COMO LA FECHA PARA LA AMORTIZACION UNO
 			fechaPago = fechaCobro
-			
+
+			Integer accesoriosPromocion = 0
+			Integer accesoriosPrestamo = 0
+
+			//SE RESTAN 2 A LA PROMOCION YA QUE NO SE CONTEMPLA EL IVA Y SU INTERES
+			accesoriosPromocion = prestamoInstance?.promocion?.proPromocionAccesorio?.size() - 2
+			accesoriosPrestamo = prestamoInstance?.prestamoAccesorio?.size()
+
+			log.info ("PrestamoAccesorios: ${accesoriosPrestamo}")
+			log.info ("PromocionAccesorio: ${accesoriosPromocion}")
+
+			//VALIDA QUE LA LISTA DE ACCESORIOS SEA IGUAL A LA LISTA DE ACCESORIOS DE LA PROMOCION
+			if (accesoriosPromocion!=accesoriosPrestamo){
+				throw new TablaAmortizacionServiceException(mensaje: "No se han definido los accesorios del prestamo que se indicaron en la promoción")	
+			}
+
 			//SE VA A OBTENER LOS ACCESORIOS QUE APLIQUEN COMO CARGO INICIAL
 			//RECUPERA LOS ACCESORIOS DEL PRESTAMO
 			ArrayList listaAccesorios	= prestamoInstance.prestamoAccesorio
-			
+
 			//VERFICA SI EXISTEN ACCESORIOS QUE DEBEN SER CARGOS INICIALES
 			listaAccesorios.each() {
 

@@ -270,12 +270,19 @@ class PrestamoController {
 			tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoInstance)
 		//VERIFICAR SI SE GENERO ALGUN ERROR
 		}catch(TablaAmortizacionServiceException errorGeneraTablaAmor){
-			prestamoInstance.errors.reject("ErrorGeneraTablaAmor",errorGeneraTablaAmor.mensaje)
+			//prestamoInstance.errors.reject("ErrorGeneraTablaAmor",errorGeneraTablaAmor.mensaje)
 			log.error "Failed:", errorGeneraTablaAmor
+            flash.message = message(code: errorGeneraTablaAmor.mensaje, args: [])
 			//AL APLICAR LA FUNCIONALIDAD REAL HAY QUE MOSTRAR EL MENSAJE
 			redirect(action: "show", params: [id: params.idPrestamo])
 			return
-		}
+		}catch(Exception errorTablaAmortizacion){
+            //prestamoInstance.errors.reject("errorAplicaPago","No se aplico el Pago. Contacte al Administrador")
+            log.error "Failed:", errorTablaAmortizacion
+            flash.message = message(code: "No se genero la tabla de Amortizacion. Contacte al Administrador", args: [])
+            redirect(action: "show", params: [id: params.idPrestamo])
+            return            
+        }
 		
 		redirect(controller: "tablaAmortizacionRegistro", action: "list", params: [idPrestamo: params.idPrestamo])
 		
