@@ -419,7 +419,7 @@ class PagoService {
 
 			//VALIDA QUE SI EXISTA LA CANTIDAD A PAGAR
 			if (!it.cantidadPagar){
-				throw new PagoServiceException(mensaje: "Verifique que los accesorios correspondan a los definidos en la promoción", prestamoPagoInstance:prestamoPago)		
+				throw new PagoServiceException(mensaje: "Verifique que los accesorios correspondan a los definidos en la promoción y que tengan importes", prestamoPagoInstance:prestamoPago)		
 			}
 
 			//VERIFICA SI EXISTE SALDO PARA PAGAR EL CONCEPTO CORRESPONDIENTE
