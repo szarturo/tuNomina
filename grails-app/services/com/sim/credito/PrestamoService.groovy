@@ -173,6 +173,24 @@ class PrestamoService {
 		return "${documento.nombreArchivo} : ${respuesta}"
     }
 
+    Boolean generarAccesoriosPrestamo(Prestamo prestamo){
+    	ProPromocion promocion = prestamo.promocion
+    	ArrayList accesoriosPromocion = promocion.proPromocionAccesorio
+    	accesoriosPromocion.each{
+    		//VALIDA QUE EL ACCESORIO NO SEA INTERES E IVA DE INTERES
+    		if (it.accesorio !=
+    			SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')) 
+    			&& it.accesorio !=
+    			SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('IVAINT'))){
+				def prestamoAccesorio = new PrestamoAccesorio(
+					accesorio		:	it.accesorio,
+					valor			:	0,
+					prestamo		: 	prestamo,
+				).save()
+			}
+    	}
+    }
+
     Boolean altaPrestamos () {
 		Prestamo prestamoUno = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('JCHSDFYUYUI'),

@@ -63,6 +63,9 @@ class PrestamoController {
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
 			params.id = prestamoInstance.id
+            //SE GENERAN LOS ACCESORIOS A PARTIR DE LA PROMOCION DEFINIDA
+            Boolean accesoriosCreados = prestamoService.generarAccesoriosPrestamo(prestamoInstance)
+            log.info ("Resultado accesorios creados: ${accesoriosCreados}")
 			if (params.complete) {
 				//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
 				//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO

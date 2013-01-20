@@ -16,9 +16,9 @@ class PrestamoAccesorio {
 
     static constraints = {
 		accesorio()
-		valor(nullable:false)
-		unidad()
-		periodicidad()
+		valor()
+		unidad(nullable:true)
+		periodicidad(nullable:true)
     }
 	
 	String toString() {
