@@ -62,24 +62,24 @@ class PrestamoController {
 		}
         if (prestamoInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'prestamo.label', default: 'Prestamo'), prestamoInstance.id])}"
-			      params.id = prestamoInstance.id
-						if (params.complete) {
-							//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
-							//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
-							params.remove("dependencia")
-							params.remove("promocion")
-							params.remove("sucursal")
-							params.remove("delegacion")
-							params.remove("vendedor")
-							params.remove("estatusSolicitud")
-							params.remove("formaDeDispercion")
-							params.remove("cliente")
-                            params.remove("tipoEmpleadoDep")
-							completeTask(params)
-						} else {
-							params.action="show"
-							saveTask(params)
-						}
+			params.id = prestamoInstance.id
+			if (params.complete) {
+				//LOS SIGUIENTES PARAMETROS CAUSABAN PROBLEMAS CON ACTIVITI
+				//SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
+				params.remove("dependencia")
+				params.remove("promocion")
+				params.remove("sucursal")
+				params.remove("delegacion")
+				params.remove("vendedor")
+				params.remove("estatusSolicitud")
+				params.remove("formaDeDispercion")
+				params.remove("cliente")
+                params.remove("tipoEmpleadoDep")
+				completeTask(params)
+			} else {
+				params.action="show"
+				saveTask(params)
+			}
             redirect(action: "show", params: params)
         }
         else {
