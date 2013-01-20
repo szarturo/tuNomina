@@ -171,6 +171,12 @@ class TablaAmortizacionRegistroService {
 				if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'))) {
 					cargoInicial = cargoInicial + valorAccesorio
 				}
+
+				//SE VALIDA QUE EL ACCESORIO DEL PRESTAMO TENGA IMPORTE
+				if (valorAccesorio <= 0){
+					throw new TablaAmortizacionServiceException(mensaje: "No se definio importe para el accesorio: ${it.accesorio} ")	
+				}
+
 			}
 			
 			//ASIGNA EL CARGO INICIAL CALCULADO A LA VARIALBLE capitalTotal PARA LOS CALCULOS POSTERIORES
