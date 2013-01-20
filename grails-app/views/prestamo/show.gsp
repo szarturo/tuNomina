@@ -213,8 +213,22 @@
 	                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "explicacionDevolucion")}</td>
 	                        </tr>
 	
-						</g:if>                        
+						</g:if>      
+
+                <g:if test="${prestamoInstance?.prestamoAccesorio}">
+                <tr class="fieldcontain">
+    
+                    <td valign="top" class="name"><g:message code="prestamo.prestamoAccesorio.label" default="Accesorios del Prestamo" /></td>
+                    
+                    <td valign="top" class="value">
+                        <g:each in="${prestamoInstance.prestamoAccesorio}" var="t">
                         
+                        <g:link controller="prestamoAccesorio" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link> - 
+                        
+                        </g:each>
+                    </td>
+                </tr>
+                </g:if>
                     
                     </tbody>
                 </table>
