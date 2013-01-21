@@ -2,10 +2,11 @@ package com.sim.publicacion
 
 class PublicacionLoteController {
 
+	def publicacionLoteService
+
     def scaffold = true
 
     def publicarLote() {
-        log.info "Paso publicarLote"
-        redirect(action: "list", params: params)
+        def resultado = publicacionLoteService.publicar()
     }    
 }
