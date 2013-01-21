@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ListaCobroDetalleController {
 
+    def filterPaneService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -99,4 +101,13 @@ class ListaCobroDetalleController {
             redirect(action: "show", id: id)
         }
     }
+
+    def filter = {
+        if(!params.max) params.max = 10
+        render( view:'list', 
+            model:[ listaCobroDetalleInstanceList: filterPaneService.filter( params, ListaCobroDetalle ), 
+                listaCobroDetalleCount: filterPaneService.count( params, ListaCobroDetalle ), 
+                filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
+                params:params ] )
+    }    
 }
