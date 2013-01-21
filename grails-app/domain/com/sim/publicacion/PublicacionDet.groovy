@@ -1,4 +1,5 @@
 package com.sim.publicacion
+
 import com.sim.listacobro.ListaCobroDetalle
 
 class PublicacionDet {
@@ -19,6 +20,8 @@ class PublicacionDet {
 	String fechaPagoDia		
 	String fechaPagoAnio	
 	ListaCobroDetalle listaCobroDetalle	
+
+	static belongsTo = [publicacionLote: PublicacionLote]
 
     static constraints = {
     	usuario size:1..10

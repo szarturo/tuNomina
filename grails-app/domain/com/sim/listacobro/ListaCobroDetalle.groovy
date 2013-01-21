@@ -5,7 +5,6 @@ import com.sim.credito.PrestamoPago
 import com.sim.catalogo.SimCatTipoEmp
 import com.sim.usuario.Usuario
 import com.sim.publicacion.PublicacionDet
-import com.sim.publicacion.PublicacionLote
 
 class ListaCobroDetalle {
 
@@ -15,14 +14,12 @@ class ListaCobroDetalle {
     SimCatTipoEmp  tipoEmpleadoDep
     Usuario usuario
 
-	static belongsTo = [listaCobro: ListaCobro,
-        publicacionLote: PublicacionLote]
+	static belongsTo = [listaCobro: ListaCobro]
     static hasOne = [publicacionDet: PublicacionDet]
 
     static constraints = {
     	estatus nullable:false
     	listaCobro nullable:false
-        publicacionLote nullable:true
     	amortizacion nullable:false
     	pago nullable:true
         tipoEmpleadoDep nullable:true
