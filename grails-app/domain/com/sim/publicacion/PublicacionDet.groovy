@@ -6,7 +6,7 @@ class PublicacionDet {
 
 	String usuario		
 	String password		
-	Integer id	
+	Integer idCr	
 	String numeroCliente		
 	String numeroOperacion		
 	String claveCia		
@@ -26,9 +26,7 @@ class PublicacionDet {
     static constraints = {
     	usuario size:1..10
 		password size:1..10
-		id( validator: {
-  			return it > 0 &&  (it.toString.length) <= 4
-		})
+		idCr()
 		numeroCliente size:1..15
 		numeroOperacion size:1..26
 		claveCia size:1..5
@@ -43,4 +41,9 @@ class PublicacionDet {
 		fechaPagoAnio size:1..4
 		listaCobroDetalle unique:true
     }
+
+	String toString() {
+		"Numero Cliente: ${numeroCliente} - Pago ${importePago}"
+	}    
+
 }

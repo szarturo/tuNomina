@@ -18,4 +18,8 @@ class PublicacionLote {
     	fechaRegistro()
     	publicacionDet()
     }
+
+	String toString() {
+		"Lote: ${id} - Fecha: ${fechaRegistro}"
+	}       
 }
