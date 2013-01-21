@@ -21,7 +21,7 @@
 				additionalProperties="identifier"
                 associatedProperties="dependencia.claveDependencia,dependencia.nombreDependencia"
                 excludeProperties=""
-                filterPropertyValues="${[fechaInicio:[years:2012..2015,precision:'day'], fechaFin:[years:2012..2015,precision:'day']]}"
+                filterPropertyValues="${[fechaInicio:[years:2013..2015,precision:'day'], fechaFin:[years:2013..2015,precision:'day']]}"
 			/>
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
