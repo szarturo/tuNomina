@@ -335,6 +335,9 @@
 								<li><g:link controller="listaCobroProceso">
 									<span>Lista Cobro Procesos</span>
 								</g:link></li>			
+								<li><g:link controller="listaCobroDetalle">
+									<span>Lista Cobro Detalles</span>
+								</g:link></li>											
 								</ul>
 							</div>
 						</li>
