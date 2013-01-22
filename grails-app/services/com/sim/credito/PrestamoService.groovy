@@ -1,10 +1,10 @@
 package com.sim.credito
 
-import mx.com.creditoreal.ws.client.Client;
-import mx.com.creditoreal.ws.dto.Adicional;
-import mx.com.creditoreal.ws.dto.Solicitud;
-import mx.com.creditoreal.ws.dto.SolicitudDecididasDia;
-import mx.com.creditoreal.ws.exception.ClientException;
+import mx.com.creditoreal.ws.client.Client
+import mx.com.creditoreal.ws.dto.Adicional
+import mx.com.creditoreal.ws.dto.Solicitud
+import mx.com.creditoreal.ws.dto.SolicitudDecididasDia
+import mx.com.creditoreal.ws.exception.ClientException
 
 //Clases importadas para el metodo: altaPrestamos
 import com.sim.catalogo.*
@@ -193,21 +193,21 @@ class PrestamoService {
 		} 
 		String fecha = "$anio$mes$dia"
 		log.info("Fecha: ${fecha}")
-/*
+
 		try {
-			Client cliente = new Client(true);
+			Client cliente = new Client(true)
 
 			List<SolicitudDecididasDia> solicitudes = 
-				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password);
+				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password)
 			for(SolicitudDecididasDia solicitud : solicitudes){
-				System.out.println(solicitud.getNombre());
+				log.info "Exito: ${solicitud.nombre}"
 			}		
 
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace()
 		}
-*/
+
 
     }
 
