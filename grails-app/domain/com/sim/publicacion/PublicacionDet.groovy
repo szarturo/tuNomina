@@ -20,6 +20,7 @@ class PublicacionDet {
 	String fechaPagoDia		
 	String fechaPagoAnio	
 	ListaCobroDetalle listaCobroDetalle	
+	String respuestaCr
 
 	static belongsTo = [publicacionLote: PublicacionLote]
 
@@ -40,6 +41,7 @@ class PublicacionDet {
 		fechaPagoDia size:1..2
 		fechaPagoAnio size:1..4
 		listaCobroDetalle unique:true
+		respuestaCr nullable:true
     }
 
 	String toString() {
