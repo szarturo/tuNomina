@@ -11,8 +11,8 @@ class PrestamoCrRespuesta {
 	String claveDistribuidor	
 	String claveTienda	
 	String nombreSucursal	
-	String fechaRecepcion
-	String fechaRespuesta
+	Date fechaRecepcion
+	Date fechaRespuesta
 	BigDecimal montoSolicitado
 	BigDecimal montoAutorizado
 	String estatus	
@@ -25,23 +25,23 @@ class PrestamoCrRespuesta {
 	Prestamo prestamo
 
     static constraints = {
-		 consecutivo()
-		 folio()	
-		 referencia()
-		 claveDistribuidor()
-		 claveTienda()
-		 nombreSucursal()
-		 fechaRecepcion()
-		 fechaRespuesta()
-		 montoSolicitado()
-		 montoAutorizado()
-		 estatus()	
-		 motivo()	
-		 nombre()	
-		 vendedor()
-		 promocion()	
-		 observaciones()
-		 numeroCliente()	
+		 consecutivo nullable:true
+		 folio ()	
+		 referencia nullable:true
+		 claveDistribuidor nullable:true
+		 claveTienda nullable:true
+		 nombreSucursal nullable:true
+		 fechaRecepcion nullable:true
+		 fechaRespuesta nullable:true
+		 montoSolicitado nullable:true
+		 montoAutorizado nullable:true
+		 estatus nullable:true	
+		 motivo nullable:true	
+		 nombre nullable:true	
+		 vendedor nullable:true
+		 promocion nullable:true	
+		 observaciones nullable:true
+		 numeroCliente nullable:true	
 		 prestamo()    	
     }
 

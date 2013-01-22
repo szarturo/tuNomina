@@ -202,8 +202,32 @@ class PrestamoService {
 			for(SolicitudDecididasDia solicitud : solicitudes){
 				log.info "Nombre Solicitud: ${solicitud.nombre}"
 				Integer folioSolicitud = solicitud.folio.toInteger()
+				//LINEA TEMPORAL
+				folioSolicitud = 34534
 				log.info "Folio Solicitud: ${folioSolicitud}"
+				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+				log.info "Prestamo: ${prestamo}"
 
+				new PrestamoCrRespuesta(
+					 consecutivo : 		solicitud.consecutivo,
+					 folio : 			solicitud.folio,
+					 referencia : 		solicitud.referencia,
+					 claveDistribuidor: solicitud.clavedistribuidor,
+					 claveTienda : 		solicitud.clavetienda,	
+					 nombreSucursal : 	solicitud.nombreSucursal,
+					 fechaRecepcion : 	solicitud.fechaFinCaptura,
+					 fechaRespuesta : 	solicitud.fechaRespuesta,
+					 montoSolicitado : 	solicitud.montoSolicitado,
+					 montoAutorizado : 	solicitud.montoAutorizado,
+					 estatus : 			solicitud.status,
+					 motivo	: 			solicitud.motivo,
+					 nombre : 			solicitud.nombre,
+					 vendedor : 		solicitud.vendedor,
+					 promocion : 		solicitud.promocion,
+					 observaciones : 	solicitud.observaciones,
+					 numeroCliente : 	solicitud.numeroCliente,
+					 prestamo : 		prestamo,
+				).save(failOnError:true)
 			}		
 
 		} catch (ClientException e) {
