@@ -200,7 +200,10 @@ class PrestamoService {
 			List<SolicitudDecididasDia> solicitudes = 
 				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password)
 			for(SolicitudDecididasDia solicitud : solicitudes){
-				log.info "Exito: ${solicitud.nombre}"
+				log.info "Nombre Solicitud: ${solicitud.nombre}"
+				Integer folioSolicitud = solicitud.folio.toInteger()
+				log.info "Folio Solicitud: ${folioSolicitud}"
+
 			}		
 
 		} catch (ClientException e) {
