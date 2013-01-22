@@ -261,6 +261,19 @@
 									<span>Promociones</span>
 								</g:link></li>
 
+							<li><a href="#" class="parent"><span>Credito Real</span></a>
+								<div>
+									<ul>
+										<li><g:link controller="prestamo" action="solicitudesDecididasDia">
+												<span>Solicitudes por Día</span>
+											</g:link></li>
+										<li><g:link controller="simCatEtapaPrestamo">
+												<span>Etapas del Prestamo</span>
+											</g:link></li>
+
+									</ul>
+								</div>
+							</li>
 
 						</ul>
 					</div></li>

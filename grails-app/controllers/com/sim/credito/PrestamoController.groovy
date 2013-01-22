@@ -394,6 +394,11 @@ class PrestamoController {
         }
     }
 
+    def solicitudesDecididasDia = {
+        def respuesta = prestamoService.solicitudesDecididasDia()
+        redirect(action: "list")
+    }
+
     def altaPrestamo = {
         def datosIntroducidos
         datosIntroducidos = prestamoService.altaPrestamos()

@@ -3,6 +3,7 @@ package com.sim.credito
 import mx.com.creditoreal.ws.client.Client;
 import mx.com.creditoreal.ws.dto.Adicional;
 import mx.com.creditoreal.ws.dto.Solicitud;
+import mx.com.creditoreal.ws.dto.SolicitudDecididasDia;
 import mx.com.creditoreal.ws.exception.ClientException;
 
 //Clases importadas para el metodo: altaPrestamos
@@ -171,6 +172,43 @@ class PrestamoService {
 		}
 
 		return "${documento.nombreArchivo} : ${respuesta}"
+    }
+
+    Boolean solicitudesDecididasDia(){
+		String distribuidor = '9999'
+		String usuario = ''
+		String password = ''
+
+		Calendar calFecha = Calendar.instance
+		String dia = calFecha.get(Calendar.DATE)		
+		String mes = calFecha.get(Calendar.MONTH) + 1
+		String anio = calFecha.get(Calendar.YEAR)
+
+		if (dia.size()!=2){
+			dia = "0${dia}"
+		} 
+
+		if (mes.size()!=2){
+			mes = "0${mes}"
+		} 
+		String fecha = "$anio$mes$dia"
+		log.info("Fecha: ${fecha}")
+/*
+		try {
+			Client cliente = new Client(true);
+
+			List<SolicitudDecididasDia> solicitudes = 
+				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password);
+			for(SolicitudDecididasDia solicitud : solicitudes){
+				System.out.println(solicitud.getNombre());
+			}		
+
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+*/
+
     }
 
     Boolean generarAccesoriosPrestamo(Prestamo prestamo){
