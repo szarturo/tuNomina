@@ -196,15 +196,23 @@ class PrestamoService {
 
 		try {
 			Client cliente = new Client(true)
+			//LINEA TEMPORAL
+			Integer x = 1
 
 			List<SolicitudDecididasDia> solicitudes = 
 				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password)
 			for(SolicitudDecididasDia solicitud : solicitudes){
 				log.info "Nombre Solicitud: ${solicitud.nombre}"
 				Integer folioSolicitud = solicitud.folio.toInteger()
-				//LINEA TEMPORAL
-				folioSolicitud = 34534
-				log.info "Folio Solicitud: ${folioSolicitud}"
+				//LINEAS TEMPORALES
+				if (x==1){
+					folioSolicitud = 34534	
+				}else{
+					//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
+					//IGUAL A 1
+					folioSolicitud = 1	
+				}
+				
 				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
 				log.info "Prestamo: ${prestamo}"
 
@@ -228,14 +236,13 @@ class PrestamoService {
 					 numeroCliente : 	solicitud.numeroCliente,
 					 prestamo : 		prestamo,
 				).save(failOnError:true)
+				//LINEA TEMPORAL
+				x++
 			}		
 
 		} catch (ClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace()
 		}
-
-
     }
 
     Boolean generarAccesoriosPrestamo(Prestamo prestamo){
