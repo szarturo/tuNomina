@@ -250,6 +250,77 @@ class PrestamoService {
 		return true
     }
 
+    Boolean comprasDia(){
+		String distribuidor = '9999'
+		String usuario = ''
+		String password = ''
+
+		Calendar calFecha = Calendar.instance
+		String dia = calFecha.get(Calendar.DATE)		
+		String mes = calFecha.get(Calendar.MONTH) + 1
+		String anio = calFecha.get(Calendar.YEAR)
+
+		if (dia.size()!=2){
+			dia = "0${dia}"
+		} 
+
+		if (mes.size()!=2){
+			mes = "0${mes}"
+		} 
+		String fecha = "$anio$mes$dia"
+
+		try {
+			Client cliente = new Client(true)
+			//LINEA TEMPORAL
+			Integer x = 1
+
+			List<ComprasDia> comprasDia = 
+				cliente.getComprasDia(distribuidor,fecha,usuario,password)
+			for(ComprasDia compra : comprasDia){
+				log.info "Nombre Solicitud: ${solicitud.nombre}"
+				Integer folioSolicitud = solicitud.folio.toInteger()
+				//LINEAS TEMPORALES
+				if (x==1){
+					folioSolicitud = 34534	
+				}else{
+					//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
+					//IGUAL A 1
+					folioSolicitud = 1	
+				}
+				
+				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+				log.info "Prestamo: ${prestamo}"
+
+				new PrestamoCrRespuesta(
+					 consecutivo : 		solicitud.consecutivo,
+					 folio : 			solicitud.folio,
+					 referencia : 		solicitud.referencia,
+					 claveDistribuidor: solicitud.clavedistribuidor,
+					 claveTienda : 		solicitud.clavetienda,	
+					 nombreSucursal : 	solicitud.nombreSucursal,
+					 fechaRecepcion : 	solicitud.fechaFinCaptura,
+					 fechaRespuesta : 	solicitud.fechaRespuesta,
+					 montoSolicitado : 	solicitud.montoSolicitado,
+					 montoAutorizado : 	solicitud.montoAutorizado,
+					 estatus : 			solicitud.status,
+					 motivo	: 			solicitud.motivo,
+					 nombre : 			solicitud.nombre,
+					 vendedor : 		solicitud.vendedor,
+					 promocion : 		solicitud.promocion,
+					 observaciones : 	solicitud.observaciones,
+					 numeroCliente : 	solicitud.numeroCliente,
+					 prestamo : 		prestamo,
+				).save(failOnError:true)
+				//LINEA TEMPORAL
+				x++
+			}		
+
+		} catch (ClientException e) {
+			throw new PrestamoServiceException(mensaje: "Se genero un plobema de comunicación con Crédito Real.")
+		}
+		return true
+    }
+
     Boolean generarAccesoriosPrestamo(Prestamo prestamo){
     	ProPromocion promocion = prestamo.promocion
     	ArrayList accesoriosPromocion = promocion.proPromocionAccesorio

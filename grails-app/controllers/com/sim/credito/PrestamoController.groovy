@@ -413,6 +413,26 @@ class PrestamoController {
         redirect(action: "list")
     }
 
+    def comprasDia = {
+        try{
+            def respuesta = prestamoService.comprasDia()    
+        }catch(PrestamoServiceException errorComprasDia){
+            log.error "Failed:", errorComprasDia
+            flash.message = message(code: errorComprasDia.mensaje, args: [])
+            redirect(action: "list")
+            return            
+        }catch(Exception error){
+            log.error "Failed:", error
+            flash.message = message(code: "Se genero un problema de comunicación. Contacte al Administrador.", args: [])
+            redirect(action: "list")
+            return            
+        }
+
+        flash.message = message(code: "Se han actualizado las compras del día.", args: [])
+        redirect(action: "list")
+    }
+
+
     def altaPrestamo = {
         def datosIntroducidos
         datosIntroducidos = prestamoService.altaPrestamos()

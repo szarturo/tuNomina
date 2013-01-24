@@ -265,10 +265,10 @@
 								<div>
 									<ul>
 										<li><g:link controller="prestamo" action="solicitudesDecididasDia">
-												<span>Solicitudes por Día</span>
+												<span>Solicitudes decididas del Día</span>
 											</g:link></li>
-										<li><g:link controller="simCatEtapaPrestamo">
-												<span>Etapas del Prestamo</span>
+										<li><g:link controller="prestamo"  action="comprasDia">
+												<span>Compras del Día</span>
 											</g:link></li>
 
 									</ul>
