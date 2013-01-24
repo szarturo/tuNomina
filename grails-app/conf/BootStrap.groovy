@@ -1591,7 +1591,54 @@ class BootStrap {
 				reenviarSolicitud:     false,
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/16/2013'),
-				).save(flush:true)		
+				).save(failOnError: true)	
+
+		def franciscorodriguez = new RsPersona(
+				email : "franciscorodriguez@gmail.com",
+				apellidoPaterno: "RODRIGUEZ",
+				apellidoMaterno: "MAZA",
+				primerNombre: "FRANCISCO",
+				segundoNombre: "EL MAZA",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1980'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+				numeroIdentificacionOficial : "MAZA727328328",
+				rfc : "MAZA89778",
+				curp : "MAZA76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PRIMARIA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(failOnError: true)
+
+		def clienteFrancisco = new RsCliente(persona: franciscorodriguez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'MAZASDFYUYUI',
+				).save(failOnError: true)
+
+		new Prestamo(
+				cliente : 			   clienteFrancisco,
+				correoSolicitante:     "franciscorodriguez@gmail.com",
+				folioSolicitud : 	   3,
+				dependencia : 		   EntDependencia.findByClaveDependencia('IMSS'),
+				promocion: 			   ProPromocion.findByClavePromocion('MOR78987'),
+				sucursal: 			   EntSucursal.findByClaveSucursal('EDOMEX'),
+				delegacion: 		   EntDelegacion.findByClaveDelegacion('ZACATECAS'),
+				vendedor : 			   EmpEmpleado.findByNumeroNomina('001'),
+				fechaSolicitud:		   new Date('01/01/2013'),
+				montoSolicitado: 	   10000,
+				percepcionesMensuales: 20000,
+				deduccionesMensuales:  25000,
+				estatusSolicitud:      SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
+				formaDeDispercion:     SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
+				documentosCorrectos:   false,
+				aprobado:              false,
+				reenviarSolicitud:     false,
+				incluirEnListasCobro:  true,
+				fechaCobro:            new Date('01/18/2013'),
+				).save(failOnError: true,flush:true)
+
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext

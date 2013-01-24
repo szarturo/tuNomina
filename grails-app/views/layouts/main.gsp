@@ -265,10 +265,10 @@
 								<div>
 									<ul>
 										<li><g:link controller="prestamo" action="solicitudesDecididasDia">
-												<span>Solicitudes decididas del Día</span>
+												<span>Solicitudes Decididas</span>
 											</g:link></li>
 										<li><g:link controller="prestamo"  action="comprasDia">
-												<span>Compras del Día</span>
+												<span>Solicitudes Compradas</span>
 											</g:link></li>
 
 									</ul>

@@ -4,6 +4,7 @@ import mx.com.creditoreal.ws.client.Client
 import mx.com.creditoreal.ws.dto.Adicional
 import mx.com.creditoreal.ws.dto.Solicitud
 import mx.com.creditoreal.ws.dto.SolicitudDecididasDia
+import mx.com.creditoreal.ws.dto.ComprasDia
 import mx.com.creditoreal.ws.exception.ClientException
 
 //Clases importadas para el metodo: altaPrestamos
@@ -277,38 +278,46 @@ class PrestamoService {
 			List<ComprasDia> comprasDia = 
 				cliente.getComprasDia(distribuidor,fecha,usuario,password)
 			for(ComprasDia compra : comprasDia){
-				log.info "Nombre Solicitud: ${solicitud.nombre}"
-				Integer folioSolicitud = solicitud.folio.toInteger()
+				log.info "Nombre Solicitud: ${compra.nombre}"
+				//TEMPORALMENTE SE UTILIZA EL FOLIO PARA RECUPERAR LOS PRESTAMOS
+				//HAY QUE VALIDAR CON CR QUE PRESTAMO SE DEBE RECUPERAR
+				Integer folioSolicitud 
 				//LINEAS TEMPORALES
 				if (x==1){
 					folioSolicitud = 34534	
-				}else{
+				}else if(x==2){
 					//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
 					//IGUAL A 1
 					folioSolicitud = 1	
+				}else{
+					folioSolicitud = 3
 				}
 				
 				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
 				log.info "Prestamo: ${prestamo}"
 
-				new PrestamoCrRespuesta(
-					 consecutivo : 		solicitud.consecutivo,
-					 folio : 			solicitud.folio,
-					 referencia : 		solicitud.referencia,
-					 claveDistribuidor: solicitud.clavedistribuidor,
-					 claveTienda : 		solicitud.clavetienda,	
-					 nombreSucursal : 	solicitud.nombreSucursal,
-					 fechaRecepcion : 	solicitud.fechaFinCaptura,
-					 fechaRespuesta : 	solicitud.fechaRespuesta,
-					 montoSolicitado : 	solicitud.montoSolicitado,
-					 montoAutorizado : 	solicitud.montoAutorizado,
-					 estatus : 			solicitud.status,
-					 motivo	: 			solicitud.motivo,
-					 nombre : 			solicitud.nombre,
-					 vendedor : 		solicitud.vendedor,
-					 promocion : 		solicitud.promocion,
-					 observaciones : 	solicitud.observaciones,
-					 numeroCliente : 	solicitud.numeroCliente,
+				new PrestamoCrComprada(
+					 numeroSolicitud : 	compra.numeroSolicitud,
+					 numeroOperacion : 	compra.numeroOperacion,
+					 claveCia : 		compra.claveCia,
+					 claveSucursal: 	compra.claveSucursal,
+					 nombre : 			compra.nombre,	
+					 fechaCompra : 		compra.fechaCompra,
+					 tipoPromocion : 	compra.tipoPromocion,
+					 clasificador : 	compra.clasificador,
+					 fechaProxPago : 	compra.fechaProxPago,
+					 primerCredito : 	compra.primerCredito,
+					 status : 			compra.status,
+					 importeCedido : 	compra.importeCedido,
+					 ivaCapital	: 		compra.ivaCapital,
+					 ivaDiferido : 		compra.ivaDiferido,
+					 ivaIntereses : 	compra.ivaIntereses,
+					 importeDescuento : compra.importeDescuento,
+					 pagoTienda : 		compra.pagoTienda,
+					 reserva : 			compra.reserva,
+					 netoPagado : 		compra.netoPagado,
+					 importeIntereses : compra.importeIntereses,
+					 cesion : 			compra.cesion,
 					 prestamo : 		prestamo,
 				).save(failOnError:true)
 				//LINEA TEMPORAL

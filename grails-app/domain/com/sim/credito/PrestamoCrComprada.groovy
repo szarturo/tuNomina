@@ -9,9 +9,10 @@ class PrestamoCrComprada {
 	String claveCia
 	String claveSucursal
 	String nombre
-	String fechaCompra
+	Date   fechaCompra
 	String tipoPromocion
 	String clasificador
+	Date   fechaProxPago	
 	String primerCredito
 	String status
 	BigDecimal importeCedido
@@ -21,8 +22,8 @@ class PrestamoCrComprada {
 	BigDecimal importeDescuento
 	BigDecimal pagoTienda
 	BigDecimal reserva
-	BigDecimal netoPagado
-	BigDecimal importe 
+	BigDecimal netoPagado 	
+	BigDecimal importeIntereses
 	Integer cesion
 	Prestamo prestamo
 
@@ -35,6 +36,7 @@ class PrestamoCrComprada {
 		fechaCompra()
 		tipoPromocion()
 		clasificador()
+		fechaProxPago()
 		primerCredito()
 		status()
 		importeCedido()
@@ -45,7 +47,7 @@ class PrestamoCrComprada {
 		pagoTienda()
 		reserva()
 		netoPagado()
-		importe()
+		importeIntereses()
 		cesion()
 		prestamo()
     }
