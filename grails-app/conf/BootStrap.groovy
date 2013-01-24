@@ -1546,6 +1546,53 @@ class BootStrap {
         listaCobroService.crearListasCobro(dependenciaCfe,2013,periodicidadQuincena)
 		listaCobroService.crearListasCobro(dependenciaCfe,2014,periodicidadQuincena)
 
+		//ALTA TEMPORAL DE UN PRESTAMO PARA PROBAR SOLICITUDES DE CREDITO REAL
+		def javierHernandez = new RsPersona(
+				email : "javierhernandez@gmail.com",
+				apellidoPaterno: "HERNANDEZ",
+				apellidoMaterno: "CHIHARITO",
+				primerNombre: "JAVIER",
+				segundoNombre: "JAVI",
+				sexo: "MASCULINO",
+				estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+				fechaNacimiento : new Date('09/30/1974'),
+				identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+				numeroIdentificacionOficial : "JCHI727328328",
+				rfc : "JCHI89778",
+				curp : "JCHI76878968",
+				escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+				tiposPersona : [
+					SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
+				],
+				).save(failOnError: true)
+
+		def clienteJavier = new RsCliente(persona: javierHernandez,
+				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				numeroDeNomina: 'JCHSDFYUYUI',
+				).save(failOnError: true)
+
+		new Prestamo(
+				cliente : 			   clienteJavier,
+				correoSolicitante:     "javierhernandez@gmail.com",
+				folioSolicitud : 	   1,
+				dependencia : 		   EntDependencia.findByClaveDependencia('IMSS'),
+				promocion: 			   ProPromocion.findByClavePromocion('MOR78987'),
+				sucursal: 			   EntSucursal.findByClaveSucursal('EDOMEX'),
+				delegacion: 		   EntDelegacion.findByClaveDelegacion('ZACATECAS'),
+				vendedor : 			   EmpEmpleado.findByNumeroNomina('001'),
+				fechaSolicitud:		   new Date('01/01/2013'),
+				montoSolicitado: 	   10000,
+				percepcionesMensuales: 20000,
+				deduccionesMensuales:  25000,
+				estatusSolicitud:      SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
+				formaDeDispercion:     SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
+				documentosCorrectos:   false,
+				aprobado:              false,
+				reenviarSolicitud:     false,
+				incluirEnListasCobro:  true,
+				fechaCobro:            new Date('01/16/2013'),
+				).save(flush:true)		
+
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext
 		def sessionFactory = ctx.sessionFactory

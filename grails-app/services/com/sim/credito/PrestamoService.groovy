@@ -14,6 +14,10 @@ import com.sim.producto.ProPromocion
 import com.sim.cliente.RsCliente
 import com.sim.pfin.PfinCatConcepto
 
+class PrestamoServiceException extends RuntimeException {
+	String mensaje
+}
+
 class PrestamoService {
 
 	//Servicio que genera las Tablas de Amortizacion
@@ -241,8 +245,9 @@ class PrestamoService {
 			}		
 
 		} catch (ClientException e) {
-			e.printStackTrace()
+			throw new PrestamoServiceException(mensaje: "Se genero un plobema de comunicación con Crédito Real.")
 		}
+		return true
     }
 
     Boolean generarAccesoriosPrestamo(Prestamo prestamo){

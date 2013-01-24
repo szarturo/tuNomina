@@ -395,7 +395,21 @@ class PrestamoController {
     }
 
     def solicitudesDecididasDia = {
-        def respuesta = prestamoService.solicitudesDecididasDia()
+        try{
+            def respuesta = prestamoService.solicitudesDecididasDia()    
+        }catch(PrestamoServiceException errorSolicitudesDecididas){
+            log.error "Failed:", errorSolicitudesDecididas
+            flash.message = message(code: errorSolicitudesDecididas.mensaje, args: [])
+            redirect(action: "list")
+            return            
+        }catch(Exception error){
+            log.error "Failed:", error
+            flash.message = message(code: "Se genero un problema de comunicación. Contacte al Administrador.", args: [])
+            redirect(action: "list")
+            return            
+        }
+
+        flash.message = message(code: "Se han actualizado los estatus de los prestamos.", args: [])
         redirect(action: "list")
     }
 
