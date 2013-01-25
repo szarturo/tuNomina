@@ -327,19 +327,18 @@ class BootStrap {
 				nombreDescripcionTelefono: 'MOVIL',
 				).save(failOnError: true)
 
-        new EntRegion(claveRegion: 'CENTRO',
-                nombreRegion: 'CENTRO MEXICO',
-        ).save(failOnError: true)
+        new EntRegion(claveRegion: 'UNICA',
+                nombreRegion: 'UNICA',
+        		).save(failOnError: true, flush: true)
 
-        new EntRegion(claveRegion: 'NORTE',
-                nombreRegion: 'NORTE MEXICO',
-        ).save(failOnError: true, flush: true)
 
-		new RsGralEstado(cveEstado: 'AGS',
-				nombreEstado: 'AGUASCALIENTES',
-				aliasEstado : 'AGS',
-				region: EntRegion.findByClaveRegion('CENTRO'),
-				).save(failOnError: true)
+		new RsGralEstado(cveEstado: 'TODOS',
+				nombreEstado: 'TODOS',
+				aliasEstado : 'TODOS',
+				region: EntRegion.findByClaveRegion('UNICA'),
+				).save(failOnError: true, flush: true)
+
+		/*
 
 		new RsGralEstado(cveEstado: 'DF',
 				nombreEstado: 'DISTRITO FEDERAL',
@@ -721,6 +720,7 @@ class BootStrap {
 				rsGralAsentamiento : RsGralAsentamiento.findByCodigoPostal('01600'),
 				persona : RsPersona.findByEmail('sistema.microfinanciera@gmail.com'),
 				).save(failOnError: true)
+		*/
 
 
 		new RsGralTelefono(telefono:  '55578796',
@@ -770,25 +770,25 @@ class BootStrap {
         new EntSucursal(claveSucursal: 'EDOMEX',
                 nombreSucursal: 'ESTADO DE MEXICO',
                 tipoSucursal: "SUCURSAL FISICA",
-                estado : RsGralEstado.findByCveEstado('AGS'),
+                estado : RsGralEstado.findByCveEstado('TODOS'),
         ).save(failOnError: true)
 
         new EntSucursal(claveSucursal: 'ZACATECAS',
                 nombreSucursal: 'ZACATECAS',
          		tipoSucursal: "SUCURSAL FISICA",
-         		estado : RsGralEstado.findByCveEstado('AGS'),
+         		estado : RsGralEstado.findByCveEstado('TODOS'),
         ).save(failOnError: true)
 
         new EntSucursal(claveSucursal: 'AGUASCALIENTES',
                 nombreSucursal: 'AGUASCALIENTES',
          		tipoSucursal: "SUCURSAL FISICA",
-         		estado : RsGralEstado.findByCveEstado('AGS'),
+         		estado : RsGralEstado.findByCveEstado('TODOS'),
         ).save(failOnError: true)
 
         new EntSucursal(claveSucursal: 'D.F.',
                 nombreSucursal: 'DISTRITO FEDERAL',
          		tipoSucursal: "SUCURSAL FISICA",
-         		estado : RsGralEstado.findByCveEstado('AGS'),
+         		estado : RsGralEstado.findByCveEstado('TODOS'),
         ).save(failOnError: true)
 
         new EntDelegacion(claveDelegacion: 'EDOMEX',
@@ -1412,6 +1412,7 @@ class BootStrap {
 				valor 		 : '1000'
 				).save(failOnError: true, flush: true)
 
+		/*
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
 				valor			:	'1',
@@ -1443,6 +1444,7 @@ class BootStrap {
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
 				prestamo		: 	Prestamo.findByFolioSolicitud('34534')
 				).save(failOnError: true)
+		*/
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')),
@@ -1485,6 +1487,52 @@ class BootStrap {
                 proPromocion: ProPromocion.findByClavePromocion("MOR78987"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
         ).save(failOnError: true)
+
+        //PROMOCHIDO
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')),
+                orden :       1,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('IVAINT')),
+                orden :       2,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+                orden :       3,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
+        ).save(failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+                orden :       4,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'),
+        ).save(failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+                orden :       5,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
+        ).save(failOnError: true)
+
+        new ProPromocionAccesorio (
+                accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+                orden :       6,
+                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
+        ).save(failOnError: true)
+
+        //Otra
 
         new SimCatListaCobroEstatus (
 			    claveListaEstatus : "NO_GENERADA",
@@ -1546,6 +1594,7 @@ class BootStrap {
         listaCobroService.crearListasCobro(dependenciaCfe,2013,periodicidadQuincena)
 		listaCobroService.crearListasCobro(dependenciaCfe,2014,periodicidadQuincena)
 
+		/*
 		//ALTA TEMPORAL DE UN PRESTAMO PARA PROBAR SOLICITUDES DE CREDITO REAL
 		def javierHernandez = new RsPersona(
 				email : "javierhernandez@gmail.com",
@@ -1638,7 +1687,7 @@ class BootStrap {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/18/2013'),
 				).save(failOnError: true,flush:true)
-
+		*/
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext

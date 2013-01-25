@@ -436,8 +436,39 @@ class PrestamoController {
     def altaPrestamo = {
         def datosIntroducidos
         datosIntroducidos = prestamoService.altaPrestamos()
-        log.info("Los prestamos de dieron de alta correctamente: " + datosIntroducidos)
+        log.info("Los prestamos se dieron de alta correctamente: " + datosIntroducidos)
+        prestamoService.altaAccesorios()
+
         redirect(action: "list")
+    }
+
+    def generaTablaAmortizacionVarias = {
+        ArrayList prestamosExistentes = Prestamo.findAll()
+        prestamosExistentes.each() {
+            def idPrestamo = it.id
+            Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
+            try{
+                tablaAmortizacionRegistroService.generaTablaAmortizacion(it)
+                //VERIFICAR SI SE GENERO ALGUN ERROR
+            }catch(TablaAmortizacionServiceException errorGeneraTablaAmor){
+                //prestamoInstance.errors.reject("ErrorGeneraTablaAmor",errorGeneraTablaAmor.mensaje)
+                log.error "Failed:", errorGeneraTablaAmor
+                flash.message = message(code: errorGeneraTablaAmor.mensaje, args: [])
+                //AL APLICAR LA FUNCIONALIDAD REAL HAY QUE MOSTRAR EL MENSAJE
+                redirect(action: "show", params: [id: params.idPrestamo])
+                return
+            }catch(Exception errorTablaAmortizacion){
+                //prestamoInstance.errors.reject("errorAplicaPago","No se aplico el Pago. Contacte al Administrador")
+                log.error "Failed:", errorTablaAmortizacion
+                flash.message = message(code: "No se genero la tabla de Amortizacion. Contacte al Administrador", args: [])
+                redirect(action: "show", params: [id: params.idPrestamo])
+                return
+            }
+
+        }
+
+        redirect(action: "list")
+
     }
 
 	

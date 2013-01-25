@@ -371,9 +371,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/16/2013'),
 				).save()
 
-/*
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoUno)		
-
 		Prestamo prestamoDos = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CSALSDFYUYUI'),
 				correoSolicitante:     "carsalcido@gmail.com",
@@ -395,8 +392,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/17/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDos)
 
 		Prestamo prestamoTres = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('MAZASDFYUYUI'),
@@ -420,8 +415,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/18/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTres)
-
 		Prestamo prestamoCuatro = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('PACOSDFYUYUI'),
 				correoSolicitante:     "guillermoochoa@gmail.com",
@@ -443,8 +436,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/19/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoCuatro)
 
 		Prestamo prestamoCinco = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CHUYSDFYUYUI'),
@@ -468,8 +459,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/20/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoCinco)
-
 		Prestamo prestamoSeis = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('TORRSDFYUYUI'),
 				correoSolicitante:     "gerardotorrado@gmail.com",
@@ -491,8 +480,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/21/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoSeis)
 
 		Prestamo prestamoSiete = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ORIBSDFYUYUI'),
@@ -516,10 +503,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/22/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoSiete)
-
-
-
 		Prestamo prestamoOcho = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('BENJSDFYUYUI'),
 				correoSolicitante:     "benjamingalindo@gmail.com",
@@ -541,8 +524,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/23/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoOcho)
 
 		Prestamo prestamoNueve = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('TENASDFYUYUI'),
@@ -566,8 +547,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/24/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoNueve)
-
 		Prestamo prestamoDiez = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('LUISSDFYUYUI'),
 				correoSolicitante:     "luisgarcia@gmail.com",
@@ -589,8 +568,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/25/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDiez)
 
 		Prestamo prestamoOnce = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('JOAQSDFYUYUI'),
@@ -614,8 +591,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/26/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoOnce)
-
 		Prestamo prestamoDoce = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('JAVISDFYUYUI'),
 				correoSolicitante:     "javieralatorre@hotmail.com",
@@ -637,8 +612,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/27/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDoce)
 
 		Prestamo prestamoTrece = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ALEXSDFYUYUI'),
@@ -662,8 +635,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/28/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTrece)
-
 		Prestamo prestamoCatorce = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ADELSDFYUYUI'),
 				correoSolicitante:     "adelamicha@hotmail.com",
@@ -685,8 +656,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/29/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoCatorce)
 
 		Prestamo prestamoQuince = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('EDUSALBUS'),
@@ -710,8 +679,6 @@ class PrestamoService {
 				fechaCobro:            new Date('01/30/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoQuince)
-
 		Prestamo prestamoDieciseis = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CARMSDFYUYUI'),
 				correoSolicitante:     "carmenaristegui@gmail.com",
@@ -733,8 +700,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/31/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDieciseis)
 
 		Prestamo prestamoDiecisiete = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ARAPSDFYUYUI'),
@@ -758,10 +723,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/01/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDiecisiete)
-
-
-
 		Prestamo prestamoDieciocho = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('LIDYSDFYUYUI'),
 				correoSolicitante:     "lidya09@hotmail.com",
@@ -783,8 +744,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/02/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDieciocho)
 
 		Prestamo prestamoDiecinueve = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('HANNSDFYUYUI'),
@@ -808,8 +767,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/03/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoDiecinueve)
-
 		Prestamo prestamoVeinte = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ANAMSDFYUYUI'),
 				correoSolicitante:     "anama13@gmail.com",
@@ -831,8 +788,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/04/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeinte)
 
 		Prestamo prestamoVeintiUno = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ANAGSDFYUYUI'),
@@ -856,8 +811,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/05/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiUno)
-
 		Prestamo prestamoVeintiDos = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ESTBSDFYUYUI'),
 				correoSolicitante:     "esteban03@gmail.com",
@@ -879,8 +832,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/06/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiDos)
 
 		Prestamo prestamoVeintiTres = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('MARISDFYUYUI'),
@@ -904,8 +855,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/07/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiTres)
-
 		Prestamo prestamoVeintiCuatro = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('jorgSDFYUYUI'),
 				correoSolicitante:     "zaeza09@gmail.com",
@@ -927,8 +876,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/08/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiCuatro)
 
 		Prestamo prestamoVeintiCinco = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('EUGENIOHUYTG'),
@@ -952,8 +899,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/09/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiCinco)
-
 		Prestamo prestamoVeintiSeis = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('OMARDFYUYUI'),
 				correoSolicitante:     "omarchaparro@gmail.com",
@@ -975,8 +920,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/10/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiSeis)
 
 		Prestamo prestamoVeintiSiete = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CHABE5FYUYUI'),
@@ -1000,8 +943,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/11/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiSiete)
-
 		Prestamo prestamoVeintiOcho = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ADISDFYUYUI'),
 				correoSolicitante:     "adrianarodrigu@gmail.com",
@@ -1023,8 +964,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/12/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiOcho)
 
 		Prestamo prestamoVeintiNueve = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('LEE41235'),
@@ -1048,8 +987,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/13/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoVeintiNueve)
-
 		Prestamo prestamoTreinta = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('PAU678990'),
 				correoSolicitante:     "paulinarubio@gmail.com",
@@ -1071,8 +1008,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/14/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreinta)
 
 		Prestamo prestamoTreintaYUno = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ROMEO342'),
@@ -1096,8 +1031,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/15/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYUno)
-
 		Prestamo prestamoTreintaYDos = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('HNERI462'),
 				correoSolicitante:     "henrisanchez@gmail.com",
@@ -1119,8 +1052,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/16/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYDos)
 
 		Prestamo prestamoTreintaYTres = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('LUI456'),
@@ -1144,8 +1075,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/17/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYTres)
-
 		Prestamo prestamoTreintaYCuatro = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('ELSA543'),
 				correoSolicitante:     "elsaruizs@gmail.com",
@@ -1167,8 +1096,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/18/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYCuatro)
 
 		Prestamo prestamoTreintaYCinco = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('PACO456'),
@@ -1192,8 +1119,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/19/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYCinco)
-
 		Prestamo prestamoTreintaYSeis = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('RAFA543'),
 				correoSolicitante:     "rmarquez@gmail.com",
@@ -1215,8 +1140,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/20/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYSeis)
 
 		Prestamo prestamoTreintaYSiete = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('GERA456'),
@@ -1240,8 +1163,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/21/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYSiete)
-
 		Prestamo prestamoTreintaYOcho = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('JUAN456'),
 				correoSolicitante:     "juand@gmail.com",
@@ -1263,8 +1184,6 @@ class PrestamoService {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('02/22/2013'),
 				).save(failOnError: true)
-
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYOcho)
 
 		Prestamo prestamoTreintaYNueve = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CARPNIOHUYTG'),
@@ -1288,8 +1207,6 @@ class PrestamoService {
 				fechaCobro:            new Date('02/23/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoTreintaYNueve)
-
 		Prestamo prestamoCuarenta = new Prestamo(
 				cliente : 			   RsCliente.findByNumeroDeNomina('CRIS456'),
 				correoSolicitante:     "cristianbenitez@gmail.com",
@@ -1312,9 +1229,48 @@ class PrestamoService {
 				fechaCobro:            new Date('02/24/2013'),
 				).save(failOnError: true)
 
-		tablaAmortizacionRegistroService.generaTablaAmortizacion(prestamoCuarenta)
-*/
 		return true
 
+	}
+
+	Boolean altaAccesorios () {
+
+		ArrayList prestamosExistentes = Prestamo.findAll()
+		prestamosExistentes.each() {
+
+			new PrestamoAccesorio(
+					accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+					valor			:	'200',
+					unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+					periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+					prestamo		: 	Prestamo.findByFolioSolicitud(it.folioSolicitud)
+					).save(failOnError: true)
+			new PrestamoAccesorio(
+					accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+					valor			:	'10',
+					unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
+					periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
+					prestamo		: 	Prestamo.findByFolioSolicitud(it.folioSolicitud)
+					).save(failOnError: true)
+			new PrestamoAccesorio(
+					accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+					valor			:	'15',
+					unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
+					periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
+					prestamo		: 	Prestamo.findByFolioSolicitud(it.folioSolicitud)
+					).save(failOnError: true)
+			new PrestamoAccesorio(
+					accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+					valor			:	'20',
+					unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+					periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
+					prestamo		: 	Prestamo.findByFolioSolicitud(it.folioSolicitud)
+					).save(failOnError: true)
+
+			log.info("Los accesorios del prestamo ${it.folioSolicitud} se dieron de alta correctamente.")
+
+		}
+
+		return true
 	}
 }
