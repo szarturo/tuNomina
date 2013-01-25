@@ -6,14 +6,16 @@ import java.util.SortedSet
 class RsGralAsentamiento implements Comparable{
 
 	String  nombreAsentamiento
-	String  codigoPostal
+	String  codigoPostal 
+	String 	tipoAsentamiento
 
 	static constraints = {
 		nombreAsentamiento(size:3..100, unique: false,nullable: false, blank: false)
 		codigoPostal(size:5..5, unique: false,nullable: false, blank: false)
+		tipoAsentamiento(size:3..100, unique: false,nullable: false, blank: false)
 	}
 
-	static belongsTo = [ delegacionMunicipio : RsGralDelegacionMunicipio, tipoAsentamiento : SimCatTipoAsentamiento ]
+	static belongsTo = [ delegacionMunicipio : RsGralDelegacionMunicipio]
 
 	String toString() {
 		"""ESTADO:${delegacionMunicipio.estado},
