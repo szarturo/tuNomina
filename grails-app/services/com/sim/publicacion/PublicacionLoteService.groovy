@@ -165,6 +165,8 @@ class PublicacionLoteService {
 				listaCobroDetalle: it,	
 				respuestaCr: respuesta,			
 			).save(failOnError: true)
+			//ACTUALIZA EL ESTATUS DEL DETALLE DE LISTA DE COBRO
+			it.estatus = ListaCobroDetalleEstatus.PUBLICADO
 		}
 		//SE INDICA LA CANTIDAD TOTAL DEL LOTE		
 		publicacionLote.importeLote = importeTotalPublicacion

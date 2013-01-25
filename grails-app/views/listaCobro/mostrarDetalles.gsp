@@ -231,6 +231,19 @@
 
 				</g:if>
 
+				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.PUBLICADO}">
+
+					<td><g:formatDate format="dd-MM-yyyy" date="${listaCobroDetalleInstance.pago.fechaPago}" /></td>
+
+					<td>${fieldValue(bean: listaCobroDetalleInstance.pago, field: "importePago")}</td>
+
+					<td>
+					</td>
+
+					<td>
+					</td>
+				</g:if>
+
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
 			<g:hiddenField name="idPrestamo${i}" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>
