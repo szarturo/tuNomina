@@ -34,8 +34,8 @@ class RsClienteController {
             [
                     cell: [
                             it.folioSolicitud,
-                            it.folioSolicitud,
-                            it.folioSolicitud
+                            it.promocion.nombrePromocion,
+                            it.estatusSolicitud.nombreEtapaPrestamo
                     ]
             ]
         }

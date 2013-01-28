@@ -18,8 +18,8 @@
   showPager="true"
   subGrid="true"
   subGridUrl="'${createLink(action: 'subgridJSON')}'"
-  subGridModel="name: {'Id Prestamo', 'Producto', 'Estatus'},
-                width: {50, 50, 50}">
+  subGridModel="name: {'Folio', 'Promoción', 'Estatus'},
+                width: {10, 90, 50}">
 
   <jqgrid:filterToolbar id="contactSubgrid" searchOnEnter="false" />
   <jqgrid:navigation id="contactSubgrid" refresh="true" />
