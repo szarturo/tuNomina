@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException
 class RsClienteController {
 
 	def rsClienteService
+	def filterPaneService
 	def defaultAction = 'list'
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -134,6 +135,15 @@ class RsClienteController {
 
         def jsonData = [rows: results]
         render jsonData as JSON
+    }    
+
+    def filter = {
+        if(!params.max) params.max = 10
+        render( view:'list', 
+            model:[ rsClienteInstanceList: filterPaneService.filter( params, RsCliente ), 
+                rsClienteCount: filterPaneService.count( params, RsCliente ), 
+                filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
+                params:params ] )
     }    
 
     //METODO TEMPORAL PARA DAR DE ALTA CLIENTES

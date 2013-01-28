@@ -6,6 +6,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'rsCliente.label', default: 'RsCliente')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<filterpane:includes />
 	</head>
 	<body>
 		<a href="#list-rsCliente" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -16,6 +17,18 @@
 			</ul>
 		</div>
 		<div id="list-rsCliente" class="content scaffold-list" role="main">
+			<filterpane:filterButton text="Mostrar Criterios de Búsqueda" />
+			<filterpane:filterPane domain="com.sim.cliente.RsCliente"
+				additionalProperties=""
+                associatedProperties="persona.primerNombre,
+                persona.segundoNombre,
+                persona.apellidoPaterno,
+                persona.apellidoMaterno,
+                persona.rfc,
+                dependencia.nombreDependencia"
+                excludeProperties=""
+                filterPropertyValues=""
+			/>			
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -47,7 +60,7 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${rsClienteInstanceTotal}" />
+				<g:paginate total="${rsClienteCount == null ? RsCliente.count(): rsClienteCount}" params="${filterParams}" />
 			</div>
 		</div>
 	</body>
