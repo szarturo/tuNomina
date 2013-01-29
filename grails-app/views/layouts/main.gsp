@@ -375,6 +375,9 @@
 									<li><g:link controller="user" action="create">
 											<span>Alta</span>
 										</g:link></li>
+									<li><g:link controller="usuarioAcceso">
+											<span>Accesos Entidades</span>
+										</g:link></li>										
 								</ul>
 							</div></li>
 
