@@ -948,20 +948,20 @@ class BootStrap {
                 numeroDePagos:  10,
 				periodicidadPagos: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
                 fechaInicioVigencia : new Date('04/30/2012'),
-                fechaFinVigencia  : new Date('09/30/2012'),
+                fechaFinVigencia  : new Date('09/30/2015'),
                 iva : 16,
         ).save(failOnError: true)
 
         def promocionDos = new ProPromocion(
-				clavePromocion : "PROMOCHIDO",
-				nombrePromocion : "PROMOCION LO MAS CHIDO",
+				clavePromocion : "OPORTUNIDAD",
+				nombrePromocion : "PROMOCION LO IDEAL",
 				tasaDeInteres:  4.5,
 				metodoCalculo : SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'),
 				periodicidadTasa: SimCatPeriodicidad.findByClavePeriodicidad('MES'),
 				numeroDePagos:  24,
 				periodicidadPagos: SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
 				fechaInicioVigencia : new Date('04/30/2012'),
-				fechaFinVigencia  : new Date('09/30/2013'),
+				fechaFinVigencia  : new Date('09/30/2015'),
 				iva : 16,
 				).save(failOnError: true)
 
@@ -1492,47 +1492,47 @@ class BootStrap {
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
         ).save(failOnError: true)
 
-        //PROMOCHIDO
+        //OPORTUNIDAD
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')),
                 orden :       1,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
         ).save(failOnError: true)
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('IVAINT')),
                 orden :       2,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
         ).save(failOnError: true)
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
                 orden :       3,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('SALDOA_LAFECHA'),
         ).save(failOnError: true)
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
                 orden :       4,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_INICIAL'),
         ).save(failOnError: true)
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
                 orden :       5,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('CARGO_FIJO'),
         ).save(failOnError: true)
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
                 orden :       6,
-                proPromocion: ProPromocion.findByClavePromocion("PROMOCHIDO"),
+                proPromocion: ProPromocion.findByClavePromocion("OPORTUNIDAD"),
                 formaAplicacion	:	SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'),
         ).save(failOnError: true)
 
