@@ -4,7 +4,10 @@ import com.sim.alfresco.AlfrescoService
 import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.cliente.RsCliente
+import com.sim.usuario.Usuario
+import com.sim.usuario.UsuarioAcceso
 import com.sim.tablaAmortizacion.TablaAmortizacionServiceException
+import com.sim.entidad.EntSucursal
 import org.apache.chemistry.opencmis.client.api.CmisObject
 import org.apache.chemistry.opencmis.client.api.Document
 import org.apache.chemistry.opencmis.client.api.Folder
@@ -31,6 +34,7 @@ class PrestamoController {
 	
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        //FALTA APLICAR LOS ACCESOS QUE TIENE EL USUARIO
         [prestamoInstanceList: Prestamo.list(params), 
 			   prestamoInstanceTotal: Prestamo.count(),
 			   myTasksCount: assignedTasksCount]
@@ -473,6 +477,48 @@ class PrestamoController {
     def filter = {
         if(!params.max) params.max = 10
         ArrayList prestamoInstanceList = filterPaneService.filter( params, Prestamo )
+
+        //SE OBTIENE EL USUARIO
+        Usuario usuario = springSecurityService.getCurrentUser()
+        //SE OBTIENE LOS ACCESOS DEL USUARIO
+        UsuarioAcceso usuarioAcceso = UsuarioAcceso.findByUsuario(usuario)
+        if (!usuarioAcceso){
+            //NO SE HAN DEFINIDO LOS ACCESOS AL USUARIO
+            log.info "No se han definido los accesos al usuario, tiene acceso a todos los prestamos"
+        }else{
+            if (usuarioAcceso.accesoTodo){
+                log.info "Tiene acceso a todos los prestamos"
+            }else{
+                if (usuarioAcceso.regiones){
+                    log.info "El usuario tiene definido regionales"
+                }else{
+                    //DEBE TENER ASIGNADO LAS SUCURSALES A LAS QUE TIENE ACESO
+                    if (usuarioAcceso.sucursales){
+                        log.info "El usuario tiene definido sucursales"
+                        ArrayList sucursalesPermitidas = []
+                        usuarioAcceso.sucursales.each{
+                            sucursalesPermitidas.add(it.claveSucursal)
+                        }
+
+                        ArrayList prestamosPermitidos = []
+                        //ITERA LOS PRESTAMOS OBTENIDOS
+                        prestamoInstanceList.each{prestamo->
+                            if (sucursalesPermitidas.contains(prestamo.sucursal.claveSucursal)){
+                                log.info "El prestamos si se encuentra en la sucursal"
+                            }else{
+                                log.info "El prestamos no se encuentra en la sucursal"
+                            }
+                        }
+
+                    }else{
+                        //NO SE LE HA DEFINIDO SUCURSALES
+                        log.info "No se le han definido al usuario ni sucursales ni regionales"
+                        prestamoInstanceList=[]
+                    }
+
+                }
+            }
+        }
 
         render( view:'list', 
             model:[ prestamoInstanceList: prestamoInstanceList, 
