@@ -36,7 +36,7 @@
                                     <label for="cliente"><g:message code="prestamo.cliente.label" default="Cliente" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'cliente', 'errors')}">
-                                    <g:select name="cliente.id" from="${com.sim.cliente.RsCliente.list()}" optionKey="id" value="${prestamoInstance?.cliente?.id}"  />
+                                    ${prestamoInstance.cliente}
                                 </td>
                             </tr>
 
@@ -187,6 +187,7 @@
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
                 <g:hiddenField name="taskId" value="${params.taskId}" />
+                <g:hiddenField name="cliente.id" value="${prestamoInstance?.cliente?.id}" />                
             </g:form>
         </div>
     </body>

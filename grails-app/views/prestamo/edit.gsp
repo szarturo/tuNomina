@@ -46,7 +46,7 @@
                                   <label for="cliente"><g:message code="prestamo.cliente.label" default="Cliente" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'cliente', 'errors')}">
-                                    <g:select name="cliente.id" from="${com.sim.cliente.RsCliente.list()}" optionKey="id" value="${prestamoInstance?.cliente?.id}"  />
+                                    ${prestamoInstance.cliente}
                                 </td>
                             </tr>
                             
@@ -286,6 +286,8 @@
 	                    
 	                </g:if>
                 </div>
+
+                <g:hiddenField name="cliente.id" value="${prestamoInstance?.cliente?.id}" />                
             </g:form>
         </div>
     </body>

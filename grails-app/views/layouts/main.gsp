@@ -311,11 +311,6 @@
 							<li><a href="#" class="parent"><span>Procesos</span></a>
 								<div>
 									<ul>
-										<sec:ifAllGranted roles="ROLE_MESA_CONTROL">
-											<li><g:link controller="prestamo" action="start">
-													<span>Inicio Solicitud</span>
-												</g:link></li>
-										</sec:ifAllGranted>
 										<sec:ifAllGranted roles="ROLE_COBRANZA">
 											<li><g:link controller="listaCobroProceso" action="start">
 													<span>Inicio Listas de Cobro</span>

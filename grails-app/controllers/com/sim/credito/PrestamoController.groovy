@@ -24,6 +24,7 @@ class PrestamoController {
     }
 
     def start = {
+        flash.idCliente = params.idCliente
         start(params)
     }
 	
@@ -35,8 +36,10 @@ class PrestamoController {
     }
 
     def create = {
+        RsCliente cliente = RsCliente.read(flash.idCliente)
         def prestamoInstance = new Prestamo()
         prestamoInstance.properties = params
+        prestamoInstance.cliente = cliente        
         return [prestamoInstance: prestamoInstance,
 			          myTasksCount: assignedTasksCount]
     }
