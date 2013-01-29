@@ -472,8 +472,10 @@ class PrestamoController {
 
     def filter = {
         if(!params.max) params.max = 10
+        ArrayList prestamoInstanceList = filterPaneService.filter( params, Prestamo )
+
         render( view:'list', 
-            model:[ prestamoInstanceList: filterPaneService.filter( params, Prestamo ), 
+            model:[ prestamoInstanceList: prestamoInstanceList, 
                 prestamoCount: filterPaneService.count( params, Prestamo ), 
                 filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
                 myTasksCount: assignedTasksCount,
