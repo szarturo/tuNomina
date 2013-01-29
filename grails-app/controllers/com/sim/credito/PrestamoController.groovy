@@ -15,6 +15,7 @@ class PrestamoController {
 	def tablaAmortizacionRegistroService
     def springSecurityService
     def prestamoService
+    def filterPaneService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static activiti = true
@@ -411,7 +412,6 @@ class PrestamoController {
             redirect(action: "list")
             return            
         }
-
         flash.message = message(code: "Se han actualizado los estatus de los prestamos.", args: [])
         redirect(action: "list")
     }
@@ -430,7 +430,6 @@ class PrestamoController {
             redirect(action: "list")
             return            
         }
-
         flash.message = message(code: "Se han actualizado las compras del día.", args: [])
         redirect(action: "list")
     }
@@ -441,7 +440,6 @@ class PrestamoController {
         datosIntroducidos = prestamoService.altaPrestamos()
         log.info("Los prestamos se dieron de alta correctamente: " + datosIntroducidos)
         prestamoService.altaAccesorios()
-
         redirect(action: "list")
     }
 
@@ -469,10 +467,17 @@ class PrestamoController {
             }
 
         }
-
         redirect(action: "list")
-
     }
 
+    def filter = {
+        if(!params.max) params.max = 10
+        render( view:'list', 
+            model:[ prestamoInstanceList: filterPaneService.filter( params, Prestamo ), 
+                prestamoCount: filterPaneService.count( params, Prestamo ), 
+                filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
+                myTasksCount: assignedTasksCount,
+                params:params ] )
+    }
 	
 }

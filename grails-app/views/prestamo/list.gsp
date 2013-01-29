@@ -6,6 +6,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'prestamo.label', default: 'Prestamo')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <filterpane:includes />        
     </head>
     <body>
 			<div class="nav" role="navigation">
@@ -14,10 +15,36 @@
 	        <li><g:link class="list" controller="task" action="myTaskList"><g:message code="myTasks.label" default="My Tasks ({0})" args="[myTasksCount]" /></g:link></li>
 			</ul>
 			</div>
-        <div class="body">
+            <div class="body">
+
+            <filterpane:filterButton text="Mostrar Criterios de Busqueda" />
+            <filterpane:filterPane domain="com.sim.credito.Prestamo"
+                additionalProperties=""
+                associatedProperties="estatusSolicitud.nombreEtapaPrestamo,
+                promocion.clavePromocion"
+                excludeProperties="correoSolicitante,
+                percepcionesMensuales,
+                deduccionesMensuales,
+                documentosCorrectos,
+                reenviarSolicitud,
+                comentarios,
+                explicacionDevolucion,
+                approvalStatus,
+                usuarioMesaControl,
+                consecutivoCr,
+                dateCreated,
+                lastUpdated"
+                filterPropertyValues="${[fechaSolicitud:[years:2013..2015,precision:'day'], fechaCobro:[years:2013..2015,precision:'day']]}"
+            />
+
+
+
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+            <div class="message">${flash.message}
+
+
+            </div>
             </g:if>
             <div class="list">
                 <table>
@@ -60,7 +87,7 @@
                 </table>
             </div>
             <div class="pagination">
-                <g:paginate total="${prestamoInstanceTotal}" />
+                <g:paginate total="${prestamoCount == null ? Prestamo.count(): prestamoCount}" params="${filterParams}" />
             </div>
         </div>
     </body>
