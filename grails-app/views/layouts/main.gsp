@@ -308,14 +308,16 @@
 									<span>Tareas</span>
 								</g:link></li>
 
+							<sec:ifAllGranted roles="ROLE_COBRANZA">								
+
 							<li><a href="#" class="parent"><span>Procesos</span></a>
 								<div>
 									<ul>
-										<sec:ifAllGranted roles="ROLE_COBRANZA">
+										
 											<li><g:link controller="listaCobroProceso" action="start">
 													<span>Inicio Listas de Cobro</span>
 												</g:link></li>
-										</sec:ifAllGranted>										
+																	
 										<!--		
 										<li><g:link controller="solicitudCredito" action="start">
 												<span>Credito</span>
@@ -325,7 +327,10 @@
 											</g:link></li>
 										-->
 									</ul>
-								</div></li>
+								</div>
+							</li>
+
+							</sec:ifAllGranted>			
 						</ul>
 					</div></li>
 			</sec:ifLoggedIn>
