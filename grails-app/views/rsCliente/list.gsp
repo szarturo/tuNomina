@@ -20,13 +20,8 @@
 			<filterpane:filterButton text="Mostrar Criterios de Búsqueda" />
 			<filterpane:filterPane domain="com.sim.cliente.RsCliente"
 				additionalProperties=""
-                associatedProperties="persona.primerNombre,
-                persona.segundoNombre,
-                persona.apellidoPaterno,
-                persona.apellidoMaterno,
-                persona.rfc,
-                dependencia.nombreDependencia"
-                excludeProperties=""
+                associatedProperties="dependencia.nombreDependencia"
+                excludeProperties="numeroDeNomina"
                 filterPropertyValues=""
 			/>			
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>

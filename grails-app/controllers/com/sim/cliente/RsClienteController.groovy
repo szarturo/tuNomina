@@ -32,6 +32,16 @@ class RsClienteController {
 
     def save() {
         def rsClienteInstance = new RsCliente(params)
+        //SE OBTIENE LA PERSONA ASIGNADA
+        //SE ASIGNAN LOS ATRIBUTOS DE LA PERSONA AL CLIENTE
+        //ESTO SE TUVO QUE HACER POR PROBLEMAS CON EL PLUGIN FILTERPANE
+        RsPersona persona = RsPersona.read(rsClienteInstance.persona.id)
+        rsClienteInstance.apellidoPaterno = persona.apellidoPaterno
+        rsClienteInstance.apellidoMaterno = persona.apellidoMaterno
+        rsClienteInstance.primerNombre = persona.primerNombre
+        rsClienteInstance.segundoNombre = persona.segundoNombre
+        rsClienteInstance.rfc = persona.rfc
+
         if (!rsClienteInstance.save(flush: true)) {
             render(view: "create", model: [rsClienteInstance: rsClienteInstance])
             return
