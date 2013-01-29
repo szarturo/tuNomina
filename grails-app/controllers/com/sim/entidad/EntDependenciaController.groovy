@@ -1,6 +1,5 @@
 package com.sim.entidad
 
-import com.sim.listacobro.ListaCobro
 import grails.converters.*
 
 class EntDependenciaController {

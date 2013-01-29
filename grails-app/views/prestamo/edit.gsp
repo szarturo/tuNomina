@@ -360,13 +360,20 @@
             for (var i=0; i < promociones.length; i++) {
                 var promocion = promociones[i]
                 var opt = document.createElement('option');
-                opt.text = promocion.clavePromocion
-                opt.value = promocion.id
-                try {
-                    rselect.add(opt, null) // standards compliant; doesn't work in IE
-                }
-                catch(ex) {
-                    rselect.add(opt) // IE only
+                var today = new Date();
+                var finVigencia = new Date(promocion.fechaFinVigencia);
+
+                if(today > finVigencia){
+                    //LA VIGENCIA DEL PRESTAMO HA CONCLUIDO
+                }else{
+                    opt.text = promocion.clavePromocion
+                    opt.value = promocion.id                    
+                    try {
+                        rselect.add(opt, null) // standards compliant; doesn't work in IE
+                    }
+                    catch(ex) {
+                        rselect.add(opt) // IE only
+                    }                    
                 }
             }
             //ASIGNA LA PROMOCION ACTUAL
