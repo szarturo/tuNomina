@@ -33,7 +33,8 @@
                 usuarioMesaControl,
                 consecutivoCr,
                 dateCreated,
-                lastUpdated"
+                lastUpdated,
+                aprobado"
                 filterPropertyValues="${[fechaSolicitud:[years:2013..2015,precision:'day'], fechaCobro:[years:2013..2015,precision:'day']]}"
             />
 
