@@ -127,6 +127,7 @@ class BootStrap {
 				apellidoPaterno: "ADMINISTRADOR",
 				primerNombre: "MICROFINANCIERAS",
 				email : "sistema.microfinanciera@gmail.com",
+				rfc : "AAAA8688",
 				tiposPersona : [
 					SimCatTipoPersona.findByClaveTipoPersona('USUARIO')
 				],
@@ -171,6 +172,7 @@ class BootStrap {
 				apellidoPaterno: "Perez",
 				primerNombre: "Kermit",
 				email : "mrugerio@gmail.com",
+				rfc : "AAAZ444",
 				tiposPersona : [
 					SimCatTipoPersona.findByClaveTipoPersona('USUARIO')
 				],
@@ -814,6 +816,7 @@ class BootStrap {
                 apellidoPaterno: "PEREZ",
                 primerNombre: "ROBERTO",
                 email : "rperez@gmail.com",
+                rfc : "AAAA5555",
                 tiposPersona : [
                         SimCatTipoPersona.findByClaveTipoPersona('CLIENTE')
                 ],
