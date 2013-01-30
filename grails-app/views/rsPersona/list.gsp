@@ -32,10 +32,7 @@
 					
 						<g:sortableColumn property="segundoNombre" title="${message(code: 'rsPersona.segundoNombre.label', default: 'Segundo Nombre')}" />
 					
-						<g:sortableColumn property="email" title="${message(code: 'rsPersona.email.label', default: 'Email')}" />
-					
-						<g:sortableColumn property="sexo" title="${message(code: 'rsPersona.sexo.label', default: 'Sexo')}" />
-					
+				
 					</tr>
 				</thead>
 				<tbody>
@@ -50,9 +47,6 @@
 					
 						<td>${fieldValue(bean: rsPersonaInstance, field: "segundoNombre")}</td>
 					
-						<td>${fieldValue(bean: rsPersonaInstance, field: "email")}</td>
-					
-						<td>${fieldValue(bean: rsPersonaInstance, field: "sexo")}</td>
 					
 					</tr>
 				</g:each>

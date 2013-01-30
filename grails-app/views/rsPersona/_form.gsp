@@ -66,6 +66,7 @@
 	<g:datePicker name="fechaNacimiento" precision="day"  value="${rsPersonaInstance?.fechaNacimiento}" default="none" noSelection="['': '']" />
 </div>
 
+<g:if test="${rsPersonaInstance?.id}">
 <div class="fieldcontain ${hasErrors(bean: rsPersonaInstance, field: 'telefonos', 'error')} ">
 	<label for="telefonos">
 		<g:message code="rsPersona.telefonos.label" default="Telefonos" />
@@ -99,6 +100,8 @@
 </ul>
 
 </div>
+</g:if>
+
 
 <div class="fieldcontain ${hasErrors(bean: rsPersonaInstance, field: 'nombreAlterno', 'error')} ">
 	<label for="nombreAlterno">
@@ -113,8 +116,7 @@
 		<g:message code="rsPersona.identificacionOficial.label" default="Identificacion Oficial" />
 		
 	</label>
-	<g:select id="identificacionOficial" name="identificacionOficial.id" from="${com.sim.catalogo.SimCatDocumento.list()}" optionKey="id" value="${rsPersonaInstance?.identificacionOficial?.id}" class="many-to-one" noSelection="['null': '']"/>
-</div>
+	<g:select id="identificacionOficial" name="identificacionOficial.id" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('IDENTIFICACION'))}" optionKey="id" value="${rsPersonaInstance?.identificacionOficial?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 <div class="fieldcontain ${hasErrors(bean: rsPersonaInstance, field: 'numeroIdentificacionOficial', 'error')} ">
 	<label for="numeroIdentificacionOficial">
@@ -180,19 +182,5 @@
 	<g:select id="usuario" name="usuario.id" from="${com.sim.usuario.Usuario.list()}" optionKey="id" value="${rsPersonaInstance?.usuario?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: rsPersonaInstance, field: 'datosEmpleado', 'error')} ">
-	<label for="datosEmpleado">
-		<g:message code="rsPersona.datosEmpleado.label" default="Datos Empleado" />
-		
-	</label>
-	<g:select id="datosEmpleado" name="datosEmpleado.id" from="${com.sim.empresa.EmpEmpleado.list()}" optionKey="id" value="${rsPersonaInstance?.datosEmpleado?.id}" class="many-to-one" noSelection="['null': '']"/>
-</div>
 
-<div class="fieldcontain ${hasErrors(bean: rsPersonaInstance, field: 'datosCliente', 'error')} ">
-	<label for="datosCliente">
-		<g:message code="rsPersona.datosCliente.label" default="Datos Cliente" />
-		
-	</label>
-	<g:select id="datosCliente" name="datosCliente.id" from="${com.sim.cliente.RsCliente.list()}" optionKey="id" value="${rsPersonaInstance?.datosCliente?.id}" class="many-to-one" noSelection="['null': '']"/>
-</div>
 
