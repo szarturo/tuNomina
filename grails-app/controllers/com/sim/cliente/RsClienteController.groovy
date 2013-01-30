@@ -27,7 +27,10 @@ class RsClienteController {
     }
 
     def create() {
-        [rsClienteInstance: new RsCliente(params)]
+    	RsCliente rsClienteInstance = new RsCliente(params)
+        RsPersona persona = RsPersona.read(params.idPersona) 
+        rsClienteInstance.persona = persona
+        [rsClienteInstance: rsClienteInstance]
     }
 
     def save() {

@@ -7,7 +7,7 @@
 		<g:message code="rsCliente.persona.label" default="Persona" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="persona" name="persona.id" from="${com.rs.gral.RsPersona.list()}" optionKey="id" required="" value="${rsClienteInstance?.persona?.id}" class="many-to-one"/>
+	${rsClienteInstance?.persona}
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: rsClienteInstance, field: 'dependencia', 'error')} ">
@@ -26,3 +26,4 @@
 	<g:textField name="numeroDeNomina" value="${rsClienteInstance?.numeroDeNomina}"/>
 </div>
 
+<g:hiddenField name="persona.id" value="${rsClienteInstance?.persona?.id}" />
