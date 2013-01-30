@@ -478,6 +478,9 @@ class PrestamoController {
         if(!params.max) params.max = 10
         ArrayList prestamoInstanceList = filterPaneService.filter( params, Prestamo )
 
+        //ARREGLO PARA GUARDAR LOS PRESTAMOS PERMITIDOS
+        ArrayList prestamosPermitidos = []
+
         //SE OBTIENE EL USUARIO
         Usuario usuario = springSecurityService.getCurrentUser()
         //SE OBTIENE LOS ACCESOS DEL USUARIO
@@ -494,21 +497,28 @@ class PrestamoController {
                 }else{
                     //DEBE TENER ASIGNADO LAS SUCURSALES A LAS QUE TIENE ACESO
                     if (usuarioAcceso.sucursales){
+
                         log.info "El usuario tiene definido sucursales"
+
+                        //ARREGLO PARA ALMACENAR LAS SUCURSALES PERMITIDAS
                         ArrayList sucursalesPermitidas = []
                         usuarioAcceso.sucursales.each{
+                            //GUARDA LAS CLAVES DE SUCURSALES EN EL ARREGLO
                             sucursalesPermitidas.add(it.claveSucursal)
                         }
 
-                        ArrayList prestamosPermitidos = []
                         //ITERA LOS PRESTAMOS OBTENIDOS
                         prestamoInstanceList.each{prestamo->
+                            //VALIDA SI LA SUCURSAL PERMITIDA ESTA EN EL ARREGLO DE 
+                            //SUCURSALES PERMITIDAS
                             if (sucursalesPermitidas.contains(prestamo.sucursal.claveSucursal)){
                                 log.info "El prestamos si se encuentra en la sucursal"
+                                prestamosPermitidos.add(prestamo)
                             }else{
                                 log.info "El prestamos no se encuentra en la sucursal"
                             }
                         }
+                        prestamoInstanceList = prestamosPermitidos
 
                     }else{
                         //NO SE LE HA DEFINIDO SUCURSALES
