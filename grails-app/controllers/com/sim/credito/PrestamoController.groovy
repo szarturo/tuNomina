@@ -34,8 +34,12 @@ class PrestamoController {
 	
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        //FALTA APLICAR LOS ACCESOS QUE TIENE EL USUARIO
-        [prestamoInstanceList: Prestamo.list(params), 
+
+        ArrayList prestamoInstanceList = Prestamo.list(params)
+        //SE RESTRINGEN LOS PRESTAMOS A LOS QUE SE TIENEN ACCESO
+        prestamoInstanceList = accesoPrestamos(prestamoInstanceList)
+
+        [prestamoInstanceList: prestamoInstanceList, 
 			   prestamoInstanceTotal: Prestamo.count(),
 			   myTasksCount: assignedTasksCount]
     }
@@ -477,6 +481,18 @@ class PrestamoController {
     def filter = {
         if(!params.max) params.max = 10
         ArrayList prestamoInstanceList = filterPaneService.filter( params, Prestamo )
+        //SE RESTRINGEN LOS PRESTAMOS A LOS QUE SE TIENEN ACCESO
+        prestamoInstanceList = accesoPrestamos(prestamoInstanceList)
+
+        render( view:'list', 
+            model:[ prestamoInstanceList: prestamoInstanceList, 
+                prestamoCount: filterPaneService.count( params, Prestamo ), 
+                filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
+                myTasksCount: assignedTasksCount,
+                params:params ] )
+    }
+
+    ArrayList accesoPrestamos(ArrayList prestamoInstanceList){
 
         //ARREGLO PARA GUARDAR LOS PRESTAMOS PERMITIDOS
         ArrayList prestamosPermitidos = []
@@ -550,13 +566,7 @@ class PrestamoController {
                 }
             }
         }
-
-        render( view:'list', 
-            model:[ prestamoInstanceList: prestamoInstanceList, 
-                prestamoCount: filterPaneService.count( params, Prestamo ), 
-                filterParams: org.grails.plugin.filterpane.FilterPaneUtils.extractFilterParams(params), 
-                myTasksCount: assignedTasksCount,
-                params:params ] )
+        return prestamoInstanceList
     }
-	
+
 }
