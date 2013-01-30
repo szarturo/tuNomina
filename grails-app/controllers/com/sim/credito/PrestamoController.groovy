@@ -481,6 +481,9 @@ class PrestamoController {
         //ARREGLO PARA GUARDAR LOS PRESTAMOS PERMITIDOS
         ArrayList prestamosPermitidos = []
 
+        //ARREGLO PARA ALMACENAR LAS SUCURSALES PERMITIDAS
+        ArrayList sucursalesPermitidas = []
+
         //SE OBTIENE EL USUARIO
         Usuario usuario = springSecurityService.getCurrentUser()
         //SE OBTIENE LOS ACCESOS DEL USUARIO
@@ -494,14 +497,33 @@ class PrestamoController {
             }else{
                 if (usuarioAcceso.regiones){
                     log.info "El usuario tiene definido regionales"
+
+                    //ITERA LAS REGIONALES PARA OBTENER LAS SUCURSALES
+                    usuarioAcceso.regiones.each{region->
+                        region.estados.each{estado->
+                            estado.sucursal.each{sucursal->
+                                sucursalesPermitidas.add(sucursal.claveSucursal)    
+                            }
+                        }
+                    }
+
+                    log.info "Sucursales Permitidas: ${sucursalesPermitidas}"
+                    //ITERA LOS PRESTAMOS OBTENIDOS
+                    prestamoInstanceList.each{prestamo->
+                        //VALIDA SI LA SUCURSAL PERMITIDA ESTA EN EL ARREGLO DE SUCURSALES PERMITIDAS
+                        if (sucursalesPermitidas.contains(prestamo.sucursal.claveSucursal)){
+                            log.info "El prestamos si se encuentra en la sucursal"
+                            prestamosPermitidos.add(prestamo)
+                        }else{
+                            log.info "El prestamos no se encuentra en la sucursal"
+                        }
+                    }
+                    prestamoInstanceList = prestamosPermitidos
+
                 }else{
                     //DEBE TENER ASIGNADO LAS SUCURSALES A LAS QUE TIENE ACESO
                     if (usuarioAcceso.sucursales){
-
                         log.info "El usuario tiene definido sucursales"
-
-                        //ARREGLO PARA ALMACENAR LAS SUCURSALES PERMITIDAS
-                        ArrayList sucursalesPermitidas = []
                         usuarioAcceso.sucursales.each{
                             //GUARDA LAS CLAVES DE SUCURSALES EN EL ARREGLO
                             sucursalesPermitidas.add(it.claveSucursal)
@@ -509,8 +531,7 @@ class PrestamoController {
 
                         //ITERA LOS PRESTAMOS OBTENIDOS
                         prestamoInstanceList.each{prestamo->
-                            //VALIDA SI LA SUCURSAL PERMITIDA ESTA EN EL ARREGLO DE 
-                            //SUCURSALES PERMITIDAS
+                            //VALIDA SI LA SUCURSAL PERMITIDA ESTA EN EL ARREGLO DE SUCURSALES PERMITIDAS
                             if (sucursalesPermitidas.contains(prestamo.sucursal.claveSucursal)){
                                 log.info "El prestamos si se encuentra en la sucursal"
                                 prestamosPermitidos.add(prestamo)
