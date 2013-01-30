@@ -10,12 +10,12 @@
 	<g:select id="persona" name="persona.id" from="${com.rs.gral.RsPersona.list()}" optionKey="id" required="" value="${rsClienteInstance?.persona?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: rsClienteInstance, field: 'dependencia', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: rsClienteInstance, field: 'dependencia', 'error')} ">
 	<label for="dependencia">
 		<g:message code="rsCliente.dependencia.label" default="Dependencia" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:select id="dependencia" name="dependencia.id" from="${com.sim.entidad.EntDependencia.list()}" optionKey="id" required="" value="${rsClienteInstance?.dependencia?.id}" class="many-to-one"/>
+	<g:select name="dependencia" from="${com.sim.entidad.EntDependencia.list()}" multiple="multiple" optionKey="id" size="5" value="${rsClienteInstance?.dependencia*.id}" class="many-to-many"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: rsClienteInstance, field: 'numeroDeNomina', 'error')} ">

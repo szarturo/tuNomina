@@ -8,7 +8,6 @@ import com.sim.pfin.PfinCuenta
 class RsCliente {
 
     RsPersona      persona
-    EntDependencia dependencia
     String         numeroDeNomina
 
     //ATRIBUTOS QUE PERTENECEN A LA PERSONA
@@ -25,7 +24,8 @@ class RsCliente {
                        cuentas : PfinCuenta, 
                        cuentaBancaria : RsClienteCtaBancaria,
                        clienteEmpleo: RsClienteEmpleo,
-                       referenciasClientes : RsClienteReferencia]
+                       referenciasClientes : RsClienteReferencia,
+                       dependencia : EntDependencia]
 
     static constraints = {
         apellidoPaterno()
@@ -34,7 +34,7 @@ class RsCliente {
         segundoNombre nullable: true
         rfc nullable: true
         persona unique: true
-        dependencia nullable: false
+        dependencia nullable: true
         numeroDeNomina nullable: false
         creditos nullable: true
 		cuentas nullable:true

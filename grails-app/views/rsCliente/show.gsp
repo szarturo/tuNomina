@@ -41,7 +41,9 @@
 				<li class="fieldcontain">
 					<span id="dependencia-label" class="property-label"><g:message code="rsCliente.dependencia.label" default="Dependencia" /></span>
 					
-						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="entDependencia" action="show" id="${rsClienteInstance?.dependencia?.id}">${rsClienteInstance?.dependencia?.encodeAsHTML()}</g:link></span>
+						<g:each in="${rsClienteInstance.dependencia}" var="d">
+						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="entDependencia" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>

@@ -820,10 +820,12 @@ class BootStrap {
         ).save(failOnError: true, flush:true)
 
         new RsCliente(persona: robertoPerez,
-                dependencia: EntDependencia.findByClaveDependencia('IMSS'),
                 numeroDeNomina: '6967896JK8',
                 apellidoPaterno: robertoPerez.apellidoPaterno,
                 primerNombre: robertoPerez.primerNombre,
+                dependencia : [
+                        EntDependencia.findByClaveDependencia('IMSS')
+                ],
         ).save(failOnError: true)
 
         def arturoSalazar = new RsPersona(
@@ -846,13 +848,15 @@ class BootStrap {
         ).save(failOnError: true)
 
         def clienteArturo = new RsCliente(persona: arturoSalazar,
-                dependencia: EntDependencia.findByClaveDependencia('CFE'),
                 numeroDeNomina: 'KJKSDFYUYUI',
                 apellidoPaterno: arturoSalazar.apellidoPaterno,
                 apellidoMaterno: arturoSalazar.apellidoMaterno,
                 primerNombre: arturoSalazar.primerNombre,
                 segundoNombre: arturoSalazar.segundoNombre,
                 rfc : arturoSalazar.rfc,
+                dependencia : [
+                        EntDependencia.findByClaveDependencia('CFE')
+                ],                
         ).save(failOnError: true)
 
         new EmpPuesto(clavePuesto:  'DIRGEN',
