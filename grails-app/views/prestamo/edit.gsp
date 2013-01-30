@@ -131,7 +131,7 @@
                                   <label for="vendedor"><g:message code="prestamo.vendedor.label" default="Vendedor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'vendedor', 'errors')}">
-                                    <g:select name="vendedor.id" from="${com.sim.empresa.EmpEmpleado.list()}" optionKey="id" value="${prestamoInstance?.vendedor?.id}"  />
+                                    <g:select name="vendedor.id" from="${com.sim.empresa.EmpEmpleado.findAllByPuesto(com.sim.empresa.EmpPuesto.findByClavePuesto('VENDE'))}" optionKey="id" value="${prestamoInstance?.vendedor?.id}"  />
                                 </td>
                             </tr>
                         
