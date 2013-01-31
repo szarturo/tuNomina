@@ -1273,6 +1273,7 @@ class BootStrap {
 			operaDiaFestivo : 'false',
 			numeroDigitosDespliega : 2,
 			consecutivoPublicacion : 100,
+			pruebasClienteWsCr:'true',
 		).save(failOnError: true)
 		
 		new SimCatFormaAplicacion(

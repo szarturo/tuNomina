@@ -8,6 +8,7 @@ class PfinCatParametro {
 	Boolean    operaDiaFestivo = false
 	Integer    numeroDigitosDespliega
 	Integer	   consecutivoPublicacion
+	Boolean    pruebasClienteWsCr
 
 	static constraints = {
 		claveMedio(size:3..15, unique: true, nullable: false, blank: false)
@@ -17,6 +18,7 @@ class PfinCatParametro {
 		operaDiaFestivo()
 		numeroDigitosDespliega(range:1..8)
 		consecutivoPublicacion()
+		pruebasClienteWsCr()
 	}
 
 	String toString() {

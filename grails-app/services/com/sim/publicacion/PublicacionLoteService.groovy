@@ -126,7 +126,7 @@ class PublicacionLoteService {
 
 			try {
 				//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
-				Client cliente = new Client(true)
+				Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
 				respuesta = cliente.recepcionPago(
 					usuarioWs,
 					passwordWs,

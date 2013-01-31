@@ -20,7 +20,7 @@ class DispersionController {
 		System.out.println(":P")
 
 		// Invoca WS para obtener los creditos comprados del dia
-		Client cliente = new Client(true);
+		Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr);
 		List<ComprasDia> compras=cliente.getComprasDia("9999", "20121213", "", "");
 		for(ComprasDia c: compras){
 			System.out.println(c.getNombre());

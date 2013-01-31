@@ -77,7 +77,7 @@ class PrestamoService {
 		
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
-			client = new Client(true);
+			client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr);
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,7 +163,7 @@ class PrestamoService {
 			adicional.setDocAd(doctoAdicional.getBytes())		
 			
 			try {
-				Client client = new Client(true);
+				Client client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr);
 				respuesta = client.documentoAdicional(adicional);
 			} catch (ClientException e) {
 				// TODO Auto-generated catch block
@@ -200,7 +200,7 @@ class PrestamoService {
 		log.info("Fecha: ${fecha}")
 
 		try {
-			Client cliente = new Client(true)
+			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
 			//LINEA TEMPORAL
 			Integer x = 1
 
@@ -271,7 +271,7 @@ class PrestamoService {
 		String fecha = "$anio$mes$dia"
 
 		try {
-			Client cliente = new Client(true)
+			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
 			//LINEA TEMPORAL
 			Integer x = 1
 
