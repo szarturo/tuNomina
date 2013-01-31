@@ -1338,6 +1338,7 @@ class BootStrap {
 			operaDomingo : 'false',
 			operaDiaFestivo : 'false',
 			numeroDigitosDespliega : 2,
+			consecutivoPublicacion : 100,
 		).save(failOnError: true)
 		
 		new SimCatFormaAplicacion(
@@ -1423,7 +1424,7 @@ class BootStrap {
 				valor 		 : '1000'
 				).save(failOnError: true, flush: true)
 
-		/*
+		
 		new PrestamoAccesorio(
 				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
 				valor			:	'1',
@@ -1455,7 +1456,6 @@ class BootStrap {
 				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
 				prestamo		: 	Prestamo.findByFolioSolicitud('34534')
 				).save(failOnError: true)
-		*/
 
         new ProPromocionAccesorio (
                 accesorio :   SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('INTERES')),
@@ -1605,7 +1605,7 @@ class BootStrap {
         listaCobroService.crearListasCobro(dependenciaCfe,2013,periodicidadQuincena)
 		listaCobroService.crearListasCobro(dependenciaCfe,2014,periodicidadQuincena)
 
-		/*
+		
 		//ALTA TEMPORAL DE UN PRESTAMO PARA PROBAR SOLICITUDES DE CREDITO REAL
 		def javierHernandez = new RsPersona(
 				email : "javierhernandez@gmail.com",
@@ -1627,7 +1627,11 @@ class BootStrap {
 				).save(failOnError: true)
 
 		def clienteJavier = new RsCliente(persona: javierHernandez,
-				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				apellidoPaterno : javierHernandez.apellidoPaterno,
+				primerNombre :  javierHernandez.primerNombre,
+				dependencia : [
+                        EntDependencia.findByClaveDependencia('CFE')
+                ], 
 				numeroDeNomina: 'JCHSDFYUYUI',
 				).save(failOnError: true)
 
@@ -1673,7 +1677,12 @@ class BootStrap {
 				).save(failOnError: true)
 
 		def clienteFrancisco = new RsCliente(persona: franciscorodriguez,
-				dependencia: EntDependencia.findByClaveDependencia('CFE'),
+				apellidoPaterno : franciscorodriguez.apellidoPaterno,
+				primerNombre :  franciscorodriguez.primerNombre,
+
+				dependencia : [
+                        EntDependencia.findByClaveDependencia('CFE')
+                ], 
 				numeroDeNomina: 'MAZASDFYUYUI',
 				).save(failOnError: true)
 
@@ -1698,7 +1707,7 @@ class BootStrap {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/18/2013'),
 				).save(failOnError: true,flush:true)
-		*/
+		
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext
