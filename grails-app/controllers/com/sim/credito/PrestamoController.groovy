@@ -163,8 +163,8 @@ class PrestamoController {
             prestamoInstance.properties = params
 			
 			PrestamoEstatus estatusSolicitud = prestamoInstance.estatusSolicitud
-			
 			log.info("Estatus de la solicitud: "+estatusSolicitud)
+
             String consecutivo 
 
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
@@ -177,8 +177,10 @@ class PrestamoController {
                     //EL PRESTAMO ES ENVIADO A CREDITO REAL
 					prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-                    //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
-                    consecutivo = 'Prueba'
+                    consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                    //EN EL AMBIENTE DE DESARROLLO HAY QUE COMENTAR LA LINEA DE ARRIBA
+                    //Y DESCOMENTAR LA LINEA DE ABAJO
+                    //consecutivo = 'Prueba'
 				}else if(estatusSolicitud.equals(PrestamoEstatus.CAPTURADA_MESA) && !params.aprobado.equals("on")){
 					prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
@@ -196,8 +198,10 @@ class PrestamoController {
                     if(!params.soloEnviarDocumento.equals("on")){
                         log.info("Se vuelve a enviar los datos del prestamo")
                         //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
-                        //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
-                        consecutivo = 'Prueba'
+                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        //EN EL AMBIENTE DE DESARROLLO HAY QUE COMENTAR LA LINEA DE ARRIBA
+                        //Y DESCOMENTAR LA LINEA DE ABAJO
+                        //consecutivo = 'Prueba'
                     }
                 }else if(estatusSolicitud.equals(PrestamoEstatus.DEVOLUCION_CR) && !params.aprobado.equals("on")){
                     prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
@@ -213,8 +217,11 @@ class PrestamoController {
                     if(!params.soloEnviarDocumento.equals("on")){
                         log.info("Se vuelve a enviar los datos del prestamo")
                         //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
-                        //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
-                        consecutivo = 'Prueba'
+                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        //EN EL AMBIENTE DE DESARROLLO HAY QUE COMENTAR LA LINEA DE ARRIBA
+                        //Y DESCOMENTAR LA LINEA DE ABAJO
+                        //consecutivo = 'Prueba'
+
                     }
                 }else if(estatusSolicitud.equals(PrestamoEstatus.CANCELADA_CR) && !params.aprobado.equals("on")){
                     prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
