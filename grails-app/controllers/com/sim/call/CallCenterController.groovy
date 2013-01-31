@@ -1,7 +1,7 @@
 package com.sim.call
 
 import com.sim.credito.Prestamo
-import com.sim.catalogo.SimCatEtapaPrestamo
+import com.sim.credito.PrestamoEstatus
 
 class CallCenterController {
 
@@ -48,10 +48,9 @@ class CallCenterController {
                 //SIN EMBARGO SI PASA CORRECTAMENTE LOS ID DE CADA PARAMETRO ELIMINADO
                 params.remove("prestamo")
                 Prestamo prestamo = callCenterInstance.prestamo
-                SimCatEtapaPrestamo estatusPrestamo = prestamo.estatusSolicitud
-                log.info "Estatus Solicitud: ${estatusPrestamo}"
+                log.info "Estatus Solicitud: ${prestamo.estatusSolicitud}"
                 log.info "Registro Cerrado?: ${callCenterInstance.cerrarRegistro}"
-                if (estatusPrestamo.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')) || 
+                if (prestamo.estatusSolicitud.equals(PrestamoEstatus.ACTIVO) || 
                     params.cerrarRegistro.equals("on")){
                     params.continuaLocalizando = false
                     flash.message = "El registro de las llamadas para localizar al cliente ha sido cerrado"

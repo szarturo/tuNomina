@@ -20,8 +20,7 @@
             <filterpane:filterButton text="Mostrar Criterios de Busqueda" />
             <filterpane:filterPane domain="com.sim.credito.Prestamo"
                 additionalProperties=""
-                associatedProperties="estatusSolicitud.nombreEtapaPrestamo,
-                promocion.clavePromocion"
+                associatedProperties="promocion.clavePromocion"
                 excludeProperties="correoSolicitante,
                 percepcionesMensuales,
                 deduccionesMensuales,

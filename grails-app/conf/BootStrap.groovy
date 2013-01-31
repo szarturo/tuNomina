@@ -989,73 +989,7 @@ class BootStrap {
 
         new SimCatFormaEntrega(claveFormaEntrega: 'CHEQUE',
                 nombreFormaEntrega: 'EN CHEQUE',
-        ).save(failOnError: true)
-		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'INICIO_MESA',
-			nombreEtapaPrestamo: 'INICIO MESA DE CONTROL',
-			descripcionEtapaPrestamo: 'INICIO MESA DE CONTROL EN MTN',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CAPTURADA_MESA',
-			nombreEtapaPrestamo: 'CAPTURADA MESA DE CONTROL',
-			descripcionEtapaPrestamo: 'CAPTURADA MESA DE CONTROL EN MTN',
-		).save(failOnError: true)
-		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEVOLUCION_AMESA',
-			nombreEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL',
-			descripcionEtapaPrestamo: 'DEVOLUCION A MESA DE CONTROL EN MTN',
-		).save(failOnError: true)
-		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PROCESADA',
-			nombreEtapaPrestamo: 'PROCESO',
-			descripcionEtapaPrestamo: 'PROCESO',
-		).save(failOnError: true)
-		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'AUTORIZADA',
-			nombreEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
-			descripcionEtapaPrestamo: 'AUTORIZADO POR CREDITO REAL',
-		).save(failOnError: true)
-
-		
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'COMPRADA',
-			nombreEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
-			descripcionEtapaPrestamo: 'COMPRADO POR CREDITO REAL',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DEVOLUCION_CR',
-			nombreEtapaPrestamo: 'DEVUELTA POR CREDITO REAL',
-			descripcionEtapaPrestamo: 'DEVUELTA POR CREDITO REAL',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'RECHAZADA_CR',
-			nombreEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
-			descripcionEtapaPrestamo: 'RECHAZADA POR CREDITO REAL',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'CANCELADA_CR',
-			nombreEtapaPrestamo: 'CANCELADA POR CREDITO REAL',
-			descripcionEtapaPrestamo: 'CANCELADA POR CREDITO REAL',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'DISPERSADA',
-			nombreEtapaPrestamo: 'DISPERSADA',
-			descripcionEtapaPrestamo: 'TESORERIA DISPERSA CREDITO',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'PENDIENTE_COBRO',
-			nombreEtapaPrestamo: 'PENDIENTE DE COBRO EN BANCO',
-			descripcionEtapaPrestamo: 'PENDIENTE DE COBRO EN VENTANILLA DE BANCO',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'ACTIVO',
-			nombreEtapaPrestamo: 'CREDITO ACTIVO',
-			descripcionEtapaPrestamo: 'CREDITO COBRADO POR EL CLIENTE',
-		).save(failOnError: true)
-
-		new SimCatEtapaPrestamo(claveEtapaPrestamo:  'LIQUIDADO',
-			nombreEtapaPrestamo: 'CREDITO LIQUIDADO',
-			descripcionEtapaPrestamo: 'CREDITO LIQUIDADO POR EL CLIENTE',
-		).save(failOnError: true, flush: true)
+        ).save(failOnError: true, flush: true)
 
         new Prestamo(
                 cliente : clienteArturo,
@@ -1071,7 +1005,7 @@ class BootStrap {
                 montoSolicitado: 6000,
                 percepcionesMensuales: 12000,
                 deduccionesMensuales: 2000,
-                estatusSolicitud: SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
+                estatusSolicitud: PrestamoEstatus.ACTIVO,
                 formaDeDispercion: SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
                 documentosCorrectos: false,
 				aprobado: false,
@@ -1648,7 +1582,7 @@ class BootStrap {
 				montoSolicitado: 	   10000,
 				percepcionesMensuales: 20000,
 				deduccionesMensuales:  25000,
-				estatusSolicitud:      SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
+				estatusSolicitud:      PrestamoEstatus.ACTIVO,
 				formaDeDispercion:     SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
 				documentosCorrectos:   false,
 				aprobado:              false,
@@ -1699,7 +1633,7 @@ class BootStrap {
 				montoSolicitado: 	   10000,
 				percepcionesMensuales: 20000,
 				deduccionesMensuales:  25000,
-				estatusSolicitud:      SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO'),
+				estatusSolicitud:      PrestamoEstatus.ACTIVO,
 				formaDeDispercion:     SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'),
 				documentosCorrectos:   false,
 				aprobado:              false,

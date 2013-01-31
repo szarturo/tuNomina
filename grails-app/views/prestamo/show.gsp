@@ -134,7 +134,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.estatusSolicitud.label" default="Estatus Solicitud" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="simCatEtapaPrestamo" action="show" id="${prestamoInstance?.estatusSolicitud?.id}">${prestamoInstance?.estatusSolicitud?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${prestamoInstance?.estatusSolicitud?.encodeAsHTML()}</td>
                             
                         </tr>
                     

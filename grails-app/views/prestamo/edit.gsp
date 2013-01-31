@@ -1,4 +1,5 @@
 <%@ page import="com.sim.credito.Prestamo" %>
+<%@ page import="com.sim.credito.PrestamoEstatus" %>
 <%@ page import="org.grails.activiti.ApprovalStatus"%>
 <g:javascript library="prototype" />
 
@@ -36,7 +37,7 @@
                 <g:hiddenField name="id" value="${prestamoInstance?.id}" />
                 <g:hiddenField name="version" value="${prestamoInstance?.version}" />
                 <g:hiddenField name="taskId" value="${params.taskId}" />
-                <g:hiddenField name="estatusSolicitud.id" value="${prestamoInstance?.estatusSolicitud?.id}" />
+                <g:hiddenField name="estatusSolicitud" value="${prestamoInstance?.estatusSolicitud}" />
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -210,7 +211,7 @@
 								</tr>
 
                                 <g:if
-                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'DEVOLUCION_CR'}">
+                                    test="${prestamoInstance.estatusSolicitud == PrestamoEstatus.DEVOLUCION_CR}">
                                         <tr class="prop">
                                             <td valign="top" class="name">
                                               <label for="envioDocto"><g:message code="prestamo.envioDocto.label" default="Se enviaron solo documento(s)" /></label>
@@ -221,7 +222,7 @@
                                         </tr>
                                 </g:if>
                                 <g:if
-                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'CANCELADA_CR'}">
+                                    test="${prestamoInstance.estatusSolicitud == PrestamoEstatus.CANCELADA_CR}">
                                         <tr class="prop">
                                             <td valign="top" class="name">
                                               <label for="envioDocto"><g:message code="prestamo.envioDocto.label" default="Se enviaron solo documento(s)" /></label>
@@ -236,8 +237,7 @@
 							<g:if
 								test="${prestamoInstance.approvalStatus == ApprovalStatus.REJECTED}">
                                 <g:if
-                                    test="${prestamoInstance.estatusSolicitud.claveEtapaPrestamo == 'DEVOLUCION_AMESA'}">
-
+                                    test="${prestamoInstance.estatusSolicitud == PrestamoEstatus.DEVOLUCION_AMESA}">
 								
     								<tr class="prop">
     									<td valign="top" class="name"><label for="explicacionDevolucion"><g:message

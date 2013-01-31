@@ -3,9 +3,9 @@ package com.sim.listacobro
 import com.sim.entidad.EntDependencia
 import com.sim.catalogo.SimCatPeriodicidad
 import com.sim.catalogo.SimCatListaCobroEstatus
-import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.credito.Prestamo
+import com.sim.credito.PrestamoEstatus
 
 class ListaCobroService {
 
@@ -122,7 +122,7 @@ class ListaCobroService {
             //SE VALIDA SI EL PRESTAMO SE INCLUYE EN LISTAS DE COBRO
             //Y QUE ESTE ACTIVO
             if (prestamo.incluirEnListasCobro==true &&
-                    prestamo.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("ACTIVO"))){
+                    prestamo.estatusSolicitud.equals(PrestamoEstatus.ACTIVO)){
                 log.info ("Prestamo de la lista de cobro anterior: ${prestamo}")
                 //SE RECUPERA LA PRIMERA AMORTIZACION NO PAGADA DEL CREDITO
                 def criteriaAmortizacionPendiente = TablaAmortizacionRegistro.createCriteria()

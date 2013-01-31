@@ -1,7 +1,6 @@
 package com.sim.credito
 
 import com.sim.alfresco.AlfrescoService
-import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.cliente.RsCliente
 import com.sim.usuario.Usuario
@@ -56,9 +55,9 @@ class PrestamoController {
     def save = {
         def prestamoInstance = new Prestamo(params)
 		if (params.complete) {
-			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
+			prestamoInstance.estatusSolicitud = PrestamoEstatus.CAPTURADA_MESA
 		}else{
-			prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('INICIO_MESA')
+			prestamoInstance.estatusSolicitud = PrestamoEstatus.INICIO_MESA
 		}
 		prestamoInstance.approvalStatus = ApprovalStatus.PENDING
 		prestamoInstance.documentosCorrectos = false
@@ -86,7 +85,6 @@ class PrestamoController {
 				params.remove("sucursal")
 				params.remove("delegacion")
 				params.remove("vendedor")
-				params.remove("estatusSolicitud")
 				params.remove("formaDeDispercion")
 				params.remove("cliente")
                 params.remove("tipoEmpleadoDep")
@@ -164,59 +162,62 @@ class PrestamoController {
             }
             prestamoInstance.properties = params
 			
-			def estatusSolicitud = SimCatEtapaPrestamo.get(params.estatusSolicitud.id)
+			PrestamoEstatus estatusSolicitud = prestamoInstance.estatusSolicitud
 			
 			log.info("Estatus de la solicitud: "+estatusSolicitud)
-            String consecutivo
+            String consecutivo 
 
 			Boolean isComplete = params["_action_update"].equals(message(code: 'default.button.complete.label', default: 'Complete'))
 			if (isComplete) {
 
-				if (estatusSolicitud.claveEtapaPrestamo.equals("INICIO_MESA")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
+				if (estatusSolicitud.equals(PrestamoEstatus.INICIO_MESA)){
+					prestamoInstance.estatusSolicitud = PrestamoEstatus.CAPTURADA_MESA
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && params.aprobado.equals("on")){
+				}else if(estatusSolicitud.equals(PrestamoEstatus.CAPTURADA_MESA) && params.aprobado.equals("on")){
                     //EL PRESTAMO ES ENVIADO A CREDITO REAL
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
+					prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-                    consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("CAPTURADA_MESA") && !params.aprobado.equals("on")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
+                    //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                    consecutivo = 'Prueba'
+				}else if(estatusSolicitud.equals(PrestamoEstatus.CAPTURADA_MESA) && !params.aprobado.equals("on")){
+					prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
 					prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_AMESA") && params.reenviarSolicitud.equals("on")){
-					prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('CAPTURADA_MESA')
+				}else if(estatusSolicitud.equals(PrestamoEstatus.DEVOLUCION_AMESA) && params.reenviarSolicitud.equals("on")){
+					prestamoInstance.estatusSolicitud = PrestamoEstatus.CAPTURADA_MESA
 					prestamoInstance.approvalStatus = ApprovalStatus.PENDING
-				}else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && params.aprobado.equals("on")){
+				}else if(estatusSolicitud.equals(PrestamoEstatus.DEVOLUCION_CR) && params.aprobado.equals("on")){
                     log.info("El prestamo es envido otra vez a CR")
                     log.info("Estatus actual: DEVOLUCION_CR")
                     log.info("Valor Solo enviar docto: "+params.soloEnviarDocumento)
                     //EL PRESTAMO ES OTRA VEZ ENVIADO A CREDITO REAL
-                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
+                    prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
                     prestamoInstance.approvalStatus = ApprovalStatus.PENDING
                     //VALIDAR SI SOLO FUE ENVIADO UNO O MAS DOCUMENTOS
                     if(!params.soloEnviarDocumento.equals("on")){
                         log.info("Se vuelve a enviar los datos del prestamo")
                         //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
-                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        consecutivo = 'Prueba'
                     }
-                }else if(estatusSolicitud.claveEtapaPrestamo.equals("DEVOLUCION_CR") && !params.aprobado.equals("on")){
-                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
+                }else if(estatusSolicitud.equals(PrestamoEstatus.DEVOLUCION_CR) && !params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
                     prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
-                }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && params.aprobado.equals("on")){
+                }else if(estatusSolicitud.equals(PrestamoEstatus.CANCELADA_CR) && params.aprobado.equals("on")){
                     log.info("El prestamo es envido otra vez a CR")
                     log.info("Estatus actual: CANCELADA_CR")
                     log.info("Valor Solo enviar docto: "+params.soloEnviarDocumento)
                     //EL PRESTAMO ES OTRA VEZ ENVIADO A CREDITO REAL
-                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PROCESADA')
+                    prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
                     prestamoInstance.approvalStatus = ApprovalStatus.PENDING
                     //VALIDAR SI SOLO FUE ENVIADO UNO O MAS DOCUMENTOS
                     if(!params.soloEnviarDocumento.equals("on")){
                         log.info("Se vuelve a enviar los datos del prestamo")
                         //SE ENVIA DE NUEVO TODO LOS DATOS DEL PRESTAMO A CREDITO REAL
-                        consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        //consecutivo = prestamoService.envioSolicitudCreditoReal(prestamoInstance)
+                        consecutivo = 'Prueba'
                     }
-                }else if(estatusSolicitud.claveEtapaPrestamo.equals("CANCELADA_CR") && !params.aprobado.equals("on")){
-                    prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('DEVOLUCION_AMESA')
+                }else if(estatusSolicitud.equals(PrestamoEstatus.CANCELADA_CR) && !params.aprobado.equals("on")){
+                    prestamoInstance.estatusSolicitud = PrestamoEstatus.DEVOLUCION_AMESA
                     prestamoInstance.approvalStatus = ApprovalStatus.REJECTED
                 }                
             }
@@ -237,7 +238,6 @@ class PrestamoController {
 										params.remove("sucursal")
 										params.remove("delegacion")
 										params.remove("vendedor")
-										params.remove("estatusSolicitud")
 										params.remove("formaDeDispercion")
 										params.remove("cliente")
                                         params.remove("tipoEmpleadoDep")
@@ -309,16 +309,16 @@ class PrestamoController {
 
         log.info "Estatus Solicitud: ${prestamoInstance.estatusSolicitud}"
 
-        if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("PROCESADA"))){
+        if (prestamoInstance.estatusSolicitud.equals(PrestamoEstatus.PROCESADA)){
             log.info "La solicitud continua en ${prestamoInstance.folioSolicitud}"
             flash.message = " La solicitud ${prestamoInstance.folioSolicitud} continua en ${prestamoInstance.estatusSolicitud}"
-        }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("AUTORIZADA"))){
+        }else if(prestamoInstance.estatusSolicitud.equals(PrestamoEstatus.AUTORIZADA)){
             log.info "La solicitud se encuentra en ${prestamoInstance.folioSolicitud}"
             flash.message = " La solicitud ${prestamoInstance.folioSolicitud} se encuentra en ${prestamoInstance.estatusSolicitud}"
         }else{
 
             //RECUPERA EL ESTATUS DE LA SOLICITUD ACTUAL
-            params.estatusSolicitudActual =  prestamoInstance.estatusSolicitud.claveEtapaPrestamo
+            params.estatusSolicitudActual =  (String)prestamoInstance.estatusSolicitud
             completeTask(params)
             flash.message = " Credito Real cambio el estatus de la solicitud ${prestamoInstance.folioSolicitud} a ${prestamoInstance.estatusSolicitud}"
         }
@@ -330,10 +330,10 @@ class PrestamoController {
 
         def prestamoInstance = Prestamo.get(params.id)
 
-        if (prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("COMPRADA"))){
+        if (prestamoInstance.estatusSolicitud.equals(PrestamoEstatus.COMPRADA)){
             log.info "La solicitud continua en ${prestamoInstance.folioSolicitud}, necesita ser DISPERSADA"
             flash.message = " La solicitud ${prestamoInstance.folioSolicitud} continua en ${prestamoInstance.estatusSolicitud}, necesita ser DISPERSADA"
-        }else if(prestamoInstance.estatusSolicitud.equals(SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA"))){
+        }else if(prestamoInstance.estatusSolicitud.equals(PrestamoEstatus.DISPERSADA)){
             //CONSULTA SI EL PAGO AL CLIENTE SE REALIZA A TRAVES DE TRANSFERENCIA ELECTRONICA O
             //POR VENTANILLA BANCARIA
             SimCatFormaEntrega formaDeEntrega = prestamoInstance.formaDeDispercion
@@ -352,9 +352,9 @@ class PrestamoController {
             if (formaDeEntrega.equals(SimCatFormaEntrega.findByClaveFormaEntrega('VENBANCO'))){
                 //LA SIGUIENTE DEFINICION SE USA COMO EJEMPLO DE COMO PASAR UNA VARIABLE A LA SIGUIENTE TAREA
                 params.idPrestamo = params.id
-                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('PENDIENTE_COBRO')
+                prestamoInstance.estatusSolicitud = PrestamoEstatus.PENDIENTE_COBRO
             }else{
-                prestamoInstance.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')
+                prestamoInstance.estatusSolicitud = PrestamosEstatus.ACTIVO
             }
 
             flash.message = "La solicitud ${prestamoInstance.folioSolicitud} cambio del estatus POR DISPERSAR al estatus ${prestamoInstance.estatusSolicitud}"
@@ -362,7 +362,7 @@ class PrestamoController {
             completeTask(params)
             
         }else{
-            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} debe cambiar al estatus  ${SimCatEtapaPrestamo.findByClaveEtapaPrestamo("DISPERSADA")}"
+            flash.message = " La solicitud ${prestamoInstance.folioSolicitud} debe cambiar al estatus  ${PrestamoEstatus.DISPERSADA}"
         }
 
         redirect(controller: "task", action: "myTaskList")

@@ -1,6 +1,7 @@
 
 
 <%@ page import="com.sim.credito.Prestamo" %>
+<%@ page import="com.sim.credito.PrestamoEstatus" %>
 
 <html>
     <head>
@@ -39,7 +40,7 @@
                                   <label for="estatusSolicitud"><g:message code="prestamo.estatusSolicitud.label" default="Estatus de Solicitud" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'estatusSolicitud', 'errors')}">
-                                    <g:select name="estatusSolicitud.id" from="${com.sim.catalogo.SimCatEtapaPrestamo.list()}" optionKey="id" value="${prestamoInstance?.estatusSolicitud?.id}"  />
+                                    <g:select name="estatusSolicitud" from="${com.sim.credito.PrestamoEstatus}" value="${prestamoInstance?.estatusSolicitud}"  />
                                 </td>
                             </tr>
 

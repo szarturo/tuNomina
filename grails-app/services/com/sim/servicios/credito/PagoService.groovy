@@ -6,7 +6,6 @@ import com.sim.tablaAmortizacion.*
 import com.sim.catalogo.SimCatTipoAccesorio
 import com.sim.catalogo.SimCatAccesorio
 import com.sim.catalogo.SimCatFormaAplicacion
-import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.producto.ProPromocionAccesorio
 import com.sim.usuario.Usuario
 
@@ -294,7 +293,7 @@ class PagoService {
 		//EL PRESTAMO DEBE CAMBIAR DE ESTATUS A LIQUIDADO
 		if (!listaPendientesPago){
 			log.info ("El prestamo ha sido liquidado")
-			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('LIQUIDADO')
+			prestamoPagoInstance.prestamo.estatusSolicitud = PrestamoEstatus.LIQUIDADO
 			prestamoPagoInstance.prestamo.save()
 		}
 		return true
@@ -714,7 +713,7 @@ class PagoService {
 		//EL PRESTAMO DEBE CAMBIAR DE ESTATUS A ACTIVO
 		if (listaPendientesPago){
 			log.info ("El prestamo continua en estatus Activo")
-			prestamoPagoInstance.prestamo.estatusSolicitud = SimCatEtapaPrestamo.findByClaveEtapaPrestamo('ACTIVO')
+			prestamoPagoInstance.prestamo.estatusSolicitud = PrestamoEstatus.ACTIVO
 			prestamoPagoInstance.prestamo.save()
 		}
 

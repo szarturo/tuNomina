@@ -11,7 +11,6 @@ import com.sim.empresa.EmpEmpleado
 import com.sim.producto.ProPromocion
 import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
-import com.sim.catalogo.SimCatEtapaPrestamo
 import com.sim.catalogo.SimCatTipoEmp
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.call.CallCenter
@@ -32,7 +31,7 @@ class Prestamo {
     BigDecimal     percepcionesMensuales
     BigDecimal     deduccionesMensuales
     BigDecimal     montoSolicitado
-    SimCatEtapaPrestamo estatusSolicitud
+    PrestamoEstatus estatusSolicitud
     SimCatFormaEntrega formaDeDispercion
     Boolean        documentosCorrectos
 	Boolean        aprobado
