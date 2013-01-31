@@ -73,45 +73,45 @@ class PrestamoService {
 			}
     	}
     	
-		Client client = null;
+		Client client = null
 		
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
-			client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr);
+			client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace()
 		}
 
-		Solicitud solicitud = new Solicitud();
-		solicitud.setReferencia("${prestamo.folioSolicitud}"); //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
+		Solicitud solicitud = new Solicitud()
+		solicitud.setReferencia("${prestamo.folioSolicitud}") //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
         log.info "Referencia: " + solicitud.getReferencia()
-		solicitud.setDistribuidor("9999"); //9999  Se asignara por CR
-		solicitud.setSucursal("1111"); //1111 Se asignara por CR
+		solicitud.setDistribuidor("9999") //9999  Se asignara por CR
+		solicitud.setSucursal("1111") //1111 Se asignara por CR
 		//EL VENDEDOR SE REFIEREN A MTN O EL VENDEDOR DE MTN
-		solicitud.setVendedor(""); //Clave de Vendedor asignada. Dejar en blanco para pruebas
+		solicitud.setVendedor("") //Clave de Vendedor asignada. Dejar en blanco para pruebas
         log.info "¿Que enviar en Vendedor?"
-		solicitud.setDap("0"); //Enviar un 0
-		solicitud.setPercepciones(prestamo.percepcionesMensuales); //Percepciones mensuales del cliente
+		solicitud.setDap("0") //Enviar un 0
+		solicitud.setPercepciones(prestamo.percepcionesMensuales) //Percepciones mensuales del cliente
         log.info "Percepciones Mensuales: "+ solicitud.getPercepciones()
-		solicitud.setDeducciones(prestamo.deduccionesMensuales); //Deducciones mensuales del cliente
+		solicitud.setDeducciones(prestamo.deduccionesMensuales) //Deducciones mensuales del cliente
         log.info "Deducciones Mensuales: "+ solicitud.getDeducciones()
-		solicitud.setSolicitud(doctoSolicitud?.getBytes()); //Imagen binarizada de la Solictud de credito
-		solicitud.setPagare(doctoPagare?.getBytes()); //Imagen binarizada del pagare
-		solicitud.setIdentificacion(doctoIdentificacion?.getBytes()); //Imagen binarizada de la identificacion
-		solicitud.setDocadA(doctoAdicionalA?.getBytes()); //Imagen binarizada de un documento adicional
-		solicitud.setDocadB(doctoAdicionalB?.getBytes()); //Imagen binarizada de un documento adicional
-		solicitud.setDocadC(doctoAdicionalC?.getBytes()); //Imagen binarizada de un documento adicional
+		solicitud.setSolicitud(doctoSolicitud?.getBytes()) //Imagen binarizada de la Solictud de credito
+		solicitud.setPagare(doctoPagare?.getBytes()) //Imagen binarizada del pagare
+		solicitud.setIdentificacion(doctoIdentificacion?.getBytes()) //Imagen binarizada de la identificacion
+		solicitud.setDocadA(doctoAdicionalA?.getBytes()) //Imagen binarizada de un documento adicional
+		solicitud.setDocadB(doctoAdicionalB?.getBytes()) //Imagen binarizada de un documento adicional
+		solicitud.setDocadC(doctoAdicionalC?.getBytes()) //Imagen binarizada de un documento adicional
 		
-		String consecutivo = "NO SE GENERO";
+		String consecutivo = "NO SE GENERO"
 			
 		try {
-			consecutivo = client.solicitudZell(solicitud);
+			consecutivo = client.solicitudZell(solicitud)
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace()
 		}
-		System.out.println("Respuesta Credito Real Consecutivo: "+ consecutivo);
+		log.info("Respuesta Credito Real Consecutivo: ${consecutivo}")
 		
 		prestamo.consecutivoCr = consecutivo
 
@@ -128,10 +128,10 @@ class PrestamoService {
 				
 				String respuesta = "No se genero respuesta"
 				try {
-					respuesta = client.documentoAdicional(adicional);
+					respuesta = client.documentoAdicional(adicional)
 				} catch (ClientException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e.printStackTrace()
 				}
 				log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 			}
@@ -163,11 +163,11 @@ class PrestamoService {
 			adicional.setDocAd(doctoAdicional.getBytes())		
 			
 			try {
-				Client client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr);
-				respuesta = client.documentoAdicional(adicional);
+				Client client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
+				respuesta = client.documentoAdicional(adicional)
 			} catch (ClientException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e.printStackTrace()
 			}
 			log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 		}else{
