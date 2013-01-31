@@ -27,7 +27,7 @@ class PublicacionDet {
     static constraints = {
     	usuario size:1..10
 		password size:1..10
-		idCr()
+		idCr unique:true, nullable:false
 		numeroCliente size:1..15
 		numeroOperacion size:1..26
 		claveCia size:1..5

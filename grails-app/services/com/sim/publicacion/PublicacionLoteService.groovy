@@ -55,8 +55,13 @@ class PublicacionLoteService {
 		//ATRIBUTOS PARA ENVIAR LA PUBLICACION A CREDITO REAL
 		String usuarioWs = 'Usuario'
 		String passwordWs = 'Password'
-		//IMPLEMENTAR QUE SEA INCREMENTABLE E IRREPETIBLE
-		Integer idWs = 1
+		//SE OBTIENE EL ID
+		//!!!VERIFICAR QUE FUNCIONE CON ALTA CONCURRENCIA!!!
+		parametros.consecutivoPublicacion =
+			parametros.consecutivoPublicacion + 1
+		parametros.save(flush:true,failOnError:true)
+
+		Integer idWs = parametros.consecutivoPublicacion
 		//NUMERO DE CLIENTE QUE SE ASIGNO AL CREDITO POR PARTE DE CR
 		String numeroClienteWs
 		//NUMERO DE OPERACION QUE SE ASIGNO AL CREDITO POR PARTE DE CR
