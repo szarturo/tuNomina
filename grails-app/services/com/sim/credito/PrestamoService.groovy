@@ -89,8 +89,8 @@ class PrestamoService {
 		solicitud.setDistribuidor("9999") //9999  Se asignara por CR
 		solicitud.setSucursal("1111") //1111 Se asignara por CR
 		//EL VENDEDOR SE REFIEREN A MTN O EL VENDEDOR DE MTN
-		solicitud.setVendedor("") //Clave de Vendedor asignada. Dejar en blanco para pruebas
-        log.info "¿Que enviar en Vendedor?"
+		solicitud.setVendedor("${prestamo.vendedor.clavePromotor}") //Clave de Vendedor asignada. Dejar en blanco para pruebas
+        log.info "Vendedor: " + solicitud.getVendedor()
 		solicitud.setDap("0") //Enviar un 0
 		solicitud.setPercepciones(prestamo.percepcionesMensuales) //Percepciones mensuales del cliente
         log.info "Percepciones Mensuales: "+ solicitud.getPercepciones()
