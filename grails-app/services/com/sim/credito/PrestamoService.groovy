@@ -74,10 +74,12 @@ class PrestamoService {
     	}
     	
 		Client client = null
+		Boolean pruebasCr = PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr
+		log.info ("Pruebas CR: ${pruebasCr}")
 		
 		try {
 			//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
-			client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
+			client = new Client(pruebasCr)
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace()
@@ -88,8 +90,7 @@ class PrestamoService {
         log.info "Referencia: " + solicitud.getReferencia()
 		solicitud.setDistribuidor("${prestamo.dependencia.distribuidor}") //9999  Se asignara por CR
 		log.info "Distribuidor: " + solicitud.getDistribuidor()
-		//FALTA TOMAR EL DATO DE SUCURSAL
-		solicitud.setSucursal("1111") //1111 Se asignara por CR
+		solicitud.setSucursal("${prestamo.promocion.clavePromocion}") //Se asignara por CR
 		log.info "Sucursal: " + solicitud.getSucursal()
 		solicitud.setVendedor("${prestamo.vendedor.clavePromotor}") //Clave de Vendedor asignada. Dejar en blanco para pruebas
         log.info "Vendedor: " + solicitud.getVendedor()
