@@ -805,10 +805,12 @@ class BootStrap {
 
         def dependenciaImss = new EntDependencia(claveDependencia: 'IMSS',
                 nombreDependencia: 'INSTITUTO MEXICANO DEL SEGURO SOCIAL',
+                distribuidor : '1866',
         ).save(failOnError: true)
 
         def dependenciaCfe  = new EntDependencia(claveDependencia: 'CFE',
 				nombreDependencia: 'COMISION FEDERAL DE ELECTRICIDAD',
+				distribuidor : '1866',
 				).save(failOnError: true)
 
         //DA DE ALTA UNA PERSONA PARA ASIGNARLO A UN CLIENTE

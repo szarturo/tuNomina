@@ -86,7 +86,8 @@ class PrestamoService {
 		Solicitud solicitud = new Solicitud()
 		solicitud.setReferencia("${prestamo.folioSolicitud}") //Numero de Referencia o Folio propia del distribuidor o dejar en blanco
         log.info "Referencia: " + solicitud.getReferencia()
-		solicitud.setDistribuidor("9999") //9999  Se asignara por CR
+		solicitud.setDistribuidor("${prestamo.dependencia.distribuidor}") //9999  Se asignara por CR
+		log.info "Distribuidor: " + solicitud.getDistribuidor()
 		solicitud.setSucursal("1111") //1111 Se asignara por CR
 		//EL VENDEDOR SE REFIEREN A MTN O EL VENDEDOR DE MTN
 		solicitud.setVendedor("${prestamo.vendedor.clavePromotor}") //Clave de Vendedor asignada. Dejar en blanco para pruebas

@@ -9,6 +9,9 @@ class EntDependencia {
     String  claveDependencia
     String  nombreDependencia
     String  descripcionDependencia
+    //1866 Empresas Publicas
+    //1833 Empresas Privadas (Bio Servicios Corporativos)
+    String  distribuidor
 
     SortedSet listaCobro
 
@@ -27,6 +30,7 @@ class EntDependencia {
         listaCobro(nullable: true)
         promocion(nullable: true)
         tiposEmpleado(nullable: true)
+        distribuidor nullable:false, size:4..4
     }
 
     String toString() {
