@@ -74,12 +74,13 @@
 
 		</uploadr:add>
 
+        <button onclick="mostrarDocumentos()">Ver Documentos</button>        
+
     
 
     <g:form controller="prestamoDocumentos">
         <g:hiddenField name="idCliente" value="${claveCliente}" />
         <g:hiddenField name="folioSolicitud" value="${folioSolicitud}" />
-        <button onclick="mostrarDocumentos()">Ver Documentos</button>
         <g:actionSubmit value="Asignar Nombre" action="asignaNombre"/>
     </g:form>      
 
@@ -97,7 +98,6 @@
                     i = i +1;
                 }
             }
-
             // open a modal dialog to view the file contents
             var width = 1200;
             var height= 600;
@@ -126,8 +126,6 @@
     </g:javascript>
 
     <div id="ventana" display:none"><iframe style="width:0px; height: 0px; src=""></iframe></div>
-
-  
 
     </body>
 </html>
