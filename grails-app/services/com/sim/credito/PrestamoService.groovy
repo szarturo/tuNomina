@@ -88,8 +88,9 @@ class PrestamoService {
         log.info "Referencia: " + solicitud.getReferencia()
 		solicitud.setDistribuidor("${prestamo.dependencia.distribuidor}") //9999  Se asignara por CR
 		log.info "Distribuidor: " + solicitud.getDistribuidor()
+		//FALTA TOMAR EL DATO DE SUCURSAL
 		solicitud.setSucursal("1111") //1111 Se asignara por CR
-		//EL VENDEDOR SE REFIEREN A MTN O EL VENDEDOR DE MTN
+		log.info "Sucursal: " + solicitud.getSucursal()
 		solicitud.setVendedor("${prestamo.vendedor.clavePromotor}") //Clave de Vendedor asignada. Dejar en blanco para pruebas
         log.info "Vendedor: " + solicitud.getVendedor()
 		solicitud.setDap("0") //Enviar un 0
