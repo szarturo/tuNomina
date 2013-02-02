@@ -1644,8 +1644,24 @@ class BootStrap {
 				reenviarSolicitud:     false,
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/18/2013'),
-				).save(failOnError: true,flush:true)
-		
+				).save(failOnError: true)
+
+		new SimCatCrMotivo(codigo:  'AA',
+				proceso: 'Autorizacion',
+				descripcion: 'Solicitud Aprobada',
+				).save(failOnError: true)
+		new SimCatCrMotivo(codigo:  '1',
+				proceso: 'Devolucion',
+				descripcion: 'Falta de Identificacion Oficial',
+				).save(failOnError: true)
+		new SimCatCrMotivo(codigo:  '2R',
+				proceso: 'Devolucion',
+				descripcion: 'REQUIERE DE DOS REFERENCIAS PERSONALES MAS',
+				).save(failOnError: true)
+		new SimCatCrMotivo(codigo:  '23',
+				proceso: 'Devolucion',
+				descripcion: 'Comprobante de Ingresos Ilegible',
+				).save(failOnError: true, flush:true)
 
         //BORRAR LA SESION DEL OBJETO The Hibernate Session
         def ctx = AH.application.mainContext

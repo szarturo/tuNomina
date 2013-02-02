@@ -124,7 +124,10 @@
 										<li><g:link controller="simCatFormaEntrega">
 												<span>Forma Entrega</span>
 											</g:link></li>
-									</ul>
+										<li><g:link controller="simCatCrMotivo">
+												<span>CR Motivos </span>
+											</g:link></li>	
+									</ul>									
 								</div>
 							</li>
 																	
