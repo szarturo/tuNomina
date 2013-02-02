@@ -3,6 +3,7 @@ import java.util.List;
 import mx.com.creditoreal.ws.client.Client;
 import mx.com.creditoreal.ws.dto.SolicitudDecididasDia;
 import mx.com.creditoreal.ws.dto.SolicitudDia;
+import mx.com.creditoreal.ws.dto.CarteraGeneradaDia;
 
 
 public class TestWS2 {
@@ -20,20 +21,20 @@ public class TestWS2 {
 //			System.out.println(s.getNombre());
 //		}
 		
-		List<SolicitudDecididasDia> solicitudes2=cliente.getSolicitudesDecididasDia("9999", "20121213", "", "");
-		for(SolicitudDecididasDia s : solicitudes2){
-			System.out.println(s.getNombre());
-		}
-//		
+//		List<SolicitudDecididasDia> solicitudes2=cliente.getSolicitudesDecididasDia("9999", "20121213", "", "");
+//		for(SolicitudDecididasDia s : solicitudes2){
+//			System.out.println(s.getNombre());
+//		}
+		
 //		List<ComprasDia> compras=cliente.getComprasDia("9999", "20121213", "", "");
 //		for(ComprasDia c: compras){
 //			System.out.println(c.getNombre());
 //		}
 		
-//		List<CarteraGeneradaDia> carteras=cliente.getCarteraGeneradaDia("9999", "20121213", "", "");
-//		for(CarteraGeneradaDia cartera: carteras){
-//			System.out.println(cartera.getNombre());
-//		}
+		List<CarteraGeneradaDia> carteras=cliente.getCarteraGeneradaDia("9999", "20121213", "", "");
+		for(CarteraGeneradaDia cartera: carteras){
+			System.out.println(cartera.getNombre());
+		}
 		
 //		String r=
 //		cliente.recepcionPago(
