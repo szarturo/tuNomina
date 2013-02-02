@@ -264,6 +264,45 @@ class PrestamoService {
 					//SE SOBREESCRIBE LA PROMOCION
 					//prestamo.promocion = promocion
 				}
+
+	            switch ( solicitud.status ) {
+	                case "TRA":
+						prestamo.estatusSolicitud = PrestamoEstatus.TRANSMISION_CR
+	                break
+	                case "RET":
+						prestamo.estatusSolicitud = PrestamoEstatus.RETENSION_CR
+	                break
+	                case "PRO":
+						prestamo.estatusSolicitud = PrestamoEstatus.PROCESADA
+	                break
+	                case "AUT":
+						prestamo.estatusSolicitud = PrestamoEstatus.AUTORIZADA
+	                break
+	               	case "REC":
+						prestamo.estatusSolicitud = PrestamoEstatus.RECHAZADA_CR
+	                break
+	                case "PEN":
+						prestamo.estatusSolicitud = PrestamoEstatus.PENDIENTE_CR
+	                break
+	                case "CAN":
+						prestamo.estatusSolicitud = PrestamoEstatus.CANCELADA_CR
+	                break
+	                case "VAL":
+						prestamo.estatusSolicitud = PrestamoEstatus.VALIDACION_CR
+	                break
+	                case "REV":
+						prestamo.estatusSolicitud = PrestamoEstatus.REVALORACION_CR
+	                break
+	                case "CAP":
+						prestamo.estatusSolicitud = PrestamoEstatus.CAPTURA_CR
+	                break
+	               	case "DEV":
+						prestamo.estatusSolicitud = PrestamoEstatus.DEVOLUCION_CR
+	                break
+
+	                default:
+	                    log.info ("No se encontro el estatus asignado: "+prestamo.estatusSolicitud)
+	            }				
 			}		
 
 		} catch (ClientException e) {
