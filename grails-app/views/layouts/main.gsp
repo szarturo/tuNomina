@@ -260,7 +260,7 @@
 							<li><a href="#" class="parent"><span>Credito Real</span></a>
 								<div>
 									<ul>
-										<li><g:link controller="prestamo" action="solicitudesDecididasDia">
+										<li><g:link controller="prestamo" action="showSolicitudesDecididasDia">
 												<span>Solicitudes Decididas</span>
 											</g:link></li>
 										<li><g:link controller="prestamo"  action="comprasDia">

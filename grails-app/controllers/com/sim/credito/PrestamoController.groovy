@@ -413,9 +413,18 @@ class PrestamoController {
         }
     }
 
+    def showSolicitudesDecididasDia = {
+        //METODO PARA MOSTRAR LA GSP showSolicitudesDecididasDia
+    }
+
     def solicitudesDecididasDia = {
+        log.info("Distribuidor:"+params.distribuidor)
         try{
-            def respuesta = prestamoService.solicitudesDecididasDia()    
+            def respuesta = prestamoService.solicitudesDecididasDia(
+                    params.distribuidor,
+                    params.fecha_day,
+                    params.fecha_month,
+                    params.fecha_year)    
         }catch(PrestamoServiceException errorSolicitudesDecididas){
             log.error "Failed:", errorSolicitudesDecididas
             flash.message = message(code: errorSolicitudesDecididas.mensaje, args: [])

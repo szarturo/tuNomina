@@ -6,12 +6,13 @@ import mx.com.creditoreal.ws.dto.Solicitud
 import mx.com.creditoreal.ws.dto.SolicitudDecididasDia
 import mx.com.creditoreal.ws.dto.ComprasDia
 import mx.com.creditoreal.ws.exception.ClientException
+import com.sim.producto.ProPromocion
+import com.sim.pfin.PfinCatParametro
 
 //Clases importadas para el metodo: altaPrestamos
 import com.sim.catalogo.*
 import com.sim.entidad.*
 import com.sim.empresa.EmpEmpleado
-import com.sim.producto.ProPromocion
 import com.sim.cliente.RsCliente
 import com.sim.pfin.PfinCatConcepto
 
@@ -182,15 +183,11 @@ class PrestamoService {
 		return "${documento.nombreArchivo} : ${respuesta}"
     }
 
-    Boolean solicitudesDecididasDia(){
-		String distribuidor = '9999'
-		String usuario = ''
-		String password = ''
-
-		Calendar calFecha = Calendar.instance
-		String dia = calFecha.get(Calendar.DATE)		
-		String mes = calFecha.get(Calendar.MONTH) + 1
-		String anio = calFecha.get(Calendar.YEAR)
+    Boolean solicitudesDecididasDia(
+    	String distribuidor,
+    	String dia,
+    	String mes,
+    	String anio){
 
 		if (dia.size()!=2){
 			dia = "0${dia}"
@@ -202,23 +199,34 @@ class PrestamoService {
 		String fecha = "$anio$mes$dia"
 		log.info("Fecha: ${fecha}")
 
+		String usuario = ''
+		String password = ''
+
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
-			//LINEA TEMPORAL
-			Integer x = 1
 
 			List<SolicitudDecididasDia> solicitudes = 
 				cliente.getSolicitudesDecididasDia(distribuidor,fecha,usuario,password)
+
+			//SE OBTIENE SI ESTAMOS TRABAJANDO EN UN AMBIENTE DE PRUEBAS
+			Boolean pruebasWsCr = PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr
+			//LINEA TEMPORAL PARA PRUEBAS WS DE CR
+			Integer x = 1
+
 			for(SolicitudDecididasDia solicitud : solicitudes){
 				log.info "Nombre Solicitud: ${solicitud.nombre}"
 				Integer folioSolicitud = solicitud.folio.toInteger()
-				//LINEAS TEMPORALES
-				if (x==1){
-					folioSolicitud = 34534	
-				}else{
-					//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
-					//IGUAL A 1
-					folioSolicitud = 1	
+
+				//VALIDA SI ESTAMOS EN EL AMBIENTE DE PRUEBAS DE LOS WS
+				if (pruebasWsCr){
+					//LINEAS TEMPORALES
+					if (x==1){
+						folioSolicitud = 34534	
+					}else{
+						//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
+						//IGUAL A 1
+						folioSolicitud = 1	
+					}
 				}
 				
 				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
@@ -244,8 +252,18 @@ class PrestamoService {
 					 numeroCliente : 	solicitud.numeroCliente,
 					 prestamo : 		prestamo,
 				).save(failOnError:true)
-				//LINEA TEMPORAL
+
+				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 				x++
+
+				ProPromocion promocion = ProPromocion.findByClavePromocion(solicitud.promocion)
+				if (!promocion.equals(prestamo.promocion)){
+					log.info ("La promocion no es igual a la asignada originalmente")
+					log.info ("Promocion Prestamo: "+prestamo.promocion)
+					log.info ("Promocion Respuesta CR: "+promocion)
+					//SE SOBREESCRIBE LA PROMOCION
+					//prestamo.promocion = promocion
+				}
 			}		
 
 		} catch (ClientException e) {
