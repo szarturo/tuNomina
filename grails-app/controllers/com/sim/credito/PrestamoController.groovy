@@ -440,9 +440,18 @@ class PrestamoController {
         redirect(action: "list")
     }
 
+    def showComprasDia = {
+        //METODO PARA MOSTRAR LA GSP showSolicitudesDecididasDia
+    }    
+
     def comprasDia = {
+        log.info("Distribuidor:"+params.distribuidor)        
         try{
-            def respuesta = prestamoService.comprasDia()    
+            def respuesta = prestamoService.comprasDia(
+                    params.distribuidor,
+                    params.fecha_day,
+                    params.fecha_month,
+                    params.fecha_year)   
         }catch(PrestamoServiceException errorComprasDia){
             log.error "Failed:", errorComprasDia
             flash.message = message(code: errorComprasDia.mensaje, args: [])

@@ -272,15 +272,11 @@ class PrestamoService {
 		return true
     }
 
-    Boolean comprasDia(){
-		String distribuidor = '9999'
-		String usuario = ''
-		String password = ''
-
-		Calendar calFecha = Calendar.instance
-		String dia = calFecha.get(Calendar.DATE)		
-		String mes = calFecha.get(Calendar.MONTH) + 1
-		String anio = calFecha.get(Calendar.YEAR)
+    Boolean comprasDia(
+    	String distribuidor,
+    	String dia,
+    	String mes,
+    	String anio){
 
 		if (dia.size()!=2){
 			dia = "0${dia}"
@@ -290,28 +286,48 @@ class PrestamoService {
 			mes = "0${mes}"
 		} 
 		String fecha = "$anio$mes$dia"
+		log.info ("Fecha: "+fecha)
+
+		String usuario = ''
+		String password = ''
 
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
-			//LINEA TEMPORAL
+
+			//SE OBTIENE SI ESTAMOS TRABAJANDO EN UN AMBIENTE DE PRUEBAS
+			Boolean pruebasWsCr = PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr
+			//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 			Integer x = 1
 
 			List<ComprasDia> comprasDia = 
 				cliente.getComprasDia(distribuidor,fecha,usuario,password)
 			for(ComprasDia compra : comprasDia){
 				log.info "Nombre Solicitud: ${compra.nombre}"
-				//TEMPORALMENTE SE UTILIZA EL FOLIO PARA RECUPERAR LOS PRESTAMOS
-				//HAY QUE VALIDAR CON CR QUE PRESTAMO SE DEBE RECUPERAR
 				Integer folioSolicitud 
-				//LINEAS TEMPORALES
-				if (x==1){
-					folioSolicitud = 34534	
-				}else if(x==2){
-					//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
-					//IGUAL A 1
-					folioSolicitud = 1	
+				//VALIDA SI ESTAMOS EN EL AMBIENTE DE PRUEBAS DE LOS WS
+				if (pruebasWsCr){
+					//LINEAS TEMPORALES
+					if (x==1){
+						folioSolicitud = 34534	
+					}else if(x==2){
+						//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
+						//IGUAL A 1
+						folioSolicitud = 1	
+					}else{
+						folioSolicitud = 3
+					}
 				}else{
-					folioSolicitud = 3
+					//AMBIENTE PRODUCTIVO CR
+					//CLASIFICADOR EQUIVALE A CONSECUTIVO EN solicitudesDecididasDia
+					String consecutivo = compra.clasificador
+					PrestamoCrRespuesta solicitudDecididaDia = PrestamoCrRespuesta.findByConsecutivo(consecutivo)
+					log.info ("Solicitud Decidida:"+solicitudDecididaDia)	
+					if (!solicitudDecididaDia){
+						log.info ("No encontro el registro de la solicitud decidida")
+						throw new PrestamoServiceException(mensaje: "No se encontro el registro de la solicitud decidida")
+					}else{
+						folioSolicitud = solicitudDecididaDia.folio
+					}
 				}
 				
 				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
@@ -341,7 +357,8 @@ class PrestamoService {
 					 cesion : 			compra.cesion,
 					 prestamo : 		prestamo,
 				).save(failOnError:true)
-				//LINEA TEMPORAL
+				prestamo.estatusSolicitud = PrestamoEstatus.COMPRADA
+				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 				x++
 			}		
 

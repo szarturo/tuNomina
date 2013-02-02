@@ -263,7 +263,7 @@
 										<li><g:link controller="prestamo" action="showSolicitudesDecididasDia">
 												<span>Solicitudes Decididas</span>
 											</g:link></li>
-										<li><g:link controller="prestamo"  action="comprasDia">
+										<li><g:link controller="prestamo"  action="showComprasDia">
 												<span>Solicitudes Compradas</span>
 											</g:link></li>
 
