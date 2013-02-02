@@ -22,7 +22,8 @@ class PrestamoCrRespuesta {
 	String promocion	
 	String observaciones	
 	String numeroCliente	
-	Prestamo prestamo
+	
+	static belongsTo = [prestamo : Prestamo]
 
     static constraints = {
 		 consecutivo nullable:true

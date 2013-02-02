@@ -54,15 +54,18 @@ class Prestamo {
 
     static belongsTo = [cliente : RsCliente]
 	
-	static hasMany = [ tablaAmortizacion : TablaAmortizacionRegistro ,  prestamoAccesorio : PrestamoAccesorio,
-                       callCenter: CallCenter, documentos: PrestamoDocumento]
+	static hasMany = [tablaAmortizacion : TablaAmortizacionRegistro, 
+                        prestamoAccesorio : PrestamoAccesorio,
+                        callCenter : CallCenter, 
+                        documentos : PrestamoDocumento,
+                        datosCrRespuesta : PrestamoCrRespuesta]
 	
 	static mapping = {
 		tablaAmortizacion cascade: "all-delete-orphan"
         documentos  cascade: "all-delete-orphan"
      }
 	 
-    static hasOne = [datosCrRespuesta : PrestamoCrRespuesta , datosCrComprada : PrestamoCrComprada ]
+    static hasOne = [datosCrComprada : PrestamoCrComprada ]
 	
     static constraints = {
         cliente(nullable: false)
