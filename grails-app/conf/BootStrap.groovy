@@ -1573,7 +1573,7 @@ class BootStrap {
 				numeroDeNomina: 'JCHSDFYUYUI',
 				).save(failOnError: true)
 
-		new Prestamo(
+		Prestamo prestamoUno = new Prestamo(
 				cliente : 			   clienteJavier,
 				correoSolicitante:     "javierhernandez@gmail.com",
 				folioSolicitud : 	   1,
@@ -1594,6 +1594,39 @@ class BootStrap {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/16/2013'),
 				).save(failOnError: true)	
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+				valor			:	'1',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	prestamoUno,
+				).save(failOnError: true)
+        
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
+				prestamo		: 	prestamoUno,
+				).save(failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
+				prestamo		: 	prestamoUno,
+				).save(failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
+				prestamo		: 	prestamoUno,
+				).save(failOnError: true)
+
 
 		def franciscorodriguez = new RsPersona(
 				email : "franciscorodriguez@gmail.com",
@@ -1624,7 +1657,7 @@ class BootStrap {
 				numeroDeNomina: 'MAZASDFYUYUI',
 				).save(failOnError: true)
 
-		new Prestamo(
+		Prestamo prestamoTres = new Prestamo(
 				cliente : 			   clienteFrancisco,
 				correoSolicitante:     "franciscorodriguez@gmail.com",
 				folioSolicitud : 	   3,
@@ -1645,6 +1678,39 @@ class BootStrap {
 				incluirEnListasCobro:  true,
 				fechaCobro:            new Date('01/18/2013'),
 				).save(failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICO')),
+				valor			:	'1',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('MES'),
+				prestamo		: 	prestamoTres,
+				).save(failOnError: true)
+        
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOA')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('UNIDAD'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('SEMANA'),
+				prestamo		: 	prestamoTres,
+				).save(failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOB')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('ALMILLAR'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('CATORCENA'),
+				prestamo		: 	prestamoTres,
+				).save(failOnError: true)
+
+		new PrestamoAccesorio(
+				accesorio		:	SimCatAccesorio.findByConcepto(PfinCatConcepto.findByClaveConcepto('SEGUNICOC')),
+				valor			:	'10',
+				unidad			:	SimCatUnidad.findByClaveUnidad('PORCENTUAL'),
+				periodicidad	:	SimCatPeriodicidad.findByClavePeriodicidad('QUINCENA'),
+				prestamo		: 	prestamoTres,
+				).save(failOnError: true)
+
 
 		new SimCatCrMotivo(codigo:  'AA',
 				proceso: 'Autorizacion',
