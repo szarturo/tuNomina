@@ -940,6 +940,7 @@ class BootStrap {
                 claveEmpleado : "MOR78987",
                 persona : personaAlex,
                 tipoEmpleado : "INTERNO",
+                clavePromotor: "PROM01",
                 puesto : EmpPuesto.findByClavePuesto('VENDE'),
                 fechaIngreso  : new Date('08/20/1999'),
                 numeroNomina : "001",
