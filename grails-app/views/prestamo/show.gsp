@@ -199,6 +199,13 @@
                         </tr>
 
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.movitoRespuestaCr.label" default="Respuesta Motivo Credito Real" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "movitoRespuestaCr")}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.incluirEnListasCobro.label" default="Incluir en Listas de Cobro" /></td>
                             
                             <td valign="top" class="value"><g:formatBoolean boolean="${prestamoInstance?.incluirEnListasCobro}" /></td>

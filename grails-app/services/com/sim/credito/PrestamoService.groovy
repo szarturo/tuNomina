@@ -8,6 +8,7 @@ import mx.com.creditoreal.ws.dto.ComprasDia
 import mx.com.creditoreal.ws.exception.ClientException
 import com.sim.producto.ProPromocion
 import com.sim.pfin.PfinCatParametro
+import com.sim.catalogo.SimCatCrMotivo
 
 //Clases importadas para el metodo: altaPrestamos
 import com.sim.catalogo.*
@@ -302,7 +303,10 @@ class PrestamoService {
 
 	                default:
 	                    log.info ("No se encontro el estatus asignado: "+prestamo.estatusSolicitud)
-	            }				
+	            }	
+	            //ASIGNA LA RESPUESTA DE CREDITO REAL
+	            prestamo.movitoRespuestaCr = SimCatCrMotivo.findByCodigo(solicitud.motivo)
+	            log.info "Catalogo Motivo: "+SimCatCrMotivo.findByCodigo(solicitud.motivo)
 			}		
 
 		} catch (ClientException e) {

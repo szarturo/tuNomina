@@ -12,6 +12,7 @@ import com.sim.producto.ProPromocion
 import com.sim.entidad.EntDelegacion
 import com.sim.catalogo.SimCatFormaEntrega
 import com.sim.catalogo.SimCatTipoEmp
+import com.sim.catalogo.SimCatCrMotivo
 import com.sim.tablaAmortizacion.TablaAmortizacionRegistro
 import com.sim.call.CallCenter
 
@@ -41,6 +42,7 @@ class Prestamo {
     String         usuarioMesaControl
     String         consecutivoCr
     Boolean        incluirEnListasCobro
+    SimCatCrMotivo movitoRespuestaCr
     //FECHA PARA INDICAR CUANDO SE REALIZO LA TRANSFERENCIA ELECTRONICA O
     //FECHA EN QUE EL USUARIO COBRO SU CREDITO
     Date           fechaCobro
@@ -89,6 +91,7 @@ class Prestamo {
         documentos nullable:true
         datosCrRespuesta nullable:true
         datosCrComprada nullable:true
+        movitoRespuestaCr nullable:true
         fechaCobro nullable:true
         incluirEnListasCobro ()
  		dateCreated ()
