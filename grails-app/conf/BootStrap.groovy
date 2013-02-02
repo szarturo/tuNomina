@@ -1270,7 +1270,7 @@ class BootStrap {
 		
 		new PfinCatParametro(
 			claveMedio : 'SistemaMtn',
-			fechaMedio : new Date('01/31/2013'),
+			fechaMedio : new Date('02/31/2013'),
 			operaSabado : 'false',
 			operaDomingo : 'false',
 			operaDiaFestivo : 'false',

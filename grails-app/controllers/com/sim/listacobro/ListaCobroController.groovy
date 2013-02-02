@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 
 import com.sim.catalogo.SimCatListaCobroEstatus
 import com.sim.servicios.credito.PagoServiceException
+import com.sim.servicios.credito.PagoServiceAplicaPagoException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 
 class ListaCobroController {
@@ -298,6 +299,12 @@ class ListaCobroController {
                 redirect(action: "mostrarDetalles", id: idListaCobro)
                 return        
             }catch(PagoServiceException errorPago){
+                //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
+                log.error "Failed:", errorPago
+                flash.message = message(code: errorPago.mensaje, args: [])
+                redirect(action: "mostrarDetalles", id: idListaCobro)
+                return
+            }catch(PagoServiceAplicaPagoException errorPago){
                 //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
                 log.error "Failed:", errorPago
                 flash.message = message(code: errorPago.mensaje, args: [])
