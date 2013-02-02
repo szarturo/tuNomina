@@ -177,6 +177,7 @@ class PublicacionLoteService {
 				throw new PublicacionLoteServiceException(mensaje: "Se genero un plobema de comunicación con Crédito Real.")
 			}
 			//SE GUARDA EN EL DETALLE DE LA PUBLICACION LA RESPUESTA
+			log.info ("Respuesta Ws Pago: "+respuesta)
 			publicacionDet.respuestaCr = respuesta
 			//ACTUALIZA EL ESTATUS DEL DETALLE DE LISTA DE COBRO
 			it.estatus = ListaCobroDetalleEstatus.PUBLICADO
