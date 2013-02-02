@@ -55,13 +55,6 @@ class PublicacionLoteService {
 		//ATRIBUTOS PARA ENVIAR LA PUBLICACION A CREDITO REAL
 		String usuarioWs = 'Usuario'
 		String passwordWs = 'Password'
-		//SE OBTIENE EL ID
-		//!!!VERIFICAR QUE FUNCIONE CON ALTA CONCURRENCIA!!!
-		parametros.consecutivoPublicacion =
-			parametros.consecutivoPublicacion + 1
-		parametros.save(flush:true,failOnError:true)
-
-		Integer idWs = parametros.consecutivoPublicacion
 		//NUMERO DE CLIENTE QUE SE ASIGNO AL CREDITO POR PARTE DE CR
 		String numeroClienteWs
 		//NUMERO DE OPERACION QUE SE ASIGNO AL CREDITO POR PARTE DE CR
@@ -79,12 +72,19 @@ class PublicacionLoteService {
 		String fechaPagoMesWs	
 		String fechaPagoDiaWs	
 		String fechaPagoAnioWs			
-
 		String respuesta
+
 		detalleRegistros.each{
 			log.info "Detalle: ${it}"
-			//SE INDICA EL IMPORTE TOTAL DE LA PUBLICACION
+			//SE SUMARIZA EL IMPORTE TOTAL DE LA PUBLICACION
 			importeTotalPublicacion = importeTotalPublicacion + it.pago.importePago
+
+			//SE OBTIENE EL ID
+			//!!!VERIFICAR QUE FUNCIONE CON ALTA CONCURRENCIA!!!
+			parametros.consecutivoPublicacion =
+				parametros.consecutivoPublicacion + 1
+			parametros.save(flush:true,failOnError:true)
+			Integer idWs = parametros.consecutivoPublicacion
 
 			//SE OBTIENE LOS DATOS DEL PRESTAMO COMPRADO
 			PrestamoCrComprada prestamoComprado = it.pago.prestamo.datosCrComprada
@@ -114,7 +114,7 @@ class PublicacionLoteService {
 			String sImportePago = importePagoWs 
 			String sImporteMoratorios = importeMoratoriosWs					
 
-			referenciaWs = it.pago.prestamo.datosCrRespuesta.referencia
+			referenciaWs = it.pago.prestamo.datosCrRespuesta?.referencia
 			log.info "Referencia: ${referenciaWs}"
 
 			Date fechaPago = it.pago.fechaPago
@@ -123,6 +123,35 @@ class PublicacionLoteService {
 			fechaPagoAnioWs = calFechaPago.get(Calendar.YEAR)
 			fechaPagoMesWs = calFechaPago.get(Calendar.MONTH) + 1
 			fechaPagoDiaWs = calFechaPago.get(Calendar.DATE)
+
+			PublicacionDet publicacionDet
+
+			try {
+				//SE CREA EL DETALLE DE LA PUBLICACION
+				publicacionDet = new PublicacionDet(
+					usuario:  usuarioWs,
+					password: passwordWs,
+					idCr: idWs,
+					numeroCliente: numeroClienteWs,
+					numeroOperacion: numeroOperacionWs,
+					claveCia: claveCiaWs,
+					claveSucursal: claveSucursalWs,
+					tipoPago: tipoPagoWs,
+					concepto:conceptoWs,
+					importePago: importePagoWs,
+					importeMoratorios: importeMoratoriosWs,
+					referencia: referenciaWs,
+					fechaPagoMes: fechaPagoMesWs,
+					fechaPagoDia: fechaPagoDiaWs,
+					fechaPagoAnio: fechaPagoAnioWs,
+					publicacionLote: publicacionLote,
+					listaCobroDetalle: it,	
+				).save(failOnError: true,flush:true)
+			} catch (Exception e) {
+				log.info e.class
+				log.info e
+				throw new PublicacionLoteServiceException(mensaje: "Problema al generar el Id, favor de volver a publicar.")
+			}
 
 			try {
 				//TRUE SIGNIFICA QUE ENVIA A UN WEBSERVICE DE CREDITO REAL EN UN AMBIENTE DE PRUEBAS
@@ -145,37 +174,15 @@ class PublicacionLoteService {
 					fechaPagoAnioWs)
 
 			} catch (ClientException e) {
-				// TODO Auto-generated catch block
 				throw new PublicacionLoteServiceException(mensaje: "Se genero un plobema de comunicación con Crédito Real.")
 			}
-
-			//SE CREA EL DETALLE DE LA PUBLICACION
-			PublicacionDet publicacionDet = new PublicacionDet(
-				usuario:  usuarioWs,
-				password: passwordWs,
-				idCr: idWs,
-				numeroCliente: numeroClienteWs,
-				numeroOperacion: numeroOperacionWs,
-				claveCia: claveCiaWs,
-				claveSucursal: claveSucursalWs,
-				tipoPago: tipoPagoWs,
-				concepto:conceptoWs,
-				importePago: importePagoWs,
-				importeMoratorios: importeMoratoriosWs,
-				referencia: referenciaWs,
-				fechaPagoMes: fechaPagoMesWs,
-				fechaPagoDia: fechaPagoDiaWs,
-				fechaPagoAnio: fechaPagoAnioWs,
-				publicacionLote: publicacionLote,
-				listaCobroDetalle: it,	
-				respuestaCr: respuesta,			
-			).save(failOnError: true)
+			//SE GUARDA EN EL DETALLE DE LA PUBLICACION LA RESPUESTA
+			publicacionDet.respuestaCr = respuesta
 			//ACTUALIZA EL ESTATUS DEL DETALLE DE LISTA DE COBRO
 			it.estatus = ListaCobroDetalleEstatus.PUBLICADO
 		}
 		//SE INDICA LA CANTIDAD TOTAL DEL LOTE		
 		publicacionLote.importeLote = importeTotalPublicacion
-
 		return true
     }
 }
