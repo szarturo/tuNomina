@@ -1592,7 +1592,7 @@ class BootStrap {
 				aprobado:              false,
 				reenviarSolicitud:     false,
 				incluirEnListasCobro:  true,
-				fechaCobro:            new Date('01/16/2013'),
+				fechaCobro:            new Date('01/20/2013'),
 				).save(failOnError: true)	
 
 		new PrestamoAccesorio(
@@ -1676,7 +1676,7 @@ class BootStrap {
 				aprobado:              false,
 				reenviarSolicitud:     false,
 				incluirEnListasCobro:  true,
-				fechaCobro:            new Date('01/18/2013'),
+				fechaCobro:            new Date('01/20/2013'),
 				).save(failOnError: true)
 
 		new PrestamoAccesorio(
