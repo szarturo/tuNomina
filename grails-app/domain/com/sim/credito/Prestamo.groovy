@@ -58,7 +58,8 @@ class Prestamo {
                         prestamoAccesorio : PrestamoAccesorio,
                         callCenter : CallCenter, 
                         documentos : PrestamoDocumento,
-                        datosCrRespuesta : PrestamoCrRespuesta]
+                        datosCrRespuesta : PrestamoCrRespuesta,
+                        datosCrCartera : PrestamoCrCartera]
 	
 	static mapping = {
 		tablaAmortizacion cascade: "all-delete-orphan"
@@ -94,6 +95,7 @@ class Prestamo {
         documentos nullable:true
         datosCrRespuesta nullable:true
         datosCrComprada nullable:true
+        datosCrCartera nullable:true
         movitoRespuestaCr nullable:true
         fechaCobro nullable:true
         incluirEnListasCobro ()
