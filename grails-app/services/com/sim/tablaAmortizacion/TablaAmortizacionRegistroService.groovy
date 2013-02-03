@@ -43,7 +43,6 @@ class TablaAmortizacionRegistroService {
 
 		//SE RECUPERA LA FECHA EN QUE EL CLIENTE COBRO EL CREDITO
 		Date fechaCobro = prestamoInstance.fechaCobro
-		log.info ("Fecha de Cobro: "+fechaCobro)
 
 		if (!fechaCobro){
 			log.info("No se especifico la fecha de Cobro")
@@ -62,11 +61,12 @@ class TablaAmortizacionRegistroService {
 		}
 
 		//SE OBTIENTEN LAS LISTAS DE COBRO QUE PERTENECEN A LA DEPENDENCIA
+		//MAYORES E IGUAL A LA QUE SE ASIGNO PARA EL PRIMER PAGO
 		ArrayList listasDeCobro = 
 			ListaCobro.findAllByIdGreaterThanEqualsAndDependencia(primerPago.id,prestamoInstance.dependencia,[sort: "id", order: "asc"])
 
 		//SE CREA OBJETO ITERATOR PARA MANEJAR LAS LISTAS DE COBRO
- 		Iterator iteratorListasCobro = listasDeCobro.iterator();
+ 		Iterator iteratorListasCobro = listasDeCobro.iterator()
 
 		//OBTIENE TODOS LOS MOVIMIENTOS DEL PRESTAMO
 		ArrayList listaMovimiento = PfinMovimiento.findAllByPrestamo(prestamoInstance)
@@ -364,6 +364,7 @@ class TablaAmortizacionRegistroService {
 
 	ListaCobro obtenerListaCobroPrimerPago(Date fechaCobro, EntDependencia dependencia){
 
+		//SE OBTIENE LA LISTA DE COBRO QUE CORRESPONDE A LA FECHA DE COBRO
 		def criteriaListaCobro = ListaCobro.createCriteria()
 		ListaCobro listaCobroPrimerPago  = criteriaListaCobro.get() {
 			and {
@@ -373,17 +374,16 @@ class TablaAmortizacionRegistroService {
 			}
 		}
 		
-		//VALIDA SI LA LISTA DE COBRO HA SIDO GENERADA
+		//VALIDA SI LA LISTA DE COBRO NO HA SIDO GENERADA
 		if (listaCobroPrimerPago.estatus.equals(
 			SimCatListaCobroEstatus.findByClaveListaEstatus("NO_GENERADA"))){
-			log.info ("La lista de cobro se encuentra con estatus: No generada")
-			//SE ASIGNA A LA LISTA DE COBRO QUE SE OBTUVO
+			log.info ("La lista de cobro con estatus: No generada")
+			//SE ASIGNA LA LISTA DE COBRO QUE SE OBTUVO EN EL CRITERIA
 		}
 		
 		else{
-			//LA LISTA DE COBRO YA NO SE ENCUENTRA SIN GENERAR
-			//SE OBTIENEN LAS LISTAS DE COBRO MAYORES A LA LISTA
-			//DE COBRO QUE DEBERIA DE CORRESPONDER
+			//LA LISTA DE COBRO HA SIDO GENERADA
+			//SE OBTIENEN LAS LISTAS DE COBRO POSTERIORES
 			def criteriaListasDeCobro = ListaCobro.createCriteria()
 			ArrayList listasDeCobro  = criteriaListasDeCobro.list() {
 				and {
@@ -407,7 +407,7 @@ class TablaAmortizacionRegistroService {
 			}
 		}
 
-		log.info ("ListaCobro: ${listaCobroPrimerPago}")
+		log.info ("ListaCobro para el primer pago: ${listaCobroPrimerPago}")
 
 		return listaCobroPrimerPago
 	}
