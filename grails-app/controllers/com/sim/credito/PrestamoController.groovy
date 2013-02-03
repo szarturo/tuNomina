@@ -467,6 +467,32 @@ class PrestamoController {
         redirect(action: "list")
     }
 
+    def showCarteraGenerada = {
+        //METODO PARA MOSTRAR LA GSP showCarteraGenerada
+    }    
+
+    def carteraGeneradaDia = {
+        log.info("Distribuidor:"+params.distribuidor)        
+        try{
+            def respuesta = prestamoService.carteraGeneradaDia(
+                    params.distribuidor,
+                    params.fecha_day,
+                    params.fecha_month,
+                    params.fecha_year)   
+        }catch(PrestamoServiceException errorComprasDia){
+            log.error "Failed:", errorComprasDia
+            flash.message = message(code: errorComprasDia.mensaje, args: [])
+            redirect(action: "list")
+            return            
+        }catch(Exception error){
+            log.error "Failed:", error
+            flash.message = message(code: "Se genero un problema de comunicación. Contacte al Administrador.", args: [])
+            redirect(action: "list")
+            return            
+        }
+        flash.message = message(code: "Se ha actualizado la Cartera Generada.", args: [])
+        redirect(action: "list")
+    }
 
     def altaPrestamo = {
         def datosIntroducidos

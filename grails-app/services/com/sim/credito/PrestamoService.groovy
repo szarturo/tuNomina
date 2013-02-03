@@ -5,6 +5,7 @@ import mx.com.creditoreal.ws.dto.Adicional
 import mx.com.creditoreal.ws.dto.Solicitud
 import mx.com.creditoreal.ws.dto.SolicitudDecididasDia
 import mx.com.creditoreal.ws.dto.ComprasDia
+import mx.com.creditoreal.ws.dto.CarteraGeneradaDia
 import mx.com.creditoreal.ws.exception.ClientException
 import com.sim.producto.ProPromocion
 import com.sim.pfin.PfinCatParametro
@@ -401,6 +402,105 @@ class PrestamoService {
 					 prestamo : 		prestamo,
 				).save(failOnError:true)
 				prestamo.estatusSolicitud = PrestamoEstatus.COMPRADA
+				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
+				x++
+			}		
+
+		} catch (ClientException e) {
+			throw new PrestamoServiceException(mensaje: "Se genero un plobema de comunicación con Crédito Real.")
+		}
+		return true
+    }
+
+
+    Boolean carteraGeneradaDia(
+    	String distribuidor,
+    	String dia,
+    	String mes,
+    	String anio){
+
+		if (dia.size()!=2){
+			dia = "0${dia}"
+		} 
+
+		if (mes.size()!=2){
+			mes = "0${mes}"
+		} 
+		String fecha = "$anio$mes$dia"
+		log.info ("Fecha: "+fecha)
+
+		String usuario = ''
+		String password = ''
+
+		try {
+			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
+
+			//SE OBTIENE SI ESTAMOS TRABAJANDO EN UN AMBIENTE DE PRUEBAS
+			Boolean pruebasWsCr = PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr
+			//LINEA TEMPORAL PARA PRUEBAS WS DE CR
+			Integer x = 1
+
+			List<CarteraGeneradaDia> carteras=
+				cliente.getCarteraGeneradaDia(distribuidor,fecha,usuario,password)
+
+			for(CarteraGeneradaDia cartera: carteras){
+				log.info "Nombre Solicitud: ${cartera.nombre}"
+				Integer folioSolicitud 
+				//VALIDA SI ESTAMOS EN EL AMBIENTE DE PRUEBAS DE LOS WS
+				if (pruebasWsCr){
+					//LINEAS TEMPORALES
+					if (x==1){
+						folioSolicitud = 34534	
+					}else if(x==2){
+						//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
+						//IGUAL A 1
+						folioSolicitud = 1	
+					}else{
+						folioSolicitud = 3
+					}
+				}else{
+					//AMBIENTE PRODUCTIVO CR
+					//CLASIFICADOR EQUIVALE A CONSECUTIVO EN solicitudesDecididasDia
+					String consecutivo = cartera.consecutivo
+					PrestamoCrRespuesta solicitudDecididaDia = PrestamoCrRespuesta.findByConsecutivo(consecutivo)
+					log.info ("Solicitud Decidida:"+solicitudDecididaDia)	
+					if (!solicitudDecididaDia){
+						log.info ("No encontro el registro de la solicitud decidida")
+						throw new PrestamoServiceException(mensaje: "No se encontro el registro de la solicitud decidida")
+					}else{
+						folioSolicitud = solicitudDecididaDia.folio
+					}
+				}
+				
+				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+				log.info "Prestamo: ${prestamo}"
+				/*
+				new PrestamoCrComprada(
+					 numeroSolicitud : 	compra.numeroSolicitud,
+					 numeroOperacion : 	compra.numeroOperacion,
+					 claveCia : 		compra.claveCia,
+					 claveSucursal: 	compra.claveSucursal,
+					 nombre : 			compra.nombre,	
+					 fechaCompra : 		compra.fechaCompra,
+					 tipoPromocion : 	compra.tipoPromocion,
+					 clasificador : 	compra.clasificador,
+					 fechaProxPago : 	compra.fechaProxPago,
+					 primerCredito : 	compra.primerCredito,
+					 status : 			compra.status,
+					 importeCedido : 	compra.importeCedido,
+					 ivaCapital	: 		compra.ivaCapital,
+					 ivaDiferido : 		compra.ivaDiferido,
+					 ivaIntereses : 	compra.ivaIntereses,
+					 importeDescuento : compra.importeDescuento,
+					 pagoTienda : 		compra.pagoTienda,
+					 reserva : 			compra.reserva,
+					 netoPagado : 		compra.netoPagado,
+					 importeIntereses : compra.importeIntereses,
+					 cesion : 			compra.cesion,
+					 prestamo : 		prestamo,
+				).save(failOnError:true)
+				*/
+				
 				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 				x++
 			}		
