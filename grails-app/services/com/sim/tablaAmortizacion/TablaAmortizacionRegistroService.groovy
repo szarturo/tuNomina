@@ -6,6 +6,7 @@ import com.sim.credito.Prestamo
 import com.sim.producto.ProPromocion
 import com.sim.producto.ProPromocionAccesorio
 import com.sim.listacobro.ListaCobro
+import com.sim.listacobro.ListaCobroDetalle
 import com.sim.entidad.EntDependencia
 
 import com.sim.pfin.PfinMovimiento
@@ -85,7 +86,18 @@ class TablaAmortizacionRegistroService {
 			throw new TablaAmortizacionServiceException(mensaje: "No se genero la Tabla de Amortizacion ya que existen pagos al credito")
 		}
 
-		//ELIMINA LOS DETALLES DE LAS LISTAS DE COBRO QUE PERTENEZCAN AL PRESTAMO
+		//CUENTA LOS DETALLES DE LAS LISTAS DE COBRO QUE PERTENEZCAN AL PRESTAMO
+		def criteriaListasCobroDetalle = ListaCobroDetalle.createCriteria()
+		Integer numeroCobroDetalles  = criteriaListasCobroDetalle.count() {
+			amortizacion{
+				eq("prestamo",prestamoInstance)
+			}
+		}
+
+		if (numeroCobroDetalles>0){
+			log.info("El prestamo ha sido asignado a una Lista de Cobro Detalle: ${numeroCobroDetalles}")
+			throw new TablaAmortizacionServiceException(mensaje: "El prestamo ha sido asignado a una Lista de Cobro Detalle")
+		}
 
 		//VALIDA SI EXISTE LA CUENTA EJE DEL CLIENTE
 		PfinCuenta cuentaCliente = PfinCuenta.findByTipoCuentaAndCliente("EJE",prestamoInstance.cliente)
@@ -101,16 +113,13 @@ class TablaAmortizacionRegistroService {
 		}
 
 		//OBTIENE TODOS LOS REGISTROS DE LA TABLA DE AMORTIZACION QUE PERTENECEN AL PRESTAMO PARA ELIMINARLOS
-		
-		//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion
+		//org.hibernate.collection.PersistentSet registrosTabla = prestamoInstance.tablaAmortizacion NO FUNCIONO
 		ArrayList registrosTabla = TablaAmortizacionRegistro.findAllByPrestamo(prestamoInstance)
 		
-		if(registrosTabla){
-			registrosTabla.each() {
-				prestamoInstance.removeFromTablaAmortizacion(it)
-			}
-			prestamoInstance.save()
+		registrosTabla.each() {
+			prestamoInstance.removeFromTablaAmortizacion(it)
 		}
+		prestamoInstance.save()
 
 		//SE OBTIENEN LOS DATOS DEL PRESTAMO
 		ProPromocion promocion = prestamoInstance.promocion
@@ -144,7 +153,7 @@ class TablaAmortizacionRegistroService {
 		Integer accesoriosPromocion = 0
 		Integer accesoriosPrestamo = 0
 
-		//SE RESTAN 2 A LA PROMOCION YA QUE NO SE CONTEMPLA EL IVA Y SU INTERES
+		//SE RESTAN 2 ACCESORIOS A LA PROMOCION YA QUE NO SE CONTEMPLA EL IVA Y SU INTERES
 		accesoriosPromocion = prestamoInstance?.promocion?.proPromocionAccesorio?.size() - 2
 		accesoriosPrestamo = prestamoInstance?.prestamoAccesorio?.size()
 
@@ -184,7 +193,7 @@ class TablaAmortizacionRegistroService {
 		BigDecimal saldoInicial			 = capitalTotal
 		BigDecimal saldoInsoluto         = capitalTotal
 
-		//*****En las siguientes variables no importa el método de calculo*****
+		//EN LAS SIGUIENTES VARIABLES NO IMPORTA EL METODO DE CALCULO
 			
 		//VARIABLES A CALCULAR
 		BigDecimal amortizacion      = 0
@@ -199,7 +208,7 @@ class TablaAmortizacionRegistroService {
 		(1..promocion.numeroDePagos).each{
 
 			//SE OBTIENE LA LISTA DE COBRO QUE LE CORRESPONDE A LA AMORTIZACION
-			ListaCobro listaCobroConsecutivo = (ListaCobro)iteratorListasCobro.next();
+			ListaCobro listaCobroConsecutivo = (ListaCobro)iteratorListasCobro.next()
 
 			//OBTIENE LOS CALCULOS CORRESPONDIENTE AL METODO DE CALCULO CON CLAVE METODO01
 			if (promocion.metodoCalculo.equals(SimCatMetodoCalculo.findByClaveMetodoCalculo('METODO01'))) {
