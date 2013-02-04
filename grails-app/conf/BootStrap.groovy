@@ -325,6 +325,10 @@ class BootStrap {
 				nombreDescripcionTelefono: 'OFICINA',
 				).save(failOnError: true)
 
+		new SimCatDescTelefono(claveDescripcionTelefono: 'RECADOS',
+				nombreDescripcionTelefono: 'RECADOS',
+				).save(failOnError: true)
+
 		new SimCatDescTelefono(claveDescripcionTelefono: 'MOVIL',
 				nombreDescripcionTelefono: 'MOVIL',
 				).save(failOnError: true)
@@ -332,7 +336,6 @@ class BootStrap {
         new EntRegion(claveRegion: 'UNICA',
                 nombreRegion: 'UNICA',
         		).save(failOnError: true, flush: true)
-
 
 		new RsGralEstado(cveEstado: 'TODOS',
 				nombreEstado: 'TODOS',
@@ -984,14 +987,6 @@ class BootStrap {
 
         new SimCatFormaEntrega(claveFormaEntrega: 'ELECTRONICA',
                 nombreFormaEntrega: 'TRANSFERENCIA ELECTRONICA',
-        ).save(failOnError: true)
-
-        new SimCatFormaEntrega(claveFormaEntrega: 'CAJA',
-                nombreFormaEntrega: 'DIRECTAMENTE EN CAJA',
-        ).save(failOnError: true)
-
-        new SimCatFormaEntrega(claveFormaEntrega: 'CHEQUE',
-                nombreFormaEntrega: 'EN CHEQUE',
         ).save(failOnError: true, flush: true)
 
         new Prestamo(
