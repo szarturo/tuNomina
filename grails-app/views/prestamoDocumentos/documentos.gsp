@@ -98,6 +98,12 @@
                     i = i +1;
                 }
             }
+
+            if (i<2){
+                alert('Favor de indicar dos documentos')
+                return;
+            }
+
             // open a modal dialog to view the file contents
             var width = 1200;
             var height= 600;
