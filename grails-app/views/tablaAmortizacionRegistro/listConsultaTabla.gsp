@@ -24,21 +24,21 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="numeroPago" title="${message(code: 'tablaAmortizacionRegistro.numeroPago.label', default: 'Pago')}" />
+						<th><g:message code="tablaAmortizacionRegistro.numeroPago.label" default="Pago" /></th>			
 
-						<g:sortableColumn property="fecha" title="${message(code: 'tablaAmortizacionRegistro.fecha.label', default: 'FechaAmort')}" />
+						<th><g:message code="tablaAmortizacionRegistro.fecha.label" default="FechaAmort" /></th>		
 
-						<g:sortableColumn property="impSaldoInicial" title="${message(code: 'tablaAmortizacionRegistro.impSaldoInicial.label', default: 'Saldo')}" />
+						<th><g:message code="tablaAmortizacionRegistro.impSaldoInicial.label" default="Saldo" /></th>		
 
-						<g:sortableColumn property="impCapital" title="${message(code: 'tablaAmortizacionRegistro.impCapital.label', default: 'Capital')}" />
-					
-						<g:sortableColumn property="impCapitalPagado" title="${message(code: 'tablaAmortizacionRegistro.impCapitalPagado.label', default: 'CapPagado')}" />
+						<th><g:message code="tablaAmortizacionRegistro.impCapital.label" default="Capital" /></th>		
 
-						<g:sortableColumn property="impPago" title="${message(code: 'tablaAmortizacionRegistro.impPago.label', default: 'PagoTotal')}" />
+						<th><g:message code="tablaAmortizacionRegistro.impCapitalPagado.label" default="CapPagado" /></th>		
+		
+						<th><g:message code="tablaAmortizacionRegistro.impPago.label" default="PagoTotal" /></th>	
 
 						<th><g:message code="tablaAmortizacionRegistro.impPagoPagado.label" default="Pagado" /></th>	
 
-						<g:sortableColumn property="pagado" title="${message(code: 'tablaAmortizacionRegistro.pagado.label', default: 'Cubierto')}" />
+						<th><g:message code="tablaAmortizacionRegistro.pagado.label" default="Cubierto" /></th>
 
 						<th><g:message code="tablaAmortizacionRegistro.pagado.label" default="DebeAmort" /></th>	
 
@@ -65,7 +65,9 @@
 							 tablaAmortizacionRegistroInstance.pagado ? tablaAmortizacionRegistroInstance.impPago : tablaAmortizacionRegistroInstance.impPagoPagado}
 						</td>
 
-						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "pagado")}</td>		
+						<td>${
+							 tablaAmortizacionRegistroInstance.pagado ? "Si" : "No" }
+						</td>	
 
 						<td>${
 							 tablaAmortizacionRegistroInstance.pagado ? "Pagado" : tablaAmortizacionRegistroInstance.impPago - tablaAmortizacionRegistroInstance.impPagoPagado }
