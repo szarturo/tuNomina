@@ -24,7 +24,9 @@
 					<tr>
 					
 						<g:sortableColumn property="numeroPago" title="${message(code: 'tablaAmortizacionRegistro.numeroPago.label', default: 'Numero Pago')}" />
-					
+
+						<g:sortableColumn property="fecha" title="${message(code: 'tablaAmortizacionRegistro.fecha.label', default: 'Fecha')}" />
+
 						<g:sortableColumn property="impSaldoInicial" title="${message(code: 'tablaAmortizacionRegistro.impSaldoInicial.label', default: 'Saldo')}" />
 
 						<g:sortableColumn property="tasaInteres" title="${message(code: 'tablaAmortizacionRegistro.tasaInteres.label', default: 'TasaInteres')}" />
@@ -54,6 +56,8 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${tablaAmortizacionRegistroInstance.id}">${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "numeroPago")}</g:link></td>
+
+						<td><g:formatDate format="dd-MM-yyyy" date="${tablaAmortizacionRegistroInstance.fecha}"/></td>
 					
 						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impSaldoInicial")}</td>
 					
