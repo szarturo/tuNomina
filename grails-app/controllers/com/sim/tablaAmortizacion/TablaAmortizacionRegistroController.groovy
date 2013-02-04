@@ -11,15 +11,14 @@ class TablaAmortizacionRegistroController {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
+    def list() {
         Prestamo prestamo = Prestamo.get(params.idPrestamo)
 
         def listaTablaAmortizacion = TablaAmortizacionRegistro.findAllByPrestamo(prestamo)
 
         listaTablaAmortizacion.sort{ it.numeroPago } 
 
-        [tablaAmortizacionRegistroInstanceList: listaTablaAmortizacion, 
-         tablaAmortizacionRegistroInstanceTotal: listaTablaAmortizacion.size() ]
+        [tablaAmortizacionRegistroInstanceList: listaTablaAmortizacion]
     }    
 
     def create() {
