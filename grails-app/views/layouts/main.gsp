@@ -226,14 +226,6 @@
 								</ul>
 							</div></li>
 							
-						<li><a href="#" class="parent"><span>Pruebas CR</span></a>
-							<div>
-								<ul>
-									<li><g:link controller="prestamoPago" action="create">
-											<span>Pago Credito</span>
-										</g:link></li>
-								</ul>
-							</div></li>
 
 					    <li><g:link controller="simCatEvento">
 								<span>Eventos Dependencias</span>
@@ -359,6 +351,10 @@
 									<span>Publicaci&oacute;n</span>
 							</g:link>
 						</li>
+						<li><g:link controller="prestamoPago" action="list">
+									<span>Lista Pagos</span>
+							</g:link>
+						</li>						
 					</ul>
 				</div>
 			</li>	
