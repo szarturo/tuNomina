@@ -36,11 +36,11 @@
 
 						<g:sortableColumn property="impPago" title="${message(code: 'tablaAmortizacionRegistro.impPago.label', default: 'PagoTotal')}" />
 
-						<g:sortableColumn property="impPagoPagado" title="${message(code: 'tablaAmortizacionRegistro.impPagoPagado.label', default: 'Pagado')}" />
+						<th><g:message code="tablaAmortizacionRegistro.impPagoPagado.label" default="Pagado" /></th>	
 
 						<g:sortableColumn property="pagado" title="${message(code: 'tablaAmortizacionRegistro.pagado.label', default: 'Cubierto')}" />
 
-						<g:sortableColumn property="impSaldoFinal" title="${message(code: 'tablaAmortizacionRegistro.impSaldoFinal.label', default: 'DebeAmort')}" />
+						<th><g:message code="tablaAmortizacionRegistro.pagado.label" default="DebeAmort" /></th>	
 
 					</tr>
 				</thead>
@@ -61,10 +61,15 @@
 				
 						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impPago")}</td>
 
-						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impPagoPagado")}</td>						
+						<td>${
+							 tablaAmortizacionRegistroInstance.pagado ? tablaAmortizacionRegistroInstance.impPago : tablaAmortizacionRegistroInstance.impPagoPagado}
+						</td>
+
 						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "pagado")}</td>		
 
-						<td>${tablaAmortizacionRegistroInstance.impPago - tablaAmortizacionRegistroInstance.impPagoPagado }</td>
+						<td>${
+							 tablaAmortizacionRegistroInstance.pagado ? "Pagado" : tablaAmortizacionRegistroInstance.impPago - tablaAmortizacionRegistroInstance.impPagoPagado }
+						</td>
 
 					</tr>
 				</g:each>
