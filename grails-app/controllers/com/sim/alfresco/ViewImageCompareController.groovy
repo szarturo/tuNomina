@@ -29,14 +29,24 @@ class ViewImageCompareController {
 	
 	def loadImagen={
 		String imagen = params.get("imagen");
-		AlfrescoService service = new AlfrescoService();
-		
-		Document document=service.getDocumentByWorkspaceId(imagen);
-		
-		response.setHeader('Content-length', document.getContentStream().getStream().getBytes().size() +"");
-		response.contentType = getMimeType(document.getName());
-		response.outputStream << document.getContentStream().getStream().getBytes();
-		response.outputStream.flush();
+
+		//LINEAS PARA RECUPERAR LA IMAGEN DE ALFRESCO
+		//AlfrescoService service = new AlfrescoService();
+		//Document document=service.getDocumentByWorkspaceId(imagen);
+		//response.setHeader('Content-length', document.getContentStream().getStream().getBytes().size() +"");
+		//response.contentType = getMimeType(document.getName());
+		//response.outputStream << document.getContentStream().getStream().getBytes();
+		//response.outputStream.flush();
+
+		def tipoDocumento = new File(imagen)
+		def document = tipoDocumento.readBytes()
+		String longitud = document.length
+
+		response.setHeader('Content-length', longitud)
+		response.contentType = getMimeType(tipoDocumento.getName());
+
+		response.outputStream << document
+		response.outputStream.flush()		
 	}
 	
 	private String getMimeType(String name){

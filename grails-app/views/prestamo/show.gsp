@@ -249,7 +249,7 @@
 					</label>
 				
 					<g:each in="${documentos}" var="doc">
-						<g:link url="javascript:popup('${request.contextPath }/viewImageCompare/index?imagen=${doc.id }&info=/prestamo/edit/${prestamoInstance?.id}?taskId=${params.taskId}');"> ${doc.name}</g:link> |
+						<g:link url="javascript:popup('${request.contextPath }/viewImageCompare/index?imagen=${path}/${doc.name}&info=/prestamo/edit/${prestamoInstance?.id}?taskId=${params.taskId}');"> ${doc.name}</g:link> |
 					</g:each>
 				</div>
 						               

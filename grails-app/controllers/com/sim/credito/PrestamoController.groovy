@@ -108,16 +108,13 @@ class PrestamoController {
         }
         else {
 
+            /*
 			try{
 				List<Document> documentos = new ArrayList<Document>();
 				AlfrescoService service = new AlfrescoService();
 				Object o = null
 				
-				//try{
-					o=service.getByPath("/Sites/tuNomina/creditos/${prestamoInstance.cliente.id}/${prestamoInstance.folioSolicitud}");
-				//}catch(Exception e){
-					//e.printStackTrace();
-				//}
+				o=service.getByPath("/Sites/tuNomina/creditos/${prestamoInstance.cliente.id}/${prestamoInstance.folioSolicitud}");
 				
 				if(o!=null){
 					Folder folder = (Folder)o;
@@ -133,7 +130,15 @@ class PrestamoController {
 			}catch(Exception e){
 					e.printStackTrace();
 			}
-            [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount]
+            */
+            //SE OBTIENE LOS DOCUMENTOS QUE SE GUARDARON CON LA SOLICITUD
+            def path = new File("${System.getProperty('user.home')}/Documents/tuNomina/documentosCredito/${prestamoInstance.cliente.id}/${prestamoInstance.folioSolicitud}")
+            def documentos = path.listFiles()
+
+            [prestamoInstance: prestamoInstance, 
+                myTasksCount: assignedTasksCount,
+                documentos: documentos,
+                path:path]
         }
     }
 
