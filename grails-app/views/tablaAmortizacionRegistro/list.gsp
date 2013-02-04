@@ -25,14 +25,28 @@
 					
 						<g:sortableColumn property="numeroPago" title="${message(code: 'tablaAmortizacionRegistro.numeroPago.label', default: 'Numero Pago')}" />
 					
-						<g:sortableColumn property="impSaldoInicial" title="${message(code: 'tablaAmortizacionRegistro.impSaldoInicial.label', default: 'Imp Saldo Inicial')}" />
+						<g:sortableColumn property="impSaldoInicial" title="${message(code: 'tablaAmortizacionRegistro.impSaldoInicial.label', default: 'Saldo')}" />
+
+						<g:sortableColumn property="tasaInteres" title="${message(code: 'tablaAmortizacionRegistro.tasaInteres.label', default: 'TasaInteres')}" />
 					
-						<g:sortableColumn property="tasaInteres" title="${message(code: 'tablaAmortizacionRegistro.tasaInteres.label', default: 'Tasa Interes')}" />
+						<g:sortableColumn property="impCapital" title="${message(code: 'tablaAmortizacionRegistro.impCapital.label', default: 'Capital')}" />
+<!--					
+						<g:sortableColumn property="impCapitalPagado" title="${message(code: 'tablaAmortizacionRegistro.impCapitalPagado.label', default: 'CapitalPagado')}" />
+-->
+
+						<g:sortableColumn property="impInteres" title="${message(code: 'tablaAmortizacionRegistro.impInteres.label', default: 'Interes')}" />
 					
-						<g:sortableColumn property="impInteres" title="${message(code: 'tablaAmortizacionRegistro.impInteres.label', default: 'Imp Interes')}" />
-					
-						<g:sortableColumn property="impIvaInteres" title="${message(code: 'tablaAmortizacionRegistro.impIvaInteres.label', default: 'Imp Iva Interes')}" />
-					
+						<g:sortableColumn property="impIvaInteres" title="${message(code: 'tablaAmortizacionRegistro.impIvaInteres.label', default: 'IvaInteres')}" />
+
+						<g:sortableColumn property="impPago" title="${message(code: 'tablaAmortizacionRegistro.impPago.label', default: 'PagoTotal')}" />
+
+<!--
+						<g:sortableColumn property="impPagoPagado" title="${message(code: 'tablaAmortizacionRegistro.impPagoPagado.label', default: 'PagoPagado')}" />
+
+						<g:sortableColumn property="pagado" title="${message(code: 'tablaAmortizacionRegistro.pagado.label', default: 'Pagado')}" />
+
+						<g:sortableColumn property="impSaldoFinal" title="${message(code: 'tablaAmortizacionRegistro.impSaldoFinal.label', default: 'SaldoFinal')}" />
+-->
 					</tr>
 				</thead>
 				<tbody>
@@ -44,13 +58,28 @@
 						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impSaldoInicial")}</td>
 					
 						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "tasaInteres")}</td>
+
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impCapital")}</td>	
+<!--					
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impCapitalPagado")}</td>
+-->
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impInteres")}</td>	
+
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impIvaInteres")}</td>	
 					
-						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impInteres")}</td>
-					
-						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impIvaInteres")}</td>
-					
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impPago")}</td>
+
+<!--
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "impPagoPagado")}</td>						
+						<td>${fieldValue(bean: tablaAmortizacionRegistroInstance, field: "pagado")}</td>		
+
+						<td>${tablaAmortizacionRegistroInstance.impPago - tablaAmortizacionRegistroInstance.impPagoPagado }</td>
+
+-->
+
 					</tr>
 				</g:each>
+				El pago total contempla los accesorios en caso de existir.
 				</tbody>
 			</table>
 
