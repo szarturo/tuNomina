@@ -21,6 +21,6 @@ class TablaAmortizacionAccesorio {
 	}
 
 	String toString() {
-		"${tablaAmortizacion} - ${accesorio}"
+		"${accesorio}. Pago: ${importeAccesorio}. Pagado: ${importeAccesorioPagado}"
 	}
 }
