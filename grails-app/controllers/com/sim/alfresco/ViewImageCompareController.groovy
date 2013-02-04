@@ -28,7 +28,7 @@ class ViewImageCompareController {
 	}
 	
 	def loadImagen={
-		String imagen = params.get("imagen");
+		String imagen = params.get("imagen")
 
 		//LINEAS PARA RECUPERAR LA IMAGEN DE ALFRESCO
 		//AlfrescoService service = new AlfrescoService();
@@ -38,14 +38,12 @@ class ViewImageCompareController {
 		//response.outputStream << document.getContentStream().getStream().getBytes();
 		//response.outputStream.flush();
 
-		def tipoDocumento = new File(imagen)
-		def document = tipoDocumento.readBytes()
-		String longitud = document.length
+		def documento = new File(imagen)
+		def documentoBytes = documento.readBytes()
 
-		response.setHeader('Content-length', longitud)
-		response.contentType = getMimeType(tipoDocumento.getName());
-
-		response.outputStream << document
+		response.setHeader('Content-length', (String)documentoBytes.length)
+		response.contentType = getMimeType(documento.name)
+		response.outputStream << documentoBytes
 		response.outputStream.flush()		
 	}
 	
