@@ -19,6 +19,9 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			<div class="message" role="status">
+				El pago total contempla los accesorios en caso de existir.
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -83,7 +86,6 @@
 
 					</tr>
 				</g:each>
-				El pago total contempla los accesorios en caso de existir.
 				</tbody>
 			</table>
 

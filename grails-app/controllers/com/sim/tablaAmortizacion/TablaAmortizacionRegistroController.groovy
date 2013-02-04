@@ -19,11 +19,11 @@ class TablaAmortizacionRegistroController {
     }    
 
     def listConsultaTabla() {
-        log.info ("Entro consulta tabla")
         Prestamo prestamo = Prestamo.get(params.idPrestamo)
         def listaTablaAmortizacion = TablaAmortizacionRegistro.findAllByPrestamo(prestamo)
         listaTablaAmortizacion.sort{ it.numeroPago } 
-        [tablaAmortizacionRegistroInstanceList: listaTablaAmortizacion]
+        [tablaAmortizacionRegistroInstanceList: listaTablaAmortizacion,
+            prestamo:prestamo]
     }    
 
     def create() {
