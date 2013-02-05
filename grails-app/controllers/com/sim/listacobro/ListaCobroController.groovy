@@ -280,7 +280,7 @@ class ListaCobroController {
             Double pago = request.getParameter("pago${numeroFila}")?.toDouble()
             Date fechaPago = new Date()           
             try{
-                fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))                
+                fechaPago = getFecha(request.getParameter("fecha${numeroFila}_value"))
             }catch(Exception exception){
                 log.info ("Probablemente sea un pago ya guardado")
             }
@@ -367,6 +367,30 @@ class ListaCobroController {
         redirect(action: "mostrarDetalles", id: idListaCobro)
     }    
 
+   def aplicarPagos(){
+        String idListaCobro = params.get("idListaCobro")        
+        log.info ("idListaCobro: ${idListaCobro}")
+        String[] prestamos = ((String[])params.get("idsPrestamos"))
+        Integer numeroElementos = prestamos.length
+        log.info ("NumeroElementos: ${numeroElementos}")
+
+        for ( elemento in 0..(numeroElementos-1) ) {
+            log.info elemento
+            String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${elemento}")
+            String idPrestamo = request.getParameter("idPrestamo${elemento}")        
+            Double pago = request.getParameter("pago${elemento}")?.toDouble()
+            Date fechaPago = getFecha(request.getParameter("fecha${elemento}_value"))
+            String regSeleccionado=request.getParameter("checar${elemento}")
+            log.info ("idPrestamo: ${idPrestamo}")
+            log.info ("pago: ${pago}")
+            log.info ("fechaPago: ${fechaPago}")
+            log.info ("registroSeleccionado: ${regSeleccionado}")
+            log.info ("----------------------------")
+        }        
+
+
+
+   }    
 
     private Date getFecha(String value){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

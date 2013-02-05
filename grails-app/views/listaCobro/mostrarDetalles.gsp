@@ -137,6 +137,7 @@
 			<table>
 				<thead>
 					<tr>
+						<th></th>
 
 						<g:sortableColumn property="estatus" title="${message(code: 'listaCobroDetalle.estatus.label', default: 'Estatus')}" />
 					
@@ -162,6 +163,10 @@
 	<g:form name="frmLista" action="clean">
 		<g:each in="${listaCobroDetalleInstanceList}" status="i" var="listaCobroDetalleInstance">
 			<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+				<td>
+					<g:checkBox name="checar${i}" />
+				</td>				
 
 				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
 			
@@ -247,6 +252,7 @@
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
 			<g:hiddenField name="idPrestamo${i}" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>
+			<g:hiddenField name="idsPrestamos" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>			
 		</g:each>
 
 		<g:hiddenField name="idListaCobro" value="${listaCobroInstance?.id}"/>
@@ -254,11 +260,17 @@
 		
 	</g:form>
 
+
 				</tbody>
 			</table>
-			<div class="pagination">
-				<!--g:paginate total="${listaCobroDetalleInstanceTotal}" /-->
-			</div>
+
+			<fieldset class="buttons">
+				<g:link  url="javascript:select(1);">SeleccionarTodos</g:link>
+				<g:link url="javascript:select(2);">LimpiarSeleccion</g:link> 				
+				<input type="button" value="Aplicar Pagos" onClick="aplicarPagos()" />
+			</fieldset>		
+
+
 		</div>
 		<script>
 			function send(action, numeroFila){
@@ -266,6 +278,21 @@
 				document.frmLista.numeroFila.value=numeroFila;
 				document.frmLista.submit();
 			}
+
+			function aplicarPagos(){
+				document.frmLista.action="${request.contextPath}/listaCobro/aplicarPagos";
+				document.frmLista.submit();		
+			}
+
+			function select(opt){
+			    for(var i=0; i < document.frmLista.elements.length; i++) {
+				  	try{
+						document.frmLista.elements[i].checked=opt==1;
+					}catch(e){
+					}
+				}
+			}
+
 		</script>
 
 	</body>
