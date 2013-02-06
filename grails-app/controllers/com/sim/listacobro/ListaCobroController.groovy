@@ -374,7 +374,7 @@ class ListaCobroController {
         String[] prestamos = ((String[])params.get("idsPrestamos"))
         Integer numeroElementos = prestamos.length
         log.info ("NumeroElementos: ${numeroElementos}")
-        String respuesta = ''
+        String respuesta = ""
         log.info ("----------------------------")
 
         for ( elemento in 0..(numeroElementos-1) ) {
@@ -408,7 +408,13 @@ class ListaCobroController {
             log.info ("----------------------------")
         }        
         log.info "Prestamos no aplicados: ${respuesta}"
-        flash.message = message(code: "Prestamos no aplicados: ${respuesta}", args: [])
+        if (respuesta.equals("")){
+            respuesta = "Pagos Aplicados"
+        }else{
+            respuesta = "Prestamos no aplicados: ${respuesta}"
+        }
+        
+        flash.message = message(code: respuesta, args: [])
         redirect(action: "mostrarDetalles", id: idListaCobro)        
 
     }    
