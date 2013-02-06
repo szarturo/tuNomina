@@ -53,8 +53,9 @@ class PublicacionLoteService {
 		Double importeTotalPublicacion = 0
 
 		//ATRIBUTOS PARA ENVIAR LA PUBLICACION A CREDITO REAL
-		String usuarioWs = 'Usuario'
-		String passwordWs = 'Password'
+		String usuarioWs = 'pruebaws'
+		String passwordWs = 'ws1866_cr'
+		
 		//NUMERO DE CLIENTE QUE SE ASIGNO AL CREDITO POR PARTE DE CR
 		String numeroClienteWs
 		//NUMERO DE OPERACION QUE SE ASIGNO AL CREDITO POR PARTE DE CR

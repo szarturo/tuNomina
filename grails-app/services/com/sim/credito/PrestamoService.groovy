@@ -201,8 +201,8 @@ class PrestamoService {
 		String fecha = "$anio$mes$dia"
 		log.info("Fecha: ${fecha}")
 
-		String usuario = ''
-		String password = ''
+		String usuario = 'pruebaws'
+		String password = 'ws1866_cr'
 
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
@@ -332,8 +332,8 @@ class PrestamoService {
 		String fecha = "$anio$mes$dia"
 		log.info ("Fecha: "+fecha)
 
-		String usuario = ''
-		String password = ''
+		String usuario = 'pruebaws'
+		String password = 'ws1866_cr'
 
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
@@ -429,8 +429,8 @@ class PrestamoService {
 		String fecha = "$anio$mes$dia"
 		log.info ("Fecha: "+fecha)
 
-		String usuario = ''
-		String password = ''
+		String usuario = 'pruebaws'
+		String password = 'ws1866_cr'
 
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
