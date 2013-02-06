@@ -168,7 +168,7 @@ class ListaCobroController {
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
         String sPago = request.getParameter("pago${numeroFila}")
-        String sfechaPago = request.getParameter("fecha${numeroFila}")
+        String sfechaPago = request.getParameter("fecha${numeroFila}_value")
 
         if (!sPago){
             log.info ("El importe es incorrecto")
@@ -265,7 +265,7 @@ class ListaCobroController {
         String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${numeroFila}")
         String idPrestamo = request.getParameter("idPrestamo${numeroFila}")        
         String sPago = request.getParameter("pago${numeroFila}")
-        String sfechaPago = request.getParameter("fecha${numeroFila}")
+        String sfechaPago = request.getParameter("fecha${numeroFila}_value")
 
         if (!sPago){
             log.info ("El importe es incorrecto")

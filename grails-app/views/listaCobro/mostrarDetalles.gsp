@@ -214,7 +214,7 @@
 					</td>
 
 					<g:hiddenField name="pago${i}" value="${listaCobroDetalleInstance?.pago?.importePago}"/>
-					<g:hiddenField name="fecha${i}" value="${listaCobroDetalleInstance?.pago?.fechaPago}"/>
+					<g:hiddenField name="fecha${i}_value" value="${listaCobroDetalleInstance?.pago?.fechaPago}"/>
 
 				</g:if>
 
