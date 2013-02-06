@@ -7,6 +7,7 @@ import com.sim.catalogo.SimCatListaCobroEstatus
 import com.sim.servicios.credito.PagoServiceException
 import com.sim.servicios.credito.PagoServiceAplicaPagoException
 import com.sim.pfin.ProcesadorFinancieroServiceException
+import com.sim.credito.Prestamo
 
 class ListaCobroController {
 
@@ -373,24 +374,44 @@ class ListaCobroController {
         String[] prestamos = ((String[])params.get("idsPrestamos"))
         Integer numeroElementos = prestamos.length
         log.info ("NumeroElementos: ${numeroElementos}")
+        String respuesta = ''
+        log.info ("----------------------------")
 
         for ( elemento in 0..(numeroElementos-1) ) {
-            log.info elemento
-            String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${elemento}")
-            String idPrestamo = request.getParameter("idPrestamo${elemento}")        
-            Double pago = request.getParameter("pago${elemento}")?.toDouble()
-            Date fechaPago = getFecha(request.getParameter("fecha${elemento}_value"))
             String regSeleccionado=request.getParameter("checar${elemento}")
-            log.info ("idPrestamo: ${idPrestamo}")
-            log.info ("pago: ${pago}")
-            log.info ("fechaPago: ${fechaPago}")
-            log.info ("registroSeleccionado: ${regSeleccionado}")
+
+            if (regSeleccionado.equals("on")){
+
+                String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${elemento}")
+                String idPrestamo = request.getParameter("idPrestamo${elemento}")   
+                Prestamo prestamo = Prestamo.read(idPrestamo)
+                log.info prestamo
+                Double pago
+                Date   fechaPago
+                try{
+                    pago = request.getParameter("pago${elemento}")?.toDouble()
+                    fechaPago = getFecha(request.getParameter("fecha${elemento}_value"))  
+                    log.info ("idPrestamo: ${idPrestamo}")
+                    log.info ("pago: ${pago}")
+                    log.info ("fechaPago: ${fechaPago}")
+                    //SE APLICA EL PAGO
+                    listaCobroPagoService.aplicarPago(idListaCobroDetalle,
+                        idPrestamo,
+                        pago,
+                        fechaPago,
+                        idListaCobro)                     
+                }catch(Exception e){
+                    log.error e.message
+                    respuesta = respuesta + (String)prestamo +", "
+                }     
+            }
             log.info ("----------------------------")
         }        
+        log.info "Prestamos no aplicados: ${respuesta}"
+        flash.message = message(code: "Prestamos no aplicados: ${respuesta}", args: [])
+        redirect(action: "mostrarDetalles", id: idListaCobro)        
 
-
-
-   }    
+    }    
 
     private Date getFecha(String value){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
