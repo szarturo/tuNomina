@@ -416,11 +416,10 @@ class PagoService {
 			*/
 			BigDecimal importeConcepto
 
-			//Dan problemas al realizar un segundo pago y ya se haya cubierto el accesorio en un pago anterior
 			//VALIDA QUE SI EXISTA LA CANTIDAD A PAGAR
-			//if (!it.cantidadPagar){
-			//	throw new PagoServiceException(mensaje: "Verifique que los accesorios correspondan a los definidos en la promoción y que tengan importes", prestamoPagoInstance:prestamoPago)		
-			//}
+			if (it.cantidadPagar.is(null)){
+				throw new PagoServiceException(mensaje: "Verifique que los accesorios correspondan a los definidos en la promoción y que tengan importes", prestamoPagoInstance:prestamoPago)		
+			}
 
 			//VERIFICA SI EXISTE SALDO PARA PAGAR EL CONCEPTO CORRESPONDIENTE
 			if (importeSaldo>0){
