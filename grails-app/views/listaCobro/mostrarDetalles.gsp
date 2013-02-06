@@ -179,7 +179,7 @@
 				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.INICIO}">
 
 					<td nowrap="nowrap">
-						<calendar:datePicker dateFormat="%d/%m/%Y"  name="fecha${i}" defaultValue="${listaCobroDetalleInstance?.pago?.fechaPago}" />
+						<calendar:datePicker dateFormat="%d/%m/%Y"  name="fecha${i}" defaultValue="${new Date()}" />
 						<script type="text/javascript">
 							document.frmLista.fecha${i}_value.style.width="90px";
 							document.getElementById('fecha${i}_value').style.width="90px";
@@ -187,7 +187,7 @@
 					</td>
 
 					<td>
-						<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.pago?.importePago}" format="#.####" locale="es_MX" />" size="2" />
+						<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.amortizacion?.impPago}" format="#.####" locale="es_MX" />" size="2" />
 					</td>						
 
 					<td>
