@@ -50,6 +50,6 @@ class TablaAmortizacionRegistro {
 	}
 
 	String toString() {
-		"${prestamo} :Pago ${numeroPago}"
+		"${prestamo} :Amort. ${numeroPago}"
 	}
 }
