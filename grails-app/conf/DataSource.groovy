@@ -51,7 +51,6 @@ environments {
 			username = 'nomina'
 			password = 'nomina'
 			url = 'jdbc:oracle:thin:@localhost:1521:XE'
-			dbCreate = 'update'
 			hibernate.current_session_context_class = 'com.autobizlogic.abl.session.CurrentSessionContextProxy'
 		}
 	}
