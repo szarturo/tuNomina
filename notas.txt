@@ -40,4 +40,11 @@ Asignar directamente la tarea a un usuario
 				<resourceAssignmentExpression>
 					<formalExpression>${usuarioMesaControl}</formalExpression>
 				</resourceAssignmentExpression>
-			</humanPerformer>			
+			</humanPerformer>	
+
+Scripts BD Activiti
+The SQL DDL statements can be found on the Activiti downloads page or inside the Activiti engine jar (activiti-engine-x.jar), in the package org/activiti/db/create (the drop folder contains the drop statements).
+Orden de ejecutarlos:		
+activiti.oracle.create.engine.sql (Se añadio: ""insert into ACT_GE_PROPERTY values ('historyLevel', '2', 1);"")
+activiti.oracle.create.history.sql
+activiti.oracle.create.identity.sql
