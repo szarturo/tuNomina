@@ -48,8 +48,8 @@ environments {
 	production {
 		dataSource {
 			driverClassName = 'oracle.jdbc.driver.OracleDriver'
-			username = 'nomina'
-			password = 'nomina'
+			username = 'nominaProd'
+			password = 'nominaProd'
 			url = 'jdbc:oracle:thin:@localhost:1521:XE'
 			hibernate.current_session_context_class = 'com.autobizlogic.abl.session.CurrentSessionContextProxy'
 		}
