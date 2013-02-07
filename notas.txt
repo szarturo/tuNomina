@@ -48,3 +48,6 @@ Orden de ejecutarlos:
 activiti.oracle.create.engine.sql (Se añadio: ""insert into ACT_GE_PROPERTY values ('historyLevel', '2', 1);"")
 activiti.oracle.create.history.sql
 activiti.oracle.create.identity.sql
+
+Al iniciar en Produccion hay que modificar la tabla USUARIO 
+   PASSWORD -> "password"
