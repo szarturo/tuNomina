@@ -22,7 +22,6 @@ class BootStrap {
 
   def init = { servletContext ->
 
-
 	switch (GrailsUtil.environment) {
 	  //DATOS QUE SE INICIAN PARA EL AMBIENTE DE DESARROLLO
 	  case "development":
@@ -1740,26 +1739,6 @@ class BootStrap {
 	  //DATOS QUE SE INICIAN PARA EL AMBIENTE DE PRODUCCION
 	  case "production":
 
-		new SimCatTipoEmp(claveTipoEmpleadoDep:  'NA',
-				nombreTipoEmpleadoDep: 'NO APLICA',
-				).save(failOnError: true)
-
-		new SimCatTipoEmp(claveTipoEmpleadoDep:  'HOMOLOGADOS',
-				nombreTipoEmpleadoDep: 'HOMOLOGADOS',
-				).save(failOnError: true)
-
-		new SimCatTipoEmp(claveTipoEmpleadoDep:  'ESTATALES',
-				nombreTipoEmpleadoDep: 'ESTATALES',
-				).save(failOnError: true)
-
-		new SimCatTipoEmp(claveTipoEmpleadoDep:  'CENTRALIZADOS',
-				nombreTipoEmpleadoDep: 'CENTRALIZADOS',
-				).save(failOnError: true)
-		
-		new SimCatTipoEmp(claveTipoEmpleadoDep:  'FEDERALES',
-				nombreTipoEmpleadoDep: 'FEDERALES',
-				).save(failOnError: true)	  
- 
     	break
 	}
 
