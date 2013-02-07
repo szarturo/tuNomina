@@ -401,16 +401,16 @@ class ListaCobroController {
                         fechaPago,
                         idListaCobro)                     
                 }catch(Exception e){
-                    log.error e.message
+                    log.error e
                     respuesta = respuesta + (String)prestamo +", "
                 }     
             }
             log.info ("----------------------------")
         }        
-        log.info "Prestamos no aplicados: ${respuesta}"
         if (respuesta.equals("")){
             respuesta = "Pagos Aplicados"
         }else{
+            log.info "Prestamos no aplicados: ${respuesta}"
             respuesta = "Prestamos no aplicados: ${respuesta}"
         }
         
@@ -419,8 +419,59 @@ class ListaCobroController {
 
     }    
 
+   def guardarPagos(){
+        String idListaCobro = params.get("idListaCobro")        
+        String[] prestamos = ((String[])params.get("idsPrestamos"))
+        Integer numeroElementos = prestamos.length
+        log.info ("NumeroElementos: ${numeroElementos}")
+        String respuesta = ""
+        log.info ("----------------------------")
+
+        for ( elemento in 0..(numeroElementos-1) ) {
+            String regSeleccionado=request.getParameter("checar${elemento}")
+
+            if (regSeleccionado.equals("on")){
+
+                String idListaCobroDetalle = request.getParameter("idListaCobroDetalle${elemento}")
+                String idPrestamo = request.getParameter("idPrestamo${elemento}")   
+                Prestamo prestamo = Prestamo.read(idPrestamo)
+                Double pago
+                Date   fechaPago
+                try{
+                    pago = request.getParameter("pago${elemento}")?.toDouble()
+                    fechaPago = getFecha(request.getParameter("fecha${elemento}_value"))  
+                    
+                    log.info ("idPrestamo: ${idPrestamo}")
+                    log.info ("pago: ${pago}")
+                    log.info ("fechaPago: ${fechaPago}")
+                    //SE GUARDA EL PAGO
+                    listaCobroPagoService.guardarPago(idListaCobroDetalle,
+                        idPrestamo,
+                        pago,
+                        fechaPago,
+                        idListaCobro)  
+                }catch(Exception e){
+                    log.error e
+                    respuesta = respuesta + (String)prestamo +", "
+                }     
+            }
+            log.info ("----------------------------")
+        }        
+        if (respuesta.equals("")){
+            respuesta = "Pagos Guardados"
+        }else{
+            log.info "Prestamos no guardados: ${respuesta}"
+            respuesta = "Prestamos no guardados: ${respuesta}"
+        }
+        
+        flash.message = message(code: respuesta, args: [])
+        redirect(action: "mostrarDetalles", id: idListaCobro)        
+
+    }    
+
+
     private Date getFecha(String value){
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy")
         return format.parse(value);
     }    
 

@@ -214,7 +214,7 @@
 					</td>
 
 					<g:hiddenField name="pago${i}" value="${listaCobroDetalleInstance?.pago?.importePago}"/>
-					<g:hiddenField name="fecha${i}_value" value="${listaCobroDetalleInstance?.pago?.fechaPago}"/>
+					<g:hiddenField name="fecha${i}_value" value="${listaCobroDetalleInstance?.pago?.fechaPago.format('dd/MM/yyyy').toString()}"/>
 
 				</g:if>
 
@@ -267,7 +267,9 @@
 			<fieldset class="buttons">
 				<g:link  url="javascript:select(1);">SeleccionarTodos</g:link>
 				<g:link url="javascript:select(2);">LimpiarSeleccion</g:link> 				
+				<input type="button" value="Guardar Pagos" onClick="guardarPagos()" />				
 				<input type="button" value="Aplicar Pagos" onClick="aplicarPagos()" />
+
 			</fieldset>		
 
 
@@ -283,6 +285,12 @@
 				document.frmLista.action="${request.contextPath}/listaCobro/aplicarPagos";
 				document.frmLista.submit();		
 			}
+
+			function guardarPagos(){
+				document.frmLista.action="${request.contextPath}/listaCobro/guardarPagos";
+				document.frmLista.submit();		
+			}
+
 
 			function select(opt){
 			    for(var i=0; i < document.frmLista.elements.length; i++) {
