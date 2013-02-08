@@ -3413,403 +3413,403 @@ databaseChangeLog = {
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-215") {
-		createIndex(indexName: "clave_promotor_unique_1360357534628", tableName: "emp_empleado", unique: "true") {
+		createIndex(indexName: "clave_promotor_unique", tableName: "emp_empleado", unique: "true") {
 			column(name: "clave_promotor")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-216") {
-		createIndex(indexName: "persona_id_unique_1360357534640", tableName: "emp_empleado", unique: "true") {
+		createIndex(indexName: "persona_idemp_unique", tableName: "emp_empleado", unique: "true") {
 			column(name: "persona_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-217") {
-		createIndex(indexName: "clave_puesto_unique_1360357534644", tableName: "emp_puesto", unique: "true") {
+		createIndex(indexName: "clave_puesto_unique", tableName: "emp_puesto", unique: "true") {
 			column(name: "clave_puesto")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-218") {
-		createIndex(indexName: "nombre_puesto_unique_1360357534647", tableName: "emp_puesto", unique: "true") {
+		createIndex(indexName: "nombre_puesto_unique", tableName: "emp_puesto", unique: "true") {
 			column(name: "nombre_puesto")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-219") {
-		createIndex(indexName: "clave_delegacion_unique_1360357534649", tableName: "ent_delegacion", unique: "true") {
+		createIndex(indexName: "clave_delegacion_unique", tableName: "ent_delegacion", unique: "true") {
 			column(name: "clave_delegacion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-220") {
-		createIndex(indexName: "nombre_delegacion_unique_1360357534650", tableName: "ent_delegacion", unique: "true") {
+		createIndex(indexName: "nombre_delegacion_unique", tableName: "ent_delegacion", unique: "true") {
 			column(name: "nombre_delegacion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-221") {
-		createIndex(indexName: "clave_dependencia_unique_1360357534656", tableName: "ent_dependencia", unique: "true") {
+		createIndex(indexName: "clave_dependencia_unique", tableName: "ent_dependencia", unique: "true") {
 			column(name: "clave_dependencia")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-222") {
-		createIndex(indexName: "clave_oficina_unique_1360357534661", tableName: "ent_oficina", unique: "true") {
+		createIndex(indexName: "clave_oficina_unique", tableName: "ent_oficina", unique: "true") {
 			column(name: "clave_oficina")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-223") {
-		createIndex(indexName: "nombre_oficina_unique_1360357534662", tableName: "ent_oficina", unique: "true") {
+		createIndex(indexName: "nombre_oficina_unique", tableName: "ent_oficina", unique: "true") {
 			column(name: "nombre_oficina")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-224") {
-		createIndex(indexName: "clave_region_unique_1360357534668", tableName: "ent_region", unique: "true") {
+		createIndex(indexName: "clave_region_unique", tableName: "ent_region", unique: "true") {
 			column(name: "clave_region")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-225") {
-		createIndex(indexName: "nombre_region_unique_1360357534669", tableName: "ent_region", unique: "true") {
+		createIndex(indexName: "nombre_region_unique", tableName: "ent_region", unique: "true") {
 			column(name: "nombre_region")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-226") {
-		createIndex(indexName: "clave_sucursal_unique_1360357534674", tableName: "ent_sucursal", unique: "true") {
+		createIndex(indexName: "clave_sucursal_unique", tableName: "ent_sucursal", unique: "true") {
 			column(name: "clave_sucursal")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-227") {
-		createIndex(indexName: "nombre_sucursal_unique_1360357534676", tableName: "ent_sucursal", unique: "true") {
+		createIndex(indexName: "nombre_sucursal_unique", tableName: "ent_sucursal", unique: "true") {
 			column(name: "nombre_sucursal")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-228") {
-		createIndex(indexName: "clave_afecta_unique_1360357534710", tableName: "pfin_cat_afecta_operacion", unique: "true") {
+		createIndex(indexName: "clave_afecta_unique", tableName: "pfin_cat_afecta_operacion", unique: "true") {
 			column(name: "clave_afecta")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-229") {
-		createIndex(indexName: "clave_concepto_unique_1360357534713", tableName: "pfin_cat_concepto", unique: "true") {
+		createIndex(indexName: "clave_concepto_unique", tableName: "pfin_cat_concepto", unique: "true") {
 			column(name: "clave_concepto")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-230") {
-		createIndex(indexName: "descripcion_dia_festivo_unique_1360357534716", tableName: "pfin_cat_dia_festivo", unique: "true") {
+		createIndex(indexName: "dia_festivo_unique", tableName: "pfin_cat_dia_festivo", unique: "true") {
 			column(name: "descripcion_dia_festivo")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-231") {
-		createIndex(indexName: "clave_operacion_unique_1360357534724", tableName: "pfin_cat_operacion", unique: "true") {
+		createIndex(indexName: "clave_operacion_unique", tableName: "pfin_cat_operacion", unique: "true") {
 			column(name: "clave_operacion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-232") {
-		createIndex(indexName: "clave_medio_unique_1360357534733", tableName: "pfin_cat_parametro", unique: "true") {
+		createIndex(indexName: "clave_medio_unique", tableName: "pfin_cat_parametro", unique: "true") {
 			column(name: "clave_medio")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-233") {
-		createIndex(indexName: "clave_divisa_unique_1360357534742", tableName: "pfin_divisa", unique: "true") {
+		createIndex(indexName: "clave_divisa_unique", tableName: "pfin_divisa", unique: "true") {
 			column(name: "clave_divisa")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-234") {
-		createIndex(indexName: "descripcion_divisa_unique_1360357534743", tableName: "pfin_divisa", unique: "true") {
+		createIndex(indexName: "divisa_unique", tableName: "pfin_divisa", unique: "true") {
 			column(name: "descripcion_divisa")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-235") {
-		createIndex(indexName: "pfin_pre_movimiento_id_unique_1360357534754", tableName: "pfin_movimiento", unique: "true") {
+		createIndex(indexName: "pfin_pre_mvto_unique", tableName: "pfin_movimiento", unique: "true") {
 			column(name: "pfin_pre_movimiento_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-236") {
-		createIndex(indexName: "folio_solicitud_unique_1360357534794", tableName: "prestamo", unique: "true") {
+		createIndex(indexName: "folio_solicitud_unique", tableName: "prestamo", unique: "true") {
 			column(name: "folio_solicitud")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-237") {
-		createIndex(indexName: "prestamo_id_unique_1360357534865", tableName: "prestamo_cr_comprada", unique: "true") {
+		createIndex(indexName: "prestamo_id_unique", tableName: "prestamo_cr_comprada", unique: "true") {
 			column(name: "prestamo_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-238") {
-		createIndex(indexName: "clave_promocion_unique_1360357534888", tableName: "pro_promocion", unique: "true") {
+		createIndex(indexName: "cve_promocion_unique", tableName: "pro_promocion", unique: "true") {
 			column(name: "clave_promocion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-239") {
-		createIndex(indexName: "id_cr_unique_1360357534906", tableName: "publicacion_det", unique: "true") {
+		createIndex(indexName: "id_cr_unique", tableName: "publicacion_det", unique: "true") {
 			column(name: "id_cr")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-240") {
-		createIndex(indexName: "lista_cobro_detalle_id_unique_1360357534909", tableName: "publicacion_det", unique: "true") {
+		createIndex(indexName: "l_cobro_det_unique", tableName: "publicacion_det", unique: "true") {
 			column(name: "lista_cobro_detalle_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-241") {
-		createIndex(indexName: "url_unique_1360357534927", tableName: "requestmap", unique: "true") {
+		createIndex(indexName: "url_unique", tableName: "requestmap", unique: "true") {
 			column(name: "url")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-242") {
-		createIndex(indexName: "authority_unique_1360357534929", tableName: "rol", unique: "true") {
+		createIndex(indexName: "authority_unique", tableName: "rol", unique: "true") {
 			column(name: "authority")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-243") {
-		createIndex(indexName: "persona_id_unique_1360357534934", tableName: "rs_cliente", unique: "true") {
+		createIndex(indexName: "persona_idcli_unique", tableName: "rs_cliente", unique: "true") {
 			column(name: "persona_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-244") {
-		createIndex(indexName: "clabe_unique_1360357534939", tableName: "rs_cliente_cta_bancaria", unique: "true") {
+		createIndex(indexName: "clabe_unique", tableName: "rs_cliente_cta_bancaria", unique: "true") {
 			column(name: "clabe")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-245") {
-		createIndex(indexName: "area_unique_1360357534943", tableName: "rs_cliente_empleo", unique: "true") {
+		createIndex(indexName: "area_unique", tableName: "rs_cliente_empleo", unique: "true") {
 			column(name: "area")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-246") {
-		createIndex(indexName: "cve_estado_unique_1360357534971", tableName: "rs_gral_estado", unique: "true") {
+		createIndex(indexName: "cve_estado_unique", tableName: "rs_gral_estado", unique: "true") {
 			column(name: "cve_estado")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-247") {
-		createIndex(indexName: "nombre_estado_unique_1360357534972", tableName: "rs_gral_estado", unique: "true") {
+		createIndex(indexName: "nombre_estado_unique", tableName: "rs_gral_estado", unique: "true") {
 			column(name: "nombre_estado")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-248") {
-		createIndex(indexName: "email_unique_1360357534980", tableName: "rs_persona", unique: "true") {
+		createIndex(indexName: "email_unique", tableName: "rs_persona", unique: "true") {
 			column(name: "email")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-249") {
-		createIndex(indexName: "usuario_id_unique_1360357534988", tableName: "rs_persona", unique: "true") {
+		createIndex(indexName: "usuario_idper_unique", tableName: "rs_persona", unique: "true") {
 			column(name: "usuario_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-250") {
-		createIndex(indexName: "concepto_id_unique_1360357534991", tableName: "sim_cat_accesorio", unique: "true") {
+		createIndex(indexName: "concepto_id_unique", tableName: "sim_cat_accesorio", unique: "true") {
 			column(name: "concepto_id")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-251") {
-		createIndex(indexName: "clave_banco_unique_1360357534994", tableName: "sim_cat_banco", unique: "true") {
+		createIndex(indexName: "clave_banco_unique", tableName: "sim_cat_banco", unique: "true") {
 			column(name: "clave_banco")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-252") {
-		createIndex(indexName: "nombre_banco_unique_1360357534995", tableName: "sim_cat_banco", unique: "true") {
+		createIndex(indexName: "nom_banco_unique", tableName: "sim_cat_banco", unique: "true") {
 			column(name: "nombre_banco")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-253") {
-		createIndex(indexName: "clave_descripcion_telefono_unique_1360357534999", tableName: "sim_cat_desc_telefono", unique: "true") {
+		createIndex(indexName: "cve_desc_tel_unique", tableName: "sim_cat_desc_telefono", unique: "true") {
 			column(name: "clave_descripcion_telefono")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-254") {
-		createIndex(indexName: "nombre_descripcion_telefono_unique_1360357534999", tableName: "sim_cat_desc_telefono", unique: "true") {
+		createIndex(indexName: "nom_desc_tel_unique", tableName: "sim_cat_desc_telefono", unique: "true") {
 			column(name: "nombre_descripcion_telefono")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-255") {
-		createIndex(indexName: "clave_documento_unique_1360357535001", tableName: "sim_cat_documento", unique: "true") {
+		createIndex(indexName: "cve_doc_unique", tableName: "sim_cat_documento", unique: "true") {
 			column(name: "clave_documento")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-256") {
-		createIndex(indexName: "clave_escolaridad_unique_1360357535005", tableName: "sim_cat_escolaridad", unique: "true") {
+		createIndex(indexName: "cve_esc_unique", tableName: "sim_cat_escolaridad", unique: "true") {
 			column(name: "clave_escolaridad")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-257") {
-		createIndex(indexName: "nombre_escolaridad_unique_1360357535006", tableName: "sim_cat_escolaridad", unique: "true") {
+		createIndex(indexName: "nom_escolaridad_unique", tableName: "sim_cat_escolaridad", unique: "true") {
 			column(name: "nombre_escolaridad")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-258") {
-		createIndex(indexName: "clave_forma_aplicacion_unique_1360357535010", tableName: "sim_cat_forma_aplicacion", unique: "true") {
+		createIndex(indexName: "cve_forma_apli_unique", tableName: "sim_cat_forma_aplicacion", unique: "true") {
 			column(name: "clave_forma_aplicacion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-259") {
-		createIndex(indexName: "nombre_forma_aplicacion_unique_1360357535010", tableName: "sim_cat_forma_aplicacion", unique: "true") {
+		createIndex(indexName: "nom_forma_apli_unique", tableName: "sim_cat_forma_aplicacion", unique: "true") {
 			column(name: "nombre_forma_aplicacion")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-260") {
-		createIndex(indexName: "clave_forma_entrega_unique_1360357535013", tableName: "sim_cat_forma_entrega", unique: "true") {
+		createIndex(indexName: "cve_fma_entrega_unique", tableName: "sim_cat_forma_entrega", unique: "true") {
 			column(name: "clave_forma_entrega")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-261") {
-		createIndex(indexName: "nombre_forma_entrega_unique_1360357535013", tableName: "sim_cat_forma_entrega", unique: "true") {
+		createIndex(indexName: "nom_fma_entrega_unique", tableName: "sim_cat_forma_entrega", unique: "true") {
 			column(name: "nombre_forma_entrega")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-262") {
-		createIndex(indexName: "clave_lista_estatus_unique_1360357535015", tableName: "sim_cat_lista_cobro_estatus", unique: "true") {
+		createIndex(indexName: "cve_lis_estatus_unique", tableName: "sim_cat_lista_cobro_estatus", unique: "true") {
 			column(name: "clave_lista_estatus")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-263") {
-		createIndex(indexName: "nombre_lista_estatus_unique_1360357535017", tableName: "sim_cat_lista_cobro_estatus", unique: "true") {
+		createIndex(indexName: "nom_lis_estatus_unique", tableName: "sim_cat_lista_cobro_estatus", unique: "true") {
 			column(name: "nombre_lista_estatus")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-264") {
-		createIndex(indexName: "clave_metodo_calculo_unique_1360357535019", tableName: "sim_cat_metodo_calculo", unique: "true") {
+		createIndex(indexName: "cve_met_calculo_unique", tableName: "sim_cat_metodo_calculo", unique: "true") {
 			column(name: "clave_metodo_calculo")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-265") {
-		createIndex(indexName: "nombre_metodo_calculo_unique_1360357535020", tableName: "sim_cat_metodo_calculo", unique: "true") {
+		createIndex(indexName: "nom_met_calculo_unique", tableName: "sim_cat_metodo_calculo", unique: "true") {
 			column(name: "nombre_metodo_calculo")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-266") {
-		createIndex(indexName: "clave_pais_unique_1360357535022", tableName: "sim_cat_pais", unique: "true") {
+		createIndex(indexName: "clave_pais_unique", tableName: "sim_cat_pais", unique: "true") {
 			column(name: "clave_pais")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-267") {
-		createIndex(indexName: "nombre_pais_unique_1360357535023", tableName: "sim_cat_pais", unique: "true") {
+		createIndex(indexName: "nombre_pais_unique", tableName: "sim_cat_pais", unique: "true") {
 			column(name: "nombre_pais")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-268") {
-		createIndex(indexName: "clave_periodicidad_unique_1360357535026", tableName: "sim_cat_periodicidad", unique: "true") {
+		createIndex(indexName: "cve_periodicidad_unique", tableName: "sim_cat_periodicidad", unique: "true") {
 			column(name: "clave_periodicidad")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-269") {
-		createIndex(indexName: "nombre_periodicidad_unique_1360357535027", tableName: "sim_cat_periodicidad", unique: "true") {
+		createIndex(indexName: "nom_periodicidad_unique", tableName: "sim_cat_periodicidad", unique: "true") {
 			column(name: "nombre_periodicidad")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-270") {
-		createIndex(indexName: "clave_tipo_accesorio_unique_1360357535029", tableName: "sim_cat_tipo_accesorio", unique: "true") {
+		createIndex(indexName: "cve_tipo_acc_unique", tableName: "sim_cat_tipo_accesorio", unique: "true") {
 			column(name: "clave_tipo_accesorio")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-271") {
-		createIndex(indexName: "nombre_tipo_accesorio_unique_1360357535030", tableName: "sim_cat_tipo_accesorio", unique: "true") {
+		createIndex(indexName: "nom_tipo_acc_unique", tableName: "sim_cat_tipo_accesorio", unique: "true") {
 			column(name: "nombre_tipo_accesorio")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-272") {
-		createIndex(indexName: "clave_tipo_asentamiento_unique_1360357535032", tableName: "sim_cat_tipo_asentamiento", unique: "true") {
+		createIndex(indexName: "cve_tipo_asent_unique", tableName: "sim_cat_tipo_asentamiento", unique: "true") {
 			column(name: "clave_tipo_asentamiento")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-273") {
-		createIndex(indexName: "nombre_tipo_asentamiento_unique_1360357535033", tableName: "sim_cat_tipo_asentamiento", unique: "true") {
+		createIndex(indexName: "nom_tipo_asent_unique", tableName: "sim_cat_tipo_asentamiento", unique: "true") {
 			column(name: "nombre_tipo_asentamiento")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-274") {
-		createIndex(indexName: "clave_tipo_documento_unique_1360357535035", tableName: "sim_cat_tipo_documento", unique: "true") {
+		createIndex(indexName: "cve_tipo_doc_unique", tableName: "sim_cat_tipo_documento", unique: "true") {
 			column(name: "clave_tipo_documento")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-275") {
-		createIndex(indexName: "nombre_tipo_documento_unique_1360357535036", tableName: "sim_cat_tipo_documento", unique: "true") {
+		createIndex(indexName: "nom_tipo_doc_unique", tableName: "sim_cat_tipo_documento", unique: "true") {
 			column(name: "nombre_tipo_documento")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-276") {
-		createIndex(indexName: "clave_tipo_empleado_dep_unique_1360357535038", tableName: "sim_cat_tipo_emp", unique: "true") {
+		createIndex(indexName: "cve_tipo_emp_dep_unique", tableName: "sim_cat_tipo_emp", unique: "true") {
 			column(name: "clave_tipo_empleado_dep")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-277") {
-		createIndex(indexName: "nombre_tipo_empleado_dep_unique_1360357535038", tableName: "sim_cat_tipo_emp", unique: "true") {
+		createIndex(indexName: "nom_tipo_emp_dep_unique", tableName: "sim_cat_tipo_emp", unique: "true") {
 			column(name: "nombre_tipo_empleado_dep")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-278") {
-		createIndex(indexName: "clave_tipo_persona_unique_1360357535040", tableName: "sim_cat_tipo_persona", unique: "true") {
+		createIndex(indexName: "cve_tipo_persona_unique", tableName: "sim_cat_tipo_persona", unique: "true") {
 			column(name: "clave_tipo_persona")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-279") {
-		createIndex(indexName: "nombre_tipo_persona_unique_1360357535042", tableName: "sim_cat_tipo_persona", unique: "true") {
+		createIndex(indexName: "nom_tipo_persona_unique", tableName: "sim_cat_tipo_persona", unique: "true") {
 			column(name: "nombre_tipo_persona")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-280") {
-		createIndex(indexName: "username_unique_1360357535084", tableName: "usuario", unique: "true") {
+		createIndex(indexName: "username_unique", tableName: "usuario", unique: "true") {
 			column(name: "username")
 		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360357535489-281") {
-		createIndex(indexName: "usuario_id_unique_1360357535087", tableName: "usuario_acceso", unique: "true") {
+		createIndex(indexName: "usuario_idusu_unique", tableName: "usuario_acceso", unique: "true") {
 			column(name: "usuario_id")
 		}
 	}
