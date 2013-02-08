@@ -166,11 +166,11 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 
-			column(name: "field1", type: "double precision(19)") {
+			column(name: "field1", type: "double") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "field2", type: "double precision(19)") {
+			column(name: "field2", type: "double") {
 				constraints(nullable: "false")
 			}
 
@@ -1238,9 +1238,9 @@ databaseChangeLog = {
 
 			column(name: "ape_pat", type: "varchar2(255)")
 
-			column(name: "atg_domicilio", type: "double precision(19)")
+			column(name: "atg_domicilio", type: "double")
 
-			column(name: "atg_trabajo", type: "double precision(19)")
+			column(name: "atg_trabajo", type: "double")
 
 			column(name: "calle_dom", type: "varchar2(255)")
 
@@ -1256,9 +1256,9 @@ databaseChangeLog = {
 
 			column(name: "clave_sucursal", type: "varchar2(255)")
 
-			column(name: "cod_postal_dom", type: "double precision(19)")
+			column(name: "cod_postal_dom", type: "double")
 
-			column(name: "cod_postal_tra", type: "double precision(19)")
+			column(name: "cod_postal_tra", type: "double")
 
 			column(name: "colonia_dom", type: "varchar2(255)")
 
@@ -1266,17 +1266,17 @@ databaseChangeLog = {
 
 			column(name: "consecutivo", type: "varchar2(255)")
 
-			column(name: "cve_estado_dom", type: "double precision(19)")
+			column(name: "cve_estado_dom", type: "double")
 
-			column(name: "cve_estado_tra", type: "double precision(19)")
+			column(name: "cve_estado_tra", type: "double")
 
-			column(name: "cve_municipio_dom", type: "double precision(19)")
+			column(name: "cve_municipio_dom", type: "double")
 
-			column(name: "cve_municipio_tra", type: "double precision(19)")
+			column(name: "cve_municipio_tra", type: "double")
 
-			column(name: "cve_supervisor", type: "double precision(19)")
+			column(name: "cve_supervisor", type: "double")
 
-			column(name: "deducciones", type: "double precision(19)")
+			column(name: "deducciones", type: "double")
 
 			column(name: "edo_civil", type: "varchar2(255)")
 
@@ -1294,17 +1294,17 @@ databaseChangeLog = {
 
 			column(name: "ide_presupuestal", type: "varchar2(255)")
 
-			column(name: "imp_credito_sol", type: "double precision(19)")
+			column(name: "imp_credito_sol", type: "double")
 
-			column(name: "imp_descuento", type: "double precision(19)")
+			column(name: "imp_descuento", type: "double")
 
-			column(name: "importe_cedido", type: "double precision(19)")
+			column(name: "importe_cedido", type: "double")
 
-			column(name: "ingreso_bruto", type: "double precision(19)")
+			column(name: "ingreso_bruto", type: "double")
 
-			column(name: "ingreso_neto", type: "double precision(19)")
+			column(name: "ingreso_neto", type: "double")
 
-			column(name: "int_descuento", type: "double precision(19)")
+			column(name: "int_descuento", type: "double")
 
 			column(name: "localidad_dom", type: "varchar2(255)")
 
@@ -1314,7 +1314,7 @@ databaseChangeLog = {
 
 			column(name: "nombre", type: "varchar2(255)")
 
-			column(name: "num_agente", type: "double precision(19)")
+			column(name: "num_agente", type: "double")
 
 			column(name: "num_ext_dom", type: "varchar2(255)")
 
@@ -1326,7 +1326,7 @@ databaseChangeLog = {
 
 			column(name: "num_parcialidades", type: "number")
 
-			column(name: "num_personal", type: "double precision(19)")
+			column(name: "num_personal", type: "double")
 
 			column(name: "numero_operacion", type: "varchar2(255)")
 
