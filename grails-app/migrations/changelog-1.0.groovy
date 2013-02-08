@@ -743,7 +743,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-26") {
 		createTable(tableName: "pfin_cat_operacion_concepto") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_cat_operPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_cat_oper_conPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -941,7 +941,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-31") {
 		createTable(tableName: "pfin_movimiento_det") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_movimienPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_movimien_detPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -1041,7 +1041,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-33") {
 		createTable(tableName: "pfin_pre_movimiento_det") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_pre_moviPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pfin_pre_movi_detPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -1227,7 +1227,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-37") {
 		createTable(tableName: "prestamo_cr_cartera") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "prestamo_cr_cPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "prestamo_cr_carPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -1379,7 +1379,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-38") {
 		createTable(tableName: "prestamo_cr_comprada") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "prestamo_cr_cPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "prestamo_cr_comPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -1635,7 +1635,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-43") {
 		createTable(tableName: "pro_promocion_accesorio") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pro_promocionPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "pro_promocion_accPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2379,7 +2379,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-71") {
 		createTable(tableName: "sim_cat_forma_aplicacion") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_formaPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_forma_apliPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2399,7 +2399,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-72") {
 		createTable(tableName: "sim_cat_forma_entrega") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_formaPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_forma_entPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2513,7 +2513,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-77") {
 		createTable(tableName: "sim_cat_tipo_accesorio") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_PK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_accPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2533,7 +2533,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-78") {
 		createTable(tableName: "sim_cat_tipo_asentamiento") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_PK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_asePK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2553,7 +2553,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-79") {
 		createTable(tableName: "sim_cat_tipo_documento") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_PK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_docPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2573,7 +2573,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-80") {
 		createTable(tableName: "sim_cat_tipo_emp") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_PK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_empPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2593,7 +2593,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-81") {
 		createTable(tableName: "sim_cat_tipo_persona") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_PK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "sim_cat_tipo_perPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2721,7 +2721,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-85") {
 		createTable(tableName: "tabla_amortizacion_accesorio") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "tabla_amortizPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "tabla_amortiz_accPK")
 			}
 
 			column(name: "version", type: "number") {
@@ -2753,7 +2753,7 @@ databaseChangeLog = {
 	changeSet(author: "miguel (generated)", id: "1360357535489-86") {
 		createTable(tableName: "tabla_amortizacion_registro") {
 			column(name: "id", type: "number") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "tabla_amortizPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "tabla_amortiz_regPK")
 			}
 
 			column(name: "version", type: "number") {
