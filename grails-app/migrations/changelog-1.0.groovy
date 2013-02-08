@@ -2920,10 +2920,6 @@ databaseChangeLog = {
 		}
 	}
 
-	changeSet(author: "miguel (generated)", id: "1360355282933-112") {
-		addPrimaryKey(columnNames: "USER_ID_, GROUP_ID_", constraintName: "SYS_C00651734", tableName: "ACT_ID_MEMBERSHIP", tablespace: "SYSTEM")
-	}
-
 	changeSet(author: "miguel (generated)", id: "1360355282933-113") {
 		addPrimaryKey(columnNames: "ENT_DEPENDENCIA_ID, PRO_PROMOCION_ID", constraintName: "SYS_C00660090", tableName: "ENT_DEPENDENCIA_PROMOCION", tablespace: "SYSTEM")
 	}
@@ -2934,10 +2930,6 @@ databaseChangeLog = {
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-115") {
 		addPrimaryKey(columnNames: "ROL_ID, USUARIO_ID", constraintName: "SYS_C00660689", tableName: "USUARIO_ROL", tablespace: "SYSTEM")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-116") {
-		addUniqueConstraint(columnNames: "PROC_INST_ID_", constraintName: "SYS_C00651709", deferrable: "false", disabled: "false", initiallyDeferred: "false", tableName: "ACT_HI_PROCINST", tablespace: "SYSTEM")
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-117") {
@@ -3206,66 +3198,6 @@ databaseChangeLog = {
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-183") {
 		addUniqueConstraint(columnNames: "USUARIO_ID", constraintName: "SYS_C00660686", deferrable: "false", disabled: "false", initiallyDeferred: "false", tableName: "USUARIO_ACCESO", tablespace: "SYSTEM")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-184") {
-		addForeignKeyConstraint(baseColumnNames: "DEPLOYMENT_ID_", baseTableName: "ACT_GE_BYTEARRAY", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_BYTEARR_DEPL", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RE_DEPLOYMENT", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-185") {
-		addForeignKeyConstraint(baseColumnNames: "GROUP_ID_", baseTableName: "ACT_ID_MEMBERSHIP", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_MEMB_GROUP", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_ID_GROUP", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-186") {
-		addForeignKeyConstraint(baseColumnNames: "USER_ID_", baseTableName: "ACT_ID_MEMBERSHIP", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_MEMB_USER", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_ID_USER", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-187") {
-		addForeignKeyConstraint(baseColumnNames: "EXECUTION_ID_", baseTableName: "ACT_RU_EVENT_SUBSCR", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_EVENT_EXEC", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-188") {
-		addForeignKeyConstraint(baseColumnNames: "PARENT_ID_", baseTableName: "ACT_RU_EXECUTION", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_EXE_PARENT", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-189") {
-		addForeignKeyConstraint(baseColumnNames: "PROC_INST_ID_", baseTableName: "ACT_RU_EXECUTION", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_EXE_PROCINST", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-190") {
-		addForeignKeyConstraint(baseColumnNames: "SUPER_EXEC_", baseTableName: "ACT_RU_EXECUTION", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_EXE_SUPER", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-191") {
-		addForeignKeyConstraint(baseColumnNames: "TASK_ID_", baseTableName: "ACT_RU_IDENTITYLINK", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_TSKASS_TASK", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_TASK", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-192") {
-		addForeignKeyConstraint(baseColumnNames: "EXCEPTION_STACK_ID_", baseTableName: "ACT_RU_JOB", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_JOB_EXCEPTION", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_GE_BYTEARRAY", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-193") {
-		addForeignKeyConstraint(baseColumnNames: "EXECUTION_ID_", baseTableName: "ACT_RU_TASK", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_TASK_EXE", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-194") {
-		addForeignKeyConstraint(baseColumnNames: "PROC_DEF_ID_", baseTableName: "ACT_RU_TASK", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_TASK_PROCDEF", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RE_PROCDEF", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-195") {
-		addForeignKeyConstraint(baseColumnNames: "PROC_INST_ID_", baseTableName: "ACT_RU_TASK", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_TASK_PROCINST", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-196") {
-		addForeignKeyConstraint(baseColumnNames: "BYTEARRAY_ID_", baseTableName: "ACT_RU_VARIABLE", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_VAR_BYTEARRAY", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_GE_BYTEARRAY", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-197") {
-		addForeignKeyConstraint(baseColumnNames: "EXECUTION_ID_", baseTableName: "ACT_RU_VARIABLE", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_VAR_EXE", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-198") {
-		addForeignKeyConstraint(baseColumnNames: "PROC_INST_ID_", baseTableName: "ACT_RU_VARIABLE", baseTableSchemaName: "NOMINA", constraintName: "ACT_FK_VAR_PROCINST", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID_", referencedTableName: "ACT_RU_EXECUTION", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-199") {
@@ -3746,100 +3678,6 @@ databaseChangeLog = {
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-318") {
 		addForeignKeyConstraint(baseColumnNames: "USUARIO_ID", baseTableName: "USUARIO_ROL", baseTableSchemaName: "NOMINA", constraintName: "FK3118953EB6C25116", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "USUARIO", referencedTableSchemaName: "NOMINA", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-319") {
-		createIndex(indexName: "ACT_IDX_HI_ACT_INST_END", tableName: "ACT_HI_ACTINST", tablespace: "SYSTEM", unique: "false") {
-			column(name: "END_TIME_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-320") {
-		createIndex(indexName: "ACT_IDX_HI_ACT_INST_START", tableName: "ACT_HI_ACTINST", tablespace: "SYSTEM", unique: "false") {
-			column(name: "START_TIME_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-321") {
-		createIndex(indexName: "ACT_IDX_HI_DETAIL_ACT_INST", tableName: "ACT_HI_DETAIL", tablespace: "SYSTEM", unique: "false") {
-			column(name: "ACT_INST_ID_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-322") {
-		createIndex(indexName: "ACT_IDX_HI_DETAIL_NAME", tableName: "ACT_HI_DETAIL", tablespace: "SYSTEM", unique: "false") {
-			column(name: "NAME_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-323") {
-		createIndex(indexName: "ACT_IDX_HI_DETAIL_PROC_INST", tableName: "ACT_HI_DETAIL", tablespace: "SYSTEM", unique: "false") {
-			column(name: "PROC_INST_ID_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-324") {
-		createIndex(indexName: "ACT_IDX_HI_DETAIL_TIME", tableName: "ACT_HI_DETAIL", tablespace: "SYSTEM", unique: "false") {
-			column(name: "TIME_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-325") {
-		createIndex(indexName: "ACT_IDX_HI_PRO_INST_END", tableName: "ACT_HI_PROCINST", tablespace: "SYSTEM", unique: "false") {
-			column(name: "END_TIME_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-326") {
-		createIndex(indexName: "ACT_IDX_HI_PRO_I_BUSKEY", tableName: "ACT_HI_PROCINST", tablespace: "SYSTEM", unique: "false") {
-			column(name: "BUSINESS_KEY_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-327") {
-		createIndex(indexName: "ACT_UNIQ_HI_BUS_KEY", tableName: "ACT_HI_PROCINST", tablespace: "SYSTEM", unique: "true") {
-			column(name: "SYS_NC00013$")
-
-			column(name: "SYS_NC00014$")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-328") {
-		createIndex(indexName: "ACT_IDX_EVENT_SUBSCR_CONFIG_", tableName: "ACT_RU_EVENT_SUBSCR", tablespace: "SYSTEM", unique: "false") {
-			column(name: "CONFIGURATION_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-329") {
-		createIndex(indexName: "ACT_IDX_EXEC_BUSKEY", tableName: "ACT_RU_EXECUTION", tablespace: "SYSTEM", unique: "false") {
-			column(name: "BUSINESS_KEY_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-330") {
-		createIndex(indexName: "ACT_UNIQ_RU_BUS_KEY", tableName: "ACT_RU_EXECUTION", tablespace: "SYSTEM", unique: "true") {
-			column(name: "SYS_NC00014$")
-
-			column(name: "SYS_NC00015$")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-331") {
-		createIndex(indexName: "ACT_IDX_IDENT_LNK_GROUP", tableName: "ACT_RU_IDENTITYLINK", tablespace: "SYSTEM", unique: "false") {
-			column(name: "GROUP_ID_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-332") {
-		createIndex(indexName: "ACT_IDX_IDENT_LNK_USER", tableName: "ACT_RU_IDENTITYLINK", tablespace: "SYSTEM", unique: "false") {
-			column(name: "USER_ID_")
-		}
-	}
-
-	changeSet(author: "miguel (generated)", id: "1360355282933-333") {
-		createIndex(indexName: "ACT_IDX_TASK_CREATE", tableName: "ACT_RU_TASK", tablespace: "SYSTEM", unique: "false") {
-			column(name: "CREATE_TIME_")
-		}
 	}
 
 	changeSet(author: "miguel (generated)", id: "1360355282933-334") {
