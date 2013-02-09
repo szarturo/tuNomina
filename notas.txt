@@ -51,3 +51,6 @@ activiti.oracle.create.identity.sql
 
 Al iniciar en Produccion hay que modificar la tabla USUARIO 
    PASSWORD -> "password"
+
+Generar cambios a base de datos
+grails prod dbm-gorm-diff --add changelog-1.0.1.groovy
