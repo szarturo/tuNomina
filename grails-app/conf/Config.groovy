@@ -225,14 +225,12 @@ environments {
 		activiti {
 			  processEngineName = "activiti-engine-test"
 			  databaseSchemaUpdate = true
-			  mailServerPort = "5025"
 		}
 	}
 	production {
 		activiti {
 			  processEngineName = "activiti-engine-prod"
 			  databaseSchemaUpdate = false
-			  jobExecutorActivate = true
 		}
 	}
 }
