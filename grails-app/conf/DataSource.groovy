@@ -37,14 +37,15 @@ environments {
 	}
 	
 	test {
-		//DEPLOY EN JELASTIC
 		dataSource {
-			username = "mrugerio"
-			password = "creditos"
-			dbCreate = "create-drop"
-			url = "jdbc:mysql://mysql-simcreditos.jelastic.servint.net/simGrails2"
+			driverClassName = 'oracle.jdbc.driver.OracleDriver'
+			username = 'nominaTest'
+			password = 'nominaTest'
+			url = 'jdbc:oracle:thin:@localhost:1521:XE'
+			hibernate.current_session_context_class = 'com.autobizlogic.abl.session.CurrentSessionContextProxy'
 		}
 	}
+	
 	production {
 		dataSource {
 			driverClassName = 'oracle.jdbc.driver.OracleDriver'
