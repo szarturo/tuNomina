@@ -5,6 +5,9 @@ Iniciar servidor Tomcat 7
 Añadir linea al archivo catalina.sh
 JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=256M"
 
+Servidor MTN
+set JAVA_OPTS=%JAVA_OPTS% -Xmx1024m -Xms1024m -XX:PermSize=512m -XX:MaxPermSize=512m -XX:NewSize=256m
+
 Visor de imagenes
 http://localhost:8080/tuNomina-0.1/viewImageCompare/loadImagen?imagen=
 Ejemplo
