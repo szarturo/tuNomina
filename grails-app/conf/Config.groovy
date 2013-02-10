@@ -199,7 +199,7 @@ activiti {
 		processEngineName = "activiti-engine-default"
 		databaseType = "oracle"
 		deploymentName = appName
-		deploymentResources = ["file:./grails-app/conf/**/*.bpmn*.xml",
+		deploymentResources = [
 						 "file:./grails-app/conf/**/*.png",
 						 "file:./src/taskforms/**/*.form",
 						 "classpath*:*.bpmn*.xml"]
