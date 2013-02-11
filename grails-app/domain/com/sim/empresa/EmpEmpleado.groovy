@@ -15,8 +15,8 @@ class EmpEmpleado {
     EntSucursal  sucursal
 
     static constraints = {
-        persona(unique: true , validator: { personaReferencia, RsReferenciaCliente ->
-            personaReferencia?.tiposPersona?.claveTipoPersona?.contains('EMPLEADO') })        
+        persona(unique: true , validator: { persona, RsPersona ->
+            persona?.tiposPersona?.claveTipoPersona?.contains('EMPLEADO') })        
         numeroNomina nullable:false, blank: false
         clavePromotor(size:0..25, nullable: true, unique: true)
         puesto(nullable: false)
