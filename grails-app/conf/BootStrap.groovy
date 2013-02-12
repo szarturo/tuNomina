@@ -1739,6 +1739,16 @@ class BootStrap {
 	  //DATOS QUE SE INICIAN PARA EL AMBIENTE DE PRODUCCION
 	  case "production":
 
+	  		//INDICACIONES NECESARIAS PARA ENVIAR CORREO POR ACTIVITI
+
+			["mail.smtp.auth":"true",
+			 "mail.smtp.socketFactory.port":"465",
+			 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+			 "mail.smtp.socketFactory.fallback":"false",
+			 "mail.smtp.starttls.required": "true"].each { k, v ->
+			     System.setProperty k, v
+			}	  
+
     	break
 	}
 
