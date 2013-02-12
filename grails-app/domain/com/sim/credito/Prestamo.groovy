@@ -32,6 +32,7 @@ class Prestamo {
     BigDecimal     percepcionesMensuales
     BigDecimal     deduccionesMensuales
     BigDecimal     montoSolicitado
+    BigDecimal     montoAutorizado
     PrestamoEstatus estatusSolicitud
     SimCatFormaEntrega formaDeDispercion
     Boolean        documentosCorrectos
@@ -80,6 +81,7 @@ class Prestamo {
         vendedor(nullable: false)
         fechaSolicitud()
         montoSolicitado(nullable: false)
+        montoAutorizado(nullable: true)
         percepcionesMensuales(nullable: false)
         deduccionesMensuales(nullable: false)
         estatusSolicitud( nullable: false)
