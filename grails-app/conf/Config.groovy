@@ -236,6 +236,12 @@ environments {
 }
 
 environments {
+    test {
+		//PLUGIN database-migrations
+		grails.plugin.databasemigration.updateOnStart = true
+		grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
+    }	
     production {
 		//PLUGIN database-migrations
 		grails.plugin.databasemigration.updateOnStart = true
