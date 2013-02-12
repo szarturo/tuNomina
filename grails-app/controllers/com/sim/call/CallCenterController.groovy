@@ -3,6 +3,7 @@ package com.sim.call
 import com.sim.credito.Prestamo
 import com.sim.credito.PrestamoEstatus
 
+
 class CallCenterController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -50,8 +51,12 @@ class CallCenterController {
                 Prestamo prestamo = callCenterInstance.prestamo
                 log.info "Estatus Solicitud: ${prestamo.estatusSolicitud}"
                 log.info "Registro Cerrado?: ${callCenterInstance.cerrarRegistro}"
-                if (prestamo.estatusSolicitud.equals(PrestamoEstatus.ACTIVO) || 
-                    params.cerrarRegistro.equals("on")){
+                if (prestamo.estatusSolicitud.equals(PrestamoEstatus.ACTIVO) || params.cerrarRegistro.equals("on")){
+                    //VALIDA SI EL PRESTAMO NO HA SIDO ACTIVADO POR REPORTE DE BANCOMER
+                    if (!prestamo.estatusSolicitud.equals(PrestamoEstatus.ACTIVO)){
+                        //CAMBIA EL ESTATUS DEL PRESTAMO CERRADO POR CALLCENTER
+                        prestamo.estatusSolicitud = PrestamoEstatus.CALLCENTER_CERRADO
+                    }
                     params.continuaLocalizando = false
                     flash.message = "El registro de las llamadas para localizar al cliente ha sido cerrado"
                 }else{
