@@ -21,7 +21,7 @@
             	    nombreCliente: prestamoInstance?.cliente?.persona?.apellidoPaterno + ' ' +
             	             prestamoInstance?.cliente?.persona?.apellidoMaterno + ' ' +
             	             prestamoInstance?.cliente?.persona?.primerNombre + ' ' +
-            	             prestamoInstance?.cliente?.persona?.segundoNombre ]">Documentos</g:link><li>
+            	             prestamoInstance?.cliente?.persona?.segundoNombre ]">Documentos</g:link></li>
             <li><g:link class="list" action="generaTablaAmortizacion" params="[idPrestamo:prestamoInstance.id]">Generar Tabla de Amortizaci&oacute;n</g:link></li>                             
             <li><g:link class="list" controller="tablaAmortizacionRegistro" action="listConsultaTabla" params="[idPrestamo:prestamoInstance.id]">Consulta Tabla de Amortizaci&oacute;n</g:link></li>
 			 </ul>
