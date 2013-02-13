@@ -156,13 +156,23 @@ class PrestamoDocumentosController {
         //SE RECUPERA EL PRESTAMO
         Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
 
-        //CAMBIA EL ESTATUS DEL PRESTAMO A PROCESADA
-        prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
-        prestamoInstance.approvalStatus = ApprovalStatus.PENDING        
-        //COMPLETA LA TAREA
-        completeTask(params)
+        try{
+        	respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
+	        //CAMBIA EL ESTATUS DEL PRESTAMO A PROCESADA
+	        prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
+	        prestamoInstance.approvalStatus = ApprovalStatus.PENDING        
+	        //COMPLETA LA TAREA
+	        completeTask(params)
+        }catch(PrestamoServiceException errorEnvioDocumentoCr){
+        	flash.message = message(code: errorEnvioDocumentoCr.mensaje, args: [])
+        	redirect (action: "asignaNombre" , params :[folioSolicitud:params.folioSolicitud, idCliente:params.idCliente])		
+        	return
+        }catch(Exception errorEnvioDocumento){
+        	flash.message = message(code: "No se envio el Documento. Contacte al Administrador", args: [])
+        	redirect (action: "asignaNombre" , params :[folioSolicitud:params.folioSolicitud, idCliente:params.idCliente])		
+        	return
+        }
 
-        //respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
         flash.message = message(code: "Respuesta de Credito Real para el documento ${respuesta}", args: [])
 		redirect (action: "asignaNombre" , params :[folioSolicitud:params.folioSolicitud, idCliente:params.idCliente])		
 	}

@@ -172,14 +172,11 @@ class PrestamoService {
 				Client client = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
 				respuesta = client.documentoAdicional(adicional)
 			} catch (ClientException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace()
+				throw new PrestamoServiceException(mensaje: "Se genero un error al enviar el documento a Crédito Real.")
 			}
 			log.info("Respuesta para el documento ${doctoAdicional}: ${respuesta}")
 		}else{
-			respuesta = """
-			No existe consecutivo, debe enviarse primero la solicitud a Credito Real
-			"""
+			throw new PrestamoServiceException(mensaje:"No existe consecutivo, debe enviarse primero la solicitud a Credito Real")
 		}
 
 		return "${documento.nombreArchivo} : ${respuesta}"
