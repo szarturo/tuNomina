@@ -5,14 +5,17 @@ import com.sim.alfresco.AlfrescoService
 import org.apache.chemistry.opencmis.client.api.Folder
 import org.apache.chemistry.opencmis.client.api.CmisObject
 import org.apache.chemistry.opencmis.client.api.Document
+import org.grails.activiti.ApprovalStatus
 
 class PrestamoDocumentosController {
 	
 	def springSecurityService
 	def prestamoService
 
+	static activiti = true
+
     def listaDocumentos(){
-		 
+
 		String nombreCliente = params.cliente
 		String claveCliente = params.claveCliente
 		String folioSolicitud = params.folioSolicitud
@@ -150,7 +153,16 @@ class PrestamoDocumentosController {
 
 	def enviaDocumento(){
         String respuesta = "No se genero respuesta"
-        respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
+        //SE RECUPERA EL PRESTAMO
+        Prestamo prestamoInstance = Prestamo.get(params.idPrestamo)
+
+        //CAMBIA EL ESTATUS DEL PRESTAMO A PROCESADA
+        prestamoInstance.estatusSolicitud = PrestamoEstatus.PROCESADA
+        prestamoInstance.approvalStatus = ApprovalStatus.PENDING        
+        //COMPLETA LA TAREA
+        completeTask(params)
+
+        //respuesta = prestamoService.envioDocumentoCreditoReal(params.idDocumento)
         flash.message = message(code: "Respuesta de Credito Real para el documento ${respuesta}", args: [])
 		redirect (action: "asignaNombre" , params :[folioSolicitud:params.folioSolicitud, idCliente:params.idCliente])		
 	}

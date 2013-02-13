@@ -81,6 +81,8 @@
     <g:form controller="prestamoDocumentos">
         <g:hiddenField name="idCliente" value="${claveCliente}" />
         <g:hiddenField name="folioSolicitud" value="${folioSolicitud}" />
+        <g:hiddenField name="taskId" value="${params.taskId}" />
+        <g:hiddenField name="idPrestamo" value="${params.idPrestamo}" />
         <g:actionSubmit value="Asignar Nombre" action="asignaNombre"/>
     </g:form>      
 

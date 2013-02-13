@@ -43,7 +43,7 @@
                                 <td><g:select name="${documento.nombreArchivo}" from="${com.sim.catalogo.SimCatDocumento.findAllByTipoDocumento(com.sim.catalogo.SimCatTipoDocumento.findByClaveTipoDocumento('PRESTAMO'))}" value="${documento.documento.id}" optionKey="id"/></td>
                                 <td>
                                 <sec:ifAllGranted roles="ROLE_CONTROL_CALIDAD">
-                                    <g:link action="enviaDocumento" params="[idDocumento : documento.id, folioSolicitud : folioSolicitud, idCliente : idCliente]">
+                                    <g:link action="enviaDocumento" params="[idDocumento : documento.id, folioSolicitud : folioSolicitud, idCliente : idCliente, taskId : params.taskId, idPrestamo : params.idPrestamo]">
                                         Enviar Documento
                                     </g:link>    
                                 </sec:ifAllGranted>

@@ -20,6 +20,14 @@
             <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 	          <li><g:link class="list" controller="task" action="myTaskList"><g:message code="myTasks.label" default="My Tasks ({0})" args="[myTasksCount]" /></g:link></li>
             <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+
+            <li><g:link class="list" controller="prestamoDocumentos" action="listaDocumentos"
+                params="[folioSolicitud: prestamoInstance.folioSolicitud,
+                    claveCliente: prestamoInstance?.cliente?.id,
+                    idPrestamo : prestamoInstance?.id,
+                    taskId : params.taskId
+                    ]">Envio Documento a CR</g:link></li>
+
 			  </ul>
 			</div>
 		</g:if>	
