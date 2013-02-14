@@ -137,7 +137,7 @@
                                     <label for="vendedor"><g:message code="prestamo.vendedor.label" default="Vendedor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'vendedor', 'errors')}">
-                                    <g:field type="text" name="nombreVendedor" value="" readonly="true" size="80"/>
+                                    <g:field type="text" name="nombreVendedor" value="${parametroNombreVendedor}" readonly="true" size="80"/>
                                 </td>
                             </tr>
                         
@@ -204,7 +204,7 @@
                 </div>
                 <g:hiddenField name="taskId" value="${params.taskId}" />
                 <g:hiddenField name="cliente.id" value="${prestamoInstance?.cliente?.id}" />                
-                <g:hiddenField name="vendedor.id" value="" />                
+                <g:hiddenField name="vendedor.id" value="${prestamoInstance?.vendedor?.id}" />                
             </g:form>
         </div>
     </body>

@@ -96,7 +96,7 @@ class PrestamoController {
             redirect(action: "show", params: params)
         }
         else {
-            render(view: "create", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
+            render(view: "create", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount, parametroNombreVendedor:params.nombreVendedor])
         }
     }
 
