@@ -116,13 +116,28 @@
                                     <g:select name="delegacion.id" from="${com.sim.entidad.EntDelegacion.list()}" optionKey="id" value="${prestamoInstance?.delegacion?.id}" noSelection="['null': '']" />
                                 </td>
                             </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="claveVendedor"><g:message code="prestamo.claveVendedor.label" default="Clave Vendedor" /></label>
+                                </td>
+                                <td valign="top">
+                                    <g:textField name='claveVendedor.id' value=''
+                                                 onKeyUp="${remoteFunction(
+                                                         controller:'empEmpleado',
+                                                         action:'ajaxGetVendedor',
+                                                         params:'\'clave=\' + escape(this.value)',
+                                                         onComplete:'updateVendedor(e)')}">
+                                    </g:textField>
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="vendedor"><g:message code="prestamo.vendedor.label" default="Vendedor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: prestamoInstance, field: 'vendedor', 'errors')}">
-                                    <g:select name="vendedor.id" from="${com.sim.empresa.EmpEmpleado.findAllByPuesto(com.sim.empresa.EmpPuesto.findByClavePuesto('VENDE'))}" optionKey="id" value="${prestamoInstance?.vendedor?.id}"  />
+                                    <g:field type="text" name="nombreVendedor" value="" readonly="true" size="80"/>
                                 </td>
                             </tr>
                         
@@ -179,7 +194,8 @@
                                     <g:textArea name="comentarios" cols="40" rows="5" value="${prestamoInstance?.comentarios}" />
                                 </td>
                             </tr>
-                       
+
+                        
                         </tbody>
                     </table>
                 </div>
@@ -188,12 +204,28 @@
                 </div>
                 <g:hiddenField name="taskId" value="${params.taskId}" />
                 <g:hiddenField name="cliente.id" value="${prestamoInstance?.cliente?.id}" />                
+                <g:hiddenField name="vendedor.id" value="" />                
             </g:form>
         </div>
     </body>
 </html>
 
 <g:javascript>
+
+    function updateVendedor(e) {
+
+        var valores = eval('(' + e.responseText + ')') 
+        var nombreVendedor = valores[0];
+        var idVendedor = valores[1];
+
+        var nameVendedor = document.getElementById('nombreVendedor')
+        var identificadorVendedor = document.getElementById('vendedor.id')
+        
+        nameVendedor.value = nombreVendedor
+        identificadorVendedor.value = idVendedor
+
+    }
+
     
     function cambiaDependencia(idDependencia){
         ${remoteFunction(controller:"entDependencia", action:"ajaxGetTipoEmpleado", params:"'id=' + idDependencia", onComplete:"updateTipoEmpleado(e)")}        
