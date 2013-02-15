@@ -2,5 +2,5 @@ package com.sim.credito
 
 class PrestamoCrCompradaController {
 
-    def scaffold = true
+    static scaffold = true
 }

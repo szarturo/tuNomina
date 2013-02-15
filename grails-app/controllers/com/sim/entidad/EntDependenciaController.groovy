@@ -4,7 +4,7 @@ import grails.converters.*
 
 class EntDependenciaController {
 
-    def scaffold = true
+    static scaffold = true
 
     def ajaxGetTipoEmpleado = {
 		EntDependencia dependencia = EntDependencia.get(params.id)

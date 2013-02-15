@@ -2,5 +2,5 @@ package com.sim.entidad
 
 class EntOficinaController {
 
-    def scaffold = true
+    static scaffold = true
 }

@@ -4,7 +4,7 @@ import grails.converters.*
 
 class RsGralAsentamientoController {
 
-	def scaffold = true
+	static scaffold = true
 
 	def ajaxGetCodigoPostal = {
 		def asentamiento = RsGralAsentamiento.get(params.id)

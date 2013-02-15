@@ -2,5 +2,5 @@ package com.sim.producto
 
 class ProPromocionController {
 
-    def scaffold = true
+    static scaffold = true
 }

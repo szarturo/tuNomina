@@ -4,7 +4,7 @@ import grails.converters.*
 
 class EntSucursalController {
 
-    def scaffold = true
+    static scaffold = true
 
 	def ajaxGetDelegacion = {
 		EntSucursal sucursal = EntSucursal.get(params.id)

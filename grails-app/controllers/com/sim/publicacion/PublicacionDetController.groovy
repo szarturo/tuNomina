@@ -2,5 +2,5 @@ package com.sim.publicacion
 
 class PublicacionDetController {
 
-    def scaffold = true
+    static scaffold = true
 }

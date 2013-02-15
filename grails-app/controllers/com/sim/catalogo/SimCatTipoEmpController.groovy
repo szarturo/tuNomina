@@ -2,6 +2,6 @@ package com.sim.catalogo
 
 class SimCatTipoEmpController {
 
-    def scaffold = true
+    static scaffold = true
 
 }

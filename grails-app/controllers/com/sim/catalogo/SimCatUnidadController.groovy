@@ -2,5 +2,5 @@ package com.sim.catalogo
 
 class SimCatUnidadController {
 
-    def scaffold = true
+    static scaffold = true
 }

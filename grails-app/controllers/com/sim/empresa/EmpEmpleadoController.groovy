@@ -5,7 +5,7 @@ import grails.converters.*
 
 class EmpEmpleadoController {
 
-    def scaffold = true
+    static scaffold = true
 
     def ajaxGetVendedor = {
         def clavePromotor = params.clave

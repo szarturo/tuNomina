@@ -3,7 +3,7 @@ package demo
 import grails.converters.JSON;
 
 class ContactController {
-	def scaffold = true
+	static scaffold = true
 	def defaultAction = 'list'
 
 	def contactService

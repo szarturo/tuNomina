@@ -2,5 +2,5 @@ package com.sim.empresa
 
 class EmpPuestoController {
 
-    def scaffold = true;
+    static scaffold = true;
 }

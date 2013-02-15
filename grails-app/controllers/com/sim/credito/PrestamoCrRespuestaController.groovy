@@ -2,6 +2,6 @@ package com.sim.credito
 
 class PrestamoCrRespuestaController {
 
-    def scaffold = true
+    static scaffold = true
     
 }

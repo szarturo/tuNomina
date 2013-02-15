@@ -4,7 +4,7 @@ class PublicacionLoteController {
 
 	def publicacionLoteService
 
-    def scaffold = true
+    static scaffold = true
 
     def publicarLote() {
 

@@ -4,7 +4,7 @@ import grails.converters.*
 
 class RsGralDelegacionMunicipioController {
 
-    def scaffold = true
+    static scaffold = true
 	
 	def ajaxGetAsentamiento = {
 		def delegacionAsentamiento = RsGralDelegacionMunicipio.get(params.id)
