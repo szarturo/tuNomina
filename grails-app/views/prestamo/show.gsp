@@ -119,6 +119,14 @@
                         </tr>
 
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.montoAutorizado.label" default="Monto Autorizado" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "montoAutorizado")}</td>
+                            
+                        </tr>
+
+
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.percepcionesMensuales.label" default="Percepciones Mensuales" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: prestamoInstance, field: "percepcionesMensuales")}</td>

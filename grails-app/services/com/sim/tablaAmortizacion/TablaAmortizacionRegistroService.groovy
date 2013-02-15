@@ -132,7 +132,7 @@ class TablaAmortizacionRegistroService {
 		Integer iva 	 				 = promocion.iva
 					
 		BigDecimal importeIvaInteres
-		BigDecimal cargoInicial			 = prestamoInstance.montoSolicitado
+		BigDecimal cargoInicial			 = prestamoInstance.montoAutorizado
 		BigDecimal capitalTotal          = 0
 		
 		Date fechaPago
@@ -310,7 +310,7 @@ class TablaAmortizacionRegistroService {
 				
 				//INTRODUCE LOS REGISTROS A LA TABLA AMORTIZACION ACCESORIO, SI LA FORMA DE APLICACION TIENE CLAVE DE MONTO_PRESTADO
 				if (formaAplicacion.equals(SimCatFormaAplicacion.findByClaveFormaAplicacion('MONTO_PRESTADO'))) {
-					importeAccesorio = (((prestamoInstance.montoSolicitado * valor) / valorUnidad) / diasPeriodicidadAccesorio) * diasPeriodicidadPago
+					importeAccesorio = (((prestamoInstance.montoAutorizado * valor) / valorUnidad) / diasPeriodicidadAccesorio) * diasPeriodicidadPago
 					importeIvaAccesorio	= importeAccesorio * (iva/100)
 					TablaAmortizacionAccesorio tablaAmortizacionAccesoriosInsertado = new TablaAmortizacionAccesorio(
 							accesorio:                   accesorio,
