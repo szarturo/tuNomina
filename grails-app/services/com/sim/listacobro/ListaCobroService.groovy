@@ -108,7 +108,7 @@ class ListaCobroService {
         def criteriaAmortizacionListaCobro = TablaAmortizacionRegistro.createCriteria()
         ArrayList listaAmortizacionListaCobro  = criteriaAmortizacionListaCobro.list() {
             and {
-                eq("listaCobro",listaCobro)
+                eq("listaCobroFechaCobro",listaCobro)
                 eq("numeroPago", 1)
                 //VALIDAR SI SE TIENE QUE COLOCAR UNA CONDICION MAS PARA QUE NO SE REPITA
                 //CON LA ITERACION DE LA LISTA DE COBRO ANTERIOR

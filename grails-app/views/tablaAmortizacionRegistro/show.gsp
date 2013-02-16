@@ -175,11 +175,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${tablaAmortizacionRegistroInstance?.listaCobro}">
+				<g:if test="${tablaAmortizacionRegistroInstance?.listaCobroFechaCobro}">
 				<li class="fieldcontain">
-					<span id="listaCobro-label" class="property-label"><g:message code="tablaAmortizacionRegistro.listaCobro.label" default="Lista Cobro" /></span>
+					<span id="listaCobroFechaCobro-label" class="property-label"><g:message code="tablaAmortizacionRegistro.listaCobroFechaCobro.label" default="Lista Cobro" /></span>
 					
-						<span class="property-value" aria-labelledby="listaCobro-label"><g:link controller="listaCobro" action="show" id="${tablaAmortizacionRegistroInstance?.listaCobro?.id}">${tablaAmortizacionRegistroInstance?.listaCobro?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="listaCobroFechaCobro-label"><g:link controller="listaCobro" action="show" id="${tablaAmortizacionRegistroInstance?.listaCobroFechaCobro?.id}">${tablaAmortizacionRegistroInstance?.listaCobroFechaCobro?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

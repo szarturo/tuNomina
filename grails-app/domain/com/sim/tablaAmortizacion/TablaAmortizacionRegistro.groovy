@@ -22,8 +22,10 @@ class TablaAmortizacionRegistro {
 	Boolean     pagado = false
 	Date		fechaPagoUltimo
 	Date		fechaValorCalculado
-	//LISTAS DE COBRO BASADAS A PARTIR DE LA FECHA DE COBRO.
-	ListaCobro  listaCobro 
+	//LISTA DE COBRO BASADA A PARTIR DE LA FECHA DE COBRO, AL GENERAR LAS LISTAS DE COBRO ESTE ATRIBUTO NOS AYUDA
+	//A TOMARLO COMO REFERENCIA PARA OBTENER LAS AMORTIZACIONES CON NUMERO DE PAGO 1 Y ASIGNARLAS A LOS DETALLES
+	//DE LA LISTA DE COBRO
+	ListaCobro  listaCobroFechaCobro 
 
 	static belongsTo = [prestamo:Prestamo]
 	
@@ -47,7 +49,7 @@ class TablaAmortizacionRegistro {
 		pagado()
 		fechaPagoUltimo             nullable:true
 		fechaValorCalculado 		nullable:true
-		listaCobro()
+		listaCobroFechaCobro()
 	}
 
 	String toString() {

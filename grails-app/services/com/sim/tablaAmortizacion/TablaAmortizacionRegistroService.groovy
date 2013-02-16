@@ -283,7 +283,7 @@ class TablaAmortizacionRegistroService {
 					impCapitalPagado: 		0,
 					impPagoPagado: 			0,
 					pagado: 				false,
-					listaCobro:    			listaCobroConsecutivo,
+					listaCobroFechaCobro:	listaCobroConsecutivo,
 					prestamo:               prestamoInstance
 					).save()
 
