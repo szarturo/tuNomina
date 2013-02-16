@@ -26,6 +26,8 @@ class TablaAmortizacionRegistro {
 	//A TOMARLO COMO REFERENCIA PARA OBTENER LAS AMORTIZACIONES CON NUMERO DE PAGO 1 Y ASIGNARLAS A LOS DETALLES
 	//DE LA LISTA DE COBRO
 	ListaCobro  listaCobroFechaCobro 
+	ListaCobro  listaCobroPrimerPago 
+	ListaCobro  listaCobroReal 
 
 	static belongsTo = [prestamo:Prestamo]
 	
@@ -50,6 +52,8 @@ class TablaAmortizacionRegistro {
 		fechaPagoUltimo             nullable:true
 		fechaValorCalculado 		nullable:true
 		listaCobroFechaCobro()
+		listaCobroPrimerPago        nullable:true
+		listaCobroReal              nullable:true
 	}
 
 	String toString() {
