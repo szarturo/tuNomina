@@ -22,7 +22,8 @@ class TablaAmortizacionRegistro {
 	Boolean     pagado = false
 	Date		fechaPagoUltimo
 	Date		fechaValorCalculado
-	ListaCobro  listaCobro
+	//LISTAS DE COBRO BASADAS A PARTIR DE LA FECHA DE COBRO.
+	ListaCobro  listaCobro 
 
 	static belongsTo = [prestamo:Prestamo]
 	

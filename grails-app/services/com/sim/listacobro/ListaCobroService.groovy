@@ -103,21 +103,28 @@ class ListaCobroService {
         //LISTA PARA GUARDAR LAS AMORTIZACIONES QUE SE VAN A GENERAR PARA LA LISTA
         List<TablaAmortizacionRegistro> listaAmortizaciones = []
 
-        //SE CONTINUAN CONTEMPLANDO LAS AMORTIZACIONES CON NUMERO DE PAGO IGUAL A UNO
-        //QUE ACTUALMENTE SE ENCUENTRAN EN LA LISTA DE COBRO
-        listaCobro.amortizaciones.each{ amortizacion ->
-            if (amortizacion.numeroPago == 1){
-                log.info "NumeroPago igual a 1: ${amortizacion}"
-                listaAmortizaciones.add(amortizacion)
+        //SE OBTIENEN LAS AMORTIZACIONES CON NUMERO DE PAGO IGUAL A UNO
+        //QUE ESTAN ASIGNADAS A LA LISTA DE COBRO
+        def criteriaAmortizacionListaCobro = TablaAmortizacionRegistro.createCriteria()
+        ArrayList listaAmortizacionListaCobro  = criteriaAmortizacionListaCobro.list() {
+            and {
+                eq("listaCobro",listaCobro)
+                eq("numeroPago", 1)
+                //VALIDAR SI SE TIENE QUE COLOCAR UNA CONDICION MAS PARA QUE NO SE REPITA
+                //CON LA ITERACION DE LA LISTA DE COBRO ANTERIOR
             }
         }
+        //SE ASIGNAN A LA LISTA A PARTIR DE LA CUAL SE CREARAN LOS DETALLES DE LA LISTA DE COBRO        
+        listaAmortizacionListaCobro.each{ amortizacion ->
+                listaAmortizaciones.add(amortizacion)
+        }
 
-        //ITERACION DE LAS AMORTIZACIONES DE LA LISTA DE COBRO ANTERIOR
-        listaCobroAnterior.amortizaciones.each{ amortizacion ->
+        //ITERACION DE LOS DETALLES DE LA LISTA DE COBRO ANTERIOR
+        listaCobroAnterior.detalles.each{ detalle ->
             log.info("Si encontro amortizaciones de la lista anterior")
-            //POR CADA AMORTIZACION SE RECUPERA EL PRESTAMO 
-            //QUE LE CORRESPONDE
-            Prestamo prestamo = amortizacion.prestamo
+            //POR CADA DETALLE SE RECUPERA EL PRESTAMO 
+            //QUE LE CORRESPONDE, PASANDO POR LA AMORTIZACION
+            Prestamo prestamo = detalle.amortizacion.prestamo
             //SE VALIDA SI EL PRESTAMO SE INCLUYE EN LISTAS DE COBRO
             //Y QUE ESTE ACTIVO
             if (prestamo.incluirEnListasCobro==true &&
