@@ -59,7 +59,6 @@ class ListaCobroService {
     }
 
     def generar(ListaCobro listaCobro){
-        println ("Service Lista Cobro: ${listaCobro}")
         Integer numeroLista = listaCobro.numeroPago
         ListaCobro listaCobroAnterior
         
@@ -149,11 +148,14 @@ class ListaCobroService {
             }
         }
 
+        /*
+        //YA NO ES NECESARIO ELIMINAR LAS AMORTIZACION DE LA LISTA DE COBRO ACTUAL
+        //YA QUE QUEDAN COMO UN REGISTRO DE COMO SE DEBIERON HABER PAGADOS LAS AMORTIZACIONES
+        //A PARTIR DE LA FECHA DE COBRO
         ArrayList amortizacionesListaCobro = listaCobro.amortizaciones
-        //SE ELIMINAN LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
         amortizacionesListaCobro.each() {
             it.listaCobro = null
-        }
+        }*/
 
         ArrayList detallesListaCobro = listaCobro.detalles
         //SE ELIMINAN LOS DETALLES DE LA LISTA DE COBRO ACTUAL
@@ -161,11 +163,13 @@ class ListaCobroService {
             listaCobro.removeFromDetalles(it)   
         }
 
-        //SE ASIGNAN LAS AMORTIZACIONES GENERADAS A LA LISTA DE COBRO
+        //SE GENERAN LOS DETALLES DE LA LISTA DE COBRO
+        log.info("Lista de amortizaciones generadas para la Lista")
         listaAmortizaciones.each{
-            log.info("Lista de amortizaciones generadas para la Lista")
             log.info it
-            listaCobro.addToAmortizaciones(it)
+            //AL YA NO HABERSE ELIMINADO LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
+            //YA NO ES NECESARIO AGREGAR LA AMORTIZACION A LA LISTA
+            //listaCobro.addToAmortizaciones(it)
             //SE CREAN LOS DETALLES PARA LA LISTA DE COBRO
             ListaCobroDetalle detalle = new ListaCobroDetalle(
                 estatus:  ListaCobroDetalleEstatus.INICIO,
