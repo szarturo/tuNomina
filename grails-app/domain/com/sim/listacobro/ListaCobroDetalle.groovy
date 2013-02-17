@@ -10,6 +10,7 @@ class ListaCobroDetalle {
 
 	ListaCobroDetalleEstatus  estatus
 	TablaAmortizacionRegistro amortizacionReal
+    TablaAmortizacionRegistro amortizacionPrimerPago
 	PrestamoPago pago
     SimCatTipoEmp  tipoEmpleadoDep
     Usuario usuario
@@ -21,6 +22,7 @@ class ListaCobroDetalle {
     	estatus nullable:false
     	listaCobro nullable:false
     	amortizacionReal nullable:false
+        amortizacionPrimerPago nullable:true
     	pago nullable:true
         tipoEmpleadoDep nullable:true
         usuario nullable:false
