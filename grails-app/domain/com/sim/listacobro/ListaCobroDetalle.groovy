@@ -9,7 +9,7 @@ import com.sim.publicacion.PublicacionDet
 class ListaCobroDetalle {
 
 	ListaCobroDetalleEstatus  estatus
-	TablaAmortizacionRegistro amortizacion
+	TablaAmortizacionRegistro amortizacionReal
 	PrestamoPago pago
     SimCatTipoEmp  tipoEmpleadoDep
     Usuario usuario
@@ -20,7 +20,7 @@ class ListaCobroDetalle {
     static constraints = {
     	estatus nullable:false
     	listaCobro nullable:false
-    	amortizacion nullable:false
+    	amortizacionReal nullable:false
     	pago nullable:true
         tipoEmpleadoDep nullable:true
         usuario nullable:false
@@ -28,6 +28,6 @@ class ListaCobroDetalle {
     }
 
     String toString() {
-        "${amortizacion} - ${estatus}"
+        "${amortizacionReal} - ${estatus}"
     }       
 }

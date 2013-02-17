@@ -89,7 +89,7 @@ class TablaAmortizacionRegistroService {
 		//CUENTA LOS DETALLES DE LAS LISTAS DE COBRO QUE PERTENEZCAN AL PRESTAMO
 		def criteriaListasCobroDetalle = ListaCobroDetalle.createCriteria()
 		Integer numeroCobroDetalles  = criteriaListasCobroDetalle.count() {
-			amortizacion{
+			amortizacionReal{
 				eq("prestamo",prestamoInstance)
 			}
 		}

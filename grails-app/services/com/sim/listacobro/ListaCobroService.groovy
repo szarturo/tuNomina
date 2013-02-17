@@ -124,7 +124,7 @@ class ListaCobroService {
             log.info("Si encontro amortizaciones de la lista anterior")
             //POR CADA DETALLE SE RECUPERA EL PRESTAMO 
             //QUE LE CORRESPONDE, PASANDO POR LA AMORTIZACION
-            Prestamo prestamo = detalle.amortizacion.prestamo
+            Prestamo prestamo = detalle.amortizacionReal.prestamo
             //SE VALIDA SI EL PRESTAMO SE INCLUYE EN LISTAS DE COBRO
             //Y QUE ESTE ACTIVO
             if (prestamo.incluirEnListasCobro==true &&
@@ -180,7 +180,7 @@ class ListaCobroService {
             //SE CREAN LOS DETALLES PARA LA LISTA DE COBRO
             ListaCobroDetalle detalle = new ListaCobroDetalle(
                 estatus:  ListaCobroDetalleEstatus.INICIO,
-                amortizacion: it,
+                amortizacionReal: it,
                 listaCobro: listaCobro,
                 tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
                 usuario: springSecurityService.getCurrentUser(),

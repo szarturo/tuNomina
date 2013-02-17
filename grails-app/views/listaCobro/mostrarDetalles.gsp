@@ -126,8 +126,8 @@
 				<filterpane:filterPane domain="com.sim.listacobro.ListaCobroDetalle" 
 				title = "Filtrar Detalles"
 				action = "mostrarDetalles"
-				associatedProperties="amortizacion.numeroPago,
-				amortizacion.impPago,
+				associatedProperties="amortizacionReal.numeroPago,
+				amortizacionReal.impPago,
 				tipoEmpleadoDep.nombreTipoEmpleadoDep"/>
 			</form>
 
@@ -141,7 +141,7 @@
 
 						<g:sortableColumn property="estatus" title="${message(code: 'listaCobroDetalle.estatus.label', default: 'Estatus')}" />
 					
-						<th><g:message code="listaCobroDetalle.amortizacion.label" default="Prestamo:No. Amortizacion" /></th>
+						<th><g:message code="listaCobroDetalle.amortizacionReal.label" default="Prestamo:No. Amortizacion" /></th>
 
 						<th><g:message code="listaCobroDetalle.apagar.label" default="A Pagar" /></th>
 
@@ -170,11 +170,11 @@
 
 				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "estatus")}</td>
 			
-				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacion")}</td>
+				<td>${fieldValue(bean: listaCobroDetalleInstance, field: "amortizacionReal")}</td>
 
-				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impPago")}</td>		
+				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacionReal, field: "impPago")}</td>		
 
-				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacion, field: "impSaldoInicial")}</td>	
+				<td>${fieldValue(bean: listaCobroDetalleInstance.amortizacionReal, field: "impSaldoInicial")}</td>	
 
 				<g:if test="${listaCobroDetalleInstance.estatus == ListaCobroDetalleEstatus.INICIO}">
 
@@ -187,7 +187,7 @@
 					</td>
 
 					<td>
-						<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.amortizacion?.impPago}" format="#.####" locale="es_MX" />" size="2" />
+						<input type="text" name="pago${i}" id="pago${i}" value="<g:formatNumber  number="${listaCobroDetalleInstance?.amortizacionReal?.impPago}" format="#.####" locale="es_MX" />" size="2" />
 					</td>						
 
 					<td>
@@ -251,8 +251,8 @@
 
 			</tr>
 			<g:hiddenField name="idListaCobroDetalle${i}" value="${listaCobroDetalleInstance.id}"/>
-			<g:hiddenField name="idPrestamo${i}" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>
-			<g:hiddenField name="idsPrestamos" value="${listaCobroDetalleInstance.amortizacion.prestamo.id}"/>			
+			<g:hiddenField name="idPrestamo${i}" value="${listaCobroDetalleInstance.amortizacionReal.prestamo.id}"/>
+			<g:hiddenField name="idsPrestamos" value="${listaCobroDetalleInstance.amortizacionReal.prestamo.id}"/>			
 		</g:each>
 
 		<g:hiddenField name="idListaCobro" value="${listaCobroInstance?.id}"/>
