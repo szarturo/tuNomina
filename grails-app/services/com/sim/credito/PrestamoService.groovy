@@ -354,8 +354,36 @@ class PrestamoService {
 						//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
 						//IGUAL A 1
 						folioSolicitud = 1	
-					}else{
-						folioSolicitud = 3
+					}
+					if (x<3){
+						Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+						log.info "Prestamo: ${prestamo}"
+
+						new PrestamoCrComprada(
+							 numeroSolicitud : 	compra.numeroSolicitud,
+							 numeroOperacion : 	compra.numeroOperacion,
+							 claveCia : 		compra.claveCia,
+							 claveSucursal: 	compra.claveSucursal,
+							 nombre : 			compra.nombre,	
+							 fechaCompra : 		compra.fechaCompra,
+							 tipoPromocion : 	compra.tipoPromocion,
+							 clasificador : 	compra.clasificador,
+							 fechaProxPago : 	compra.fechaProxPago,
+							 primerCredito : 	compra.primerCredito,
+							 status : 			compra.status,
+							 importeCedido : 	compra.importeCedido,
+							 ivaCapital	: 		compra.ivaCapital,
+							 ivaDiferido : 		compra.ivaDiferido,
+							 ivaIntereses : 	compra.ivaIntereses,
+							 importeDescuento : compra.importeDescuento,
+							 pagoTienda : 		compra.pagoTienda,
+							 reserva : 			compra.reserva,
+							 netoPagado : 		compra.netoPagado,
+							 importeIntereses : compra.importeIntereses,
+							 cesion : 			compra.cesion,
+							 prestamo : prestamo,
+						).save(failOnError:true)
+						prestamo.estatusSolicitud = PrestamoEstatus.COMPRADA
 					}
 				}else{
 					//AMBIENTE PRODUCTIVO CR
@@ -369,36 +397,36 @@ class PrestamoService {
 					}else{
 						folioSolicitud = solicitudDecididaDia.folio
 					}
-				}
-				
-				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
-				log.info "Prestamo: ${prestamo}"
 
-				new PrestamoCrComprada(
-					 numeroSolicitud : 	compra.numeroSolicitud,
-					 numeroOperacion : 	compra.numeroOperacion,
-					 claveCia : 		compra.claveCia,
-					 claveSucursal: 	compra.claveSucursal,
-					 nombre : 			compra.nombre,	
-					 fechaCompra : 		compra.fechaCompra,
-					 tipoPromocion : 	compra.tipoPromocion,
-					 clasificador : 	compra.clasificador,
-					 fechaProxPago : 	compra.fechaProxPago,
-					 primerCredito : 	compra.primerCredito,
-					 status : 			compra.status,
-					 importeCedido : 	compra.importeCedido,
-					 ivaCapital	: 		compra.ivaCapital,
-					 ivaDiferido : 		compra.ivaDiferido,
-					 ivaIntereses : 	compra.ivaIntereses,
-					 importeDescuento : compra.importeDescuento,
-					 pagoTienda : 		compra.pagoTienda,
-					 reserva : 			compra.reserva,
-					 netoPagado : 		compra.netoPagado,
-					 importeIntereses : compra.importeIntereses,
-					 cesion : 			compra.cesion,
-					 prestamo : prestamo,
-				).save(failOnError:true)
-				prestamo.estatusSolicitud = PrestamoEstatus.COMPRADA
+					Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+					log.info "Prestamo: ${prestamo}"
+
+					new PrestamoCrComprada(
+						 numeroSolicitud : 	compra.numeroSolicitud,
+						 numeroOperacion : 	compra.numeroOperacion,
+						 claveCia : 		compra.claveCia,
+						 claveSucursal: 	compra.claveSucursal,
+						 nombre : 			compra.nombre,	
+						 fechaCompra : 		compra.fechaCompra,
+						 tipoPromocion : 	compra.tipoPromocion,
+						 clasificador : 	compra.clasificador,
+						 fechaProxPago : 	compra.fechaProxPago,
+						 primerCredito : 	compra.primerCredito,
+						 status : 			compra.status,
+						 importeCedido : 	compra.importeCedido,
+						 ivaCapital	: 		compra.ivaCapital,
+						 ivaDiferido : 		compra.ivaDiferido,
+						 ivaIntereses : 	compra.ivaIntereses,
+						 importeDescuento : compra.importeDescuento,
+						 pagoTienda : 		compra.pagoTienda,
+						 reserva : 			compra.reserva,
+						 netoPagado : 		compra.netoPagado,
+						 importeIntereses : compra.importeIntereses,
+						 cesion : 			compra.cesion,
+						 prestamo : prestamo,
+					).save(failOnError:true)
+					prestamo.estatusSolicitud = PrestamoEstatus.COMPRADA
+				}
 				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 				x++
 			}		
@@ -431,15 +459,12 @@ class PrestamoService {
 
 		try {
 			Client cliente = new Client(PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr)
-
 			//SE OBTIENE SI ESTAMOS TRABAJANDO EN UN AMBIENTE DE PRUEBAS
 			Boolean pruebasWsCr = PfinCatParametro.findByClaveMedio("SistemaMtn").pruebasClienteWsCr
 			//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 			Integer x = 1
-
 			List<CarteraGeneradaDia> carteras=
 				cliente.getCarteraGeneradaDia(distribuidor,fecha,usuario,password)
-
 			for(CarteraGeneradaDia cartera: carteras){
 				log.info "Nombre Solicitud: ${cartera.nombre}"
 				Integer folioSolicitud 
@@ -452,9 +477,85 @@ class PrestamoService {
 						//ASEGURARSE TENER EL FOLIO SOLICITUD CON VALOR 
 						//IGUAL A 1
 						folioSolicitud = 1	
-					}else{
-						folioSolicitud = 3
 					}
+
+					if (x<3){
+						Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+						log.info "Prestamo: ${prestamo}"
+
+						new PrestamoCrCartera(
+						     consecutivo : cartera.consecutivo,
+							 claveCliente : cartera.claveCliente,
+							 numeroOperacion : cartera.numeroOperacion, 
+							 nombre : cartera.nombre, 
+							 apePat : cartera.apePat, 
+							 apeMat : cartera.apeMat, 
+							 fechaNac : cartera.fechaNac, 
+							 rfcCliente : cartera.rfcCliente, 
+							 calleDom : cartera.calleDom, 
+							 numIntDom : cartera.numIntDom, 
+							 numExtDom : cartera.numExtDom, 
+							 coloniaDom : cartera.coloniaDom, 
+							 localidadDom : cartera.localidadDom, 
+							 cveMunicipioDom : cartera.cveMunicipioDom, 
+							 cveEstadoDom : cartera.cveEstadoDom, 
+							 codPostalDom : cartera.codPostalDom, 
+							 tipPropiedad : cartera.tipPropiedad, 
+							 atgDomicilio : cartera.atgDomicilio, 
+							 telDomicilio : cartera.telDomicilio, 
+							 edoCivil : cartera.edoCivil, 
+							 nomConyuge : cartera.nomConyuge, 
+							 idePresupuestal : cartera.idePresupuestal, 
+							 numPersonal : cartera.numPersonal, 
+							 cenTrabajo : cartera.cenTrabajo, 
+							 telTrabajo : cartera.telTrabajo, 
+							 atgTrabajo : cartera.atgTrabajo, 
+							 calleTrab : cartera.calleTrab, 
+							 numExtTra : cartera.numExtTra, 
+							 numIntTra : cartera.numIntTra, 
+							 coloniaTra : cartera.coloniaTra, 
+							 localidadTra : cartera.localidadTra, 
+							 cveMunicipioTra : cartera.cveMunicipioTra, 
+							 cveEstadoTra : cartera.cveEstadoTra, 
+							 codPostalTra : cartera.codPostalTra, 
+							 ingresoBruto : cartera.ingresoBruto, 
+							 deducciones : cartera.deducciones, 
+							 ingresoNeto : cartera.ingresoNeto, 
+							 fecRegistro : cartera.fecRegistro, 
+							 promocion : cartera.promocion, 
+							 impCreditoSol : cartera.impCreditoSol, 
+							 numParcialidades : cartera.numParcialidades, 
+							 impDescuento : cartera.impDescuento, 
+							 intDescuento : cartera.intDescuento, 
+							 claveSucursal : cartera.claveSucursal, 
+							 claveCia : cartera.claveCia, 
+							 estatusDap : cartera.estatusDap, 
+							 estatusSolicitud : cartera.estatusSolicitud, 
+							 ref1Nombre : cartera.ref1Nombre, 
+							 ref1ApePat : cartera.ref1ApePat, 
+							 ref1ApeMat : cartera.ref1ApeMat, 
+							 ref1Domicilio : cartera.ref1Domicilio, 
+							 ref1Telefono : cartera.ref1Telefono, 
+							 ref2Nombre : cartera.ref2Nombre, 
+							 ref2ApePat : cartera.ref2ApePat, 
+							 ref2ApeMat : cartera.ref2ApeMat, 
+							 ref2Domicilio : cartera.ref2Domicilio, 
+							 ref2Telefono : cartera.ref2Telefono, 
+							 ref3Nombre : cartera.ref3Nombre, 
+							 ref3ApePat : cartera.ref3ApePat, 
+							 ref3ApeMat : cartera.ref3ApeMat, 
+							 ref3Domicilio : cartera.ref3Domicilio, 
+							 ref3Telefono : cartera.ref3Telefono, 
+							 numAgente : cartera.numAgente, 
+							 cveSupervisor : cartera.cveSupervisor, 
+							 claveCesion : cartera.claveCesion, 
+							 importeCedido : cartera.importeCedido, 
+							 fechaDeCompra : cartera.fechaDeCompra, 
+							 fechaDispersion : cartera.fechaDispersion,
+							 prestamo : 		prestamo,
+						).save(failOnError:true)		
+					}
+
 				}else{
 					//AMBIENTE PRODUCTIVO CR
 					//CLASIFICADOR EQUIVALE A CONSECUTIVO EN solicitudesDecididasDia
@@ -467,83 +568,82 @@ class PrestamoService {
 					}else{
 						folioSolicitud = solicitudDecididaDia.folio
 					}
-				}
-				
-				Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
-				log.info "Prestamo: ${prestamo}"
-				
-				new PrestamoCrCartera(
-				     consecutivo : cartera.consecutivo,
-					 claveCliente : cartera.claveCliente,
-					 numeroOperacion : cartera.numeroOperacion, 
-					 nombre : cartera.nombre, 
-					 apePat : cartera.apePat, 
-					 apeMat : cartera.apeMat, 
-					 fechaNac : cartera.fechaNac, 
-					 rfcCliente : cartera.rfcCliente, 
-					 calleDom : cartera.calleDom, 
-					 numIntDom : cartera.numIntDom, 
-					 numExtDom : cartera.numExtDom, 
-					 coloniaDom : cartera.coloniaDom, 
-					 localidadDom : cartera.localidadDom, 
-					 cveMunicipioDom : cartera.cveMunicipioDom, 
-					 cveEstadoDom : cartera.cveEstadoDom, 
-					 codPostalDom : cartera.codPostalDom, 
-					 tipPropiedad : cartera.tipPropiedad, 
-					 atgDomicilio : cartera.atgDomicilio, 
-					 telDomicilio : cartera.telDomicilio, 
-					 edoCivil : cartera.edoCivil, 
-					 nomConyuge : cartera.nomConyuge, 
-					 idePresupuestal : cartera.idePresupuestal, 
-					 numPersonal : cartera.numPersonal, 
-					 cenTrabajo : cartera.cenTrabajo, 
-					 telTrabajo : cartera.telTrabajo, 
-					 atgTrabajo : cartera.atgTrabajo, 
-					 calleTrab : cartera.calleTrab, 
-					 numExtTra : cartera.numExtTra, 
-					 numIntTra : cartera.numIntTra, 
-					 coloniaTra : cartera.coloniaTra, 
-					 localidadTra : cartera.localidadTra, 
-					 cveMunicipioTra : cartera.cveMunicipioTra, 
-					 cveEstadoTra : cartera.cveEstadoTra, 
-					 codPostalTra : cartera.codPostalTra, 
-					 ingresoBruto : cartera.ingresoBruto, 
-					 deducciones : cartera.deducciones, 
-					 ingresoNeto : cartera.ingresoNeto, 
-					 fecRegistro : cartera.fecRegistro, 
-					 promocion : cartera.promocion, 
-					 impCreditoSol : cartera.impCreditoSol, 
-					 numParcialidades : cartera.numParcialidades, 
-					 impDescuento : cartera.impDescuento, 
-					 intDescuento : cartera.intDescuento, 
-					 claveSucursal : cartera.claveSucursal, 
-					 claveCia : cartera.claveCia, 
-					 estatusDap : cartera.estatusDap, 
-					 estatusSolicitud : cartera.estatusSolicitud, 
-					 ref1Nombre : cartera.ref1Nombre, 
-					 ref1ApePat : cartera.ref1ApePat, 
-					 ref1ApeMat : cartera.ref1ApeMat, 
-					 ref1Domicilio : cartera.ref1Domicilio, 
-					 ref1Telefono : cartera.ref1Telefono, 
-					 ref2Nombre : cartera.ref2Nombre, 
-					 ref2ApePat : cartera.ref2ApePat, 
-					 ref2ApeMat : cartera.ref2ApeMat, 
-					 ref2Domicilio : cartera.ref2Domicilio, 
-					 ref2Telefono : cartera.ref2Telefono, 
-					 ref3Nombre : cartera.ref3Nombre, 
-					 ref3ApePat : cartera.ref3ApePat, 
-					 ref3ApeMat : cartera.ref3ApeMat, 
-					 ref3Domicilio : cartera.ref3Domicilio, 
-					 ref3Telefono : cartera.ref3Telefono, 
-					 numAgente : cartera.numAgente, 
-					 cveSupervisor : cartera.cveSupervisor, 
-					 claveCesion : cartera.claveCesion, 
-					 importeCedido : cartera.importeCedido, 
-					 fechaDeCompra : cartera.fechaDeCompra, 
-					 fechaDispersion : cartera.fechaDispersion,
-					 prestamo : 		prestamo,
-				).save(failOnError:true)
 
+					Prestamo prestamo = Prestamo.findByFolioSolicitud(folioSolicitud)
+					log.info "Prestamo: ${prestamo}"
+					
+					new PrestamoCrCartera(
+					     consecutivo : cartera.consecutivo,
+						 claveCliente : cartera.claveCliente,
+						 numeroOperacion : cartera.numeroOperacion, 
+						 nombre : cartera.nombre, 
+						 apePat : cartera.apePat, 
+						 apeMat : cartera.apeMat, 
+						 fechaNac : cartera.fechaNac, 
+						 rfcCliente : cartera.rfcCliente, 
+						 calleDom : cartera.calleDom, 
+						 numIntDom : cartera.numIntDom, 
+						 numExtDom : cartera.numExtDom, 
+						 coloniaDom : cartera.coloniaDom, 
+						 localidadDom : cartera.localidadDom, 
+						 cveMunicipioDom : cartera.cveMunicipioDom, 
+						 cveEstadoDom : cartera.cveEstadoDom, 
+						 codPostalDom : cartera.codPostalDom, 
+						 tipPropiedad : cartera.tipPropiedad, 
+						 atgDomicilio : cartera.atgDomicilio, 
+						 telDomicilio : cartera.telDomicilio, 
+						 edoCivil : cartera.edoCivil, 
+						 nomConyuge : cartera.nomConyuge, 
+						 idePresupuestal : cartera.idePresupuestal, 
+						 numPersonal : cartera.numPersonal, 
+						 cenTrabajo : cartera.cenTrabajo, 
+						 telTrabajo : cartera.telTrabajo, 
+						 atgTrabajo : cartera.atgTrabajo, 
+						 calleTrab : cartera.calleTrab, 
+						 numExtTra : cartera.numExtTra, 
+						 numIntTra : cartera.numIntTra, 
+						 coloniaTra : cartera.coloniaTra, 
+						 localidadTra : cartera.localidadTra, 
+						 cveMunicipioTra : cartera.cveMunicipioTra, 
+						 cveEstadoTra : cartera.cveEstadoTra, 
+						 codPostalTra : cartera.codPostalTra, 
+						 ingresoBruto : cartera.ingresoBruto, 
+						 deducciones : cartera.deducciones, 
+						 ingresoNeto : cartera.ingresoNeto, 
+						 fecRegistro : cartera.fecRegistro, 
+						 promocion : cartera.promocion, 
+						 impCreditoSol : cartera.impCreditoSol, 
+						 numParcialidades : cartera.numParcialidades, 
+						 impDescuento : cartera.impDescuento, 
+						 intDescuento : cartera.intDescuento, 
+						 claveSucursal : cartera.claveSucursal, 
+						 claveCia : cartera.claveCia, 
+						 estatusDap : cartera.estatusDap, 
+						 estatusSolicitud : cartera.estatusSolicitud, 
+						 ref1Nombre : cartera.ref1Nombre, 
+						 ref1ApePat : cartera.ref1ApePat, 
+						 ref1ApeMat : cartera.ref1ApeMat, 
+						 ref1Domicilio : cartera.ref1Domicilio, 
+						 ref1Telefono : cartera.ref1Telefono, 
+						 ref2Nombre : cartera.ref2Nombre, 
+						 ref2ApePat : cartera.ref2ApePat, 
+						 ref2ApeMat : cartera.ref2ApeMat, 
+						 ref2Domicilio : cartera.ref2Domicilio, 
+						 ref2Telefono : cartera.ref2Telefono, 
+						 ref3Nombre : cartera.ref3Nombre, 
+						 ref3ApePat : cartera.ref3ApePat, 
+						 ref3ApeMat : cartera.ref3ApeMat, 
+						 ref3Domicilio : cartera.ref3Domicilio, 
+						 ref3Telefono : cartera.ref3Telefono, 
+						 numAgente : cartera.numAgente, 
+						 cveSupervisor : cartera.cveSupervisor, 
+						 claveCesion : cartera.claveCesion, 
+						 importeCedido : cartera.importeCedido, 
+						 fechaDeCompra : cartera.fechaDeCompra, 
+						 fechaDispersion : cartera.fechaDispersion,
+						 prestamo : 		prestamo,
+					).save(failOnError:true)					
+				}
 				//LINEA TEMPORAL PARA PRUEBAS WS DE CR
 				x++
 			}		

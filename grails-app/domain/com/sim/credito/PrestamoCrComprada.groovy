@@ -35,7 +35,7 @@ class PrestamoCrComprada {
 		nombre()
 		fechaCompra()
 		tipoPromocion()
-		clasificador()
+		clasificador(nullable:true)
 		fechaProxPago()
 		primerCredito()
 		status()
