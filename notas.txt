@@ -56,7 +56,7 @@ Al iniciar en Produccion hay que modificar la tabla USUARIO
    PASSWORD -> "password"
 
 Generar cambios a base de datos, tiene que ser sobre el ambiente de pruebas
-grails test dbm-gorm-diff --add changelog-1.0.1.groovy
+grails prod dbm-gorm-diff --add changelog-1.0.1.groovy
 
 Migracion a Grails 2.2.0
  /home/miguel/.grails/2.2.0/projects/tuNomina/plugins/filterpane-2.0.1.1/grails-app/services/org/grails/plugin/filterpane
