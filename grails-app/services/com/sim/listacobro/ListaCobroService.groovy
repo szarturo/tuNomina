@@ -172,15 +172,28 @@ class ListaCobroService {
 
         //SE GENERAN LOS DETALLES DE LA LISTA DE COBRO
         log.info("Lista de amortizaciones generadas para la Lista")
+        Prestamo prestamo
         listaAmortizaciones.each{
             log.info it
+            prestamo = it.prestamo
             //AL YA NO HABERSE ELIMINADO LAS AMORTIZACIONES DE LA LISTA DE COBRO ACTUAL
             //YA NO ES NECESARIO AGREGAR LA AMORTIZACION A LA LISTA
             //listaCobro.addToAmortizaciones(it)
+
+            //SE OBTIENE LA AMORTIZACION QUE DEBERIA CORRESPONDER CON LA FECHA DE COBRO
+            def criteriaAmortizacionFechaCobro = TablaAmortizacionRegistro.createCriteria()
+            TablaAmortizacionRegistro amortizacionFechaCobro  = criteriaAmortizacionFechaCobro.get() {
+                and {
+                    eq("listaCobroFechaCobro",listaCobro)
+                    eq("prestamo", prestamo)
+                }
+            }            
+
             //SE CREAN LOS DETALLES PARA LA LISTA DE COBRO
             ListaCobroDetalle detalle = new ListaCobroDetalle(
                 estatus:  ListaCobroDetalleEstatus.INICIO,
                 amortizacionReal: it,
+                amortizacionFechaCobro: amortizacionFechaCobro,
                 listaCobro: listaCobro,
                 tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
                 usuario: springSecurityService.getCurrentUser(),
