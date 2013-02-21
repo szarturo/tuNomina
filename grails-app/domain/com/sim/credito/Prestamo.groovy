@@ -64,9 +64,9 @@ class Prestamo {
                         datosCrCartera : PrestamoCrCartera]
 	
 	static mapping = {
-		tablaAmortizacion cascade: "all-delete-orphan"
+		tablaAmortizacion sort: "numeroPago", cascade: "all-delete-orphan"
         documentos  cascade: "all-delete-orphan"
-     }
+    }
 	 
     static hasOne = [datosCrComprada : PrestamoCrComprada ]
 	

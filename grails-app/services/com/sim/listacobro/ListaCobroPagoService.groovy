@@ -7,6 +7,8 @@ import com.sim.servicios.credito.PagoService
 import com.sim.servicios.credito.PagoServiceException
 import com.sim.pfin.ProcesadorFinancieroServiceException
 import com.sim.pfin.PfinMovimiento
+import com.sim.pfin.SituacionPremovimiento
+import com.sim.pfin.PfinCatOperacion
 
 class ListaCobroPagoServiceException extends RuntimeException {
 	String mensaje
@@ -155,6 +157,44 @@ class ListaCobroPagoService {
 
         try{
             resultadoAplicarPago = pagoService.aplicarPago(prestamoPagoInstance,existePrestamoPago)
+            
+            //VALIDA SI YA EXISTEN MOVIMIENTOS DE DEPOSITOS A LA CUENTA
+            def criteriaNumeroMovimientos = PfinMovimiento.createCriteria()
+            Integer numeroMovimientos = criteriaNumeroMovimientos.count() {
+                and {
+                    eq("prestamo",prestamoInstance)
+                    eq("situacionMovimiento", SituacionPremovimiento.PROCESADO_REAL)
+                    eq("operacion", PfinCatOperacion.findByClaveOperacion('TEDEPEFE'))
+                    isNull("cancelaTransaccion")
+                }
+            }
+            if (numeroMovimientos==1){
+                //SE REALIZO EL PRIMER PAGO AL PRESTAMO
+                log.info ("***Es el primer pago al prestamo***")
+                //SE INDICA AL PRESTAMO LA FECHA DE INSTALACION POR PARTE DE LA DEPENDENCIA
+                prestamoInstance.fechaInstalacion = fechaPago
+                prestamoInstance.save()
+
+                //SE OBTIENEN LAS LISTAS DE COBRO A PARTIR DE LA ACTUAL
+                def criteriaListasDeCobro = ListaCobro.createCriteria()
+                def listasDeCobroScroll  = criteriaListasDeCobro.scroll() {
+                    and {
+                        eq("dependencia",listaCobroInstance.dependencia)
+                        ge("id", listaCobroInstance.id)
+                        order("id", "asc")
+                    }
+                }                
+                //SE OBTIENE EL PRIMER ELEMENTO DEL SCROLL DE LAS LISTAS DE COBRO
+                listasDeCobroScroll.next()
+
+                prestamoInstance.tablaAmortizacion.each{
+                    log.info it
+                    //SE ASIGNAN LAS LISTAS DE COBRO QUE DEBERIAN APLICARSE A PARTIR DEL PRIMER PAGO
+                    it.listaCobroPrimerPago = listasDeCobroScroll.get(0)
+                    listasDeCobroScroll.next()
+                }
+            }
+
         //VERIFICAR SI SE GENERO ALGUN ERROR
         }catch(PagoServiceException errorPago){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO PagoService
@@ -162,6 +202,8 @@ class ListaCobroPagoService {
         }catch(ProcesadorFinancieroServiceException errorProcesadorFinanciero){
             //EL ERROR SE PROPAGO DESDE EL SERVICIO ProcesadorFinancieroService
             throw errorProcesadorFinanciero
+        }catch(Exception errorAplicarPago){
+            throw new ListaCobroPagoServiceException(mensaje: "Error al aplicar el pago y asignar listas de cobro a partir de la fecha de instalación")
         }
 
         log.info ("Resultado Aplicar Pago: ${resultadoAplicarPago}")
