@@ -189,11 +189,21 @@ class ListaCobroService {
                 }
             }            
 
+            //SE OBTIENE LA AMORTIZACION QUE DEBERIA CORRESPONDER CON LA FECHA DEL PRIMER PAGO (INSTALACION)
+            def criteriaAmortizacionPrimerPago = TablaAmortizacionRegistro.createCriteria()
+            TablaAmortizacionRegistro amortizacionPrimerPago  = criteriaAmortizacionPrimerPago.get() {
+                and {
+                    eq("listaCobroPrimerPago",listaCobro)
+                    eq("prestamo", prestamo)
+                }
+            }            
+
             //SE CREAN LOS DETALLES PARA LA LISTA DE COBRO
             ListaCobroDetalle detalle = new ListaCobroDetalle(
                 estatus:  ListaCobroDetalleEstatus.INICIO,
                 amortizacionReal: it,
                 amortizacionFechaCobro: amortizacionFechaCobro,
+                amortizacionPrimerPago: amortizacionPrimerPago,
                 listaCobro: listaCobro,
                 tipoEmpleadoDep: it.prestamo.tipoEmpleadoDep,
                 usuario: springSecurityService.getCurrentUser(),
