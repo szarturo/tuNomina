@@ -47,6 +47,7 @@ class Prestamo {
     //FECHA PARA INDICAR CUANDO SE REALIZO LA TRANSFERENCIA ELECTRONICA O
     //FECHA EN QUE EL USUARIO COBRO SU CREDITO
     Date           fechaCobro
+    Date           fechaInstalacion
 	ApprovalStatus approvalStatus = ApprovalStatus.PENDING
 	
 	//LOS SIGUIENTES ATRIBUTOS NO SE PUEDEN CAMBIAR DE NOMBRE
@@ -100,6 +101,7 @@ class Prestamo {
         datosCrCartera nullable:true
         movitoRespuestaCr nullable:true
         fechaCobro nullable:true
+        fechaInstalacion nullable:true
         incluirEnListasCobro ()
  		dateCreated ()
 		lastUpdated nullable:true

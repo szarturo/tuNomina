@@ -173,6 +173,11 @@
                         </tr>
                     
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="prestamo.fechaInstalacion.label" default="Fecha Instalación" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${prestamoInstance?.fechaInstalacion}" /></td>
+                        </tr>
+
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="prestamo.approvalStatus.label" default="Approval Status" /></td>
                             
                             <td valign="top" class="value">${prestamoInstance?.approvalStatus?.encodeAsHTML()}</td>
