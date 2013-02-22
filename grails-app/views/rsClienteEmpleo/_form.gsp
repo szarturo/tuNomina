@@ -1,10 +1,12 @@
 <%@ page import="com.sim.cliente.RsClienteEmpleo" %>
 
+
+
 <div class="fieldcontain ${hasErrors(bean: rsClienteEmpleoInstance, field: 'cliente', 'error')} required">
-	<label for="cliente">
-		<g:message code="rsClienteEmpleo.cliente.label" default="Cliente" />
-		<span class="required-indicator">*</span>
-	</label>
+    <label for="cliente">
+        <g:message code="rsClienteEmpleo.cliente.label" default="Cliente" />
+        <span class="required-indicator">*</span>
+    </label>
     <label> ${rsClienteEmpleoInstance?.cliente}</label>
     <g:hiddenField name='cliente.id' value='${rsClienteEmpleoInstance?.cliente?.id}'/>
 </div>
@@ -33,11 +35,20 @@
 	<g:field name="ingresoMensual" value="${fieldValue(bean: rsClienteEmpleoInstance, field: 'ingresoMensual')}" required=""/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: rsClienteEmpleoInstance, field: 'domicilio', 'error')} ">
-	<label for="domicilio">
-		<g:message code="rsClienteEmpleo.domicilio.label" default="Domicilio" />
+<div class="fieldcontain ${hasErrors(bean: rsClienteEmpleoInstance, field: 'domicilios', 'error')} ">
+	<label for="domicilios">
+		<g:message code="rsClienteEmpleo.domicilios.label" default="Domicilios" />
 		
 	</label>
-	<g:select id="domicilio" name="domicilio.id" from="${com.rs.gral.RsGralDomicilio.list()}" optionKey="id" value="${rsClienteEmpleoInstance?.domicilio?.id}" class="many-to-one" noSelection="['null': '']"/>
+	
+<ul class="one-to-many">
+<g:each in="${rsClienteEmpleoInstance?.domicilios?}" var="d">
+    <li><g:link controller="rsGralDomicilio" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="rsGralDomicilio" action="create" params="['rsClienteEmpleo.id': rsClienteEmpleoInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')])}</g:link>
+</li>
+</ul>
+
 </div>
 

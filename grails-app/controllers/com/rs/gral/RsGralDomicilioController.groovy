@@ -2,6 +2,7 @@ package com.rs.gral
 
 import org.springframework.dao.DataIntegrityViolationException
 import com.sim.entidad.EntSucursal
+import com.sim.cliente.RsClienteEmpleo
 
 class RsGralDomicilioController {
 
@@ -53,7 +54,11 @@ class RsGralDomicilioController {
 			def entSucursalInstance = new EntSucursal()
 			entSucursalInstance = EntSucursal.get(params.entSucursal.id)
 			rsGralDomicilioInstance.sucursal = entSucursalInstance
-		}
+		} else if (params.rsClienteEmpleo) {
+            def rsClienteEmpleoInstance = new RsClienteEmpleo()
+            rsClienteEmpleoInstance = RsClienteEmpleo.get(params.rsClienteEmpleo.id)
+            rsGralDomicilioInstance.empleo = rsClienteEmpleoInstance
+        }
 
 		return [rsGralDomicilioInstance: rsGralDomicilioInstance]
 	}

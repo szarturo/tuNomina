@@ -7,16 +7,17 @@ class RsClienteEmpleo {
     Date    	fechaIngreso
     String  	area
     BigDecimal  ingresoMensual
-    RsGralDomicilio domicilio
 
     static belongsTo = [cliente : RsCliente]
+
+    static hasMany = [domicilios: RsGralDomicilio]
 
     static constraints = {
         cliente(nullable: false)
     	fechaIngreso()
     	area(size:1..50, unique: true, nullable: false, blank: false)
     	ingresoMensual(nullable: false)
-    	domicilio(nullable: true)
+    	domicilios(nullable: true)
     }
 
     String toString() {

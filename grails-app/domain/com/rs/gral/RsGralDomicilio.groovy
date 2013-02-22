@@ -1,5 +1,6 @@
 package com.rs.gral
 
+import com.sim.cliente.RsClienteEmpleo
 import com.sim.entidad.EntSucursal
 
 class RsGralDomicilio {
@@ -15,7 +16,7 @@ class RsGralDomicilio {
 	
 	RsGralAsentamiento rsGralAsentamiento
 	
-	static belongsTo = [persona : RsPersona, sucursal : EntSucursal]
+	static belongsTo = [persona : RsPersona, sucursal : EntSucursal, empleo: RsClienteEmpleo]
 	
     static constraints = {
 		calle(size:5..100, nullable: false, blank: false)
@@ -28,6 +29,7 @@ class RsGralDomicilio {
 		entreCalles size:0..300, nullable:true
 		sucursal(nullable: true)
 		persona (nullable: true)
+        empleo  (nullable: true)
 		aniosResidencia nullable: true
     }
 	

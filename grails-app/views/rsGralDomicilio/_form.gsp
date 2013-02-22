@@ -17,6 +17,14 @@
 	</div>
 </g:if>
 
+<g:if test="${rsGralDomicilioInstance?.empleo?.id}">
+    <div class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'empleo', 'error')} ">
+        <label for="empleo"> <g:message code="rsGralDomicilio.empleo.label" default="Empleo" /></label>
+        <label> ${rsGralDomicilioInstance?.empleo}</label>
+        <g:hiddenField name='empleo.id' value='${rsGralDomicilioInstance?.empleo?.id}' />
+    </div>
+</g:if>
+
 <div
 	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'calle', 'error')} required">
 	<label for="calle"> <g:message
@@ -103,6 +111,18 @@
 		class="many-to-one"></g:select>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
+    <label>C&oacute;digo Postal:</label>
+    <g:textField name='rsGralAsentamiento.codigoPostal' value=''
+                 onKeyUp="${remoteFunction(
+                         controller:'rsGralAsentamiento',
+                         action:'ajaxGetCombos',
+                         params:'\'cp=\' + escape(this.value)',
+                         onComplete:'updateCombos(e)')}">
+    </g:textField>
+    <g:hiddenField name='rsGralAsentamiento.id' value='' />
+</div>
+
 <div
 	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
 	<label>Colonia:</label>
@@ -113,19 +133,6 @@
 					            params:'\'id=\' + escape(this.value)', 
 					            onComplete:'updateCodigoPostal(e)')}"
 		class="many-to-one"></g:select>
-</div>
-
-<div
-	class="fieldcontain ${hasErrors(bean: rsGralDomicilioInstance, field: 'rsGralAsentamiento', 'error')} required">
-	<label>C&oacute;digo Postal:</label>
-	<g:textField name='rsGralAsentamiento.codigoPostal' value=''
-		onKeyUp="${remoteFunction(
-				            controller:'rsGralAsentamiento', 
-				            action:'ajaxGetCombos', 
-				            params:'\'cp=\' + escape(this.value)', 
-				            onComplete:'updateCombos(e)')}">
-	</g:textField>
-	<g:hiddenField name='rsGralAsentamiento.id' value='' />
 </div>
 
 <div
