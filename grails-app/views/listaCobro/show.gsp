@@ -106,9 +106,11 @@
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${listaCobroInstance?.id}" />
 					<g:link class="edit" action="generar" id="${listaCobroInstance?.id}">Generar</g:link>
-					<g:link class="edit" action="mostrarDetalles" id="${listaCobroInstance?.id}">Mostrar Detalles</g:link>					
+					<g:link class="edit" action="mostrarDetalles" id="${listaCobroInstance?.id}">Mostrar Detalles</g:link>		
+					<g:link class="edit" action="imprimeReporte" id="${listaCobroInstance?.id}">Imprimir</g:link>
 				</fieldset>
 			</g:form>
+
 		</div>
 	</body>
 </html>

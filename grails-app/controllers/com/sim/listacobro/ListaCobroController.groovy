@@ -13,6 +13,7 @@ class ListaCobroController {
 
     def listaCobroService
     def listaCobroPagoService
+    def listaCobroRepService
     def filterPaneService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -469,10 +470,15 @@ class ListaCobroController {
 
     }    
 
-
     private Date getFecha(String value){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy")
         return format.parse(value);
     }    
+
+    def imprimeReporte(){
+        def reporte = listaCobroRepService.reporteListaCobro()
+        flash.message = message(code: "Verificar reporte impreso", args: [])
+        redirect(action: "show", id: params.id)
+    }
 
 }
