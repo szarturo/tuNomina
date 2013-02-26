@@ -16,4 +16,13 @@ class ListaCobroRepService {
 		)
         FileUtils.writeByteArrayToFile(new File("${System.getProperty('user.home')}/Documents/tuNomina/test.xlsx"), jasperService.generateReport(reportDef).toByteArray())
 	}
+
+	public def reporteListaCobroBrowser() {
+		def reportDef = new JasperReportDef(
+			name:'listaCobro/reportPrueba.jrxml',
+			fileFormat:JasperExportFormat.PDF_FORMAT,
+			reportData: ListaCobro.findAll()
+		)
+        return jasperService.generateReport(reportDef)
+	}	
 }

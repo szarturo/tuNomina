@@ -481,4 +481,16 @@ class ListaCobroController {
         redirect(action: "show", id: params.id)
     }
 
+    def imprimeReporteBrowser(){
+        def reporte = listaCobroRepService.reporteListaCobroBrowser()
+        response.setHeader("Content-disposition", "attachment; filename=reporte.pdf");
+        response.contentType = "application/pdf"
+        response.characterEncoding = "UTF-8"
+        response.outputStream << reporte.toByteArray()  
+        //AL PARECER NO ES NECESARIA
+        //response.outputStream.flush()  
+    }
+
+
+
 }
