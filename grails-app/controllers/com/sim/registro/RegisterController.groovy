@@ -52,7 +52,7 @@ class RegisterController extends grails.plugins.springsecurity.ui.RegisterContro
 			 primerNombre: command.primerNombre, segundoNombre: command.segundoNombre, usuario: user, 
 			 tiposPersona : [tipoPersona.findByClaveTipoPersona('USUARIO')])
 		
-		if (!rsPersona.save()) {
+		if (!rsPersona.save(failOnError: true)) {
 			log.info "NO SALVO PERSONA"
 		}else{
 			log.info "SALVO PERSONA"

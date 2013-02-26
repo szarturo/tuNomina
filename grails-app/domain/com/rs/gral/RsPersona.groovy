@@ -57,7 +57,7 @@ class RsPersona {
 		nombreAlterno nullable: true, size:0..50
 		identificacionOficial nullable: true
 		numeroIdentificacionOficial nullable: true
-		rfc ()
+		rfc nullable: true
 		curp nullable: true
 		escolaridad  nullable: true
 		numeroImss nullable:true, size:3..50
