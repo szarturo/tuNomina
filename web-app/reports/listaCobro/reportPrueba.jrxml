@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportPrueba" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d323ee8c-2e8d-4088-85db-b9afdbe5b388">
-	<queryString language="SQL">
-		<![CDATA[SELECT
-     LISTA_COBRO."ANIO" AS LISTA_COBRO_ANIO,
-     LISTA_COBRO."FECHA_FIN" AS LISTA_COBRO_FECHA_FIN,
-     LISTA_COBRO."FECHA_INICIO" AS LISTA_COBRO_FECHA_INICIO,
-     LISTA_COBRO."NUMERO_PAGO" AS LISTA_COBRO_NUMERO_PAGO
-FROM
-     "NOMINA"."LISTA_COBRO" LISTA_COBRO]]>
-	</queryString>
-	<field name="LISTA_COBRO_ANIO" class="java.math.BigDecimal"/>
-	<field name="LISTA_COBRO_FECHA_FIN" class="oracle.sql.TIMESTAMP"/>
-	<field name="LISTA_COBRO_FECHA_INICIO" class="oracle.sql.TIMESTAMP"/>
-	<field name="LISTA_COBRO_NUMERO_PAGO" class="java.math.BigDecimal"/>
+
+	<field name="anio" class="java.math.BigDecimal"/>
+	<field name="fechaFin" class="java.util.Date"/>
+	<field name="fechaInicio" class="java.util.Date"/>
+	<field name="numeroPago" class="java.math.BigDecimal"/>
 	<background>
 		<band/>
 	</background>
@@ -50,28 +42,28 @@ FROM
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA_COBRO_ANIO]]></text>
+				<text><![CDATA[anio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="58aa1142-745e-4738-9ab8-1f4c3a67b486" mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA_COBRO_FECHA_FIN]]></text>
+				<text><![CDATA[fechaFin]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9f27c7b1-f48e-4f43-b3d1-123275dfa977" mode="Opaque" x="276" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA_COBRO_FECHA_INICIO]]></text>
+				<text><![CDATA[fechaInicio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="58d14273-9ef8-4e39-ade6-181309a05546" mode="Opaque" x="414" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA_COBRO_NUMERO_PAGO]]></text>
+				<text><![CDATA[numeroPago]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -85,28 +77,28 @@ FROM
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LISTA_COBRO_ANIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="79c5e924-333a-40f4-ba61-67ceb8be7cd1" x="138" y="0" width="138" height="20"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""+$F{LISTA_COBRO_FECHA_FIN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[""+$F{fechaFin}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="ae280f5a-a289-4afd-9b8b-a35c3b8900f0" x="276" y="0" width="138" height="20"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""+$F{LISTA_COBRO_FECHA_INICIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[""+$F{fechaInicio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="b3249626-3799-44c5-9bcf-52d0dabec3f4" x="414" y="0" width="138" height="20"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LISTA_COBRO_NUMERO_PAGO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numeroPago}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

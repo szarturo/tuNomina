@@ -11,7 +11,8 @@ class ListaCobroRepService {
 	public def reporteListaCobro() {
 		def reportDef = new JasperReportDef(
 			name:'listaCobro/reportPrueba.jrxml',
-			fileFormat:JasperExportFormat.XLSX_FORMAT
+			fileFormat:JasperExportFormat.XLSX_FORMAT,
+			reportData: ListaCobro.findAll()
 		)
         FileUtils.writeByteArrayToFile(new File("${System.getProperty('user.home')}/Documents/tuNomina/test.xlsx"), jasperService.generateReport(reportDef).toByteArray())
 	}
