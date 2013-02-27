@@ -941,6 +941,25 @@ class BootStrap {
                 tiposPersona : [
                         SimCatTipoPersona.findByClaveTipoPersona('EMPLEADO')
                 ],
+        ).save(failOnError: true)
+
+        def personaEfren = new RsPersona(
+                email : "efren.garcia@gmail.com",
+                apellidoPaterno: "Garcia",
+                apellidoMaterno: "Guarneros",
+                primerNombre: "Efren",
+                segundoNombre: "",
+                sexo: "MASCULINO",
+                estadoCivil : "CASADO - BIENES MANCOMUNADOS",
+                fechaNacimiento : new Date('06/09/1990'),
+                identificacionOficial : SimCatDocumento.findByClaveDocumento('LICENCIA_CONDUCIR'),
+                numeroIdentificacionOficial : "RUFM727328328",
+                rfc : "RUFM89778",
+                curp : "RUMD76878968",
+                escolaridad  :  SimCatEscolaridad.findByClaveEscolaridad('PREPA'),
+                tiposPersona : [
+                        SimCatTipoPersona.findByClaveTipoPersona('EMPLEADO')
+                ],
         ).save(failOnError: true, flush: true)
 
         //DA DE ALTA A UN EMPLEADO
@@ -952,6 +971,18 @@ class BootStrap {
                 puesto : EmpPuesto.findByClavePuesto('VENDE'),
                 fechaIngreso  : new Date('08/20/1999'),
                 numeroNomina : "001",
+                esVigente: 'true',
+                sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
+        ).save(failOnError: true)
+
+        def empleadoDos = new EmpEmpleado(
+                claveEmpleado : "MOR78987",
+                persona : personaEfren,
+                tipoEmpleado : "INTERNO",
+                clavePromotor: "PROM02",
+                puesto : EmpPuesto.findByClavePuesto('VENDE'),
+                fechaIngreso  : new Date('08/20/1999'),
+                numeroNomina : "002",
                 esVigente: 'true',
                 sucursal: EntSucursal.findByClaveSucursal('EDOMEX'),
         ).save(failOnError: true)
