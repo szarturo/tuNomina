@@ -32,7 +32,7 @@
 					
 						<g:sortableColumn property="ingresoMensual" title="${message(code: 'rsClienteEmpleo.ingresoMensual.label', default: 'Ingreso Mensual')}" />
 					
-						<th><g:message code="rsClienteEmpleo.domicilio.label" default="Domicilio" /></th>
+						<th><g:message code="rsClienteEmpleo.domicilios.label" default="Domicilios" /></th>
 					
 					</tr>
 				</thead>
@@ -48,7 +48,7 @@
 					
 						<td>${fieldValue(bean: rsClienteEmpleoInstance, field: "ingresoMensual")}</td>
 					
-						<td>${fieldValue(bean: rsClienteEmpleoInstance, field: "domicilio")}</td>
+						<td>${fieldValue(bean: rsClienteEmpleoInstance, field: "domicilios")}</td>
 					
 					</tr>
 				</g:each>

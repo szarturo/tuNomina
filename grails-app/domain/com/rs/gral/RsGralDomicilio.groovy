@@ -20,8 +20,8 @@ class RsGralDomicilio {
 	
     static constraints = {
 		calle(size:5..100, nullable: false, blank: false)
-		numeroInterior()
-		numeroExterior()
+		numeroInterior(nullable: true)
+		numeroExterior(nullable: true)
 		tipoVivienda inList:["PROPIA","RENTADA","FAMILIARES","HIPOTECADA","OTRO"], nullable :true, blank :true
 		rsGralAsentamiento(nullable: false)
 		esFiscal()

@@ -35,20 +35,20 @@
 	<g:field name="ingresoMensual" value="${fieldValue(bean: rsClienteEmpleoInstance, field: 'ingresoMensual')}" required=""/>
 </div>
 
+<g:if test="${rsClienteEmpleoInstance?.id}">
 <div class="fieldcontain ${hasErrors(bean: rsClienteEmpleoInstance, field: 'domicilios', 'error')} ">
 	<label for="domicilios">
 		<g:message code="rsClienteEmpleo.domicilios.label" default="Domicilios" />
-		
 	</label>
-	
-<ul class="one-to-many">
-<g:each in="${rsClienteEmpleoInstance?.domicilios?}" var="d">
-    <li><g:link controller="rsGralDomicilio" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="rsGralDomicilio" action="create" params="['rsClienteEmpleo.id': rsClienteEmpleoInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')])}</g:link>
-</li>
-</ul>
-
+	<ul class="one-to-many">
+		<g:each in="${rsClienteEmpleoInstance?.domicilios?}" var="d">
+    		<li><g:link controller="rsGralDomicilio" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
+		</g:each>
+		<li class="add">
+			<g:link controller="rsGralDomicilio" action="create" params="['rsClienteEmpleo.id': rsClienteEmpleoInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'rsGralDomicilio.label', default: 'RsGralDomicilio')])}</g:link>
+		</li>
+	</ul>
 </div>
+</g:if> 
+
 

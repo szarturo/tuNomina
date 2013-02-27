@@ -15,12 +15,12 @@ class RsClienteEmpleo {
     static constraints = {
         cliente(nullable: false)
     	fechaIngreso()
-    	area(size:1..50, unique: true, nullable: false, blank: false)
+    	area(size:1..50, nullable: false, blank: false)
     	ingresoMensual(nullable: false)
     	domicilios(nullable: true)
     }
 
     String toString() {
-        "${area}"
+        "${cliente} - ${area}"
     }    
 }

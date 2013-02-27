@@ -59,11 +59,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${rsClienteEmpleoInstance?.domicilio}">
+				<g:if test="${rsClienteEmpleoInstance?.domicilios}">
 				<li class="fieldcontain">
-					<span id="domicilio-label" class="property-label"><g:message code="rsClienteEmpleo.domicilio.label" default="Domicilio" /></span>
+					<span id="domicilios-label" class="property-label"><g:message code="rsClienteEmpleo.domicilios.label" default="Domicilios" /></span>
 					
-						<span class="property-value" aria-labelledby="domicilio-label"><g:link controller="rsGralDomicilio" action="show" id="${rsClienteEmpleoInstance?.domicilio?.id}">${rsClienteEmpleoInstance?.domicilio?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="domicilios-label"><g:link controller="rsGralDomicilio" action="show" id="${rsClienteEmpleoInstance?.domicilios?.id}">${rsClienteEmpleoInstance?.domicilios?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
