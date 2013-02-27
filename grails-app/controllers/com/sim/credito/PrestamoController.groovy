@@ -85,6 +85,7 @@ class PrestamoController {
 				params.remove("sucursal")
 				params.remove("delegacion")
 				params.remove("vendedor")
+                params.remove("claveVendedor")
 				params.remove("formaDeDispercion")
 				params.remove("cliente")
                 params.remove("tipoEmpleadoDep")
@@ -154,12 +155,20 @@ class PrestamoController {
     }
 
     def update = {
+
         def prestamoInstance = Prestamo.get(params.id)
+
+        //VALIDA SI EL PRESTAMO TIENE ASIGNADO EL VENDEDOR
+        if (!params.vendedor?.id) {
+            prestamoInstance.vendedor = null
+            render(view: "edit", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
+            return                
+        }
+        
         if (prestamoInstance) {
             if (params.version) {
                 def version = params.version.toLong()
                 if (prestamoInstance.version > version) {
-                    
                     prestamoInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'prestamo.label', default: 'Prestamo')] as Object[], "Another user has updated this Prestamo while you were editing")
                     render(view: "edit", model: [prestamoInstance: prestamoInstance, myTasksCount: assignedTasksCount])
                     return
@@ -250,6 +259,7 @@ class PrestamoController {
 										params.remove("sucursal")
 										params.remove("delegacion")
 										params.remove("vendedor")
+                                        params.remove("claveVendedor")
 										params.remove("formaDeDispercion")
 										params.remove("cliente")
                                         params.remove("tipoEmpleadoDep")
